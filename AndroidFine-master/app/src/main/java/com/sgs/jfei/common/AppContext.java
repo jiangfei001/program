@@ -45,8 +45,8 @@ public class AppContext extends Application {
         WebSocketSetting setting = new WebSocketSetting();
         //连接地址，必填，例如 wss://echo.websocket.org
         //setting.setConnectUrl("ws://192.168.0.103:8081/multimedia/api/websocket/jf");//必填
-        setting.setConnectUrl("ws://192.168.0.97:8081/multimedia/api/websocket/jf");//必填
-
+        //setting.setConnectUrl("ws://192.168.0.97:8081/multimedia/api/websocket/jf");//必填
+        setting.setConnectUrl("ws://49.235.109.237:9080/multimedia/api/websocket/jf");//必填
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);
 
