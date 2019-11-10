@@ -23,7 +23,7 @@ import java.util.List;
 
 public class CommandHelper {
     //关机
-    public void openOrClose() {
+    public static void openOrClose() {
         try {
             //Runtime.getRuntime().exec(new String[]{"su","-c","reboot -p"});
             Runtime.getRuntime().exec(new String[]{"su", "-c", "shutdown"});
@@ -34,7 +34,7 @@ public class CommandHelper {
     }
 
     //重启
-    public void reboot(Context context) {
+    public static void reboot(Context context) {
         try {
             Runtime.getRuntime().exec("su -c reboot");
            /* PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -46,7 +46,7 @@ public class CommandHelper {
     }
 
     //index 传入设置音量的值
-    public void setStreamVolume(int index, Context mContext) {
+    public static void setStreamVolume(int index, Context mContext) {
         AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         int streamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);//获取设备最大音量
         int volm = index * streamMaxVolume / 100;
@@ -59,7 +59,7 @@ public class CommandHelper {
 
     //获取硬件信息
 //重启
-    public void getDevice(Context context) {
+    public static void getDevice(Context context) {
         String devicester = DeviceUtil.getDeviceId(context);
     }
     //删除本地文件
@@ -95,7 +95,7 @@ public class CommandHelper {
      *
      * @param position app在列表中的位置
      */
-    public void startUninstall(int position, String pkg, Context context) {
+    public static void startUninstall(int position, String pkg, Context context) {
         //判断此应用程序是否存在
         Boolean pkgExist;
         pkgExist = appExist(context, pkg);
@@ -162,7 +162,7 @@ public class CommandHelper {
      * @param packageName 包名
      * @return 是否存在
      */
-    private boolean appExist(Context context, String packageName) {
+    private static boolean appExist(Context context, String packageName) {
         try {
             List<PackageInfo> packageInfoList = context.getPackageManager().getInstalledPackages(0);
             for (PackageInfo packageInfo : packageInfoList) {
@@ -184,12 +184,10 @@ public class CommandHelper {
      * @param hasStatusBar 是否包含当前状态栏,true:包含
      * @return
      */
-    public void snapCurrentScreenShot(Activity activity, boolean hasStatusBar) {
+    public static void snapCurrentScreenShot(Activity activity, boolean hasStatusBar) {
         DeviceUtil.snapCurrentScreenShot(activity, hasStatusBar);
     }
-
 //重启终端
-
 
 }
 

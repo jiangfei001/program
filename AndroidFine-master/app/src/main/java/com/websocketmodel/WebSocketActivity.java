@@ -8,14 +8,15 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
-import com.alibaba.fastjson.JSON;
 import com.dbModel.entity.InstructionRequest;
 import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
 import com.eventControlModel.EventManager;
 import com.httpModel.HttpClient;
 import com.httpModel.HttpResponseHandler;
+import com.taskModel.TVTask;
+import com.taskModel.TaskQueue;
+import com.taskModel.taskFactory.TaskFactory;
 import com.yuzhi.fine.R;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
@@ -23,7 +24,6 @@ import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class WebSocketActivity extends EventActivity {
@@ -61,12 +61,15 @@ public class WebSocketActivity extends EventActivity {
         @Override
         public <T> void onMessage(String message, T data) {
             if (data instanceof InstructionRequest) {
-                /* InstructionRequest responseEntity = (InstructionRequest) data;*/
                 appendMsgDisplay(data.toString());
-
+                final InstructionRequest requestEntity = (InstructionRequest) data;
+                TVTask tvTask = TaskFactory.createTask(requestEntity);
+                taskQueue.add(tvTask);
             }
         }
     };
+
+    TaskQueue taskQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class WebSocketActivity extends EventActivity {
         setContentView(R.layout.activity_web_socket);
         initView();
         WebSocketHandler.getDefault().addListener(socketListener);
-
+        taskQueue = new TaskQueue(1);
     }
 
     private void initView() {
@@ -87,25 +90,22 @@ public class WebSocketActivity extends EventActivity {
             public void onClick(View v) {
               /*  String text = etContent.getText().toString();
                 if (TextUtils.isEmpty(text)) {
-                    Toast.makeText(WebSocketActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TestCommandActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 WebSocketHandler.getDefault().send(text);*/
 
-                final HashMap hashMap = new HashMap();
-                InstructionResponse responseEntity=new InstructionResponse();
+                final InstructionResponse responseEntity = new InstructionResponse();
                 responseEntity.setId(123);
                 responseEntity.setExecuteTime(new Date());
                 responseEntity.setResult("123123");
                 responseEntity.setStatus(1);
                 responseEntity.setReceiveTime(new Date());
 
-                hashMap.put("ResponseEntity", JSON.toJSON(responseEntity));
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        HttpClient.post("http://192.168.0.97:8081/multimedia/api/terminal/callback", hashMap, new HttpResponseHandler());
+                        HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new HttpResponseHandler());
                     }
                 }).start();
             }
@@ -121,7 +121,7 @@ public class WebSocketActivity extends EventActivity {
     private void appendMsgDisplay(String msg) {
         StringBuilder textBuilder = new StringBuilder();
         if (!TextUtils.isEmpty(tvMsg.getText())) {
-            textBuilder.append(tvMsg.getText().toString());
+            textBuilder.append("收到命令：" + tvMsg.getText().toString());
             textBuilder.append("\n");
         }
         textBuilder.append(msg);

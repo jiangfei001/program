@@ -108,38 +108,26 @@ public class HttpClient {
             }
         });
     }
+
     //数据类型为json格式
     public static final MediaType JSONTTYPE = MediaType.parse("application/json; charset=utf-8");
 
-    public static void post(String url, Map<String, String> param, final HttpResponseHandler handler) {
+    public static void postResponseEntity(String url, InstructionResponse responseEntity, final HttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
             Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
             return;
         }
-     /*   String paramStr = "";
-        if (param != null && param.size() > 0) {
-            paramStr = url += mapToQueryString(param);
-            url = url + "?" + paramStr;
-        }*/
-        InstructionResponse responseEntity=new InstructionResponse();
-        responseEntity.setId(123);
-        responseEntity.setExecuteTime(new Date());
-        responseEntity.setResult("123123");
-        responseEntity.setStatus(1);
-        responseEntity.setReceiveTime(new Date());
 
-//创建okhttp对象
+        //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
 
-        Request request = new Request.Builder().header("Accept","*/*")
-                .addHeader("Connection","close").addHeader("MultipleDevicesAuth", "true")
+        Request request = new Request.Builder().header("Accept", "*/*")
+                .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
                 .addHeader("Content-Type", "application/json;charset=UTF-8")
                 .url(url)
                 .post(body).build();
 
-       /* RequestBody body = RequestBody.create(MEDIA_TYPE, JSON.toJSONString(responseEntity));
-        Request request = new Request.Builder().url(url).post(body).build();*/
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
@@ -150,7 +138,6 @@ public class HttpClient {
                     handler.sendFailureMessage(call.request(), e);
                 }
             }
-
             @Override
             public void onFailure(Call call, IOException e) {
                 handler.sendFailureMessage(call.request(), e);

@@ -80,7 +80,7 @@ local.properties
 .gradle/2.2.1/taskArtifacts/taskArtifacts.bin
 
 .idea/libraries/ultra_ptr_1_0_10.xml
-
+.idea
 build/intermediates/lint-cache/api-versions-6-22.bin
 
 build/intermediates/lint-cache/typos-en.txt-2.bin
@@ -104,3 +104,14 @@ app/app.iml
 local.properties
 
 .idea/libraries/renderscript_v8.xml
+.gradle/2.2.1/taskArtifacts/cache.properties
+
+build/
+gradle.properties
+gradlew
+gradlew.bat
+/.gradle/
+/.idea/
+/gradle/
+local.properties
+DaiJia.iml
