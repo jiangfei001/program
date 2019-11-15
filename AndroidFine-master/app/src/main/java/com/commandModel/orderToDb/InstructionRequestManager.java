@@ -17,9 +17,7 @@ package com.commandModel.orderToDb;
 import android.content.Context;
 
 import com.dbModel.dao.InstructionRequestDao;
-import com.dbModel.dao.OrderDao;
 import com.dbModel.entity.InstructionRequest;
-import com.dbModel.entity.Order;
 import com.sgs.jfei.common.AppContext;
 
 public class InstructionRequestManager {

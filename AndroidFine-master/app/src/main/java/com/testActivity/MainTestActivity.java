@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.commandModel.orderToDb.InstructionRequestManager;
 import com.dbModel.entity.InstructionRequest;
 import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
@@ -27,7 +28,6 @@ import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MainTestActivity extends EventActivity {
@@ -65,9 +65,13 @@ public class MainTestActivity extends EventActivity {
         @Override
         public <T> void onMessage(String message, T data) {
             if (data instanceof InstructionRequest) {
-                /* InstructionRequest responseEntity = (InstructionRequest) data;*/
+                InstructionRequest responseEntity = (InstructionRequest) data;
+                //显示，以及输出日志
                 appendMsgDisplay(data.toString());
-                ITask t = TaskFactory.createTask((InstructionRequest) data);
+                //存库
+                InstructionRequestManager.getInstance().saveInstructionRequest((InstructionRequest) data);
+                //启动任务
+                ITask t = TaskFactory.createTask(responseEntity);
                 taskQueue.add(t);
             }
         }

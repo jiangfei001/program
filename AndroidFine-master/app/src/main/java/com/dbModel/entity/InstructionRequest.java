@@ -51,6 +51,19 @@ public class InstructionRequest {
     @DatabaseField
     private Date beginTime;
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    /**
+     * 任务执行状态  0--未执行 1--执行中 2--执行成功 3--执行失败
+     */
+    @DatabaseField
+    private int status = 0;
 
     public int getPriority() {
         return priority;

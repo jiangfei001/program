@@ -1,5 +1,6 @@
 package com.taskModel;
 
+import com.commandModel.orderToDb.InstructionRequestManager;
 import com.dbModel.entity.InstructionRequest;
 import com.httpModel.HttpClient;
 import com.httpModel.HttpResponseHandler;
@@ -28,9 +29,18 @@ public abstract class TVTask extends BasicTask {
         if (instructionRequest == null || responseEntity == null) {
             return;
         }
+        //更新数据库
+        instructionRequest.setStatus(1);
+        InstructionRequestManager.getInstance().saveInstructionRequest(instructionRequest);
+
         responseEntity.setExecuteTime(new Date());
         runTv();
+        //告知服务器
         sendEventToService();
+
+        //更新数据库
+        instructionRequest.setStatus(2);
+        InstructionRequestManager.getInstance().saveInstructionRequest(instructionRequest);
     }
 
     void sendEventToService() {

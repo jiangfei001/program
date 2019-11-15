@@ -4,7 +4,6 @@ import com.commandModel.InstructionTypeEnum;
 import com.dbModel.entity.InstructionRequest;
 import com.taskModel.ITask;
 import com.taskModel.TVTask;
-import com.taskModel.TaskQueue;
 import com.taskModel.taskList.CLOSE;
 
 public class TaskFactory {
@@ -40,7 +39,7 @@ public class TaskFactory {
         InstructionTypeEnum instructionTypeEnum = (InstructionTypeEnum.getById(instructionRequest.getCode()));
         TVTask operationObj = null;
         try {
-            Class operationObj1 = Class.forName(instructionTypeEnum.getBigStr());
+            Class operationObj1 = Class.forName("com.taskModel.taskList." + instructionTypeEnum.getBigStr());
             try {
                 operationObj = (TVTask) operationObj1.newInstance();
                 operationObj.setInstructionRequest(instructionRequest);
