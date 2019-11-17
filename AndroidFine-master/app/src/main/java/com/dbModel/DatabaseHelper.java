@@ -3,6 +3,7 @@ package com.dbModel;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.dbModel.entity.InstructionRequest;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -60,6 +61,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, Article.class);
             TableUtils.createTable(connectionSource, Student.class);
+            TableUtils.createTable(connectionSource, InstructionRequest.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,6 +73,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, User.class, true);
             TableUtils.dropTable(connectionSource, Article.class, true);
             TableUtils.dropTable(connectionSource, Student.class, true);
+            TableUtils.createTable(connectionSource, InstructionRequest.class);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();

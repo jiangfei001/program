@@ -102,12 +102,12 @@ public class TestCommandActivity extends EventActivity {
 
                 hashMap.put("ResponseEntity", JSON.toJSON(responseEntity));
 
-                new Thread(new Runnable() {
+               /* new Thread(new Runnable() {
                     @Override
                     public void run() {
                         HttpClient.post("http://192.168.0.97:8081/multimedia/api/terminal/callback", hashMap, new HttpResponseHandler());
                     }
-                }).start();
+                }).start();*/
             }
         });
     }

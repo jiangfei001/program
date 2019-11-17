@@ -18,7 +18,6 @@ public class Test {
         @Override
         public void exeTask(MyTask mTask) {
             Log.d("TimeTask11", "我是现在真正执行" + mTask.name);
-
         }
 
         @Override

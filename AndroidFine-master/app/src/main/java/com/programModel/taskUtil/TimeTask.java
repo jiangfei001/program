@@ -24,6 +24,8 @@ import static android.content.Context.ALARM_SERVICE;
 
 public class TimeTask<T extends Task> {
 
+    private int priors = 0;
+
     private List<TimeHandler> mTimeHandlers = new ArrayList<TimeHandler>();
     private static PendingIntent mPendingIntent;
     private List<T> mTasks = new ArrayList<T>();
@@ -100,8 +102,8 @@ public class TimeTask<T extends Task> {
                 Log.d("TimeTask", "推送cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
             }
             //还未到来的消息 加入到定时任务
-            Date date=new Date();
-            Log.e("TimeTask","mTask.getStarTime()"+mTask.getStarTime()+"mNowtime"+mNowtime+"Data"+date);
+            Date date = new Date();
+            Log.e("TimeTask", "mTask.getStarTime()" + mTask.getStarTime() + "mNowtime" + mNowtime + "Data" + date);
             if (mTask.getStarTime() > mNowtime && mTask.getEndTime() > mNowtime) {
                 for (TimeHandler mTimeHandler : mTimeHandlers) {
                     mTimeHandler.futureTask(mTask);
@@ -218,7 +220,11 @@ public class TimeTask<T extends Task> {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.e("context", "context");
+
+            //判断比自己大的优先级 队列有没有需要执行的
+
             TimeTask.this.startLooperTask(); //预约下一个
+
         }
     }
 

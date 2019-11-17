@@ -15,7 +15,7 @@ public abstract class TVTask extends BasicTask {
 
     private String serverUrl = "http://192.168.0.97:8081/multimedia/api/terminal/callback";
 
-    InstructionRequest instructionRequest;
+    public InstructionRequest instructionRequest;
     InstructionResponse responseEntity;
 
     public void setInstructionRequest(InstructionRequest instructionRequest) {

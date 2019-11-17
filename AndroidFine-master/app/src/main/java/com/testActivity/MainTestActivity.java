@@ -65,13 +65,13 @@ public class MainTestActivity extends EventActivity {
         @Override
         public <T> void onMessage(String message, T data) {
             if (data instanceof InstructionRequest) {
-                InstructionRequest responseEntity = (InstructionRequest) data;
+                InstructionRequest requestEntity = (InstructionRequest) data;
                 //显示，以及输出日志
                 appendMsgDisplay(data.toString());
                 //存库
                 InstructionRequestManager.getInstance().saveInstructionRequest((InstructionRequest) data);
                 //启动任务
-                ITask t = TaskFactory.createTask(responseEntity);
+                ITask t = TaskFactory.createTask(requestEntity);
                 taskQueue.add(t);
             }
         }

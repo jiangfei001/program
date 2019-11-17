@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.websocketmodel.InstructionResponse;
-import com.websocketmodel.ResponseEntity;
 import com.yuzhi.fine.R;
 import com.sgs.jfei.common.AppContext;
 import com.yuzhi.fine.model.SearchParam;
@@ -18,7 +17,6 @@ import com.yuzhi.fine.model.SearchParam;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -138,6 +136,7 @@ public class HttpClient {
                     handler.sendFailureMessage(call.request(), e);
                 }
             }
+
             @Override
             public void onFailure(Call call, IOException e) {
                 handler.sendFailureMessage(call.request(), e);

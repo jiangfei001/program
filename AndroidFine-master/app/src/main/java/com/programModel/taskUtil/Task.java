@@ -5,10 +5,10 @@ package com.programModel.taskUtil;
  */
 
 public class Task {
-  long  starTime;
-  long  endTime;
+    long starTime;
+    long endTime;
 
-          public long getStarTime() {
+    public long getStarTime() {
         return starTime;
     }
 

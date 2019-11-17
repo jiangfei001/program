@@ -8,12 +8,12 @@ import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
 
-public class InstructionRequestDao {
+public class ProgrameDao {
     private Context context;
     private Dao<InstructionRequest, Integer> OrderDaoOpe;
     private DatabaseHelper helper;
 
-    public InstructionRequestDao(Context context) {
+    public ProgrameDao(Context context) {
         this.context = context;
         try {
             helper = DatabaseHelper.getHelper(context);

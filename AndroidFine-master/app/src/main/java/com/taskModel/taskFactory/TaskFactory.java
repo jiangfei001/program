@@ -39,7 +39,7 @@ public class TaskFactory {
         InstructionTypeEnum instructionTypeEnum = (InstructionTypeEnum.getById(instructionRequest.getCode()));
         TVTask operationObj = null;
         try {
-            Class operationObj1 = Class.forName("com.taskModel.taskList." + instructionTypeEnum.getBigStr());
+            Class operationObj1 = Class.forName("com.taskModel.taskList." + instructionTypeEnum.getType().toUpperCase());
             try {
                 operationObj = (TVTask) operationObj1.newInstance();
                 operationObj.setInstructionRequest(instructionRequest);

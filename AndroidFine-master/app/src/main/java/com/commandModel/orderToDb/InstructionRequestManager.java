@@ -43,11 +43,11 @@ public class InstructionRequestManager {
     }
 
     /**
-     * 保存当前用户,只在登录或注销时调用
+     * 保存基础任务
      *
-     * @param user user == null >> user = new User();
+     * @param instructionRequest instructionRequest == null >> instructionRequest = new User();
      */
-    public void saveInstructionRequest(InstructionRequest user) {
-        new InstructionRequestDao(context).add(user);
+    public void saveInstructionRequest(InstructionRequest instructionRequest) {
+        new InstructionRequestDao(context).add(instructionRequest);
     }
 }
