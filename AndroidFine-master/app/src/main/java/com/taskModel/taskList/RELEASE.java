@@ -17,7 +17,5 @@ public class RELEASE extends TVTask {
 
         ProgarmPalyInstructionVo response = JSON.parseObject(prog, new TypeReference<ProgarmPalyInstructionVo>() {
         });
-
-        CommandHelper.openOrClose();
     }
 }
