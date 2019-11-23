@@ -1,13 +1,11 @@
 package com.programModel;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
+import com.programModel.taskUtil.PriorityTimeTask;
 import com.programModel.taskUtil.Task;
 import com.programModel.taskUtil.TimeHandler;
-import com.programModel.taskUtil.TimeTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,11 +33,11 @@ public class Test {
         }
     };
     final String ACTION = "timeTask.action";
-    private TimeTask<MyTask> myTaskTimeTask;
+    private PriorityTimeTask<MyTask> myTaskTimeTask;
 
     protected void onCreate(Context context) {
         // TODO: 2017/11/8  创建一个任务处理器
-        myTaskTimeTask = new TimeTask<>(context, ACTION);
+        myTaskTimeTask = new PriorityTimeTask<>(context, ACTION);
 
         // TODO: 2017/11/8   添加时间回掉
         myTaskTimeTask.addHandler(timeHandler);
