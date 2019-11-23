@@ -7,31 +7,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static android.content.Context.ALARM_SERVICE;
 
-/**
- * Created by 香脆的大鸡排 on 2017/11/2.
- * TimeTask是一个定时任务框架,专注于处理复杂的定时任务分发
- * 博客地址:www.dajipai.cc
- */
 
-public class TimeTask<T extends Task> {
+public class PriorityTimeTask<T extends Task> {
 
     private int priors = 0;
+
     private List<TimeHandler> mTimeHandlers = new ArrayList<TimeHandler>();
     private static PendingIntent mPendingIntent;
     private List<T> mTasks = new ArrayList<T>();
     private List<T> priorsTasks = new ArrayList<T>();
     private List<T> mTempTasks;
+
     String mActionName;
+
     private boolean isSpotsTaskIng = false;
-    private int cursor = 0;
+
+    private Integer cursor = 0;
+    private Integer priorsCursor = 0;
+
+
     private Context mContext;
     private TimeTaskReceiver receiver;
 
@@ -39,7 +42,7 @@ public class TimeTask<T extends Task> {
      * @param mContext
      * @param actionName action不要重复
      */
-    public TimeTask(Context mContext,  String actionName) {
+    public PriorityTimeTask(Context mContext, String actionName) {
         this.mContext = mContext;
         this.mActionName = actionName;
         initBreceiver(mContext);
@@ -69,7 +72,23 @@ public class TimeTask<T extends Task> {
         } else {
             this.mTasks = mES;
         }*/
-       this.priorsTasks=priorityTasks;
+    }
+
+    /**
+     * 恢复普通任务
+     */
+    private void resetTask() {
+        synchronized (mTasks) {
+            isSpotsTaskIng = false;
+            if (mTempTasks != null) {//有发生过插播
+                mTasks = mTempTasks;
+                mTempTasks = null;
+                cancelAlarmManager();
+                cursorInit();
+                startLooperTask();
+            }
+            mHandler.removeMessages(1);
+        }
     }
 
 
@@ -80,62 +99,69 @@ public class TimeTask<T extends Task> {
         cursor = 0;
     }
 
+    private void cursorPriorityInit() {
+        priorsCursor = 0;
+    }
+
     /**
      * 添加任务监听
      *
      * @param mTH
      * @return
      */
-    public TimeTask addHandler(TimeHandler<T> mTH) {
+    public PriorityTimeTask addHandler(TimeHandler<T> mTH) {
         mTimeHandlers.add(mTH);
         return this;
+    }
+
+
+    //新建Handler对象。
+    Handler mHandler = new Handler() {
+        //handleMessage为处理消息的方法
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //启动下一次任务
+            startLooperTask();
+            return;
+        }
+    };
+
+    public boolean doneLooper(List<T> tasklist, Integer cursor) {
+        if (tasklist.size() > cursor) {
+        } else {
+            cursor = 0;
+        }
+        long mNowtime = System.currentTimeMillis();
+        //循环开始为游标的位置，循环所有任务的大小，游标等于列表的大小时，游标记录为0
+        for (int i = 0; i < tasklist.size(); i++) {
+            T mTask = tasklist.get(cursor);
+            cursor++;
+            if (tasklist.size() == cursor) { //恢复普通任务
+                cursor = 0;
+            }
+            if (mTask.getStarTime() < mNowtime && mTask.getEndTime() > mNowtime) {
+                //在当前区间内立即执行
+                for (TimeHandler mTimeHandler : mTimeHandlers) {
+                    mTimeHandler.exeTask(mTask);
+                    //预设下一个节目播放
+                    mHandler.sendEmptyMessageDelayed(1, mTask.getEndTime() - mTask.getStarTime());
+                }
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
      * 开始任务
      */
     public void startLooperTask() {
-
-        if (isSpotsTaskIng && mTasks.size() == cursor) { //恢复普通任务
-            recoveryTask();
-            return;
+        boolean idone = doneLooper(priorsTasks, priorsCursor);
+        if (idone) {
+            doneLooper(mTasks, cursor);
         }
 
-        if (mTasks.size() > cursor) {
-            T mTask = mTasks.get(cursor);
-            long mNowtime = System.currentTimeMillis();
-            //在当前区间内立即执行
-            if (mTask.getStarTime() < mNowtime && mTask.getEndTime() > mNowtime) {
-                for (TimeHandler mTimeHandler : mTimeHandlers) {
-                    mTimeHandler.exeTask(mTask);
-                }
-                Log.d("TimeTask", "推送cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
-            }
-            //还未到来的消息 加入到定时任务
-            Date date = new Date();
-            Log.e("TimeTask", "mTask.getStarTime()" + mTask.getStarTime() + "mNowtime" + mNowtime + "Data" + date);
-            if (mTask.getStarTime() > mNowtime && mTask.getEndTime() > mNowtime) {
-                for (TimeHandler mTimeHandler : mTimeHandlers) {
-                    mTimeHandler.futureTask(mTask);
-                }
-                Log.d("TimeTask", "预约cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
-                configureAlarmManager(mTask.getStarTime());
-                return;
-            }
-            //消息已过期
-            if (mTask.getStarTime() < mNowtime && mTask.getEndTime() < mNowtime) {
-                for (TimeHandler mTimeHandler : mTimeHandlers) {
-                    mTimeHandler.overdueTask(mTask);
-                }
-                Log.d("TimeTask", "过期cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
-            }
-            cursor++;
-            if (isSpotsTaskIng && mTasks.size() == cursor) { //恢复普通任务
-                configureAlarmManager(mTask.getEndTime());
-                return;
-            }
-            startLooperTask();
-        }
     }
 
 
@@ -230,11 +256,8 @@ public class TimeTask<T extends Task> {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.e("context", "context");
-
             //判断比自己大的优先级 队列有没有需要执行的
-
-            TimeTask.this.startLooperTask(); //预约下一个
-
+            PriorityTimeTask.this.startLooperTask(); //预约下一个
         }
     }
 

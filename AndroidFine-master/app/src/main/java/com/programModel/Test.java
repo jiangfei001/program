@@ -1,6 +1,8 @@
 package com.programModel;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.programModel.taskUtil.Task;
@@ -14,9 +16,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class Test {
+
     TimeHandler<MyTask> timeHandler = new TimeHandler<MyTask>() {
         @Override
         public void exeTask(MyTask mTask) {
+            //通知webview进行播放
             Log.d("TimeTask11", "我是现在真正执行" + mTask.name);
         }
 

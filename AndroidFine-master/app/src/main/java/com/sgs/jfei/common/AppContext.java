@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.downloadModel.DownLoadService;
-import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.LeakCanary;
 import com.websocketmodel.AppResponseDispatcher;
 import com.websocketmodel.WebSocketClientManger;
 import com.zhangke.websocket.WebSocketHandler;
@@ -30,7 +30,7 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+        //LeakCanary.install(this);
         registerUncaughtExceptionHandler();
         initWebSocket();
         this.startService(new Intent(this, DownLoadService.class));
