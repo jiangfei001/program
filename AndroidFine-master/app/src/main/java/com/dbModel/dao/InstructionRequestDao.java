@@ -7,6 +7,7 @@ import com.dbModel.entity.InstructionRequest;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class InstructionRequestDao {
     private Context context;
@@ -51,6 +52,24 @@ public class InstructionRequestDao {
     public InstructionRequest get(int id) {
         try {
             return OrderDaoOpe.queryForId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<InstructionRequest> getAllTask() {
+        try {
+            return OrderDaoOpe.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<InstructionRequest> byStatus() {
+        try {
+            return OrderDaoOpe.queryBuilder().where().notIn("status",1,2).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

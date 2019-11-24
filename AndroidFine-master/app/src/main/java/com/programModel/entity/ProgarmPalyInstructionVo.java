@@ -18,18 +18,18 @@ public class ProgarmPalyInstructionVo {
     private int sceneNum;
     
     private String resolution;
-    
+
 	/**
-	 * 场景列表（包括场景对于的xml名称，播放几秒）  
+	 * 场景列表（包括场景对于的xml名称，播放几秒） 数据库中只保存json
 	 */
     private List<ProgarmPalySceneVo> sceneList;
 	/**
-	 * 发布计划
+	 * 发布计划 数据库中只保存json
 	 */
 	private PublicationPlanVo publicationPlan;
 
 	/**
-	 * 节目资源列表
+	 * 节目资源列表 数据库中只保存json
 	 */
 	private List programResourceList;
 	/**
@@ -37,6 +37,7 @@ public class ProgarmPalyInstructionVo {
 	 */
 	private Object programZip;
 
+	private boolean isDownloadSuccess;
 	
 	public PublicationPlanVo getPublicationPlan() {
 		return publicationPlan;

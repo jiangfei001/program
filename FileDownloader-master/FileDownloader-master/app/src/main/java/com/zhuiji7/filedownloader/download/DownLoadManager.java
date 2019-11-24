@@ -160,6 +160,7 @@ public class DownLoadManager {
         if(TaskID == null){
             TaskID = fileName;
         }
+
         int state = getAttachmentState(TaskID, fileName, filepath);
         if (state != 1) {
             return state;

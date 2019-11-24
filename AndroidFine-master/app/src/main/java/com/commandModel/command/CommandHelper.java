@@ -93,9 +93,9 @@ public class CommandHelper {
     /**
      * 卸载应用入口提示
      *
-     * @param position app在列表中的位置
+     * @param
      */
-    public static void startUninstall(int position, String pkg, Context context) {
+    public static void startUninstall(String pkg, Context context) {
         //判断此应用程序是否存在
         Boolean pkgExist;
         pkgExist = appExist(context, pkg);

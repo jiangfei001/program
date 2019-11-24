@@ -25,6 +25,16 @@
         android:layout_marginEnd="20dp"
         android:text="SEND" />
 
+<!--
+    <Button
+        android:id="@+id/btn_send_updata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="发送七牛" />
+-->
+
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"

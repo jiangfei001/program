@@ -7,13 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dbModel.dao.InstructionRequestDao;
 import com.dbModel.entity.InstructionRequest;
 import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
 import com.eventControlModel.EventManager;
 import com.httpModel.HttpClient;
 import com.httpModel.HttpResponseHandler;
+import com.qiniuModel.QiniuUpHelper;
 import com.taskModel.TVTask;
 import com.taskModel.TaskQueue;
 import com.taskModel.taskFactory.TaskFactory;
@@ -23,7 +26,6 @@ import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
-import java.util.Date;
 import java.util.Map;
 
 public class WebSocketActivity extends EventActivity {
@@ -77,7 +79,22 @@ public class WebSocketActivity extends EventActivity {
         setContentView(R.layout.activity_web_socket);
         initView();
         WebSocketHandler.getDefault().addListener(socketListener);
-        taskQueue = new TaskQueue(1);
+        /*taskQueue = new TaskQueue(1);
+
+        //从数据库加载所有未完成和未结束的任务
+        InstructionRequestDao instructionRequestDao = new InstructionRequestDao(this);
+        List<InstructionRequest> instructionRequests = instructionRequestDao.getAllTask();
+
+        // 3. 使用Iterator迭代器
+        Iterator<InstructionRequest> it = instructionRequests.iterator();
+        while (it.hasNext()) {
+            InstructionRequest instructionRequest = it.next();
+            System.out.println(instructionRequest);
+            TVTask tvTask = TaskFactory.createTask(instructionRequest);
+            taskQueue.add(tvTask);
+        }
+
+        taskQueue.start();*/
     }
 
     private void initView() {
@@ -88,14 +105,14 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  String text = etContent.getText().toString();
+               String text = etContent.getText().toString();
                 if (TextUtils.isEmpty(text)) {
-                    Toast.makeText(TestCommandActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WebSocketActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                WebSocketHandler.getDefault().send(text);*/
+                WebSocketHandler.getDefault().send(text);
 
-                final InstructionResponse responseEntity = new InstructionResponse();
+              /*  final InstructionResponse responseEntity = new InstructionResponse();
                 responseEntity.setId(123);
                 responseEntity.setExecuteTime(new Date());
                 responseEntity.setResult("123123");
@@ -107,7 +124,14 @@ public class WebSocketActivity extends EventActivity {
                     public void run() {
                         HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new HttpResponseHandler());
                     }
-                }).start();
+                }).start();*/
+            }
+        });
+       findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QiniuUpHelper.upload(WebSocketActivity.this,false);
+
             }
         });
     }
