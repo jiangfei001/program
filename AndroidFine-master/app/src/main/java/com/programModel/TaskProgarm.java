@@ -8,15 +8,23 @@ import com.downloadModel.DownLoadListener;
 import com.downloadModel.DownLoadManager;
 import com.downloadModel.dbcontrol.FileHelper;
 import com.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
+import com.eventControlModel.Event;
+import com.eventControlModel.EventEnum;
 import com.programModel.entity.ProgarmPalyInstructionVo;
 import com.programModel.entity.ProgarmPalySceneVo;
 import com.programModel.entity.ProgramResource;
 import com.programModel.entity.PublicationPlanVo;
+import com.utils.ZipUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class TaskProgarm {
 
@@ -302,6 +310,13 @@ public class TaskProgarm {
                     //无需copy到文件
                     response1.setProgramZipStatus(1);
                     Log.e("sqlDownLoadInfo", "setProgramZipStatus下载成功：" + sqlDownLoadInfo.getTaskID());
+                    File newfile = new File(FileHelper.getFileDefaultPath() + "/" + response1.getProgramZipName());
+                    try {
+                        Log.e("sqlDownLoadInfo", "开始解压："+FileHelper.getFileDefaultPath());
+                        ZipUtil.upZipFile(newfile, FileHelper.getFileDefaultPath());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 }
 
@@ -324,6 +339,13 @@ public class TaskProgarm {
                     response1.setTotalStatus(1);
                     Log.e("sqlDownLoadInfo", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
+
+                    Event event=new Event();
+
+                    event.setId(EventEnum.EVENT_TEST_MSG1);
+                    EventBus.getDefault().post(event);
+
+
                 }
             }
         }

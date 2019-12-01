@@ -41,6 +41,11 @@
         android:layout_marginEnd="20dp"
         android:text="测试下载" />
 
+    <WebView
+        android:id="@+id/activity_main_webview1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"

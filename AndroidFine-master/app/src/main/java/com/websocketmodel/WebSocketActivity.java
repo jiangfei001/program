@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.dbModel.entity.InstructionRequest;
 import com.downloadModel.DownLoadService;
+import com.downloadModel.dbcontrol.FileHelper;
 import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
 import com.eventControlModel.EventManager;
@@ -32,7 +34,7 @@ public class WebSocketActivity extends EventActivity {
     private EditText etContent;
     private TextView tvMsg;
     private ScrollView scrollView;
-
+    WebView webView;
     private SocketListener socketListener = new SimpleListener() {
         @Override
         public void onConnected() {
@@ -100,6 +102,8 @@ public class WebSocketActivity extends EventActivity {
         etContent = (EditText) findViewById(R.id.et_content);
         tvMsg = (TextView) findViewById(R.id.tv_msg);
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
+        webView = (WebView) findViewById(R.id.activity_main_webview1);
+        EventManager.register(this);
 
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +167,6 @@ public class WebSocketActivity extends EventActivity {
                 scrollView.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
-        EventManager.register(this);
     }
 
     @Override
@@ -171,8 +174,15 @@ public class WebSocketActivity extends EventActivity {
         switch (mEvent.getId()) {
             case EVENT_TEST_MSG1:
                 Log.d(this.getClass().getName(), "我收到消息啦");
+
                 /* tv_msg.setText("我收到消息啦");*/
-                appendMsgDisplay(this.getClass().getName());
+                /*appendMsgDisplay(this.getClass().getName());*/
+
+                // WebView允许js执行
+                webView.getSettings().setJavaScriptEnabled(true);
+                FileHelper.getFileDefaultPath();
+                Log.e("EVENT_TEST_MSG1", "file://" + FileHelper.getFileDefaultPath() + "/project_27/9e4a7e1f45b32b1d1372cbd997d326d7.html");
+                webView.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/project_27/6884533148ed4f9ed8bbf1a1b891f1bd.html");
                 break;
             case EVENT_TEST_MSG2:
                 Map event = mEvent.getParams();
