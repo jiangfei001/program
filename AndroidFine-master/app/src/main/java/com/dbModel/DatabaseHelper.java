@@ -8,9 +8,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.dbModel.entity.Article;
-import com.dbModel.entity.Student;
-import com.dbModel.entity.User;
+import com.programModel.entity.ProgarmPalyInstructionVo;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -44,7 +42,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public synchronized Dao getDao(Class clazz) throws SQLException {
         Dao dao = null;
         String className = clazz.getSimpleName();
-
         if (daos.containsKey(className)) {
             dao = daos.get(className);
         }
@@ -58,10 +55,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, User.class);
+            /*TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, Article.class);
-            TableUtils.createTable(connectionSource, Student.class);
+            TableUtils.createTable(connectionSource, Student.class);*/
             TableUtils.createTable(connectionSource, InstructionRequest.class);
+            TableUtils.createTable(connectionSource, ProgarmPalyInstructionVo.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,9 +68,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, User.class, true);
+          /*  TableUtils.dropTable(connectionSource, User.class, true);
             TableUtils.dropTable(connectionSource, Article.class, true);
-            TableUtils.dropTable(connectionSource, Student.class, true);
+            TableUtils.dropTable(connectionSource, Student.class, true);*/
+            TableUtils.dropTable(connectionSource, ProgarmPalyInstructionVo.class, true);
+            TableUtils.createTable(connectionSource, ProgarmPalyInstructionVo.class);
             TableUtils.createTable(connectionSource, InstructionRequest.class);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
@@ -83,7 +83,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void close() {
         super.close();
-
         for (String key : daos.keySet()) {
             Dao dao = daos.get(key);
             dao = null;

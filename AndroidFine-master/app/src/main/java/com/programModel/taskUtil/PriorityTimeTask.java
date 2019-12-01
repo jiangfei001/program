@@ -17,10 +17,9 @@ import java.util.List;
 import static android.content.Context.ALARM_SERVICE;
 
 
-public class PriorityTimeTask<T extends Task> {
+public class PriorityTimeTask<T extends MyTask> {
 
     private int priors = 0;
-
     private List<TimeHandler> mTimeHandlers = new ArrayList<TimeHandler>();
     private static PendingIntent mPendingIntent;
     private List<T> mTasks = new ArrayList<T>();
@@ -139,7 +138,7 @@ public class PriorityTimeTask<T extends Task> {
             if (tasklist.size() == cursor) { //恢复普通任务
                 cursor = 0;
             }
-            if (mTask.getStarTime() < mNowtime && mTask.getEndTime() > mNowtime) {
+            if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1 && mTask.getStarTime() < mNowtime && mTask.getEndTime() > mNowtime) {
                 //在当前区间内立即执行
                 for (TimeHandler mTimeHandler : mTimeHandlers) {
                     mTimeHandler.exeTask(mTask);
@@ -251,7 +250,6 @@ public class PriorityTimeTask<T extends Task> {
     }
 
     public class TimeTaskReceiver extends BroadcastReceiver {
-
 
         @Override
         public void onReceive(Context context, Intent intent) {

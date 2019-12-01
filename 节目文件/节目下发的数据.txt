@@ -1,0 +1,69 @@
+{
+	"id": 27,
+	"playTime": 29,
+	"programName": "节目27",
+	"programResourceList": [{
+		"fileName": "1.jpg",
+		"id": 24,
+		"status": 0,
+		"url": "http://q0u8hijil.bkt.clouddn.com/admin/201911/12/63cc0096294246e0a40efec375b44199.jpg",
+		"virtualPath": "admin/201911/12/63cc0096294246e0a40efec375b44199.jpg"
+	}, {
+		"fileName": "cdfdd.png",
+		"id": 19,
+		"status": 0,
+		"url": "http://yanxuan.nosdn.127.net/0e5e4cc4f12a72f37a0019707d333f49.jpg",
+		"virtualPath": "admin/201911/12/0e5e4cc4f12a72f37a0019707d333f49.jpg"
+	}],
+	"programZip": "http://q0u8hijil.bkt.clouddn.com/system/20191129/c86fc77688e44183b0e1c991cfc6fb57.zip",
+	"publicationPlan": {
+		"customizedPalySchedule": [],
+		"deadline": "2019-12-31 00:00",
+		"deadlineV": "2019-12-31 00:00",
+		"exclusive": false,
+		"planType": 1,
+		"weekPalySchedule": [{
+			"dateStr": "星期一",
+			"id": 1,
+			"times": "08:00-10:00|12:00-16:00"
+		}, {
+			"dateStr": "星期二",
+			"id": 2,
+			"times": "08:00-10:00|12:00-16:00"
+		}, {
+			"dateStr": "星期三",
+			"id": 3,
+			"times": "08:00-10:00|12:00-16:00"
+		}, {
+			"dateStr": "星期四",
+			"id": 4,
+			"times": "08:00-10:00|12:00-16:00"
+		}, {
+			"dateStr": "星期五",
+			"id": 5,
+			"times": "08:00-10:00|12:00-16:00"
+		}, {
+			"dateStr": "星期六",
+			"id": 6,
+			"times": "09:00-10:00|14:00-18:00"
+		}, {
+			"dateStr": "星期日",
+			"id": 7,
+			"times": "09:00-12:00|14:00-18:00"
+		}]
+	},
+	"resolution": "1376*800",
+	"sceneList": [{
+		"playTime": 11,
+		"xml": "9e4a7e1f45b32b1d1372cbd997d326d7.xml"
+	}, {
+		"playTime": 18,
+		"xml": "6884533148ed4f9ed8bbf1a1b891f1bd.xml"
+	}],
+	"sceneNum": 2
+}
+
+
+
+
+{"planType":1,"deadlineV":"2019-12-31 00:00","customizedPalySchedule":[],"exclusive":false,"weekPalySchedule":[{"times":"08:00-10:00|12:00-16:00","dateStr":"星期一","id":1},{"times":"08:00-10:00|12:00-16:00","dateStr":"星期二","id":2},{"times":"08:00-10:00|12:00-16:00","dateStr":"星期三","id":3},{"times":"08:00-10:00|12:00-16:00","dateStr":"星期四","id":4},{"times":"08:00-10:00|12:00-16:00","dateStr":"星期五","id":5},{"times":"09:00-10:00|14:00-18:00","dateStr":"星期六","id":6},{"times":"09:00-12:00|14:00-18:00","dateStr":"星期日","id":7}],"deadline":"2019-12-31 00:00"}

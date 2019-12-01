@@ -20,18 +20,24 @@ public class UPDATEFIRMWAREINFO extends TVTask {
         manager.changeUser("luffy");
         /*断点续传需要服务器的支持，设置该项时要先确保服务器支持断点续传功能*/
         manager.setSupportBreakpoint(true);
+
         info.setFileName("programm.apk");
         /*服务器一般会有个区分不同文件的唯一ID，用以处理文件重名的情况*/
         String taskId;
-        taskId = "asdfasdfadf";
         String url;
+
         url = "http://sdf/ss.apk";
+        taskId = url;
+
         String filename;
         filename = "asdfasdf.apk";
+
         info.setTaskID(taskId);
         info.setOnDownloading(true);
+
         /*将任务添加到下载队列，下载器会自动开始下载*/
         manager.addTask(taskId, url, filename);
+
         manager.setSingleTaskListener(taskId, new DownloadManagerListener());
     }
 

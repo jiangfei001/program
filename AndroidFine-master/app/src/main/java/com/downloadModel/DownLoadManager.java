@@ -3,6 +3,7 @@ package com.downloadModel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.downloadModel.DownLoader.DownLoadSuccess;
 import com.downloadModel.dbcontrol.DataKeeper;
@@ -19,9 +20,9 @@ import java.util.concurrent.TimeUnit;
  * 类功能描述：下载管理类</br>
  *
  * @author zhuiji7
- * @email 470508081@qq.com
  * @version 1.0
  * </p>
+ * @email 470508081@qq.com
  */
 
 public class DownLoadManager {
@@ -33,13 +34,17 @@ public class DownLoadManager {
 
     private DownLoadSuccess downloadsuccessListener = null;
 
-    /**服务器是否支持断点续传*/
+    /**
+     * 服务器是否支持断点续传
+     */
     private boolean isSupportBreakpoint = false;
-    
+
     //线程池
     private ThreadPoolExecutor pool;
-    
-    /**用户ID,默认值man*/
+
+    /**
+     * 用户ID,默认值man
+     */
     private String userID = "luffy";
 
     private SharedPreferences sharedPreferences;
@@ -53,7 +58,7 @@ public class DownLoadManager {
 
     private void init(Context context) {
         pool = new ThreadPoolExecutor(
-                MAX_DOWNLOADING_TASK, MAX_DOWNLOADING_TASK, 30, TimeUnit.SECONDS, 
+                MAX_DOWNLOADING_TASK, MAX_DOWNLOADING_TASK, 30, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(2000));
 
         downloadsuccessListener = new DownLoadSuccess() {
@@ -61,6 +66,7 @@ public class DownLoadManager {
             public void onTaskSeccess(String TaskID) {
                 int taskSize = taskList.size();
                 for (int i = 0; i < taskSize; i++) {
+                    Log.e("downloadsuccessListener", "deletedownloader success");
                     DownLoader deletedownloader = taskList.get(i);
                     if (deletedownloader.getTaskID().equals(TaskID)) {
                         taskList.remove(deletedownloader);
@@ -70,76 +76,79 @@ public class DownLoadManager {
             }
         };
         sharedPreferences = mycontext.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
-        userID = sharedPreferences.getString("UserID","luffy");
+        userID = sharedPreferences.getString("UserID", "luffy");
         recoverData(mycontext, userID);
     }
-    
-   
+
+
     /**
-     * (从数据库恢复下载任务信息) 
+     * (从数据库恢复下载任务信息)
+     *
      * @param context 上下文
      * @param userID  用户ID
      */
-    private void recoverData(Context context,String userID){
+    private void recoverData(Context context, String userID) {
         stopAllTask();
         taskList = new ArrayList<DownLoader>();
         DataKeeper datakeeper = new DataKeeper(context);
         ArrayList<SQLDownLoadInfo> sqlDownloadInfoList = null;
-        if(userID == null){
+        if (userID == null) {
             sqlDownloadInfoList = datakeeper.getAllDownLoadInfo();
-        }else{
+        } else {
             sqlDownloadInfoList = datakeeper.getUserDownLoadInfo(userID);
         }
         if (sqlDownloadInfoList.size() > 0) {
             int listSize = sqlDownloadInfoList.size();
             for (int i = 0; i < listSize; i++) {
                 SQLDownLoadInfo sqlDownLoadInfo = sqlDownloadInfoList.get(i);
-                DownLoader sqlDownLoader = new DownLoader(context, sqlDownLoadInfo, pool,userID,isSupportBreakpoint,false);
+                DownLoader sqlDownLoader = new DownLoader(context, sqlDownLoadInfo, pool, userID, isSupportBreakpoint, false);
                 sqlDownLoader.setDownLodSuccesslistener(downloadsuccessListener);
-                sqlDownLoader.setDownLoadListener("public",alltasklistener);
+                sqlDownLoader.setDownLoadListener("public", alltasklistener);
                 taskList.add(sqlDownLoader);
             }
         }
     }
-    
+
 
     /**
-     * (设置下载管理是否支持断点续传) 
+     * (设置下载管理是否支持断点续传)
+     *
      * @param isSupportBreakpoint
      */
     public void setSupportBreakpoint(boolean isSupportBreakpoint) {
-        if((!this.isSupportBreakpoint) && isSupportBreakpoint){
+        if ((!this.isSupportBreakpoint) && isSupportBreakpoint) {
             int taskSize = taskList.size();
             for (int i = 0; i < taskSize; i++) {
                 DownLoader downloader = taskList.get(i);
                 downloader.setSupportBreakpoint(true);
-            } 
+            }
         }
         this.isSupportBreakpoint = isSupportBreakpoint;
     }
-    
+
     /**
      * (切换用户)
+     *
      * @param userID 用户ID
      */
-    public void changeUser(String userID){
+    public void changeUser(String userID) {
         this.userID = userID;
         SharedPreferences.Editor editor = sharedPreferences.edit();// 获取编辑器
-        editor.putString("UserID",userID);
+        editor.putString("UserID", userID);
         editor.commit();// 提交修改
         FileHelper.setUserID(userID);
         recoverData(mycontext, userID);
     }
 
-    public String getUserID(){
+    public String getUserID() {
         return userID;
     }
 
     /**
      * (增加一个任务，默认开始执行下载任务)
-     * 
-     * @param TaskID 任务号
-     * @param url 请求下载的路径
+     *
+     * @param TaskID   任务号
+     * @param url      请求下载的路径
      * @param fileName 文件名
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
@@ -149,15 +158,15 @@ public class DownLoadManager {
 
     /**
      * (增加一个任务，默认开始执行下载任务)
-     * 
-     * @param TaskID 任务号
-     * @param url 请求下载的路径
+     *
+     * @param TaskID   任务号
+     * @param url      请求下载的路径
      * @param fileName 文件名
      * @param filepath 下载到本地的路径
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
     public int addTask(String TaskID, String url, String fileName, String filepath) {
-        if(TaskID == null){
+        if (TaskID == null) {
             TaskID = fileName;
         }
         int state = getAttachmentState(TaskID, fileName, filepath);
@@ -173,32 +182,32 @@ public class DownLoadManager {
         downloadinfo.setFileName(fileName);
         downloadinfo.setUrl(url);
         if (filepath == null) {
-            downloadinfo.setFilePath(FileHelper.getFileDefaultPath() + "/(" + FileHelper.filterIDChars(TaskID) + ")" + fileName);
+            downloadinfo.setFilePath(FileHelper.getFileDefaultPath() + "/" + fileName);
         } else {
             downloadinfo.setFilePath(filepath);
         }
-        DownLoader taskDownLoader = new DownLoader(mycontext, downloadinfo, pool,userID,isSupportBreakpoint,true);
+        DownLoader taskDownLoader = new DownLoader(mycontext, downloadinfo, pool, userID, isSupportBreakpoint, true);
         taskDownLoader.setDownLodSuccesslistener(downloadsuccessListener);
-        if(isSupportBreakpoint){
+        if (isSupportBreakpoint) {
             taskDownLoader.setSupportBreakpoint(true);
-        }else{
+        } else {
             taskDownLoader.setSupportBreakpoint(false);
         }
         taskDownLoader.start();
-        taskDownLoader.setDownLoadListener("public",alltasklistener);
+        taskDownLoader.setDownLoadListener("public", alltasklistener);
         taskList.add(taskDownLoader);
         return 1;
     }
 
     /**
      * 获取附件状态
-     * 
-     * @param TaskID 任务号
+     *
+     * @param TaskID   任务号
      * @param fileName 文件名
      * @param filepath 下载到本地的路径
-     * @return  -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
+     * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
-     private int getAttachmentState(String TaskID, String fileName, String filepath) {
+    private int getAttachmentState(String TaskID, String fileName, String filepath) {
 
         int taskSize = taskList.size();
         for (int i = 0; i < taskSize; i++) {
@@ -209,7 +218,7 @@ public class DownLoadManager {
         }
         File file = null;
         if (filepath == null) {
-            file = new File(FileHelper.getFileDefaultPath() + "/(" + FileHelper.filterIDChars(TaskID) + ")" + fileName);
+            file = new File(FileHelper.getFileDefaultPath() + "/" + fileName);
             if (file.exists()) {
                 return -1;
             }
@@ -224,7 +233,7 @@ public class DownLoadManager {
 
     /**
      * (删除一个任务，包括已下载的本地文件)
-     * 
+     *
      * @param taskID
      */
     public void deleteTask(String taskID) {
@@ -241,7 +250,7 @@ public class DownLoadManager {
 
     /**
      * (获取当前任务列表的所有任务ID)
-     * 
+     *
      * @return
      */
     public ArrayList<String> getAllTaskID() {
@@ -256,7 +265,7 @@ public class DownLoadManager {
 
     /**
      * (获取当前任务列表的所有任务，以TaskInfo列表的方式返回)
-     * 
+     *
      * @return
      */
     public ArrayList<TaskInfo> getAllTask() {
@@ -278,7 +287,7 @@ public class DownLoadManager {
 
     /**
      * (根据任务ID开始执行下载任务)
-     * 
+     *
      * @param taskID
      */
     public void startTask(String taskID) {
@@ -294,7 +303,7 @@ public class DownLoadManager {
 
     /**
      * (根据任务ID停止相应的下载任务)
-     * 
+     *
      * @param taskID
      */
     public void stopTask(String taskID) {
@@ -332,7 +341,7 @@ public class DownLoadManager {
 
     /**
      * (根据任务ID将监听器设置到相对应的下载任务)
-     * 
+     *
      * @param taskID
      * @param listener
      */
@@ -349,7 +358,7 @@ public class DownLoadManager {
 
     /**
      * (将监听器设置到当前任务列表所有任务)
-     * 
+     *
      * @param listener
      */
     public void setAllTaskListener(DownLoadListener listener) {
@@ -363,7 +372,7 @@ public class DownLoadManager {
 
     /**
      * (根据任务ID移除相对应的下载任务的监听器)
-     * 
+     *
      * @param taskID
      */
     public void removeDownLoadListener(String taskID) {
@@ -386,7 +395,7 @@ public class DownLoadManager {
 
     /**
      * (根据任务号获取当前任务是否正在下载)
-     * 
+     *
      * @param taskID
      * @return
      */
@@ -416,11 +425,11 @@ public class DownLoadManager {
      */
     public TaskInfo getTaskInfo(String taskID) {
         DownLoader downloader = getDownloader(taskID);
-        if (downloader==null) {
+        if (downloader == null) {
             return null;
         }
         SQLDownLoadInfo sqldownloadinfo = downloader.getSQLDownLoadInfo();
-        if (sqldownloadinfo==null) {
+        if (sqldownloadinfo == null) {
             return null;
         }
         TaskInfo taskinfo = new TaskInfo();

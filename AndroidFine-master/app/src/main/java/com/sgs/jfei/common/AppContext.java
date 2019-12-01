@@ -30,9 +30,9 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.startService(new Intent(this, DownLoadService.class));
         registerUncaughtExceptionHandler();
         initWebSocket();
-        this.startService(new Intent(this, DownLoadService.class));
     }
 
     // 注册App异常崩溃处理器

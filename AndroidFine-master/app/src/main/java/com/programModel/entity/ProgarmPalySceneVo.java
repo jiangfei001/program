@@ -2,40 +2,45 @@ package com.programModel.entity;
 
 /**
  * 节目发布命令中的场景信息
- * @author Administrator
  *
+ * @author Administrator
  */
 public class ProgarmPalySceneVo {
 
-	/**
-	 * xml 名称
-	 */
-	private String xml;
-	/**
-	 * 播放时间,秒
-	 */
-	private int playTime;
-	
-	
-	public ProgarmPalySceneVo() {
-		super();
-	}
-	public ProgarmPalySceneVo(String xml, int playTime) {
-		super();
-		this.xml = xml;
-		this.playTime = playTime;
-	}
-	public String getXml() {
-		return xml;
-	}
-	public void setXml(String xml) {
-		this.xml = xml;
-	}
-	public int getPlayTime() {
-		return playTime;
-	}
-	public void setPlayTime(int playTime) {
-		this.playTime = playTime;
-	}
-	
+    /**
+     * html 名称
+     */
+    private String html;
+    /**
+     * 播放时间,秒
+     */
+    private int playTime;
+
+
+    public ProgarmPalySceneVo() {
+        super();
+    }
+
+    public ProgarmPalySceneVo(String html, int playTime) {
+        super();
+        this.html = html;
+        this.playTime = playTime;
+    }
+
+    public String getHtml() {
+        return html;
+    }
+
+    public void setHtml(String html) {
+        this.html = html;
+    }
+
+    public int getPlayTime() {
+        return playTime;
+    }
+
+    public void setPlayTime(int playTime) {
+        this.playTime = playTime;
+    }
+
 }

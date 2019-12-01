@@ -3,6 +3,7 @@ package com.programModel;
 import android.content.Context;
 import android.util.Log;
 
+import com.programModel.taskUtil.MyTask;
 import com.programModel.taskUtil.PriorityTimeTask;
 import com.programModel.taskUtil.Task;
 import com.programModel.taskUtil.TimeHandler;
@@ -65,13 +66,6 @@ public class Test {
             benTask.name = "Ben";
             add(benTask);*/
         }};
-    }
-
-
-    static class MyTask extends Task {
-        //// TODO: 2017/11/8 这里可以放置你自己的资源,务必继承Task对象
-        String name;
-
     }
 
     public static long dataOne(String time) {

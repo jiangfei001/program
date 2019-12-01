@@ -1,0 +1,17 @@
+
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ô›ˆôþÿÿÿÿ8û±üæé-
+Esquid:S1068")Remove this unused "TOKEN" private field.(ûˆÄ‚8û±üæé-
+Esquid:S1481")Remove this unused "data" local variable.(ùÇãä8û±üæé-
+Ysquid:S1854"8Remove this useless assignment to local variable "data".(»šåùÿÿÿÿ8û±üæé-
+Dsquid:S1068"(Remove this unused "HOST" private field.(«ÌÌ‚8û±üæé-
+lsquid:S3008"PRename this field "TOKEN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûˆÄ‚8û±üæé-
+ksquid:S3008"ORename this field "HOST" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ÌÌ‚8û±üæé-
+Nsquid:S1481"-Remove this unused "fileName" local variable.(ôðÝ²ûÿÿÿÿ8û±üæé-
+Isquid:S1604"(Make this anonymous inner class a lambda(Ÿè®áÿÿÿÿÿ8û±üæé-
+Jsquid:S1481")Remove this unused "data" local variable.(»šåùÿÿÿÿ8û±üæé-
+]squid:S1854"<Remove this useless assignment to local variable "fileName".(ôðÝ²ûÿÿÿÿ8û±üæé-
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ü›í 8û±üæé-
+Tsquid:S1854"8Remove this useless assignment to local variable "data".(ùÇãä8û±üæé-
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ï’ÌÔ8û±üæé-
+ksquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«›ðï8û±üæé-
+jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(²Ú±Ž8û±üæé-

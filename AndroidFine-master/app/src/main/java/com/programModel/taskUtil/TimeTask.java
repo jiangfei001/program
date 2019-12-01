@@ -16,9 +16,7 @@ import java.util.List;
 import static android.content.Context.ALARM_SERVICE;
 
 /**
- * Created by 香脆的大鸡排 on 2017/11/2.
  * TimeTask是一个定时任务框架,专注于处理复杂的定时任务分发
- * 博客地址:www.dajipai.cc
  */
 
 public class TimeTask<T extends Task> {
@@ -39,7 +37,7 @@ public class TimeTask<T extends Task> {
      * @param mContext
      * @param actionName action不要重复
      */
-    public TimeTask(Context mContext,  String actionName) {
+    public TimeTask(Context mContext, String actionName) {
         this.mContext = mContext;
         this.mActionName = actionName;
         initBreceiver(mContext);
@@ -69,7 +67,7 @@ public class TimeTask<T extends Task> {
         } else {
             this.mTasks = mES;
         }*/
-       this.priorsTasks=priorityTasks;
+        this.priorsTasks = priorityTasks;
     }
 
 

@@ -13,6 +13,8 @@ import okhttp3.Request;
 
 public abstract class TVTask extends BasicTask {
 
+    public static String TAG = "TVTask";
+
     private String serverUrl = "http://192.168.0.97:8081/multimedia/api/terminal/callback";
 
     public InstructionRequest instructionRequest;

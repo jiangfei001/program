@@ -9,15 +9,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dbModel.dao.InstructionRequestDao;
 import com.dbModel.entity.InstructionRequest;
+import com.downloadModel.DownLoadService;
 import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
 import com.eventControlModel.EventManager;
-import com.httpModel.HttpClient;
-import com.httpModel.HttpResponseHandler;
 import com.qiniuModel.QiniuUpHelper;
 import com.taskModel.TVTask;
+import com.programModel.TaskProgarm;
 import com.taskModel.TaskQueue;
 import com.taskModel.taskFactory.TaskFactory;
 import com.yuzhi.fine.R;
@@ -105,7 +104,7 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String text = etContent.getText().toString();
+                String text = etContent.getText().toString();
                 if (TextUtils.isEmpty(text)) {
                     Toast.makeText(WebSocketActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
                     return;
@@ -127,11 +126,18 @@ public class WebSocketActivity extends EventActivity {
                 }).start();*/
             }
         });
-       findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QiniuUpHelper.upload(WebSocketActivity.this,false);
+                QiniuUpHelper.upload(WebSocketActivity.this, false);
 
+            }
+        });
+
+        findViewById(R.id.btn_down).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TaskProgarm.progarmTest1(DownLoadService.getDownLoadManager());
             }
         });
     }
