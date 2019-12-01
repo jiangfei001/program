@@ -15,8 +15,10 @@ import com.programModel.entity.ProgarmPalySceneVo;
 import com.programModel.entity.ProgramResource;
 import com.programModel.entity.PublicationPlanVo;
 import com.sgs.jfei.common.AppContext;
+import com.utils.ZipUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -216,6 +218,13 @@ public class ProgramScheduledManager {
                     //无需copy到文件
                     response1.setProgramZipStatus(1);
                     Log.e("sqlDownLoadInfo", "setProgramZipStatus下载成功：" + sqlDownLoadInfo.getTaskID());
+                    File newfile = new File(FileHelper.getFileDefaultPath() + "/" + response1.getProgramZipName());
+                    try {
+                        Log.e("sqlDownLoadInfo", "开始解压："+FileHelper.getFileDefaultPath());
+                        ZipUtil.upZipFile(newfile, FileHelper.getFileDefaultPath());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 for (int i = 0; i < response1.getProgramResourceListArray().size(); i++) {
