@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.programModel.entity.ProgarmPalyPlan;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +39,17 @@ public class PriorityTimeTask<T extends MyTask> {
     private Context mContext;
     private TimeTaskReceiver receiver;
 
+    Handler ptmHandler;
+
     /**
      * @param mContext
      * @param actionName action不要重复
      */
-    public PriorityTimeTask(Context mContext, String actionName) {
+    public PriorityTimeTask(Context mContext, String actionName, Handler handler) {
         this.mContext = mContext;
         this.mActionName = actionName;
         initBreceiver(mContext);
+        this.ptmHandler = handler;
     }
 
     private void initBreceiver(Context mContext) {
@@ -126,6 +131,7 @@ public class PriorityTimeTask<T extends MyTask> {
     };
 
     public boolean doneLooper(List<T> tasklist, Integer cursor) {
+        ptmHandler.removeMessages(1);
         if (tasklist.size() > cursor) {
         } else {
             cursor = 0;
@@ -138,15 +144,23 @@ public class PriorityTimeTask<T extends MyTask> {
             if (tasklist.size() == cursor) { //恢复普通任务
                 cursor = 0;
             }
-            if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1 && mTask.getStarTime() < mNowtime && mTask.getEndTime() > mNowtime) {
-                //在当前区间内立即执行
-                for (TimeHandler mTimeHandler : mTimeHandlers) {
-                    mTimeHandler.exeTask(mTask);
-                    //预设下一个节目播放
-                    mHandler.sendEmptyMessageDelayed(1, mTask.getEndTime() - mTask.getStarTime());
+            if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1) {
+                List<ProgarmPalyPlan> progarmPalyPlan = mTask.progarmPalyInstructionVo.getPublicationPlanObject().getOkProgarms();
+                for (int t = 0; t < progarmPalyPlan.size(); t++) {
+                    ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
+                    if (progarmPalyPlan1.getStartTime() < mNowtime && progarmPalyPlan1.getEndTime() > mNowtime) {
+                        //在当前区间内立即执行
+                        for (TimeHandler mTimeHandler : mTimeHandlers) {
+                            mTimeHandler.exeTask(mTask);
+                            //预设下一个节目播放
+                            mHandler.sendEmptyMessageDelayed(1, mTask.getEndTime() - mTask.getStarTime());
+                        }
+                        return true;
+                    }
                 }
-                return true;
+
             }
+
         }
 
         return false;
@@ -160,7 +174,6 @@ public class PriorityTimeTask<T extends MyTask> {
         if (idone) {
             doneLooper(mTasks, cursor);
         }
-
     }
 
 

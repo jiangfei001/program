@@ -38,17 +38,33 @@ public class PublicationPlanVo {
      */
     private List<ProgarmPalySchedule> customizedPalySchedule;
 
+    private List<ProgarmPalyPlan> okProgarms;
 
-    public String getDeadline() {
-        return deadline;
+    public List<ProgarmPalyPlan> getOkProgarms() {
+        return okProgarms;
     }
 
-    /**
-     * 为了页面的回显正常
-     *
-     * @return
-     */
+    public void setOkProgarms(List<ProgarmPalyPlan> okProgarms) {
+        this.okProgarms = okProgarms;
+    }
+
     public String getDeadlineV() {
+        return deadlineV;
+    }
+
+    public void setDeadlineV(String deadlineV) {
+        this.deadlineV = deadlineV;
+    }
+
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
+    public String getDeadline() {
         return deadline;
     }
 
@@ -86,17 +102,5 @@ public class PublicationPlanVo {
 
     public void setCustomizedPalySchedule(List<ProgarmPalySchedule> customizedPalySchedule) {
         this.customizedPalySchedule = customizedPalySchedule;
-    }
-
-    public void setDeadlineV(String deadlineV) {
-        this.deadlineV = deadlineV;
-    }
-
-    public String getResolution() {
-        return resolution;
-    }
-
-    public void setResolution(String resolution) {
-        this.resolution = resolution;
     }
 }

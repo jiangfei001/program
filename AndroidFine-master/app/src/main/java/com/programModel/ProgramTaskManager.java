@@ -1,45 +1,105 @@
 package com.programModel;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.eventControlModel.Event;
+import com.eventControlModel.EventEnum;
 import com.programModel.entity.ProgarmPalyInstructionVo;
+import com.programModel.entity.ProgarmPalySceneVo;
 import com.programModel.taskUtil.MyTask;
 import com.programModel.taskUtil.PriorityTimeTask;
 import com.programModel.taskUtil.TimeHandler;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class ProgramTaskManager {
+
+    public MyTask nowMyTask = new MyTask();
+    public int nowscene = 0;
+    ProgarmPalyInstructionVo nowProgarmPalyInstructionVo;
+    List<ProgarmPalySceneVo> nowProgarmPalySceneVos;
+
+    public String TAG = "ProgramTaskManager";
 
     TimeHandler<MyTask> timeHandler = new TimeHandler<MyTask>() {
         @Override
         public void exeTask(MyTask mTask) {
+            handler.removeMessages(1);
             //通知webview进行播放
-            Log.d("TimeTask11", "我是现在真正执行" + mTask.name);
+            Log.e("TAG", "我是现在真正执行" + mTask.name);
+            nowMyTask = mTask;
             //控制html的播放时长
+            nowProgarmPalyInstructionVo = mTask.getProgarmPalyInstructionVo();
+            nowProgarmPalySceneVos = JSON.parseArray(nowProgarmPalyInstructionVo.getSceneList(), ProgarmPalySceneVo.class);
+            //通知播放
+            //控制播放时间
+            startRunScence();
         }
 
         @Override
         public void overdueTask(MyTask mTask) {
-            Log.d("TimeTask11", "我的生命周期已经到了" + mTask.name);
+            Log.e("TAG", "我的生命周期已经到了" + mTask.name);
         }
 
         @Override
         public void futureTask(MyTask mTask) {
-            Log.d("TimeTask11", "未来的会执行我" + mTask.name);
+            Log.e("TAG", "未来的会执行我" + mTask.name);
         }
     };
+
+    public void startRunScence() {
+        int time = sendPlayHtml(0);
+        nowscene = 1;
+        if (nowProgarmPalySceneVos.size() > 1) {
+            handler.sendEmptyMessageDelayed(1, time);
+        } else {
+        }
+
+    }
+
+    android.os.Handler handler = new Handler() {
+        @Override
+        public void handleMessage(final Message msg) {
+            int time1 = sendPlayHtml(nowscene);
+            if (++nowscene < nowProgarmPalySceneVos.size()) {
+                handler.sendEmptyMessageDelayed(1, time1);
+            } else {
+                //nowscene = 0;
+            }
+        }
+    };
+
+
+    private int sendPlayHtml(int index) {
+        String html = nowProgarmPalySceneVos.get(index).getHtml();
+        Log.e("TAG", "startRunScence html:" + html);
+        String htmlPath = nowProgarmPalyInstructionVo.getProgramName() + "/" + html;
+        Log.e("TAG", "startRunScence htmlPath:" + htmlPath);
+        int time = nowProgarmPalySceneVos.get(index).getPlayTime();
+        Log.e("TAG", "startRunScence time:" + time);
+
+        Event event = new Event();
+        event.setId(EventEnum.EVENT_TEST_MSG1);
+        event.setPath(htmlPath);
+        EventBus.getDefault().post(event);
+
+        return time;
+    }
+
+
     final String ACTION = "timeTask.action";
     private PriorityTimeTask<MyTask> myTaskTimeTask;
 
-    ProgramTaskManager(Context context, List<ProgarmPalyInstructionVo> list) {
+    ProgramTaskManager(Context context, LinkedList<ProgarmPalyInstructionVo> list) {
         // TODO: 2017/11/8  创建一个任务处理器
-        myTaskTimeTask = new PriorityTimeTask<>(context, ACTION);
+        myTaskTimeTask = new PriorityTimeTask<>(context, ACTION, handler);
 
         // TODO: 2017/11/8   添加时间回掉
         myTaskTimeTask.addHandler(timeHandler);
@@ -54,47 +114,17 @@ public class ProgramTaskManager {
     }
 
     private List<MyTask> creatTasks(List<ProgarmPalyInstructionVo> list) {
-        ArrayList<MyTask> mytasks = new ArrayList<MyTask>();
+        LinkedList<MyTask> mytasks = new LinkedList<MyTask>();
 
         for (int i = 0; i < list.size(); i++) {
+            ProgarmPalyInstructionVo progarmPalyInstructionVo = list.get(i);
             MyTask bobTask = new MyTask();
-            bobTask.progarmPalyInstructionVo = list.get(i);
-            bobTask.setStarTime(dataOne("2019-10-26 12:01:00"));   //当前时间
+            bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
             mytasks.add(bobTask);
         }
+
         return mytasks;
-        /*return new ArrayList<MyTask>() {{
-            MyTask BobTask = new MyTask();
-            BobTask.setStarTime(dataOne("2019-10-26 12:01:00"));   //当前时间
-            BobTask.setEndTime(dataOne("2019-10-26  12:58:00"));  //5秒后结束
-            BobTask.name = "Bob";
-            add(BobTask);
-*//*
-            MyTask benTask = new MyTask();
-            BobTask.setStarTime(dataOne("2019-10-26 19:13:00"));   //当前时间
-            BobTask.setEndTime(dataOne("2019-10-26  19:25:00"));  //5秒后结束
-            benTask.name = "Ben";
-            add(benTask);*//*
-        }};*/
     }
-
-
-    public static long dataOne(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Date date;
-        String times = null;
-        try {
-            date = sdr.parse(time);
-            Log.e("TimeTask", "date" + date);
-            long l = date.getTime();
-            String stf = String.valueOf(l);
-            times = stf.substring(0, 10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Long.parseLong(times) * 1000;
-    }
-
 
     protected void onDestroy() {
         myTaskTimeTask.onColse();

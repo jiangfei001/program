@@ -21,10 +21,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class TaskProgarm {
 
@@ -171,18 +169,32 @@ public class TaskProgarm {
 
     static List<ProgarmPalyInstructionVo> progarmPalyInstructionVos = new ArrayList<>();
 
+    public static String TAG = "TaskProgarm";
+
+    public static void saveToDB() {
+        Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
+        //将数据保存到节目播放数据库，并通知节目播放，进行插入播放
+        ProgramDbManager.getInstance().saveProgarmPalyInstructionVoRequest(response);
+    }
+
+    static ProgarmPalyInstructionVo response;
+
     public static void progarmTest(DownLoadManager manager, String org) {
 
         String orgin = org;
-        ProgarmPalyInstructionVo response;
 
         response = JSON.parseObject(orgin, new TypeReference<ProgarmPalyInstructionVo>() {
         });
 
-        String sceneListsJson = response.getSceneList();
+        //保存到节目数据中
+        saveToDB();
+
+        List<ProgarmPalyInstructionVo> list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+
+        Log.e(TAG, list == null ? "null" : list.size() + "");
+
         String publicationPlanJson = response.getPublicationPlan();
 
-        List<ProgarmPalySceneVo> progarmPalySceneVos = JSON.parseArray(sceneListsJson, ProgarmPalySceneVo.class);
         PublicationPlanVo publicationPlanVo = JSON.parseObject(publicationPlanJson, new TypeReference<PublicationPlanVo>() {
         });
 
@@ -257,11 +269,12 @@ public class TaskProgarm {
             if (fileStatue == 1) {
                 Log.e("sqlDownLoadInfo", "所有资源都存在：" + response.getId());
                 response.setTotalStatus(1);
+
+
             }
         }
 
         System.out.println(response.toString());
-        System.out.println(progarmPalySceneVos.size());
         System.out.println(publicationPlanVo);
     }
 
@@ -312,7 +325,7 @@ public class TaskProgarm {
                     Log.e("sqlDownLoadInfo", "setProgramZipStatus下载成功：" + sqlDownLoadInfo.getTaskID());
                     File newfile = new File(FileHelper.getFileDefaultPath() + "/" + response1.getProgramZipName());
                     try {
-                        Log.e("sqlDownLoadInfo", "开始解压："+FileHelper.getFileDefaultPath());
+                        Log.e("sqlDownLoadInfo", "开始解压：" + FileHelper.getFileDefaultPath());
                         ZipUtil.upZipFile(newfile, FileHelper.getFileDefaultPath());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -340,7 +353,7 @@ public class TaskProgarm {
                     Log.e("sqlDownLoadInfo", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
 
-                    Event event=new Event();
+                    Event event = new Event();
 
                     event.setId(EventEnum.EVENT_TEST_MSG1);
                     EventBus.getDefault().post(event);

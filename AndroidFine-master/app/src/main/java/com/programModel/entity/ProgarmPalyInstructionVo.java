@@ -11,7 +11,7 @@ import java.util.List;
  */
 @DatabaseTable(tableName = "tb_progarmPalyInstructionVo")
 public class ProgarmPalyInstructionVo {
-    @DatabaseField
+    @DatabaseField(id = true, canBeNull = false, columnName = "id")
     private int id;
     @DatabaseField
     private String programName;
@@ -49,7 +49,17 @@ public class ProgarmPalyInstructionVo {
     @DatabaseField
     private String publicationPlan;
 
+    PublicationPlanVo publicationPlanObject;
+
     List<ProgramResource> programResourceListArray;
+
+    public PublicationPlanVo getPublicationPlanObject() {
+        return publicationPlanObject;
+    }
+
+    public void setPublicationPlanObject(PublicationPlanVo publicationPlanObject) {
+        this.publicationPlanObject = publicationPlanObject;
+    }
 
     public void setProgramResourceList(String programResourceList) {
         this.programResourceList = programResourceList;

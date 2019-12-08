@@ -16,6 +16,7 @@ import com.downloadModel.dbcontrol.FileHelper;
 import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
 import com.eventControlModel.EventManager;
+import com.programModel.ProgramScheduledManager;
 import com.qiniuModel.QiniuUpHelper;
 import com.taskModel.TVTask;
 import com.programModel.TaskProgarm;
@@ -74,12 +75,18 @@ public class WebSocketActivity extends EventActivity {
 
     TaskQueue taskQueue;
 
+    public void initSchedule() {
+        ProgramScheduledManager programScheduledManager = new ProgramScheduledManager(this);
+        programScheduledManager.initAllProgramTask();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket);
         initView();
         WebSocketHandler.getDefault().addListener(socketListener);
+        /*initSchedule();*/
         /*taskQueue = new TaskQueue(1);
 
         //从数据库加载所有未完成和未结束的任务
@@ -96,6 +103,8 @@ public class WebSocketActivity extends EventActivity {
         }
 
         taskQueue.start();*/
+
+
     }
 
     private void initView() {
@@ -174,15 +183,10 @@ public class WebSocketActivity extends EventActivity {
         switch (mEvent.getId()) {
             case EVENT_TEST_MSG1:
                 Log.d(this.getClass().getName(), "我收到消息啦");
-
-                /* tv_msg.setText("我收到消息啦");*/
-                /*appendMsgDisplay(this.getClass().getName());*/
-
-                // WebView允许js执行
                 webView.getSettings().setJavaScriptEnabled(true);
-                FileHelper.getFileDefaultPath();
-                Log.e("EVENT_TEST_MSG1", "file://" + FileHelper.getFileDefaultPath() + "/project_27/9e4a7e1f45b32b1d1372cbd997d326d7.html");
-                webView.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/project_27/6884533148ed4f9ed8bbf1a1b891f1bd.html");
+                String path = mEvent.getPath();
+                Log.e("EVENT_TEST_MSG1", "file://" + FileHelper.getFileDefaultPath() + "/" + path);
+                webView.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
                 break;
             case EVENT_TEST_MSG2:
                 Map event = mEvent.getParams();

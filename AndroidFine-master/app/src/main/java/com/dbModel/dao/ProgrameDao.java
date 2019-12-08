@@ -37,7 +37,7 @@ public class ProgrameDao {
 				new Callable<Void>()
 				{
 
-					@Override
+					@OverrideClass class com.programModel.entity.ProgarmPalyInstructionVo does not have an id field
 					public Void call() throws Exception
 					{
 						return null;

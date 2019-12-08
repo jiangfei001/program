@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.downloadModel.DownLoadService;
-//import com.squareup.leakcanary.LeakCanary;
+import com.programModel.ProgramScheduledManager;
 import com.websocketmodel.AppResponseDispatcher;
 import com.websocketmodel.WebSocketClientManger;
 import com.zhangke.websocket.WebSocketHandler;
@@ -33,6 +33,7 @@ public class AppContext extends Application {
         this.startService(new Intent(this, DownLoadService.class));
         registerUncaughtExceptionHandler();
         initWebSocket();
+        //initSchedule();
     }
 
     // 注册App异常崩溃处理器
@@ -78,4 +79,10 @@ public class AppContext extends Application {
         //初始化监听器
         WebSocketClientManger.getInstance();
     }
+
+    public void initSchedule() {
+        ProgramScheduledManager programScheduledManager = new ProgramScheduledManager(this);
+        programScheduledManager.initAllProgramTask();
+    }
+
 }

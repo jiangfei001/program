@@ -56,10 +56,10 @@
 	"resolution": "1376*800",
 	"sceneList": [{
 		"playTime": 11,
-		"xml": "9e4a7e1f45b32b1d1372cbd997d326d7.xml"
+		"html": "9e4a7e1f45b32b1d1372cbd997d326d7.html"
 	}, {
 		"playTime": 18,
-		"xml": "6884533148ed4f9ed8bbf1a1b891f1bd.xml"
+		"html": "6884533148ed4f9ed8bbf1a1b891f1bd.html"
 	}],
 	"sceneNum": 2
 }

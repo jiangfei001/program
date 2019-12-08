@@ -11,15 +11,17 @@ import com.downloadModel.DownLoadService;
 import com.downloadModel.dbcontrol.FileHelper;
 import com.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.programModel.entity.ProgarmPalyInstructionVo;
-import com.programModel.entity.ProgarmPalySceneVo;
 import com.programModel.entity.ProgramResource;
 import com.programModel.entity.PublicationPlanVo;
 import com.sgs.jfei.common.AppContext;
 import com.utils.ZipUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ProgramScheduledManager {
@@ -31,17 +33,18 @@ public class ProgramScheduledManager {
     //所有没有过期的节目单
     List<ProgarmPalyInstructionVo> list;
 
-    List<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
+    LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
 
     DownLoadManager manager;
 
-    private ProgramScheduledManager(Context context) {
+    public ProgramScheduledManager(Context context) {
         this.context = context;
         manager = DownLoadService.getDownLoadManager();
         /*设置用户ID，客户端切换用户时可以显示相应用户的下载任务*/
         manager.changeUser("luffy");
         /*断点续传需要服务器的支持，设置该项时要先确保服务器支持断点续传功能*/
         manager.setSupportBreakpoint(true);
+        initAllProgramTask();
     }
 
     private static ProgramScheduledManager instance;
@@ -63,10 +66,15 @@ public class ProgramScheduledManager {
     //从数据库中获取所有的节目数据
     public void initAllProgramTask() {
         list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+
+        progarmPalyInstructionVos = new LinkedList<>();
+
         checkResouce(list);
-        //启动播放拉
+
         manager.setAllTaskListener(new DownloadManagerListener());
-        programTaskManager = new ProgramTaskManager(context, list);
+        //启动播放拉
+        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos);
+
     }
 
     ProgramTaskManager programTaskManager;
@@ -81,17 +89,21 @@ public class ProgramScheduledManager {
 
     public void progarmTest(ProgarmPalyInstructionVo response) {
 
-        String sceneListsJson = response.getSceneList();
         String publicationPlanJson = response.getPublicationPlan();
 
-        List<ProgarmPalySceneVo> progarmPalySceneVos = JSON.parseArray(sceneListsJson, ProgarmPalySceneVo.class);
         PublicationPlanVo publicationPlanVo = JSON.parseObject(publicationPlanJson, new TypeReference<PublicationPlanVo>() {
         });
+        response.setPublicationPlanObject(publicationPlanVo);
+
+        Log.e(TAG, "response.getProgramResourceList:" + response.getProgramResourceList());
+
+        response.setProgramResourceListArray(JSON.parseArray(response.getProgramResourceList(), ProgramResource.class));
 
         List<ProgramResource> programResourceList = response.getProgramResourceListArray();
 
+
         if (response.getTotalStatus() != 1) {
-            progarmPalyInstructionVos.add(response);
+
             //判断预设目录下 是否有对应zip包
             /*服务器一般会有个区分不同文件的唯一ID，用以处理文件重名的情况*/
             String taskId;
@@ -157,15 +169,25 @@ public class ProgramScheduledManager {
             }
 
             if (fileStatue == 1) {
+
+                //判断今天是否播放
+                if (ProgramUtil.getWeekPalySchedule(response)) {
+                    progarmPalyInstructionVos.add(response);
+                }
+
                 Log.e("sqlDownLoadInfo", "所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
-                progarmPalyInstructionVos.remove(response);
+                list.remove(response);
+                //progarmPalyInstructionVos.remove(response);
+                /*Event event = new Event();
+                event.setId(EventEnum.EVENT_TEST_MSG1);
+                EventBus.getDefault().post(event);*/
+
             }
         }
 
         System.out.println(response.toString());
-        System.out.println(progarmPalySceneVos.size());
         System.out.println(publicationPlanVo);
     }
 
@@ -210,17 +232,19 @@ public class ProgramScheduledManager {
 
             int resourceTotle = 1;
 
-            Iterator iterator = progarmPalyInstructionVos.iterator();
+            Iterator iterator = list.iterator();
+
             while (iterator.hasNext()) {
                 //如果是ProgramZip
                 ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
+
                 if (response1.getProgramZipStatus() != 1 && response1.getProgramZip().equals(sqlDownLoadInfo.getTaskID())) {
                     //无需copy到文件
                     response1.setProgramZipStatus(1);
                     Log.e("sqlDownLoadInfo", "setProgramZipStatus下载成功：" + sqlDownLoadInfo.getTaskID());
                     File newfile = new File(FileHelper.getFileDefaultPath() + "/" + response1.getProgramZipName());
                     try {
-                        Log.e("sqlDownLoadInfo", "开始解压："+FileHelper.getFileDefaultPath());
+                        Log.e("sqlDownLoadInfo", "开始解压：" + FileHelper.getFileDefaultPath());
                         ZipUtil.upZipFile(newfile, FileHelper.getFileDefaultPath());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -246,6 +270,13 @@ public class ProgramScheduledManager {
                     response1.setTotalStatus(1);
                     Log.e("sqlDownLoadInfo", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
+
+                    if (ProgramUtil.getWeekPalySchedule(response1)) {
+                        progarmPalyInstructionVos.add(response1);
+                    }
+                    /*Event event = new Event();
+                    event.setId(EventEnum.EVENT_TEST_MSG1);
+                    EventBus.getDefault().post(event);*/
                 }
             }
         }

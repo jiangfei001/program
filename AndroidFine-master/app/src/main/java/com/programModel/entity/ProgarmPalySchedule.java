@@ -1,5 +1,7 @@
 package com.programModel.entity;
 
+import java.util.LinkedList;
+
 /**
  * 节目播放日程
  *
@@ -27,6 +29,8 @@ public class ProgarmPalySchedule {
     private String times;
 
 
+    private LinkedList<ProgarmPalyPlan> ProgarmPalyPlans;
+
     public ProgarmPalySchedule() {
         super();
     }
@@ -35,6 +39,14 @@ public class ProgarmPalySchedule {
         super();
         this.id = id;
         this.dateStr = dateStr;
+    }
+
+    public LinkedList getProgarmPalyPlans() {
+        return ProgarmPalyPlans;
+    }
+
+    public void setProgarmPalyPlans(LinkedList progarmPalyPlans) {
+        ProgarmPalyPlans = progarmPalyPlans;
     }
 
     public String getDateStr() {

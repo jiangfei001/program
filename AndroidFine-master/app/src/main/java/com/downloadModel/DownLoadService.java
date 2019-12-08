@@ -3,32 +3,30 @@ package com.downloadModel;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
-/**
- * 类功能描述：下载器后台服务</br>
- *
- * @author zhuiji7  (470508081@qq.com)
- * @version 1.0
- * </p>
- */
+import com.programModel.ProgramScheduledManager;
 
 public class DownLoadService extends Service {
-    private static DownLoadManager  downLoadManager;
-    
+    private static DownLoadManager downLoadManager;
+
     @Override
     public IBinder onBind(Intent intent) {
         // TODO Auto-generated method stub
         return null;
     }
-    
-    public static DownLoadManager getDownLoadManager(){
+
+    public static DownLoadManager getDownLoadManager() {
         return downLoadManager;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.e("DownLoadService", "DownLoadService" + "onCreate");
         downLoadManager = new DownLoadManager(DownLoadService.this);
+        ProgramScheduledManager programScheduledManager = new ProgramScheduledManager(this);
+        programScheduledManager.initAllProgramTask();
     }
 
     @Override
@@ -42,14 +40,10 @@ public class DownLoadService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        if(downLoadManager == null){
+        if (downLoadManager == null) {
             downLoadManager = new DownLoadManager(DownLoadService.this);
         }
     }
-    
-    
-    
-    
-    
+
 
 }
