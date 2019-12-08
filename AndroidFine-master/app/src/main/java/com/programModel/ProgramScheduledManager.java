@@ -16,8 +16,6 @@ import com.programModel.entity.PublicationPlanVo;
 import com.sgs.jfei.common.AppContext;
 import com.utils.ZipUtil;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -47,6 +45,21 @@ public class ProgramScheduledManager {
         initAllProgramTask();
     }
 
+    //从数据库中获取所有的节目数据
+    public void initAllProgramTask() {
+
+        list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+
+        progarmPalyInstructionVos = new LinkedList<>();
+
+        checkResouce(list);
+
+        manager.setAllTaskListener(new DownloadManagerListener());
+        //启动播放拉
+        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos);
+
+    }
+
     private static ProgramScheduledManager instance;
 
     public static ProgramScheduledManager getInstance() {
@@ -63,31 +76,18 @@ public class ProgramScheduledManager {
 
     //开机的时候，进行节目排期任务启动
 
-    //从数据库中获取所有的节目数据
-    public void initAllProgramTask() {
-        list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
-
-        progarmPalyInstructionVos = new LinkedList<>();
-
-        checkResouce(list);
-
-        manager.setAllTaskListener(new DownloadManagerListener());
-        //启动播放拉
-        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos);
-
-    }
 
     ProgramTaskManager programTaskManager;
 
     public void checkResouce(List<ProgarmPalyInstructionVo> prolist) {
         if (prolist != null && prolist.size() > 0) {
             for (int i = 0; i < prolist.size(); i++) {
-                progarmTest(prolist.get(i));
+                progarmTest(prolist.get(i), false);
             }
         }
     }
 
-    public void progarmTest(ProgarmPalyInstructionVo response) {
+    public void progarmTest(ProgarmPalyInstructionVo response, boolean isInsert) {
 
         String publicationPlanJson = response.getPublicationPlan();
 
@@ -173,17 +173,16 @@ public class ProgramScheduledManager {
                 //判断今天是否播放
                 if (ProgramUtil.getWeekPalySchedule(response)) {
                     progarmPalyInstructionVos.add(response);
+
+                    if (isInsert) {
+                        programTaskManager.startLooperTask();
+                    }
                 }
 
                 Log.e("sqlDownLoadInfo", "所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
                 list.remove(response);
-                //progarmPalyInstructionVos.remove(response);
-                /*Event event = new Event();
-                event.setId(EventEnum.EVENT_TEST_MSG1);
-                EventBus.getDefault().post(event);*/
-
             }
         }
 
@@ -273,6 +272,7 @@ public class ProgramScheduledManager {
 
                     if (ProgramUtil.getWeekPalySchedule(response1)) {
                         progarmPalyInstructionVos.add(response1);
+                        programTaskManager.startLooperTask();
                     }
                     /*Event event = new Event();
                     event.setId(EventEnum.EVENT_TEST_MSG1);

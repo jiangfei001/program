@@ -160,19 +160,23 @@ public class PriorityTimeTask<T extends MyTask> {
                 }
 
             }
-
         }
 
         return false;
     }
 
+    public boolean isRuning = false;
+
     /**
      * 开始任务
      */
     public void startLooperTask() {
-        boolean idone = doneLooper(priorsTasks, priorsCursor);
-        if (idone) {
-            doneLooper(mTasks, cursor);
+        if (priorsTasks.size() > 0 || mTasks.size() > 0) {
+            isRuning = true;
+            boolean idone = doneLooper(priorsTasks, priorsCursor);
+            if (idone) {
+                doneLooper(mTasks, cursor);
+            }
         }
     }
 

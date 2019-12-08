@@ -113,6 +113,12 @@ public class ProgramTaskManager {
 
     }
 
+    public void startLooperTask() {
+
+        myTaskTimeTask.startLooperTask();
+
+    }
+
     private List<MyTask> creatTasks(List<ProgarmPalyInstructionVo> list) {
         LinkedList<MyTask> mytasks = new LinkedList<MyTask>();
 

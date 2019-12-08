@@ -89,15 +89,15 @@ public class TaskProgarm {
                 "\t\"resolution\": \"1376*800\",\n" +
                 "\t\"sceneList\": [{\n" +
                 "\t\t\"playTime\": 11,\n" +
-                "\t\t\"xml\": \"9e4a7e1f45b32b1d1372cbd997d326d7.xml\"\n" +
+                "\t\t\"html\": \"9e4a7e1f45b32b1d1372cbd997d326d7.html\"\n" +
                 "\t}, {\n" +
                 "\t\t\"playTime\": 18,\n" +
-                "\t\t\"xml\": \"6884533148ed4f9ed8bbf1a1b891f1bd.xml\"\n" +
+                "\t\t\"html\": \"6884533148ed4f9ed8bbf1a1b891f1bd.html\"\n" +
                 "\t}],\n" +
                 "\t\"sceneNum\": 2\n" +
                 "}";
         String orgin2 = "{\n" +
-                "\t\"id\": 28,\n" +
+                "\t\"id\": 27,\n" +
                 "\t\"playTime\": 29,\n" +
                 "\t\"programName\": \"节目27\",\n" +
                 "\t\"programResourceList\": [{\n" +
@@ -154,10 +154,10 @@ public class TaskProgarm {
                 "\t\"resolution\": \"1376*800\",\n" +
                 "\t\"sceneList\": [{\n" +
                 "\t\t\"playTime\": 11,\n" +
-                "\t\t\"xml\": \"9e4a7e1f45b32b1d1372cbd997d326d7.xml\"\n" +
+                "\t\t\"html\": \"9e4a7e1f45b32b1d1372cbd997d326d7.html\"\n" +
                 "\t}, {\n" +
                 "\t\t\"playTime\": 18,\n" +
-                "\t\t\"xml\": \"6884533148ed4f9ed8bbf1a1b891f1bd.xml\"\n" +
+                "\t\t\"html\": \"6884533148ed4f9ed8bbf1a1b891f1bd.html\"\n" +
                 "\t}],\n" +
                 "\t\"sceneNum\": 2\n" +
                 "}";
@@ -189,7 +189,9 @@ public class TaskProgarm {
         //保存到节目数据中
         saveToDB();
 
-        List<ProgarmPalyInstructionVo> list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        ProgramScheduledManager.getInstance().progarmTest(response, true);
+
+       /* List<ProgarmPalyInstructionVo> list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
 
         Log.e(TAG, list == null ? "null" : list.size() + "");
 
@@ -204,12 +206,12 @@ public class TaskProgarm {
         if (response.getTotalStatus() != 1) {
             progarmPalyInstructionVos.add(response);
             //判断预设目录下 是否有对应zip包
-            /*服务器一般会有个区分不同文件的唯一ID，用以处理文件重名的情况*/
+            *//*服务器一般会有个区分不同文件的唯一ID，用以处理文件重名的情况*//*
             String taskId;
             String url;
             url = response.getProgramZip();
             taskId = url;
-            /*将任务添加到下载队列，下载器会自动开始下载*/
+            *//*将任务添加到下载队列，下载器会自动开始下载*//*
             //判断 Download 数据库是否是完成状态，是就检查文件是否存在  没有启动下载文件  下载成功则copy到预设目录
             int fileStatue = 1;
             if (response.getProgramZipStatus() != 1) {
@@ -245,7 +247,7 @@ public class TaskProgarm {
                     taskResourceId = resourceurl;
                     String resourceurlFilename = programResourceList.get(i).getFileName();
                     String resourceurlFilenameVirPath = programResourceList.get(i).getVirtualPath();
-                    /*将任务添加到下载队列，下载器会自动开始下载*/
+                    *//*将任务添加到下载队列，下载器会自动开始下载*//*
                     //判断 Download 数据库是否是完成状态，是就检查文件是否存在  没有启动下载文件  下载成功则copy到预设目录
                     File newfile = new File(FileHelper.getFileDefaultPath() + "/" + resourceurlFilenameVirPath);
                     if (!newfile.exists()) {
@@ -275,7 +277,7 @@ public class TaskProgarm {
         }
 
         System.out.println(response.toString());
-        System.out.println(publicationPlanVo);
+        System.out.println(publicationPlanVo);*/
     }
 
     private static class DownloadManagerListener implements DownLoadListener {
