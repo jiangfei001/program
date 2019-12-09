@@ -11,9 +11,6 @@ import com.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
 import com.programModel.entity.ProgarmPalyInstructionVo;
-import com.programModel.entity.ProgarmPalySceneVo;
-import com.programModel.entity.ProgramResource;
-import com.programModel.entity.PublicationPlanVo;
 import com.utils.ZipUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -97,7 +94,7 @@ public class TaskProgarm {
                 "\t\"sceneNum\": 2\n" +
                 "}";
         String orgin2 = "{\n" +
-                "\t\"id\": 27,\n" +
+                "\t\"id\": 28,\n" +
                 "\t\"playTime\": 29,\n" +
                 "\t\"programName\": \"节目27\",\n" +
                 "\t\"programResourceList\": [{\n" +

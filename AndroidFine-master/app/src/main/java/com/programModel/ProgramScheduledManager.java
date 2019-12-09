@@ -73,10 +73,7 @@ public class ProgramScheduledManager {
         return instance;
     }
 
-
     //开机的时候，进行节目排期任务启动
-
-
     ProgramTaskManager programTaskManager;
 
     public void checkResouce(List<ProgarmPalyInstructionVo> prolist) {
