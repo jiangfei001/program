@@ -1,7 +1,9 @@
 package com.websocketmodel;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,12 +26,14 @@ import com.taskModel.TVTask;
 import com.programModel.TaskProgarm;
 import com.taskModel.TaskQueue;
 import com.taskModel.taskFactory.TaskFactory;
+import com.utils.StringUtils;
 import com.yuzhi.fine.R;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -166,6 +170,10 @@ public class WebSocketActivity extends EventActivity {
     protected void onDestroy() {
         super.onDestroy();
         WebSocketHandler.getDefault().removeListener(socketListener);
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
     }
 
     private void appendMsgDisplay(String msg) {
@@ -200,6 +208,14 @@ public class WebSocketActivity extends EventActivity {
 
                 if (isPlayMusic) {
                     //控制音乐的播放与暂停
+                    if (!mediaPlayer.isPlaying()) {
+                        mediaPlayer.start();
+                    } else {
+                        //pause
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.pause();
+                        }
+                    }
                 }
                 Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
                 webView.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
@@ -214,10 +230,75 @@ public class WebSocketActivity extends EventActivity {
                 Map event1 = mEvent.getParams();
                 musicList = (List<ProgramResource>) event1.get(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC);
                 //reset播放
-
+                if (musicList != null && musicList.size() > 0) {
+                    mediaPlayer.reset();
+                    initMediaPlayer();
+                    setComp();
+                } else {
+                    if (mediaPlayer != null) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                    }
+                }
                 break;
         }
     }
 
     List<ProgramResource> musicList;
+    int index = 0;
+    /**
+     * 规定开始音乐、暂停音乐、结束音乐的标志
+     */
+    public static final int PLAT_MUSIC = 1;
+    public static final int PAUSE_MUSIC = 2;
+    public static final int STOP_MUSIC = 3;
+
+    private void initMediaPlayer() {
+        try {
+            String path = null;
+            ProgramResource programResource = musicList.get(index);
+            if (!StringUtils.isEmpty(programResource.getVirtualPath())) {
+                path = "file://" + FileHelper.getFileDefaultPath() + "/" + programResource.getVirtualPath();
+                Log.e(TAG, "path" + path);
+            }//想要添加判断 是否找到music.map3
+            Toast.makeText(WebSocketActivity.this, "the sd have not music.mp3", Toast.LENGTH_SHORT).show();
+            mediaPlayer.setDataSource(path);//指定音频路径
+            mediaPlayer.prepare();
+            //为播放器添加播放完成时的监听器
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setComp() {
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                index = index + 1;
+                if (index > musicList.size()) {
+                    index = 0;
+                }
+                initMediaPlayer();
+                mediaPlayer.start();
+            }
+        });
+    }
+
+    /* case R.id.play:
+                if(!mediaPlayer.isPlaying()){
+                mediaPlayer.start();//
+                }
+                break;
+            case R.id.pause:
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.pause();
+                }
+                break;
+            case R.id.stop:
+                if (mediaPlayer.isPlaying()){
+                    mediaPlayer.reset();
+                    initMediaPlayer();
+                }
+                break;*/
+
 }
