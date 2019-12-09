@@ -1,5 +1,6 @@
 package com.websocketmodel;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.eventControlModel.Event;
 import com.eventControlModel.EventEnum;
 import com.eventControlModel.EventManager;
 import com.programModel.ProgramScheduledManager;
+import com.programModel.entity.ProgramResource;
 import com.qiniuModel.QiniuUpHelper;
 import com.taskModel.TVTask;
 import com.programModel.TaskProgarm;
@@ -28,6 +30,8 @@ import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WebSocketActivity extends EventActivity {
@@ -37,6 +41,9 @@ public class WebSocketActivity extends EventActivity {
     private TextView tvMsg;
     private ScrollView scrollView;
     WebView webView;
+
+    private MediaPlayer mediaPlayer = new MediaPlayer();//实例化对象
+
     private SocketListener socketListener = new SimpleListener() {
         @Override
         public void onConnected() {
@@ -184,15 +191,33 @@ public class WebSocketActivity extends EventActivity {
             case EVENT_TEST_MSG1:
                 Log.d(this.getClass().getName(), "我收到消息啦");
                 webView.getSettings().setJavaScriptEnabled(true);
-                String path = mEvent.getPath();
+
+                HashMap<EventEnum, Object> hashMap = mEvent.getParams();
+
+                boolean isPlayMusic = (boolean) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC);
+
+                String path = (String) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH);
+
+                if (isPlayMusic) {
+                    //控制音乐的播放与暂停
+                }
                 Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
                 webView.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
+
                 break;
             case EVENT_TEST_MSG2:
                 Map event = mEvent.getParams();
                 String msg = (String) event.get(EventEnum.EVENT_TEST_MSG2_KEY);
                 appendMsgDisplay(msg);
                 break;
+            case EVENT_TEST_SETMUSIC:
+                Map event1 = mEvent.getParams();
+                musicList = (List<ProgramResource>) event1.get(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC);
+                //reset播放
+
+                break;
         }
     }
+
+    List<ProgramResource> musicList;
 }

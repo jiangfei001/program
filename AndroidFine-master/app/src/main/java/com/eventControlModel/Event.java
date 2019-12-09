@@ -7,18 +7,9 @@ public class Event {
 
     public EventEnum id;
 
-    public String path;
-
 
     public HashMap<EventEnum, Object> params = new HashMap<EventEnum, Object>();
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 
     public EventEnum getId() {
         return id;

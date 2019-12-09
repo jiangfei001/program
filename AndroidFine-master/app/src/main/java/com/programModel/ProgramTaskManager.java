@@ -16,6 +16,7 @@ import com.programModel.taskUtil.TimeHandler;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,9 +39,20 @@ public class ProgramTaskManager {
             //控制html的播放时长
             nowProgarmPalyInstructionVo = mTask.getProgarmPalyInstructionVo();
             nowProgarmPalySceneVos = JSON.parseArray(nowProgarmPalyInstructionVo.getSceneList(), ProgarmPalySceneVo.class);
-            //通知播放
-            //控制播放时间
-            startRunScence();
+            if (nowProgarmPalySceneVos != null && nowProgarmPalySceneVos.size() > 0) {
+                //通知播放 控制播放时间
+                //通知播放音乐
+                if (nowProgarmPalyInstructionVo.getProgramMusicListArray() != null && nowProgarmPalyInstructionVo.getProgramMusicListArray().size() > 0) {
+                    Event event = new Event();
+                    HashMap<EventEnum, Object> params = new HashMap();
+                    params.put(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC, nowProgarmPalyInstructionVo.getProgramMusicListArray());
+                    event.setParams(params);
+                    event.setId(EventEnum.EVENT_TEST_SETMUSIC);
+                    EventBus.getDefault().post(event);
+                }
+
+                startRunScence();
+            }
         }
 
         @Override
@@ -64,6 +76,7 @@ public class ProgramTaskManager {
         } else {
         }
     }
+
 
     Handler handler = new Handler() {
         @Override
@@ -90,8 +103,11 @@ public class ProgramTaskManager {
         Log.e(TAG, "sendPlayHtml time:" + time);
 
         Event event = new Event();
+        HashMap<EventEnum, Object> params = new HashMap();
+        params.put(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC, progarmPalySceneVo.isPalyMusic());
+        params.put(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH, htmlPath);
+        event.setParams(params);
         event.setId(EventEnum.EVENT_TEST_MSG1);
-        event.setPath(htmlPath);
         EventBus.getDefault().post(event);
 
         return time;
