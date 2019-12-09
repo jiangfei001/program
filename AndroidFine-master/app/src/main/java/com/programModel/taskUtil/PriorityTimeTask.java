@@ -21,6 +21,8 @@ import static android.content.Context.ALARM_SERVICE;
 
 public class PriorityTimeTask<T extends MyTask> {
 
+    public String TAG = "PriorityTimeTask";
+
     private int priors = 0;
     private List<TimeHandler> mTimeHandlers = new ArrayList<TimeHandler>();
     private static PendingIntent mPendingIntent;
@@ -66,6 +68,15 @@ public class PriorityTimeTask<T extends MyTask> {
             mTempTasks = mES;
         } else {
             this.mTasks = mES;
+        }
+    }
+
+    public void setPriTasks(List<T> mES) {
+        cursorInit();
+        if (mTempTasks != null) {
+            mTempTasks = mES;
+        } else {
+            this.priorsTasks = mES;
         }
     }
 
@@ -125,13 +136,14 @@ public class PriorityTimeTask<T extends MyTask> {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             //启动下一次任务
+            Log.e(TAG, "开始执行startLooperTask");
             startLooperTask();
             return;
         }
     };
 
     public boolean doneLooper(List<T> tasklist, Integer cursor) {
-        ptmHandler.removeMessages(1);
+
         if (tasklist.size() > cursor) {
         } else {
             cursor = 0;
@@ -153,7 +165,8 @@ public class PriorityTimeTask<T extends MyTask> {
                         for (TimeHandler mTimeHandler : mTimeHandlers) {
                             mTimeHandler.exeTask(mTask);
                             //预设下一个节目播放
-                            mHandler.sendEmptyMessageDelayed(1, mTask.getEndTime() - mTask.getStarTime());
+                            Log.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
+                            mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
                         }
                         return true;
                     }
@@ -264,6 +277,10 @@ public class PriorityTimeTask<T extends MyTask> {
     public void onColse() {
         mContext.unregisterReceiver(receiver);
         mContext = null;
+    }
+
+    public void addPriorsTask(T bobTask) {
+        priorsTasks.add(bobTask);
     }
 
     public class TimeTaskReceiver extends BroadcastReceiver {

@@ -25,8 +25,7 @@ public class DownLoadService extends Service {
         super.onCreate();
         Log.e("DownLoadService", "DownLoadService" + "onCreate");
         downLoadManager = new DownLoadManager(DownLoadService.this);
-        ProgramScheduledManager programScheduledManager = new ProgramScheduledManager(this);
-        programScheduledManager.initAllProgramTask();
+        ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
     }
 
     @Override

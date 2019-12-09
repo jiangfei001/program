@@ -32,6 +32,7 @@ import java.util.Map;
 
 public class WebSocketActivity extends EventActivity {
 
+    private String TAG = "WebSocketActivity";
     private EditText etContent;
     private TextView tvMsg;
     private ScrollView scrollView;
@@ -76,8 +77,7 @@ public class WebSocketActivity extends EventActivity {
     TaskQueue taskQueue;
 
     public void initSchedule() {
-        ProgramScheduledManager programScheduledManager = new ProgramScheduledManager(this);
-        programScheduledManager.initAllProgramTask();
+        ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
     }
 
     @Override
@@ -185,7 +185,7 @@ public class WebSocketActivity extends EventActivity {
                 Log.d(this.getClass().getName(), "我收到消息啦");
                 webView.getSettings().setJavaScriptEnabled(true);
                 String path = mEvent.getPath();
-                Log.e("EVENT_TEST_MSG1", "file://" + FileHelper.getFileDefaultPath() + "/" + path);
+                Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
                 webView.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
                 break;
             case EVENT_TEST_MSG2:

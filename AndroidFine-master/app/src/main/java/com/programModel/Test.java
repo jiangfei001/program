@@ -1,6 +1,7 @@
 package com.programModel;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.programModel.taskUtil.MyTask;
@@ -38,7 +39,7 @@ public class Test {
 
     protected void onCreate(Context context) {
         // TODO: 2017/11/8  创建一个任务处理器
-        myTaskTimeTask = new PriorityTimeTask<>(context, ACTION);
+        myTaskTimeTask = new PriorityTimeTask<>(context, ACTION, new Handler());
 
         // TODO: 2017/11/8   添加时间回掉
         myTaskTimeTask.addHandler(timeHandler);

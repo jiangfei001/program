@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.downloadModel.DownLoadService;
-import com.programModel.ProgramScheduledManager;
 import com.websocketmodel.AppResponseDispatcher;
 import com.websocketmodel.WebSocketClientManger;
 import com.zhangke.websocket.WebSocketHandler;
@@ -80,9 +79,8 @@ public class AppContext extends Application {
         WebSocketClientManger.getInstance();
     }
 
-    public void initSchedule() {
-        ProgramScheduledManager programScheduledManager = new ProgramScheduledManager(this);
-        programScheduledManager.initAllProgramTask();
-    }
+/*    public void initSchedule() {
+        ProgramScheduledManager programScheduledManager = new ProgramScheduledManager.getInstance();
+    }*/
 
 }

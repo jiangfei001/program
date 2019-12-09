@@ -33,7 +33,7 @@ public class ProgramTaskManager {
         public void exeTask(MyTask mTask) {
             handler.removeMessages(1);
             //通知webview进行播放
-            Log.e("TAG", "我是现在真正执行" + mTask.name);
+            Log.e(TAG, "我是现在真正执行" + mTask.name);
             nowMyTask = mTask;
             //控制html的播放时长
             nowProgarmPalyInstructionVo = mTask.getProgarmPalyInstructionVo();
@@ -45,31 +45,34 @@ public class ProgramTaskManager {
 
         @Override
         public void overdueTask(MyTask mTask) {
-            Log.e("TAG", "我的生命周期已经到了" + mTask.name);
+            Log.e(TAG, "我的生命周期已经到了" + mTask.name);
         }
 
         @Override
         public void futureTask(MyTask mTask) {
-            Log.e("TAG", "未来的会执行我" + mTask.name);
+            Log.e(TAG, "未来的会执行我" + mTask.name);
         }
     };
 
     public void startRunScence() {
+        Log.e(TAG, "startRunScence11");
         int time = sendPlayHtml(0);
         nowscene = 1;
         if (nowProgarmPalySceneVos.size() > 1) {
-            handler.sendEmptyMessageDelayed(1, time);
+            Log.e(TAG, "startRunScence12:" + nowProgarmPalySceneVos.size() + "time:" + time);
+            handler.sendEmptyMessageDelayed(1, time * 1000);
         } else {
         }
-
     }
 
-    android.os.Handler handler = new Handler() {
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(final Message msg) {
             int time1 = sendPlayHtml(nowscene);
+            Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene + "time1" + time1);
             if (++nowscene < nowProgarmPalySceneVos.size()) {
-                handler.sendEmptyMessageDelayed(1, time1);
+                Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene);
+                handler.sendEmptyMessageDelayed(1, time1 * 1000);
             } else {
                 //nowscene = 0;
             }
@@ -78,12 +81,13 @@ public class ProgramTaskManager {
 
 
     private int sendPlayHtml(int index) {
-        String html = nowProgarmPalySceneVos.get(index).getHtml();
-        Log.e("TAG", "startRunScence html:" + html);
-        String htmlPath = nowProgarmPalyInstructionVo.getProgramName() + "/" + html;
-        Log.e("TAG", "startRunScence htmlPath:" + htmlPath);
-        int time = nowProgarmPalySceneVos.get(index).getPlayTime();
-        Log.e("TAG", "startRunScence time:" + time);
+        ProgarmPalySceneVo progarmPalySceneVo = nowProgarmPalySceneVos.get(index);
+        String html = progarmPalySceneVo.getHtml();
+        Log.e(TAG, "sendPlayHtml html:" + html);
+        String htmlPath = "project_" + nowProgarmPalyInstructionVo.getId() + "/" + html;
+        Log.e(TAG, "sendPlayHtml htmlPath:" + htmlPath);
+        int time = progarmPalySceneVo.getPlayTime();
+        Log.e(TAG, "sendPlayHtml time:" + time);
 
         Event event = new Event();
         event.setId(EventEnum.EVENT_TEST_MSG1);
@@ -108,7 +112,7 @@ public class ProgramTaskManager {
         List<MyTask> myTasks = creatTasks(list);
 
         // TODO: 2017/11/8 把资源放进去处理
-        myTaskTimeTask.setTasks(myTasks);
+        myTaskTimeTask.setPriTasks(myTasks);
         myTaskTimeTask.startLooperTask();
 
     }
@@ -117,6 +121,12 @@ public class ProgramTaskManager {
 
         myTaskTimeTask.startLooperTask();
 
+    }
+
+    public void addTask(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
+        MyTask bobTask = new MyTask();
+        bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
+        myTaskTimeTask.addPriorsTask(bobTask);
     }
 
     private List<MyTask> creatTasks(List<ProgarmPalyInstructionVo> list) {

@@ -35,7 +35,7 @@ public class ProgramScheduledManager {
 
     DownLoadManager manager;
 
-    public ProgramScheduledManager(Context context) {
+    private ProgramScheduledManager(Context context) {
         this.context = context;
         manager = DownLoadService.getDownLoadManager();
         /*设置用户ID，客户端切换用户时可以显示相应用户的下载任务*/
@@ -79,12 +79,16 @@ public class ProgramScheduledManager {
     public void checkResouce(List<ProgarmPalyInstructionVo> prolist) {
         if (prolist != null && prolist.size() > 0) {
             for (int i = 0; i < prolist.size(); i++) {
-                progarmTest(prolist.get(i), false);
+                doProgarm(prolist.get(i), false);
             }
         }
     }
 
-    public void progarmTest(ProgarmPalyInstructionVo response, boolean isInsert) {
+    public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert) {
+
+        if (isInsert) {
+            list.add(response);
+        }
 
         String publicationPlanJson = response.getPublicationPlan();
 
@@ -113,13 +117,13 @@ public class ProgramScheduledManager {
             if (response.getProgramZipStatus() != 1) {
                 File newfile = new File(FileHelper.getFileDefaultPath() + "/" + response.getProgramZipName());
                 if (!newfile.exists()) {
+                    //需要下载
+                    fileStatue = 0;
                     int download = manager.addTask(taskId, url, response.getProgramZipName());
                     if (download == 0) {
                         //下载成功则copy到预设目录
                         Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在下载库里面了！");
                     } else if (download == 1) {
-                        //需要下载
-                        fileStatue = 0;
                         Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "需要下载！,正在监听");
                     } else {
                         Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "数据库框架判断文件存在，但是实际不在！");
@@ -143,18 +147,18 @@ public class ProgramScheduledManager {
                     taskResourceId = resourceurl;
                     String resourceurlFilename = programResourceList.get(i).getFileName();
                     String resourceurlFilenameVirPath = programResourceList.get(i).getVirtualPath();
-                    /*将任务添加到下载队列，下载器会自动开始下载*/
+                    //*将任务添加到下载队列，下载器会自动开始下载
                     //判断 Download 数据库是否是完成状态，是就检查文件是否存在  没有启动下载文件  下载成功则copy到预设目录
                     File newfile = new File(FileHelper.getFileDefaultPath() + "/" + resourceurlFilenameVirPath);
                     if (!newfile.exists()) {
-                        int resourcedownload = manager.addTask(taskResourceId, resourceurl, newfile.getPath());
+                        //需要下载
+                        fileStatue = 0;
+                        int resourcedownload = manager.addTask(taskResourceId, resourceurl, resourceurlFilename, newfile.getPath());
                         if (resourcedownload == 0) {
                             //文件已经存在
                             Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
                         } else if (resourcedownload == 1) {
                             Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "需要下载！,正在监听");
-                            //需要下载
-                            fileStatue = 0;
                         } else {
                             Log.e("sqlDownLoadInfo", "resourceurlFilename:" + resourceurlFilename + "数据库框架判断文件存在，但是实际不在！");
                         }
@@ -166,16 +170,19 @@ public class ProgramScheduledManager {
             }
 
             if (fileStatue == 1) {
-
+                Log.e(TAG, "fileStatue == 1：");
                 //判断今天是否播放
                 if (ProgramUtil.getWeekPalySchedule(response)) {
+                    Log.e(TAG, "getWeekPalySchedule：");
                     progarmPalyInstructionVos.add(response);
                     if (progarmPalyInstructionVos.size() == 1 && isInsert) {
+                        Log.e(TAG, "progarmPalyInstructionVos.size() == 1 && isInsert");
+                        programTaskManager.addTask(response);
                         programTaskManager.startLooperTask();
                     }
                 }
 
-                Log.e("sqlDownLoadInfo", "所有资源都存在：" + response.getId());
+                Log.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
                 list.remove(response);
@@ -232,7 +239,6 @@ public class ProgramScheduledManager {
             while (iterator.hasNext()) {
                 //如果是ProgramZip
                 ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
-
                 if (response1.getProgramZipStatus() != 1 && response1.getProgramZip().equals(sqlDownLoadInfo.getTaskID())) {
                     //无需copy到文件
                     response1.setProgramZipStatus(1);
@@ -244,6 +250,7 @@ public class ProgramScheduledManager {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                 }
 
                 for (int i = 0; i < response1.getProgramResourceListArray().size(); i++) {
@@ -258,24 +265,23 @@ public class ProgramScheduledManager {
                 }
 
                 if (response1.getProgramZipStatus() != 1) {
-                    Log.e("sqlDownLoadInfo", "zip还没有下载成功：" + sqlDownLoadInfo.getTaskID());
+                    Log.e("DownloadManagerListener", "zip还没有下载成功：" + sqlDownLoadInfo.getTaskID());
                     resourceTotle = 0;
                 }
                 if (resourceTotle == 1) {
                     response1.setTotalStatus(1);
-                    Log.e("sqlDownLoadInfo", "onSuccess所有资源都存在：" + response1.getId());
+                    Log.e("DownloadManagerListener", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
 
                     if (ProgramUtil.getWeekPalySchedule(response1)) {
+                        Log.e("DownloadManagerListener", "getWeekPalySchedule：" + response1.getId());
                         progarmPalyInstructionVos.add(response1);
-                        if (progarmPalyInstructionVos.size() == 1 && true) {
+                        programTaskManager.addTask(response1);
+                        if (progarmPalyInstructionVos.size() == 1) {
+                            Log.e("DownloadManagerListener", "startLooperTask：" + response1.getId());
                             programTaskManager.startLooperTask();
                         }
-                        /* programTaskManager.startLooperTask();*/
                     }
-                    /*Event event = new Event();
-                    event.setId(EventEnum.EVENT_TEST_MSG1);
-                    EventBus.getDefault().post(event);*/
                 }
             }
         }
@@ -283,11 +289,7 @@ public class ProgramScheduledManager {
         @Override
         public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
             //根据监听到的信息查找列表相对应的任务，停止该任务
-            Log.e("sqlDownLoadInfo", "sqlDownLoadInfo11" + sqlDownLoadInfo.getTaskID());
-            /*if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-
-            }*/
+            Log.e("sqlDownLoadInfo ", "sqlDownLoadInfo11 onError" + sqlDownLoadInfo.getTaskID());
         }
     }
-
 }

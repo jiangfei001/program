@@ -159,9 +159,9 @@ public class TaskProgarm {
                 "\t\"sceneNum\": 2\n" +
                 "}";
         progarmTest(manager, orgin);
-        progarmTest(manager, orgin2);
+        // progarmTest(manager, orgin2);
 
-        manager.setAllTaskListener(new DownloadManagerListener());
+       /* manager.setAllTaskListener(new DownloadManagerListener());*/
     }
 
     static List<ProgarmPalyInstructionVo> progarmPalyInstructionVos = new ArrayList<>();
@@ -186,7 +186,7 @@ public class TaskProgarm {
         //保存到节目数据中
         saveToDB();
 
-        ProgramScheduledManager.getInstance().progarmTest(response, true);
+        ProgramScheduledManager.getInstance().doProgarm(response, true);
 
        /* List<ProgarmPalyInstructionVo> list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
 
@@ -215,7 +215,7 @@ public class TaskProgarm {
                 File newfile = new File(FileHelper.getFileDefaultPath() + "/" + response.getProgramZipName());
                 if (!newfile.exists()) {
                     fileStatue = 0;
-                    int download = manager.addTask(taskId, url, response.getProgramZipName());
+                    int download = manager.addPriorsTask(taskId, url, response.getProgramZipName());
                     if (download == 0) {
                         //下载成功则copy到预设目录
                         Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在下载库里面了！");
@@ -249,7 +249,7 @@ public class TaskProgarm {
                     File newfile = new File(FileHelper.getFileDefaultPath() + "/" + resourceurlFilenameVirPath);
                     if (!newfile.exists()) {
                         fileStatue = 0;
-                        int resourcedownload = manager.addTask(taskResourceId, resourceurl, resourceurlFilename, newfile.getPath());
+                        int resourcedownload = manager.addPriorsTask(taskResourceId, resourceurl, resourceurlFilename, newfile.getPath());
                         if (resourcedownload == 0) {
                             //文件已经存在
                             Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
