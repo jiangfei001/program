@@ -173,8 +173,7 @@ public class ProgramScheduledManager {
                 //判断今天是否播放
                 if (ProgramUtil.getWeekPalySchedule(response)) {
                     progarmPalyInstructionVos.add(response);
-
-                    if (isInsert) {
+                    if (progarmPalyInstructionVos.size() == 1 && isInsert) {
                         programTaskManager.startLooperTask();
                     }
                 }
@@ -272,7 +271,10 @@ public class ProgramScheduledManager {
 
                     if (ProgramUtil.getWeekPalySchedule(response1)) {
                         progarmPalyInstructionVos.add(response1);
-                        programTaskManager.startLooperTask();
+                        if (progarmPalyInstructionVos.size() == 1 && true) {
+                            programTaskManager.startLooperTask();
+                        }
+                        /* programTaskManager.startLooperTask();*/
                     }
                     /*Event event = new Event();
                     event.setId(EventEnum.EVENT_TEST_MSG1);
