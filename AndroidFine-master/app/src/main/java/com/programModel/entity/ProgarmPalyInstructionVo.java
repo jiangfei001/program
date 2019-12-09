@@ -51,7 +51,31 @@ public class ProgarmPalyInstructionVo {
 
     PublicationPlanVo publicationPlanObject;
 
+    /**
+     * 节目资源列表 数据库中只保存json
+     */
+    @DatabaseField
+    private String programMusicList;
+
     List<ProgramResource> programResourceListArray;
+
+    List<ProgramResource> programMusicListArray;
+
+    public String getProgramMusicList() {
+        return programMusicList;
+    }
+
+    public void setProgramMusicList(String programMusicList) {
+        this.programMusicList = programMusicList;
+    }
+
+    public List<ProgramResource> getProgramMusicListArray() {
+        return programMusicListArray;
+    }
+
+    public void setProgramMusicListArray(List<ProgramResource> programMusicListArray) {
+        this.programMusicListArray = programMusicListArray;
+    }
 
     public PublicationPlanVo getPublicationPlanObject() {
         return publicationPlanObject;

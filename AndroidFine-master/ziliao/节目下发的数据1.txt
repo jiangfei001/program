@@ -1,6 +1,6 @@
 {
 	"id": 27,
-	"playTime": 29,
+	"playTime": 27,
 	"programName": "节目27",
 	"programResourceList": [{
 		"fileName": "0e5e4cc4f12a72f37a0019707d333f49.jpg",

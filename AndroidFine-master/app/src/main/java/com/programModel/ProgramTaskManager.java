@@ -72,10 +72,10 @@ public class ProgramTaskManager {
             Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene + "time1" + time1);
             if (++nowscene < nowProgarmPalySceneVos.size()) {
                 Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene);
-                handler.sendEmptyMessageDelayed(1, time1 * 1000);
             } else {
-                //nowscene = 0;
+                nowscene = 0;
             }
+            handler.sendEmptyMessageDelayed(1, time1 * 1000);
         }
     };
 

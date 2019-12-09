@@ -17,6 +17,8 @@ public class ProgarmPalySceneVo {
     private int playTime;
 
 
+    private boolean palyMusic;
+
     public ProgarmPalySceneVo() {
         super();
     }
@@ -25,6 +27,14 @@ public class ProgarmPalySceneVo {
         super();
         this.html = html;
         this.playTime = playTime;
+    }
+
+    public boolean isPalyMusic() {
+        return palyMusic;
+    }
+
+    public void setPalyMusic(boolean palyMusic) {
+        this.palyMusic = palyMusic;
     }
 
     public String getHtml() {
