@@ -1,0 +1,85 @@
+{
+	"id": 29,
+	"playTime": 35,
+	"programMusicList": [{
+		"fileName": "201907171051531430.mp4",
+		"id": 29,
+		"status": 0,
+		"url": "http://q0u8hijil.bkt.clouddn.com/admin/201912/01/fdf63c7160f0493f864d9cd3a7c053bb.mp4",
+		"virtualPath": "admin/201912/01/fdf63c7160f0493f864d9cd3a7c053bb.mp4"
+	}, {
+		"fileName": "58.jpg",
+		"id": 21,
+		"status": 0,
+		"url": "https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20181217/337a38b7bf13416180b661eef3a10c00.mp4",
+		"virtualPath": "admin/201911/12/337a38b7bf13416180b661eef3a10c00.mp4"
+	}],
+	"programName": "4444",
+	"programResourceList": [{
+		"fileName": "201911291223536548.mp4",
+		"id": 25,
+		"status": 0,
+		"url": "http://q0u8hijil.bkt.clouddn.com/admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4",
+		"virtualPath": "admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4"
+	}, {
+		"fileName": "56.jpg",
+		"id": 20,
+		"status": 0,
+		"url": "http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg",
+		"virtualPath": "admin/201911/12/ac3274a595b74c899798a80a5d5a2f87.jpg"
+	}, {/Users/jiangfei/Downloads/project_29/6b7a2959a4a5565f711e0906a59fa7c2.html
+		"fileName": "cdfdd.png",
+		"id": 19,
+		"status": 0,
+		"url": "http://yanxuan.nosdn.127.net/0e5e4cc4f12a72f37a0019707d333f49.jpg",
+		"virtualPath": "admin/201911/12/0e5e4cc4f12a72f37a0019707d333f49.jpg"
+	}],
+	"programZip": "http://q0u8hijil.bkt.clouddn.com/system/20191209/d4915ca9ac37463aa9b064fef203543a.zip",
+	"publicationPlan": {
+		"customizedPalySchedule": [],
+		"deadline": "2019-12-31 00:00",
+		"deadlineV": "2019-12-31 00:00",
+		"exclusive": true,
+		"planType": 1,
+		"weekPalySchedule": [{
+			"dateStr": "星期一",
+			"id": 1,
+			"times": "05:00-08:00|16:00-18:00"
+		}, {
+			"dateStr": "星期二",
+			"id": 2,
+			"times": "05:00-08:00|16:00-18:00"
+		}, {
+			"dateStr": "星期三",
+			"id": 3,
+			"times": "05:00-08:00|16:00-18:00"
+		}, {
+			"dateStr": "星期四",
+			"id": 4,
+			"times": "05:00-08:00|16:00-18:00"
+		}, {
+			"dateStr": "星期五",
+			"id": 5,
+			"times": "05:00-08:00|16:00-18:00"
+		}, {
+			"dateStr": "星期六",
+			"id": 6,
+			"times": "05:00-08:00|16:00-18:00"
+		}, {
+			"dateStr": "星期日",
+			"id": 7,
+			"times": "05:00-08:00|16:00-18:00"
+		}]
+	},
+	"resolution": "1376*800",
+	"sceneList": [{
+		"palyMusic": true,
+		"playTime": 15,
+		"html": "6b7a2959a4a5565f711e0906a59fa7c2.html"
+	}, {
+		"palyMusic": true,
+		"playTime": 20,
+		"html": "e4cccedc659e1d6d2883755952a62144.html"
+	}],
+	"sceneNum": 2
+}

@@ -1,0 +1,5 @@
+
+nsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ŠåÌ¼
+ˆsquid:S1319"sThe type of the "listdata" object should be an interface such as "List" rather than the implementation "ArrayList".(…Ÿ›
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—Áìÿÿÿÿÿ
+›squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—™³îşÿÿÿÿ

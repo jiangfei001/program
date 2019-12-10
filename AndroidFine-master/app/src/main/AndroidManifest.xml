@@ -46,7 +46,12 @@
             android:screenOrientation="portrait" />
 
         <service android:name="com.downloadModel.DownLoadService" />
+        <service
+            android:name="com.websocketmodel.PlayingMusicServices"
+            android:enabled="true"
+            android:exported="true" />
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />

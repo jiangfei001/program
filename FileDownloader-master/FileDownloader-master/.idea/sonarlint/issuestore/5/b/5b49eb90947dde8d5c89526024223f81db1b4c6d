@@ -1,0 +1,39 @@
+
+Ysquid:S3398"?Move this method into the anonymous class declared at line 429.(–¿¾úıÿÿÿÿ
+]squid:S4042"IUse "java.nio.Files#delete" here for better messages on error conditions.(Ìí—I
+^squid:S4042"IUse "java.nio.Files#delete" here for better messages on error conditions.(áíÁµ
+Ssquid:S3398"?Move this method into the anonymous class declared at line 429.(ûĞ…
+^squid:S4042"IUse "java.nio.Files#delete" here for better messages on error conditions.(Ôş‰±
+psquid:S00116"URename this field "TASK_START" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹‹–¯üÿÿÿÿ
+O
+squid:S899";Do something with the "boolean" value returned by "delete".(áíÁµ
+\squid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(àæ¥º
+9squid:S2438""downLoadThread" is a "Thread".(ôüÔıÿÿÿÿ
+dsquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄîÕ¸
+rsquid:S00116"WRename this field "TASK_PROGESS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚„Ëşÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+9squid:S2438""downLoadThread" is a "Thread".(ôüÔıÿÿÿÿ
+_squid:S3027"JPut single-quotes around '/' to use the faster "lastIndexOf(char)" method.(Ò½ƒ¶
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+N
+squid:S899";Do something with the "boolean" value returned by "delete".(Ìí—I
+gsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 57 to the 15 allowed.(“–ış
+Dsquid:S2093"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+4squid:S2438""downLoadThread" is a "Thread".(²ìäâ
+Tsquid:S3398"?Move this method into the anonymous class declared at line 429.(˜˜«Û
+<squid:S3398"'Move this method into "DownLoadThread".(ŠÒ½„
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+psquid:S00116"URename this field "TASK_ERROR" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å…ª‹üÿÿÿÿ
+Ysquid:S3398"?Move this method into the anonymous class declared at line 429.(œ½ıüÿÿÿÿ
+rsquid:S00116"WRename this field "TASK_SUCCESS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò‡¾üÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Ysquid:S3398"?Move this method into the anonymous class declared at line 429.(Ò²¿äûÿÿÿÿ
+jsquid:S00116"TRename this field "TASK_STOP" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕËîÿ
+Lsquid:S1135"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ
+O
+squid:S899";Do something with the "boolean" value returned by "delete".(Ôş‰±
+gsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÍí‡
+gsquid:S1450"RRemove the "url" field and declare it as a local variable in the relevant methods.(¹ÕÜ
+nsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¿ê†¥
+ssquid:S00116"XRename this field "TEMP_FILEPATH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÖÀŞûÿÿÿÿ

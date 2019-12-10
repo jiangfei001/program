@@ -1,0 +1,15 @@
+
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+@squid:S1075"&Remove this hard-coded path-delimiter.(§¿ûÿÿÿÿ
+Isquid:EmptyStatementUsageCheck"Remove this empty statement.(ôŸìúÿÿÿÿ
+Isquid:EmptyStatementUsageCheck"Remove this empty statement.(ôŸìúÿÿÿÿ
+@squid:S1075"&Remove this hard-coded path-delimiter.(ŸÌÅşÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+`squid:S3027"FPut single-quotes around ')' to use the faster "indexOf(char)" method.(÷âûıÿÿÿÿ
+;squid:S1075"&Remove this hard-coded path-delimiter.(ˆ˜–¿
+Dsquid:S2093"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+[
+squid:S899"BDo something with the "boolean" value returned by "createNewFile".(ôü¿Ÿÿÿÿÿÿ
+@squid:S1075"&Remove this hard-coded path-delimiter.(Õëíóûÿÿÿÿ

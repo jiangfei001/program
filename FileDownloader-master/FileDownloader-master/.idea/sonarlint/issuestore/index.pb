@@ -1,0 +1,31 @@
+
+
+Oapp/src/main/java/com/zhuiji7/filedownloader/download/dbcontrol/FileHelper.java,9/e/9eb4f3d3ae4a65496f6e603c278cf4ed12c05e48
+
+Oapp/src/main/java/com/zhuiji7/filedownloader/download/dbcontrol/DataKeeper.java,1/0/106aa354d7e1dccf7deb642cdf24b5e864d919f9
+Å
+Qapp/src/main/java/com/zhuiji7/filedownloader/download/dbcontrol/SQLiteHelper.java,3/2/32e599954380e4127da446b682391790c8f01f9f
+{
+Kapp/src/main/java/com/zhuiji7/filedownloader/download/DownLoadListener.java,5/0/50e27d53b51412f6d70f8ed505e6d4a99de57288
+{
+Kapp/src/main/java/com/zhuiji7/filedownloader/download/DownLoadFileInfo.java,a/0/a083f34989864993a453b1a484972b06697ce3bf
+u
+Eapp/src/main/java/com/zhuiji7/filedownloader/download/DownLoader.java,5/b/5b49eb90947dde8d5c89526024223f81db1b4c6d
+â
+Yapp/src/main/java/com/zhuiji7/filedownloader/download/dbcontrol/bean/SQLDownLoadInfo.java,4/a/4ac1108e8c416d5970ffb346adeeec74825b0aae
+s
+Capp/src/main/java/com/zhuiji7/filedownloader/download/TaskInfo.java,c/7/c797247a81ed8ec5e52735306a20e01f782d69e4
+X
+(app/src/main/java/demo/MainActivity.java,0/b/0b8bac29624691f94d935c6843c9fb71988b022e
+z
+Japp/src/main/java/com/zhuiji7/filedownloader/download/DownLoadManager.java,5/a/5a84308cf41698a596c89138d3d8f365ecf7f332
+Y
+)app/src/main/java/demo/DLApplication.java,a/c/acf7f2c17bf6f145fe21bf4182aae9b8a6d1c381
+_
+/app/src/main/java/demo/adapter/ListAdapter.java,a/8/a86b5f8b739dba313be706ba4cb672e82c683896
+z
+Japp/src/main/java/com/zhuiji7/filedownloader/download/DownLoadService.java,7/a/7a742fe9665e59232964066697472b6fe653273d
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e

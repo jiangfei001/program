@@ -1,0 +1,13 @@
+
+asquid:S1192"GDefine a constant instead of duplicating this literal "taskID" 4 times.(éžœ÷ûÿÿÿÿ
+isquid:S1192"ODefine a constant instead of duplicating this literal "SELECT * from " 4 times.(›Ô›¶øÿÿÿÿ
+^squid:S1192"IDefine a constant instead of duplicating this literal "fileSize" 4 times.(á™ã÷
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+…squid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ú®­¸
+ssquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(š°Íâúÿÿÿÿ
+\squid:S1192"GDefine a constant instead of duplicating this literal "userID" 4 times.(¼ç¿Ð
+gsquid:S1192"MDefine a constant instead of duplicating this literal "downLoadSize" 4 times.(…£ö±ûÿÿÿÿ
+csquid:S1192"IDefine a constant instead of duplicating this literal "fileName" 4 times.(ãêÝ˜úÿÿÿÿ
+ssquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(š°Íâúÿÿÿÿ
+Šsquid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ò™Žçøÿÿÿÿ
+csquid:S1192"IDefine a constant instead of duplicating this literal "filePath" 4 times.(ªúŒœþÿÿÿÿ

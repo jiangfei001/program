@@ -1,0 +1,16 @@
+
+asquid:S1192"GDefine a constant instead of duplicating this literal "public" 4 times.(Şø¾‚şÿÿÿÿ
+msquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÂÀƒ6
+Šsquid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ı™±Ùûÿÿÿÿ
+lsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µø·½ùÿÿÿÿ
+Šsquid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ÿëæ¼úÿÿÿÿ
+lsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÈ‘³ıÿÿÿÿ
+nsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(³À÷â
+gsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™üâò
+Xsquid:S1155">Use isEmpty() to check whether the collection is empty or not.(¦´¼üÿÿÿÿ
+ssquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¶ˆºˆüÿÿÿÿ
+Csquid:S1172".Remove this unused method parameter "context".(ş¢š½
+lsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òù°¼ùÿÿÿÿ
+zsquid:S00116"_Rename this field "MAX_DOWNLOADING_TASK" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–óì×ùÿÿÿÿ
+nsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¨ğƒµ
+;squid:S1170"!Make this final field static too.(–óì×ùÿÿÿÿ
