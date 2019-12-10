@@ -1,7 +1,7 @@
 package com.yuzhi.fine.model;
 
 import com.alibaba.fastjson.JSON;
-import com.sgs.jfei.common.NotObfuscateInterface;
+import com.sgs.NotObfuscateInterface;
 
 import java.io.Serializable;
 

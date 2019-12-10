@@ -4,14 +4,14 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.sgs.downloadModel.DownLoadListener;
-import com.sgs.downloadModel.DownLoadManager;
-import com.sgs.downloadModel.dbcontrol.FileHelper;
-import com.sgs.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
-import com.sgs.eventControlModel.Event;
-import com.sgs.eventControlModel.EventEnum;
+import com.sgs.businessmodule.downloadModel.DownLoadListener;
+import com.sgs.businessmodule.downloadModel.DownLoadManager;
+import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
+import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
+import com.sgs.middle.eventControlModel.Event;
+import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
-import com.sgs.utils.ZipUtil;
+import com.sgs.middle.utils.ZipUtil;
 
 import org.greenrobot.eventbus.EventBus;
 

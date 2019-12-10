@@ -44,8 +44,8 @@
 -keep class * implements android.os.Parcelable {public static final android.os.Parcelable$Creator *; }
 ##################upper is for common android
 
--keep public interface com.sgs.jfei.common.NotObfuscateInterface{public *;}
--keep class * implements com.sgs.jfei.common.NotObfuscateInterface{
+-keep public interface com.sgs.NotObfuscateInterface{public *;}
+-keep class * implements com.sgs.NotObfuscateInterface{
 	<methods>;
 	<fields>;
 }

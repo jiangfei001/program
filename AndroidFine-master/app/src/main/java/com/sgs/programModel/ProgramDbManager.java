@@ -2,7 +2,7 @@ package com.sgs.programModel;
 
 import android.content.Context;
 
-import com.sgs.dbModel.dao.ProgrameDao;
+import com.sgs.middle.dbModel.dao.ProgrameDao;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.AppContext;
 

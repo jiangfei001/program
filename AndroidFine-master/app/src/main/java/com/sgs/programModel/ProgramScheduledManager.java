@@ -5,17 +5,17 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.sgs.downloadModel.DownLoadListener;
-import com.sgs.downloadModel.DownLoadManager;
-import com.sgs.downloadModel.DownLoadService;
-import com.sgs.downloadModel.dbcontrol.FileHelper;
-import com.sgs.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
+import com.sgs.businessmodule.downloadModel.DownLoadListener;
+import com.sgs.businessmodule.downloadModel.DownLoadManager;
+import com.sgs.businessmodule.downloadModel.DownLoadService;
+import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
+import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgramResource;
 import com.sgs.programModel.entity.PublicationPlanVo;
 import com.sgs.AppContext;
-import com.sgs.utils.StringUtils;
-import com.sgs.utils.ZipUtil;
+import com.sgs.middle.utils.StringUtils;
+import com.sgs.middle.utils.ZipUtil;
 
 import java.io.File;
 import java.io.IOException;

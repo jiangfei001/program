@@ -6,8 +6,8 @@ import android.os.Message;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.sgs.eventControlModel.Event;
-import com.sgs.eventControlModel.EventEnum;
+import com.sgs.middle.eventControlModel.Event;
+import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalySceneVo;
 import com.sgs.programModel.taskUtil.MyTask;

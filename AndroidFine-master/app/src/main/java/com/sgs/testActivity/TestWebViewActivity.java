@@ -9,12 +9,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.sgs.dbModel.entity.InstructionRequest;
-import com.sgs.eventControlModel.Event;
-import com.sgs.eventControlModel.EventEnum;
-import com.sgs.eventControlModel.EventManager;
-import com.sgs.websocketmodel.EventActivity;
-import com.sgs.websocketmodel.InstructionResponse;
+import com.sgs.middle.dbModel.entity.InstructionRequest;
+import com.sgs.middle.eventControlModel.Event;
+import com.sgs.middle.eventControlModel.EventEnum;
+import com.sgs.middle.eventControlModel.EventManager;
+import com.sgs.businessmodule.websocketmodel.EventActivity;
+import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.yuzhi.fine.R;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;

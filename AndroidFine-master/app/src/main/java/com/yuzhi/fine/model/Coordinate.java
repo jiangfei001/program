@@ -1,6 +1,6 @@
 package com.yuzhi.fine.model;
 
-import com.sgs.jfei.common.NotObfuscateInterface;
+import com.sgs.NotObfuscateInterface;
 
 import java.io.Serializable;
 

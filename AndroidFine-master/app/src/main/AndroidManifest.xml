@@ -23,7 +23,7 @@
 
 
         <activity
-            android:name="com.sgs.websocketmodel.WebSocketActivity"
+            android:name="com.sgs.businessmodule.websocketmodel.WebSocketActivity"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,9 +45,9 @@
             android:name="com.uiModel.activity.ImageGalleryActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="com.sgs.downloadModel.DownLoadService" />
+        <service android:name="com.sgs.businessmodule.downloadModel.DownLoadService" />
         <service
-            android:name="com.sgs.websocketmodel.PlayingMusicServices"
+            android:name="com.sgs.businessmodule.websocketmodel.PlayingMusicServices"
             android:enabled="true"
             android:exported="true" />
     </application>

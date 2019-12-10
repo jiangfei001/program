@@ -1,5 +1,6 @@
 package com.sgs;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.ComponentName;
@@ -8,13 +9,14 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.sgs.downloadModel.DownLoadService;
+import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.programModel.ProgramScheduledManager;
-import com.sgs.websocketmodel.AppResponseDispatcher;
-import com.sgs.websocketmodel.WebSocketClientManger;
+import com.sgs.businessmodule.websocketmodel.AppResponseDispatcher;
+import com.sgs.businessmodule.websocketmodel.WebSocketClientManger;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.WebSocketManager;
 import com.zhangke.websocket.WebSocketSetting;
@@ -31,6 +33,9 @@ public class AppContext extends Application {
     public AppContext() {
         app = this;
     }
+
+    public Activity nowActivity;
+
 
     public static synchronized AppContext getInstance() {
         if (app == null) {
@@ -153,12 +158,18 @@ public class AppContext extends Application {
      */
     private void initFileService() {
         Intent apkDownService = new Intent(this, DownLoadService.class);
-        startService(apkDownService);
+       /* startService(apkDownService);*/
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.startForegroundService(apkDownService);
+        } else {
+            this.startService(apkDownService);
+        }*/
         connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 // service connected
-                ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
+                Log.e(TAG, "onServiceConnected");
+                //ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
             }
 
             @Override
@@ -216,5 +227,13 @@ public class AppContext extends Application {
 /*    public void initSchedule() {
         ProgramScheduledManager programScheduledManager = new ProgramScheduledManager.getInstance();
     }*/
+
+    public Activity getNowActivity() {
+        return nowActivity;
+    }
+
+    public void setNowActivity(Activity nowActivity) {
+        this.nowActivity = nowActivity;
+    }
 
 }
