@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yuzhi.fine.R;
-import com.httpModel.HttpClient;
+import com.sgs.httpModel.HttpClient;
 
 import java.util.List;
 

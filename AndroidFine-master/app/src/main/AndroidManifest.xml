@@ -2,7 +2,7 @@
     package="com.yuzhi.fine">
 
     <application
-        android:name="com.sgs.jfei.common.AppContext"
+        android:name="com.sgs.AppContext"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -23,7 +23,7 @@
 
 
         <activity
-            android:name="com.websocketmodel.WebSocketActivity"
+            android:name="com.sgs.websocketmodel.WebSocketActivity"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,9 +45,9 @@
             android:name="com.uiModel.activity.ImageGalleryActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="com.downloadModel.DownLoadService" />
+        <service android:name="com.sgs.downloadModel.DownLoadService" />
         <service
-            android:name="com.websocketmodel.PlayingMusicServices"
+            android:name="com.sgs.websocketmodel.PlayingMusicServices"
             android:enabled="true"
             android:exported="true" />
     </application>

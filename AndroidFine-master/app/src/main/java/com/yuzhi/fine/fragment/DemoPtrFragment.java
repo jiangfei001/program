@@ -13,16 +13,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.squareup.picasso.Picasso;
 import com.yuzhi.fine.R;
 import com.uiModel.activity.MainActivity;
-import com.httpModel.HttpClient;
-import com.httpModel.HttpResponseHandler;
-import com.httpModel.RestApiResponse;
+import com.sgs.httpModel.HttpClient;
+import com.sgs.httpModel.HttpResponseHandler;
+import com.sgs.httpModel.RestApiResponse;
 import com.yuzhi.fine.model.SearchParam;
 import com.yuzhi.fine.model.SearchShop;
 import com.yuzhi.fine.ui.UIHelper;
 import com.yuzhi.fine.ui.loadmore.LoadMoreListView;
 import com.yuzhi.fine.ui.quickadapter.BaseAdapterHelper;
 import com.yuzhi.fine.ui.quickadapter.QuickAdapter;
-import com.utils.DeviceUtil;
+import com.sgs.utils.DeviceUtil;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yuzhi.fine.R;
-import com.sgs.jfei.common.AppManager;
+import com.sgs.AppManager;
 
 public class BaseFragmentActivity extends FragmentActivity {
 

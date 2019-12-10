@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.yuzhi.fine.R;
 import com.yuzhi.fine.ui.UIHelper;
 import com.yuzhi.fine.ui.viewpagerindicator.CirclePageIndicator;
-import com.utils.SharedPreferences;
+import com.sgs.utils.SharedPreferences;
 
 /**
  * Created by tiansj on 15/7/29.
