@@ -265,7 +265,7 @@ public class WebSocketActivity extends EventActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 index = index + 1;
-                if (index > musicList.size()) {
+                if (index >= musicList.size()) {
                     index = 0;
                 }
                 initMediaPlayer();
