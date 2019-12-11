@@ -139,6 +139,10 @@ public class ProgramTaskManager {
 
     }
 
+    public void stopLooper() {
+        myTaskTimeTask.stopLooper();
+    }
+
     public void addTask(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
         MyTask bobTask = new MyTask();
         bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;

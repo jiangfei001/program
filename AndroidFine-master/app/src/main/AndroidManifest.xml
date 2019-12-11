@@ -50,6 +50,8 @@
             android:name="com.sgs.businessmodule.websocketmodel.PlayingMusicServices"
             android:enabled="true"
             android:exported="true" />
+
+        <receiver android:name="com.sgs.middle.receiver.CustomAlarmReceiver" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -63,6 +63,10 @@ public class ProgramScheduledManager {
 
     private static ProgramScheduledManager instance;
 
+    public void stopLooper() {
+        programTaskManager.stopLooper();
+    }
+
     public static ProgramScheduledManager getInstance() {
         if (instance == null) {
             synchronized (ProgramDbManager.class) {

@@ -199,6 +199,8 @@ public class PriorityTimeTask<T extends MyTask> {
      */
     public void stopLooper() {
         cancelAlarmManager();
+        priorsTasks = null;
+        mTasks = null;
     }
 
     /**

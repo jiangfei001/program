@@ -3,6 +3,12 @@ package com.sgs.middle.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import com.sgs.programModel.ProgramScheduledManager;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CustomAlarmReceiver extends BroadcastReceiver {
     /**
@@ -82,8 +88,36 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
     public static final String ACTION_UPLOAD_DEVICE_HARDWARE_INFO_RESULT = "com.sf.appstore.business.receiver.custom.ACTION_UPLOAD_DEVICE_HARDWARE_INFO_RESULT";
     public static final int REQUEST_CODE_UPLOAD_DEVICE_HARDWARE_INFO_REQUEST = 3012;
 
+    /**
+     * 每天重新刷新一次
+     */
+    public static final String ACTION_PLAYGRAME_INIT = "com.sf.appstore.business.receiver.custom.ACTION_UPLOAD_DATA_ONCE_DAILY";
+    public static final int REQUEST_CODE_PLAYGRAME_INIT = 3013;
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (intent == null) {
+            Log.e(TAG, "CustomAlarmReceiver intent is null");
+            return;
+        }
+        String action = intent.getAction();
+
+        if (ACTION_PLAYGRAME_INIT.equals(action)) {
+            long l = System.currentTimeMillis();
+//new日期对
+            Date date = new Date(l);
+//转换提日期输出格式
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
+            ProgramScheduledManager.getInstance().stopLooper();
+            ProgramScheduledManager.getInstance().initAllProgramTask();
+
+        }
 
     }
+
+    public static String TAG = CustomAlarmReceiver.class.getName();
+
+
 }
