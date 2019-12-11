@@ -62,24 +62,6 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
 
-    public void setTasks(List<T> mES) {
-        cursorInit();
-        if (mTempTasks != null) {
-            mTempTasks = mES;
-        } else {
-            this.mTasks = mES;
-        }
-    }
-
-    public void setPriTasks(List<T> mES) {
-        cursorInit();
-        if (mTempTasks != null) {
-            mTempTasks = mES;
-        } else {
-            this.priorsTasks = mES;
-        }
-    }
-
     public void setPriorityTasks(List<T> priorityTasks) {
         cursorInit();
        /* if (mTempTasks != null) {
@@ -100,7 +82,7 @@ public class PriorityTimeTask<T extends MyTask> {
                 mTempTasks = null;
                 cancelAlarmManager();
                 cursorInit();
-                startLooperTask();
+                startLooperTaskOrder();
             }
             mHandler.removeMessages(1);
         }
@@ -117,6 +99,28 @@ public class PriorityTimeTask<T extends MyTask> {
     private void cursorPriorityInit() {
         priorsCursor = 0;
     }
+
+
+    public void insertPriorsTask(T bobTask) {
+        priorsTasks.add(bobTask);
+        insertStartLooperTask();
+    }
+
+    public void insertMTasksTask(T bobTask) {
+        mTasks.add(bobTask);
+        insertStartLooperTask();
+    }
+
+    public void setTasks(List<T> mES) {
+        cursorInit();
+        this.mTasks = mES;
+    }
+
+    public void setPriTasks(List<T> mES) {
+        cursorPriorityInit();
+        this.priorsTasks = mES;
+    }
+
 
     /**
      * 添加任务监听
@@ -137,13 +141,12 @@ public class PriorityTimeTask<T extends MyTask> {
             super.handleMessage(msg);
             //启动下一次任务
             Log.e(TAG, "开始执行startLooperTask");
-            startLooperTask();
+            startLooperTaskOrder();
             return;
         }
     };
 
     public boolean doneLooper(List<T> tasklist, Integer cursor) {
-
         if (tasklist.size() > cursor) {
         } else {
             cursor = 0;
@@ -183,12 +186,24 @@ public class PriorityTimeTask<T extends MyTask> {
     /**
      * 开始任务
      */
-    public void startLooperTask() {
+    public void insertStartLooperTask() {
+        if (!isRuning) {
+            order();
+        }
+    }
+
+    public void startLooperTaskOrder() {
+        order();
+    }
+
+    private void order() {
         if (priorsTasks.size() > 0 || mTasks.size() > 0) {
-            isRuning = true;
             boolean idone = doneLooper(priorsTasks, priorsCursor);
             if (idone) {
-                doneLooper(mTasks, cursor);
+                idone = doneLooper(mTasks, cursor);
+            }
+            if (idone) {
+                isRuning = true;
             }
         }
     }
@@ -256,14 +271,14 @@ public class PriorityTimeTask<T extends MyTask> {
             //  2017/10/16 恢复 任务分发
             cancelAlarmManager();
             cursorInit();
-            startLooperTask();
+            startLooperTaskOrder();
         }
     }
 
     /**
      * 恢复普通任务
      */
-    private void recoveryTask() {
+    /*private void recoveryTask() {
         synchronized (mTasks) {
             isSpotsTaskIng = false;
             if (mTempTasks != null) {//有发生过插播
@@ -274,16 +289,12 @@ public class PriorityTimeTask<T extends MyTask> {
                 startLooperTask();
             }
         }
-    }
-
+    }*/
     public void onColse() {
         mContext.unregisterReceiver(receiver);
         mContext = null;
     }
 
-    public void addPriorsTask(T bobTask) {
-        priorsTasks.add(bobTask);
-    }
 
     public class TimeTaskReceiver extends BroadcastReceiver {
 
@@ -291,7 +302,7 @@ public class PriorityTimeTask<T extends MyTask> {
         public void onReceive(Context context, Intent intent) {
             Log.e("context", "context");
             //判断比自己大的优先级 队列有没有需要执行的
-            PriorityTimeTask.this.startLooperTask(); //预约下一个
+            PriorityTimeTask.this.startLooperTaskOrder(); //预约下一个
         }
     }
 

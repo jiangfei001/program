@@ -117,7 +117,7 @@ public class ProgramTaskManager {
     final String ACTION = "timeTask.action";
     private PriorityTimeTask<MyTask> myTaskTimeTask;
 
-    ProgramTaskManager(Context context, LinkedList<ProgarmPalyInstructionVo> list) {
+    ProgramTaskManager(Context context, LinkedList<ProgarmPalyInstructionVo> list, LinkedList<ProgarmPalyInstructionVo> priorslist) {
         // TODO: 2017/11/8  创建一个任务处理器
         myTaskTimeTask = new PriorityTimeTask<>(context, ACTION, handler);
 
@@ -125,17 +125,10 @@ public class ProgramTaskManager {
         myTaskTimeTask.addHandler(timeHandler);
 
         // TODO: 2017/11/8  创建时间任务资源
-        List<MyTask> myTasks = creatTasks(list);
+        creatTasks(list, false);
+        creatTasks(priorslist, true);
 
-        // TODO: 2017/11/8 把资源放进去处理
-        myTaskTimeTask.setPriTasks(myTasks);
-        myTaskTimeTask.startLooperTask();
-
-    }
-
-    public void startLooperTask() {
-
-        myTaskTimeTask.startLooperTask();
+        myTaskTimeTask.startLooperTaskOrder();
 
     }
 
@@ -143,23 +136,29 @@ public class ProgramTaskManager {
         myTaskTimeTask.stopLooper();
     }
 
-    public void addTask(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
+    public void insertTask(ProgarmPalyInstructionVo progarmPalyInstructionVo, boolean exclusive) {
         MyTask bobTask = new MyTask();
         bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
-        myTaskTimeTask.addPriorsTask(bobTask);
+        if (exclusive) {
+            myTaskTimeTask.insertPriorsTask(bobTask);
+        } else {
+            myTaskTimeTask.insertMTasksTask(bobTask);
+        }
     }
 
-    private List<MyTask> creatTasks(List<ProgarmPalyInstructionVo> list) {
+    private void creatTasks(List<ProgarmPalyInstructionVo> list, boolean exclusive) {
         LinkedList<MyTask> mytasks = new LinkedList<MyTask>();
-
         for (int i = 0; i < list.size(); i++) {
             ProgarmPalyInstructionVo progarmPalyInstructionVo = list.get(i);
             MyTask bobTask = new MyTask();
             bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
             mytasks.add(bobTask);
         }
-
-        return mytasks;
+        if (exclusive) {
+            myTaskTimeTask.setPriTasks(mytasks);
+        } else {
+            myTaskTimeTask.setTasks(mytasks);
+        }
     }
 
     protected void onDestroy() {

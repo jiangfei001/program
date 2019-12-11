@@ -34,6 +34,7 @@ public class ProgramScheduledManager {
     List<ProgarmPalyInstructionVo> list;
 
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
+    LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVosPri;
 
     DownLoadManager manager;
 
@@ -53,12 +54,12 @@ public class ProgramScheduledManager {
         list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
 
         progarmPalyInstructionVos = new LinkedList<>();
-
+        progarmPalyInstructionVosPri = new LinkedList<>();
         checkResouce(list);
 
         manager.setAllTaskListener(new DownloadManagerListener());
         //启动播放拉
-        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos);
+        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos, progarmPalyInstructionVosPri);
 
     }
 
@@ -226,16 +227,7 @@ public class ProgramScheduledManager {
             if (fileStatue == 1) {
                 Log.e(TAG, "fileStatue == 1：");
                 //判断今天是否播放
-                if (ProgramUtil.getWeekPalySchedule(response)) {
-                    Log.e(TAG, "getWeekPalySchedule：");
-                    progarmPalyInstructionVos.add(response);
-                    if (progarmPalyInstructionVos.size() == 1 && isInsert) {
-                        Log.e(TAG, "progarmPalyInstructionVos.size() == 1 && isInsert");
-                        programTaskManager.addTask(response);
-                        programTaskManager.startLooperTask();
-                    }
-                }
-
+                addProgramToTask(response, isInsert);
                 Log.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
@@ -280,8 +272,6 @@ public class ProgramScheduledManager {
 
         @Override
         public void onSuccess(SQLDownLoadInfo sqlDownLoadInfo) {
-
-            //下载完毕检查是否完全下载完毕
 
             //根据监听到的信息查找列表相对应的任务，删除对应的任务
             Log.e("sqlDownLoadInfo", "下载成功通知：" + sqlDownLoadInfo.getTaskID());
@@ -331,7 +321,6 @@ public class ProgramScheduledManager {
                     }
                 }
 
-
                 if (response1.getProgramZipStatus() != 1) {
                     Log.e("DownloadManagerListener", "zip还没有下载成功：" + sqlDownLoadInfo.getTaskID());
                     resourceTotle = 0;
@@ -340,16 +329,7 @@ public class ProgramScheduledManager {
                     response1.setTotalStatus(1);
                     Log.e("DownloadManagerListener", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
-
-                    if (ProgramUtil.getWeekPalySchedule(response1)) {
-                        Log.e("DownloadManagerListener", "getWeekPalySchedule：" + response1.getId());
-                        progarmPalyInstructionVos.add(response1);
-                        programTaskManager.addTask(response1);
-                        if (progarmPalyInstructionVos.size() == 1) {
-                            Log.e("DownloadManagerListener", "startLooperTask：" + response1.getId());
-                            programTaskManager.startLooperTask();
-                        }
-                    }
+                    addProgramToTask(response1, true);
                 }
             }
         }
@@ -358,6 +338,24 @@ public class ProgramScheduledManager {
         public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
             //根据监听到的信息查找列表相对应的任务，停止该任务
             Log.e("sqlDownLoadInfo ", "sqlDownLoadInfo11 onError" + sqlDownLoadInfo.getTaskID());
+        }
+    }
+
+    private void addProgramToTask(ProgarmPalyInstructionVo response, boolean isInsert) {
+        if (ProgramUtil.getWeekPalySchedule(response)) {
+            Log.e(TAG, "getWeekPalySchedule：");
+            if (isInsert) {
+                Log.e(TAG, "progarmPalyInstructionVos.size() == 1 && isInsert");
+                if (response.getPublicationPlanObject().isExclusive()) {
+                    programTaskManager.insertTask(response, true);
+                } else {
+                    programTaskManager.insertTask(response, false);
+                }
+            } else {
+                progarmPalyInstructionVos.add(response);
+                progarmPalyInstructionVosPri.add(response);
+
+            }
         }
     }
 }

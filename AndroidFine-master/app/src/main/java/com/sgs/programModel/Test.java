@@ -48,7 +48,7 @@ public class Test {
 
         // TODO: 2017/11/8 把资源放进去处理
         myTaskTimeTask.setTasks(myTasks);
-        myTaskTimeTask.startLooperTask();
+        myTaskTimeTask.startLooperTaskOrder();
 
     }
 
