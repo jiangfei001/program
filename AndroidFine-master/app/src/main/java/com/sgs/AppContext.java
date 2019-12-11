@@ -34,8 +34,7 @@ public class AppContext extends Application {
 
     public static String TAG = "AppContext";
 
-    private AppContext() {
-        app = this;
+    public AppContext() {
     }
 
     public Activity nowActivity;

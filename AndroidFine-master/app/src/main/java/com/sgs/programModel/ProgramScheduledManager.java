@@ -10,6 +10,7 @@ import com.sgs.businessmodule.downloadModel.DownLoadManager;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
+import com.sgs.middle.utils.FileUtil;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgramResource;
 import com.sgs.programModel.entity.PublicationPlanVo;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class ProgramScheduledManager {
 
-    private final String TAG = "ProgramDbManager";
+    private static final String TAG = "ProgramDbManager";
 
     private Context context;
 
@@ -89,10 +90,19 @@ public class ProgramScheduledManager {
         }
     }
 
+    public void saveToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
+        Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
+        //将数据保存到节目播放数据库，并通知节目播放，进行插入播放
+        ProgramDbManager.getInstance().saveProgarmPalyInstructionVoRequest(progarmPalyInstructionVo);
+    }
+
     public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert) {
 
         if (isInsert) {
             list.add(response);
+            response.setProgramZipName(FileUtil.getFileNameByVirtualPath(response.getProgramZip()));
+            //保存到节目数据中
+            saveToDB(response);
         }
 
         String publicationPlanJson = response.getPublicationPlan();
@@ -155,7 +165,11 @@ public class ProgramScheduledManager {
                         String resourceurl = programResourceList.get(i).getUrl();
                         String taskResourceId;
                         taskResourceId = resourceurl;
-                        String resourceurlFilename = programResourceList.get(i).getFileName();
+
+                        //String resourceurlFilename = programResourceList.get(i).getFileName();
+                        //"virtualPath": "admin/201912/01/fdf63c7160f0493f864d9cd3a7c053bb.mp4"
+                        String resourceurlFilename = FileUtil.getFileNameByVirtualPath(programResourceList.get(i).getVirtualPath());
+
                         String resourceurlFilenameVirPath = programResourceList.get(i).getVirtualPath();
                         //*将任务添加到下载队列，下载器会自动开始下载
                         //判断 Download 数据库是否是完成状态，是就检查文件是否存在  没有启动下载文件  下载成功则copy到预设目录
@@ -185,7 +199,7 @@ public class ProgramScheduledManager {
                     String resourceurl = programMusicList.get(i).getUrl();
                     String taskResourceId;
                     taskResourceId = resourceurl;
-                    String resourceurlFilename = programMusicList.get(i).getFileName();
+                    String resourceurlFilename = FileUtil.getFileNameByVirtualPath(programMusicList.get(i).getVirtualPath());
                     String resourceurlFilenameVirPath = programMusicList.get(i).getVirtualPath();
                     //*将任务添加到下载队列，下载器会自动开始下载
                     //判断 Download 数据库是否是完成状态，是就检查文件是否存在  没有启动下载文件  下载成功则copy到预设目录

@@ -10,6 +10,7 @@ import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
+import com.sgs.middle.utils.FileUtil;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.middle.utils.ZipUtil;
 
@@ -96,41 +97,39 @@ public class TaskProgarm {
         String orgin2 = "{\n" +
                 "\t\"id\": 29,\n" +
                 "\t\"playTime\": 35,\n" +
-                "\t\"programName\": \"节目29\",\n" +
+                "\t\"programName\": \"4444\",\n" +
                 "\t\"programMusicList\": [{\n" +
-                "\t\t\"fileName\": \"fdf63c7160f0493f864d9cd3a7c053bb.mp4\",\n" +
+                "\t\t\"fileName\": \"201907171051531430.mp4\",\n" +
                 "\t\t\"id\": 29,\n" +
                 "\t\t\"status\": 0,\n" +
                 "\t\t\"url\": \"http://q0u8hijil.bkt.clouddn.com/admin/201912/01/fdf63c7160f0493f864d9cd3a7c053bb.mp4\",\n" +
                 "\t\t\"virtualPath\": \"admin/201912/01/fdf63c7160f0493f864d9cd3a7c053bb.mp4\"\n" +
                 "\t}, {\n" +
-                "\t\t\"fileName\": \"337a38b7bf13416180b661eef3a10c00.mp4\",\n" +
+                "\t\t\"fileName\": \"58.jpg\",\n" +
                 "\t\t\"id\": 21,\n" +
                 "\t\t\"status\": 0,\n" +
                 "\t\t\"url\": \"https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20181217/337a38b7bf13416180b661eef3a10c00.mp4\",\n" +
                 "\t\t\"virtualPath\": \"admin/201911/12/337a38b7bf13416180b661eef3a10c00.mp4\"\n" +
                 "\t}],\n" +
-                "\t\"programName\": \"4444\",\n" +
                 "\t\"programResourceList\": [{\n" +
-                "\t\t\"fileName\": \"31e3b808a0bf400ea425d9984cc8402a.mp4\",\n" +
+                "\t\t\"fileName\": \"201911291223536548.mp4\",\n" +
                 "\t\t\"id\": 25,\n" +
                 "\t\t\"status\": 0,\n" +
                 "\t\t\"url\": \"http://q0u8hijil.bkt.clouddn.com/admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4\",\n" +
                 "\t\t\"virtualPath\": \"admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4\"\n" +
                 "\t}, {\n" +
-                "\t\t\"fileName\": \"ac3274a595b74c899798a80a5d5a2f87.jpg\",\n" +
+                "\t\t\"fileName\": \"56.jpg\",\n" +
                 "\t\t\"id\": 20,\n" +
                 "\t\t\"status\": 0,\n" +
                 "\t\t\"url\": \"http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg\",\n" +
                 "\t\t\"virtualPath\": \"admin/201911/12/ac3274a595b74c899798a80a5d5a2f87.jpg\"\n" +
                 "\t}, {\n" +
-                "\t\t\"fileName\": \"0e5e4cc4f12a72f37a0019707d333f49.jpg\",\n" +
+                "\t\t\"fileName\": \"cdfdd.png\",\n" +
                 "\t\t\"id\": 19,\n" +
                 "\t\t\"status\": 0,\n" +
                 "\t\t\"url\": \"http://yanxuan.nosdn.127.net/0e5e4cc4f12a72f37a0019707d333f49.jpg\",\n" +
                 "\t\t\"virtualPath\": \"admin/201911/12/0e5e4cc4f12a72f37a0019707d333f49.jpg\"\n" +
                 "\t}],\n" +
-                "\t\"programZipName\": \"d4915ca9ac37463aa9b064fef203543a.zip\",\n" +
                 "\t\"programZip\": \"http://q0u8hijil.bkt.clouddn.com/system/20191209/d4915ca9ac37463aa9b064fef203543a.zip\",\n" +
                 "\t\"publicationPlan\": {\n" +
                 "\t\t\"customizedPalySchedule\": [],\n" +
@@ -141,31 +140,31 @@ public class TaskProgarm {
                 "\t\t\"weekPalySchedule\": [{\n" +
                 "\t\t\t\"dateStr\": \"星期一\",\n" +
                 "\t\t\t\"id\": 1,\n" +
-                "\t\t\t\"times\": \"05:00-08:00|12:00-23:00\"\n" +
+                "\t\t\t\"times\": \"05:00-08:00|16:00-23:00\"\n" +
                 "\t\t}, {\n" +
                 "\t\t\t\"dateStr\": \"星期二\",\n" +
                 "\t\t\t\"id\": 2,\n" +
-                "\t\t\t\"times\": \"05:00-08:00|12:00-23:00\"\n" +
+                "\t\t\t\"times\": \"05:00-08:00|16:00-24:00\"\n" +
                 "\t\t}, {\n" +
                 "\t\t\t\"dateStr\": \"星期三\",\n" +
                 "\t\t\t\"id\": 3,\n" +
-                "\t\t\t\"times\": \"05:00-08:00|12:00-23:00\"\n" +
+                "\t\t\t\"times\": \"05:00-08:00|16:00-24:00\"\n" +
                 "\t\t}, {\n" +
                 "\t\t\t\"dateStr\": \"星期四\",\n" +
                 "\t\t\t\"id\": 4,\n" +
-                "\t\t\t\"times\": \"05:00-08:00|12:00-23:00\"\n" +
+                "\t\t\t\"times\": \"05:00-08:00|16:00-24:00\"\n" +
                 "\t\t}, {\n" +
                 "\t\t\t\"dateStr\": \"星期五\",\n" +
                 "\t\t\t\"id\": 5,\n" +
-                "\t\t\t\"times\": \"05:00-08:00|12:00-23:00\"\n" +
+                "\t\t\t\"times\": \"05:00-08:00|16:00-24:00\"\n" +
                 "\t\t}, {\n" +
                 "\t\t\t\"dateStr\": \"星期六\",\n" +
                 "\t\t\t\"id\": 6,\n" +
-                "\t\t\t\"times\": \"05:00-08:00|12:00-23:00\"\n" +
+                "\t\t\t\"times\": \"05:00-08:00|16:00-24:00\"\n" +
                 "\t\t}, {\n" +
                 "\t\t\t\"dateStr\": \"星期日\",\n" +
                 "\t\t\t\"id\": 7,\n" +
-                "\t\t\t\"times\": \"05:00-08:00|12:00-23:00\"\n" +
+                "\t\t\t\"times\": \"05:00-08:00|16:00-24:00\"\n" +
                 "\t\t}]\n" +
                 "\t},\n" +
                 "\t\"resolution\": \"1376*800\",\n" +
@@ -183,32 +182,25 @@ public class TaskProgarm {
         progarmTest(manager, orgin2);
         // progarmTest(manager, orgin2);
 
-       /* manager.setAllTaskListener(new DownloadManagerListener());*/
+        /* manager.setAllTaskListener(new DownloadManagerListener());*/
     }
 
     static List<ProgarmPalyInstructionVo> progarmPalyInstructionVos = new ArrayList<>();
 
     public static String TAG = "TaskProgarm";
 
-    public static void saveToDB() {
-        Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
-        //将数据保存到节目播放数据库，并通知节目播放，进行插入播放
-        ProgramDbManager.getInstance().saveProgarmPalyInstructionVoRequest(response);
-    }
 
-    static ProgarmPalyInstructionVo response;
+    static ProgarmPalyInstructionVo orderProgarmPalyInstructionVo;
+
 
     public static void progarmTest(DownLoadManager manager, String org) {
 
         String orgin = org;
 
-        response = JSON.parseObject(orgin, new TypeReference<ProgarmPalyInstructionVo>() {
+        orderProgarmPalyInstructionVo = JSON.parseObject(orgin, new TypeReference<ProgarmPalyInstructionVo>() {
         });
 
-        //保存到节目数据中
-        saveToDB();
-
-        ProgramScheduledManager.getInstance().doProgarm(response, true);
+        ProgramScheduledManager.getInstance().doProgarm(orderProgarmPalyInstructionVo, true);
 
        /* List<ProgarmPalyInstructionVo> list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
 

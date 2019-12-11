@@ -469,6 +469,7 @@ public class DownLoader {
     };
 
     public boolean RenameFile() {
+
         File newfile = new File(sqlDownLoadInfo.getFilePath());
         if (newfile.exists()) {
             newfile.delete();
@@ -481,6 +482,8 @@ public class DownLoader {
         if (!file.exists()) {
             file.mkdirs();
         }
+        Log.e("newfile", "newfile" + newfile + "olefile" + olefile);
+
         return olefile.renameTo(newfile);
     }
 }

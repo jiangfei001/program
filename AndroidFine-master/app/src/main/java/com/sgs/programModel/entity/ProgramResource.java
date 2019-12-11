@@ -13,6 +13,15 @@ public class ProgramResource {
     private String virtualPath;
     private int status;
     private int downStatus;
+    private String realfileName;
+
+    public String getRealfileName() {
+        return realfileName;
+    }
+
+    public void setRealfileName(String realfileName) {
+        this.realfileName = realfileName;
+    }
 
     public int getStatus() {
         return status;

@@ -1,6 +1,8 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -217,6 +219,7 @@ public class WebSocketActivity extends EventActivity {
                 appendMsgDisplay(msg);
                 break;
             case EVENT_TEST_SETMUSIC:
+                Log.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
                 Map event1 = mEvent.getParams();
                 musicList = (List<ProgramResource>) event1.get(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC);
                 //reset播放
@@ -249,13 +252,13 @@ public class WebSocketActivity extends EventActivity {
             ProgramResource programResource = musicList.get(index);
             if (!StringUtils.isEmpty(programResource.getVirtualPath())) {
                 path = "file://" + FileHelper.getFileDefaultPath() + "/" + programResource.getVirtualPath();
-                Log.e(TAG, "path" + path);
+                Log.e(TAG, "path111" + path);
             }//想要添加判断 是否找到music.map3
-            Toast.makeText(WebSocketActivity.this, "the sd have not music.mp3", Toast.LENGTH_SHORT).show();
-            mediaPlayer.setDataSource(path);//指定音频路径
+            mediaPlayer.setDataSource(path);
             mediaPlayer.prepare();
             //为播放器添加播放完成时的监听器
         } catch (Exception e) {
+            Toast.makeText(WebSocketActivity.this, "the sd have not music.mp3" + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
