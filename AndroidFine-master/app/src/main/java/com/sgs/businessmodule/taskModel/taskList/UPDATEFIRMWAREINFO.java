@@ -7,6 +7,9 @@ import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.TaskInfo;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.businessmodule.taskModel.TVTask;
+import com.sgs.middle.commandModel.command.CommandHelper;
+
+import java.io.File;
 
 public class UPDATEFIRMWAREINFO extends TVTask {
 
@@ -70,7 +73,8 @@ public class UPDATEFIRMWAREINFO extends TVTask {
         public void onSuccess(SQLDownLoadInfo sqlDownLoadInfo) {
             //根据监听到的信息查找列表相对应的任务，删除对应的任务
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-
+                //下载成功进行安装
+                boolean b = CommandHelper.install(sqlDownLoadInfo.getFilePath());
             }
         }
 

@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sgs.businessmodule.taskModel.taskList.TAKESCREEN;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
@@ -145,7 +146,12 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QiniuUpHelper.upload(WebSocketActivity.this, false);
+                QiniuUpHelper.upload(WebSocketActivity.this, false, new TAKESCREEN.BackUrl() {
+                    @Override
+                    public String getUrlandName(String backUrlandName) {
+                        return null;
+                    }
+                });
 
             }
         });

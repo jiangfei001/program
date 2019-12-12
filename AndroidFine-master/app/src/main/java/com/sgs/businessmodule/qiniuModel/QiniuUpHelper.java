@@ -8,11 +8,14 @@ import android.util.Log;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+import com.sgs.businessmodule.taskModel.taskList.TAKESCREEN;
+import com.sgs.middle.utils.DateUtil;
 import com.sgs.middle.utils.DeviceUtil;
 
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 
 /**
@@ -22,6 +25,7 @@ import java.io.ByteArrayOutputStream;
  */
 
 public class QiniuUpHelper {
+
     /**
      * 签名
      */
@@ -36,12 +40,12 @@ public class QiniuUpHelper {
      *
      * @param activity View
      */
-    public static void upload(Activity activity, boolean hasStatusBar) {
+    public static void upload(Activity activity, boolean hasStatusBar, final TAKESCREEN.BackUrl backUrl) {
         UploadManager uploadManager = new UploadManager();
         Bitmap bitmap = DeviceUtil.snapCurrentScreenShot(activity, hasStatusBar);
         byte[] data = Bitmap2Bytes(bitmap);
-        String fileName = "sfdsfasfddf.aapng";
 
+        String fileName = DateUtil.getNowDate() + ".png";
         //data = "hello".getBytes();
         /*fileName = "hello.txt";*/
 
@@ -51,9 +55,11 @@ public class QiniuUpHelper {
                 Log.i("qiniu 访问链接 = ", HOST + key);
                 Log.i("qiniu info = ", info.toString());
                 Log.i("qiniu response = ", response.toString());
+                backUrl.getUrlandName(info.toString());
             }
         }, null);
     }
+
 
     /**
      * 把Bitmap转Byte

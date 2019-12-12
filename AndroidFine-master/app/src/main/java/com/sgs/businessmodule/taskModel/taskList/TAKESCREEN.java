@@ -8,6 +8,17 @@ import com.sgs.businessmodule.taskModel.TVTask;
 public class TAKESCREEN extends TVTask {
     @Override
     public void runTv() {
-        QiniuUpHelper.upload(AppContext.getInstance().getNowActivity(), false);
+        QiniuUpHelper.upload(AppContext.getInstance().getNowActivity(), false, new BackUrl() {
+            @Override
+            public String getUrlandName(String backUrlandName) {
+                return null;
+            }
+        });
     }
+
+    public interface BackUrl {
+        String getUrlandName(String backUrlandName);
+    }
+
+
 }
