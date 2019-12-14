@@ -1,4 +1,4 @@
-package com.sgs.middle.commandModel.command;
+package com.sgs.businessmodule.taskModel.commandModel.command;
 
 
 import android.app.Activity;
@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.media.AudioManager;
 import android.util.Log;
 
+import com.sgs.AppContext;
 import com.sgs.middle.utils.DeviceUtil;
 
 import java.io.BufferedReader;
@@ -15,7 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -249,6 +252,22 @@ public class CommandHelper {
     }
 //重启终端
 
+
+    /**
+     * type=11表示巴枪上报硬件相关数据：如,电池最大容量、系统总内存、系统剩余内存
+     */
+    public static String  trackHardwareInfo() {
+        Map<String, String> properties = new HashMap<>();
+        properties.put("totalRam", DeviceUtil.getDeviceTotalRam());
+        properties.put("remainRam", DeviceUtil.getDeviceRemainRam());
+        properties.put("imei", DeviceUtil.getIMEI(AppContext.getInstance()));
+        properties.put("DisplayMetricsPixels", DeviceUtil.getDisplayMetricsPixels(AppContext.getInstance()));
+        properties.put("BuildVersion", DeviceUtil.getBuildVersion());
+        properties.put("Manufacturer", DeviceUtil.getManufacturer());
+        properties.put("LocalIpAddress", DeviceUtil.getLocalIpAddress());
+        String hainfo = properties.toString();
+        return hainfo;
+    }
 }
 
 

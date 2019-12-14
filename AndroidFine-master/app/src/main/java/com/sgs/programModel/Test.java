@@ -84,8 +84,4 @@ public class Test {
         return Long.parseLong(times) * 1000;
     }
 
-
-    protected void onDestroy() {
-        myTaskTimeTask.onColse();
-    }
 }

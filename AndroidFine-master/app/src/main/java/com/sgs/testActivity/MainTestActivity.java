@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.sgs.middle.commandModel.orderToDb.InstructionRequestManager;
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.InstructionRequestManager;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;

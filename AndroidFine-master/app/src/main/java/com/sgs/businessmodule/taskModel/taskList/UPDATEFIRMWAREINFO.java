@@ -7,9 +7,7 @@ import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.TaskInfo;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.businessmodule.taskModel.TVTask;
-import com.sgs.middle.commandModel.command.CommandHelper;
-
-import java.io.File;
+import com.sgs.businessmodule.taskModel.commandModel.command.CommandHelper;
 
 public class UPDATEFIRMWAREINFO extends TVTask {
 

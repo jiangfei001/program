@@ -1,6 +1,5 @@
 package com.sgs.businessmodule.taskModel.taskFactory;
 
-import com.sgs.middle.commandModel.InstructionTypeEnum;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.taskModel.ITask;
 import com.sgs.businessmodule.taskModel.TVTask;

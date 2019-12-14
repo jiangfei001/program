@@ -2,6 +2,7 @@ package com.sgs.middle.dbModel.dao;
 
 import android.content.Context;
 
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.sgs.middle.dbModel.DatabaseHelper;
 import com.j256.ormlite.dao.Dao;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
@@ -35,7 +36,6 @@ public class ProgrameDao {
 		TransactionManager.callInTransaction(helper.getConnectionSource(),
 				new Callable<Void>()
 				{
-
 					@OverrideClass class com.sgs.programModel.entity.ProgarmPalyInstructionVo does not have an id field
 					public Void call() throws Exception
 					{
@@ -68,4 +68,24 @@ public class ProgrameDao {
         return null;
     }
 
+    public int delAllProgarmPalyInstructionVo() {
+        try {
+            DeleteBuilder<ProgarmPalyInstructionVo, Integer> deleteBuilder = programeDaoOpe.deleteBuilder();
+            return deleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public int delByProgarmPalyInstructionVoID(int id) {
+        try {
+            DeleteBuilder<ProgarmPalyInstructionVo, Integer> deleteBuilder = programeDaoOpe.deleteBuilder();
+            deleteBuilder.where().eq("id", id);
+            return deleteBuilder.delete();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

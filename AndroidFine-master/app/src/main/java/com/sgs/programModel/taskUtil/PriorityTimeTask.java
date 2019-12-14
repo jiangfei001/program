@@ -1,12 +1,7 @@
 package com.sgs.programModel.taskUtil;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -15,9 +10,6 @@ import com.sgs.programModel.entity.ProgarmPalyPlan;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.Context.ALARM_SERVICE;
-
 
 public class PriorityTimeTask<T extends MyTask> {
 
@@ -39,7 +31,6 @@ public class PriorityTimeTask<T extends MyTask> {
 
 
     private Context mContext;
-    private TimeTaskReceiver receiver;
 
     Handler ptmHandler;
 
@@ -50,44 +41,8 @@ public class PriorityTimeTask<T extends MyTask> {
     public PriorityTimeTask(Context mContext, String actionName, Handler handler) {
         this.mContext = mContext;
         this.mActionName = actionName;
-        initBreceiver(mContext);
         this.ptmHandler = handler;
     }
-
-    private void initBreceiver(Context mContext) {
-        receiver = new TimeTaskReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(mActionName);
-        mContext.registerReceiver(receiver, filter);
-    }
-
-
-    public void setPriorityTasks(List<T> priorityTasks) {
-        cursorInit();
-       /* if (mTempTasks != null) {
-            mTempTasks = mES;
-        } else {
-            this.mTasks = mES;
-        }*/
-    }
-
-    /**
-     * 恢复普通任务
-     */
-    private void resetTask() {
-        synchronized (mTasks) {
-            isSpotsTaskIng = false;
-            if (mTempTasks != null) {//有发生过插播
-                mTasks = mTempTasks;
-                mTempTasks = null;
-                cancelAlarmManager();
-                cursorInit();
-                startLooperTaskOrder();
-            }
-            mHandler.removeMessages(1);
-        }
-    }
-
 
     /**
      * 任务计数归零
@@ -121,6 +76,21 @@ public class PriorityTimeTask<T extends MyTask> {
         this.priorsTasks = mES;
     }
 
+
+    public void removeByid(int id) {
+        for (int i = 0; i < mTasks.size(); i++) {
+            if (mTasks.get(i).progarmPalyInstructionVo.getId() == id) {
+                mTasks.remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < priorsTasks.size(); i++) {
+            if (priorsTasks.get(i).progarmPalyInstructionVo.getId() == id) {
+                priorsTasks.remove(i);
+                break;
+            }
+        }
+    }
 
     /**
      * 添加任务监听
@@ -208,103 +178,12 @@ public class PriorityTimeTask<T extends MyTask> {
         }
     }
 
-
     /**
      * 停止任务
      */
     public void stopLooper() {
-        cancelAlarmManager();
         priorsTasks = null;
         mTasks = null;
+        mHandler.removeMessages(1);
     }
-
-    /**
-     * 装在定时任务
-     *
-     * @param Time
-     */
-    private void configureAlarmManager(long Time) {
-        AlarmManager manager = (AlarmManager) mContext.getSystemService(ALARM_SERVICE);
-        PendingIntent pendIntent = getPendingIntent();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, Time, pendIntent);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            manager.setExact(AlarmManager.RTC_WAKEUP, Time, pendIntent);
-        } else {
-            manager.set(AlarmManager.RTC_WAKEUP, Time, pendIntent);
-        }
-    }
-
-    /**
-     * 取消定时器
-     */
-    private void cancelAlarmManager() {
-        AlarmManager manager = (AlarmManager) mContext.getSystemService(ALARM_SERVICE);
-        manager.cancel(getPendingIntent());
-    }
-
-    private PendingIntent getPendingIntent() {
-        if (mPendingIntent == null) {
-            int requestCode = 0;
-            Intent intent = new Intent();
-            intent.setAction(mActionName);
-            /* Intent intent = new Intent(mContext,TimeTaskReceiver.class);*/
-            mPendingIntent = PendingIntent.getBroadcast(mContext, requestCode, intent, 0);
-        }
-        return mPendingIntent;
-    }
-
-    /**
-     * 插播任务
-     */
-    public void spotsTask(List<T> mSpotsTask) {
-        // 2017/10/16 暂停 任务分发
-        isSpotsTaskIng = true;
-        synchronized (mTasks) {
-            if (mTempTasks == null && mTasks != null) {//没有发生过插播
-                mTempTasks = new ArrayList<T>();
-                for (T mTask : mTasks) {
-                    mTempTasks.add(mTask);
-                }
-            }
-            mTasks = mSpotsTask;
-            //  2017/10/16 恢复 任务分发
-            cancelAlarmManager();
-            cursorInit();
-            startLooperTaskOrder();
-        }
-    }
-
-    /**
-     * 恢复普通任务
-     */
-    /*private void recoveryTask() {
-        synchronized (mTasks) {
-            isSpotsTaskIng = false;
-            if (mTempTasks != null) {//有发生过插播
-                mTasks = mTempTasks;
-                mTempTasks = null;
-                cancelAlarmManager();
-                cursorInit();
-                startLooperTask();
-            }
-        }
-    }*/
-    public void onColse() {
-        mContext.unregisterReceiver(receiver);
-        mContext = null;
-    }
-
-
-    public class TimeTaskReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.e("context", "context");
-            //判断比自己大的优先级 队列有没有需要执行的
-            PriorityTimeTask.this.startLooperTaskOrder(); //预约下一个
-        }
-    }
-
-
 }

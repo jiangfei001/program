@@ -2,8 +2,8 @@ package com.sgs.businessmodule.websocketmodel;
 
 import android.content.Context;
 
-import com.sgs.middle.commandModel.orderToDb.InstructionRequestManager;
-import com.sgs.middle.commandModel.orderToDb.OrderManager;
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.InstructionRequestManager;
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.OrderManager;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.AppContext;
 import com.zhangke.websocket.SimpleListener;

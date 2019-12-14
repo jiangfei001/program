@@ -1,4 +1,4 @@
-package com.sgs.middle.commandModel;
+package com.sgs.businessmodule.taskModel.taskFactory;
 
 public enum InstructionTypeEnum {
 
@@ -68,7 +68,7 @@ public enum InstructionTypeEnum {
      * @return
      */
     public static String getTypeByCode(int code) {
-        for (InstructionTypeEnum instructionType : InstructionTypeEnum.values()) {
+        for (InstructionTypeEnum instructionType : values()) {
             if (code == instructionType.getCode()) {
                 return instructionType.getType();
             }

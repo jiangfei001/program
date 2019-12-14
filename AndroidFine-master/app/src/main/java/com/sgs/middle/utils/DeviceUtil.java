@@ -17,6 +17,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -25,6 +26,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.sgs.AppContext;
 
 import org.json.JSONObject;
 
@@ -35,6 +38,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -47,6 +51,37 @@ import java.util.List;
  * Created by tiansj on 14/12/30.
  */
 public class DeviceUtil {
+
+    /**
+     * 定义“没有读取手机状态的权限”的字符串
+     */
+    private static final String NO_PERMISSION_TO_READ_PHONE_STATE = "Could not get permission of android.permission.READ_PHONE_STATE";
+    private static final String TAG = DateUtil.class.getName();
+
+    /**
+     * 获取系统总内存RAM
+     *
+     * @return
+     */
+    public static String getDeviceTotalRam() {
+        ActivityManager activityManager = (ActivityManager) AppContext.getInstance().getSystemService(Activity.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        activityManager.getMemoryInfo(memoryInfo);
+        return StringUtil.convertRamWithUnit(memoryInfo.totalMem);
+    }
+
+    /**
+     * 获取系统剩余RAM
+     *
+     * @return
+     */
+    public static String getDeviceRemainRam() {
+        ActivityManager activityManager = (ActivityManager) AppContext.getInstance().getSystemService(Activity.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        activityManager.getMemoryInfo(memoryInfo);
+        return StringUtil.convertRamWithUnit(memoryInfo.availMem);
+    }
+
     /**
      * 截取当前屏幕画面为bitmap图片
      *
@@ -160,34 +195,64 @@ public class DeviceUtil {
         return dm.heightPixels;
     }
 
+    /**
+     * 获取巴枪IMSI
+     *
+     * @param context
+     * @return
+     */
     public static String getIMSI(Context context) {
         try {
-            if (context == null) {
-                return "";
+            if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (tm == null) {
+                    return "";
+                }
+                return tm.getSubscriberId();
+            } else {
+                Log.e(TAG, NO_PERMISSION_TO_READ_PHONE_STATE);
             }
-            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            return telephonyManager.getSubscriberId();
-        } catch (Exception exception1) {
+        } catch (Exception e) {
+            Log.e("sdf", "Get IMSI error");
         }
         return "";
     }
 
+
+    /**
+     * 获取巴枪IMEI
+     *
+     * @param context
+     * @return
+     */
     public static String getIMEI(Context context) {
         try {
-            if (context == null) {
-                return "";
+            if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (tm == null) {
+                    return "";
+                }
+                return tm.getDeviceId();
+            } else {
+                Log.e(TAG, NO_PERMISSION_TO_READ_PHONE_STATE);
             }
-            TelephonyManager telephonyManager = (TelephonyManager) context
-                    .getSystemService(Context.TELEPHONY_SERVICE);
-            String imei = telephonyManager.getDeviceId();
-            if (imei != null && !imei.equals("")) {
-                return imei;
-            }
-        } catch (Exception exception1) {
+        } catch (Exception e) {
+            Log.e(TAG, "Get IMEI error");
         }
-
         return "";
     }
+
+    public static boolean checkPermission(Context context, String permission) {
+        boolean ret = false;
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ret = packageManager.checkPermission(permission, context.getPackageName()) == PackageManager.PERMISSION_GRANTED;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
 
     public static String getDeviceId(Context context) {
         try {
@@ -346,6 +411,39 @@ public class DeviceUtil {
      */
     public static String getBuildVersion() {
         return android.os.Build.VERSION.RELEASE;
+    }
+
+    /**
+     * 获取巴枪厂商
+     *
+     * @return
+     */
+    public static String getManufacturer() {
+        return Build.MANUFACTURER;
+    }
+
+    /**
+     * 获取内网ip地址
+     * http://blog.csdn.net/u010248450/article/details/51470558
+     * http://blog.csdn.net/shyboyes/article/details/74279137
+     *
+     * @return
+     */
+    public static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface networkInterface = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddress = networkInterface.getInetAddresses(); enumIpAddress.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddress.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && !(inetAddress instanceof Inet6Address)) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            Log.e(TAG, "Get ip address fail");
+        }
+        return null;
     }
 
     /**
@@ -615,5 +713,43 @@ public class DeviceUtil {
             stringBuilder.append(tmp);
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * 获取屏幕分辨率
+     *
+     * @param context
+     * @return
+     */
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+        ((WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE))
+                .getDefaultDisplay().getMetrics(localDisplayMetrics);
+        return localDisplayMetrics;
+    }
+
+    /**
+     * 获取巴枪屏幕分辨率
+     *
+     * @param context
+     * @return 如:768*1096
+     */
+    public static String getDisplayMetricsPixels(Context context) {
+        try {
+            DisplayMetrics dm = getDisplayMetrics(context);
+            return dm.widthPixels + "*" + dm.heightPixels;
+        } catch (Exception e) {
+            Log.e(TAG, "GetDisplayMetricsPixels error");
+        }
+        return "";
+    }
+
+    /**
+     * 获取巴枪型号
+     *
+     * @return 巴枪类型 HHT7AX、HHT7A、HHT7BX、HHT7B、HHT7AG、HHT7BG
+     */
+    public static String getMobileModel() {
+        return Build.MODEL;
     }
 }

@@ -50,24 +50,57 @@ public class ProgramScheduledManager {
 
     //从数据库中获取所有的节目数据
     public void initAllProgramTask() {
-
         list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
 
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
+
         checkResouce(list);
 
         manager.setAllTaskListener(new DownloadManagerListener());
-        //启动播放拉
-        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos, progarmPalyInstructionVosPri);
 
+        if (programTaskManager != null) {
+            programTaskManager = null;
+        }
+        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos, progarmPalyInstructionVosPri);
+        programTaskManager.stopLooper();
     }
 
     private static ProgramScheduledManager instance;
 
-    public void stopLooper() {
+
+    public void clearLooperAndDBAndResource() {
+
+        list = null;
+        progarmPalyInstructionVos = null;
+        progarmPalyInstructionVosPri = null;
+        
+        ProgramDbManager.getInstance().delectAllProgarmPalyInstructionVoRequest();
         programTaskManager.stopLooper();
+        //CommandHelper.deleteDir(FileHelper.getFileDefaultPath());
+        initAllProgramTask();
     }
+
+    public void clearLooperAndDBById(int id) {
+
+        ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(id);
+        programTaskManager.removeByid(id);
+
+        for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
+            if (progarmPalyInstructionVos.get(i).getId() == 1) {
+                progarmPalyInstructionVos.remove(i);
+                break;
+            }
+        }
+
+        for (int i = 0; i < progarmPalyInstructionVosPri.size(); i++) {
+            if (progarmPalyInstructionVosPri.get(i).getId() == 1) {
+                progarmPalyInstructionVosPri.remove(i);
+                break;
+            }
+        }
+    }
+
 
     public static ProgramScheduledManager getInstance() {
         if (instance == null) {
@@ -125,7 +158,6 @@ public class ProgramScheduledManager {
             programMusicList = response.getProgramMusicListArray();
         }
         if (response.getTotalStatus() != 1) {
-
             //判断预设目录下 是否有对应zip包
             /*服务器一般会有个区分不同文件的唯一ID，用以处理文件重名的情况*/
             String taskId;

@@ -136,6 +136,11 @@ public class ProgramTaskManager {
         myTaskTimeTask.stopLooper();
     }
 
+
+    public void removeByid(int id) {
+        myTaskTimeTask.removeByid(id);
+    }
+
     public void insertTask(ProgarmPalyInstructionVo progarmPalyInstructionVo, boolean exclusive) {
         MyTask bobTask = new MyTask();
         bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
@@ -159,9 +164,5 @@ public class ProgramTaskManager {
         } else {
             myTaskTimeTask.setTasks(mytasks);
         }
-    }
-
-    protected void onDestroy() {
-        myTaskTimeTask.onColse();
     }
 }

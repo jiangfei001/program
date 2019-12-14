@@ -102,14 +102,14 @@ public class TaskProgarm {
                 "\t\t\"fileName\": \"201907171051531430.mp4\",\n" +
                 "\t\t\"id\": 29,\n" +
                 "\t\t\"status\": 0,\n" +
-                "\t\t\"url\": \"http://q0u8hijil.bkt.clouddn.com/admin/201912/01/fdf63c7160f0493f864d9cd3a7c053bb.mp4\",\n" +
-                "\t\t\"virtualPath\": \"admin/201912/01/fdf63c7160f0493f864d9cd3a7c053bb.mp4\"\n" +
+                "\t\t\"url\": \"http://q0u8hijil.bkt.clouddn.com/admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4\",\n" +
+                "\t\t\"virtualPath\": \"admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4\"\n" +
                 "\t}, {\n" +
                 "\t\t\"fileName\": \"58.jpg\",\n" +
                 "\t\t\"id\": 21,\n" +
                 "\t\t\"status\": 0,\n" +
-                "\t\t\"url\": \"https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20181217/337a38b7bf13416180b661eef3a10c00.mp4\",\n" +
-                "\t\t\"virtualPath\": \"admin/201911/12/337a38b7bf13416180b661eef3a10c00.mp4\"\n" +
+                "\t\t\"url\": \"https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20181217/31e3b808a0bf400ea425d9984cc8402a.mp4\",\n" +
+                "\t\t\"virtualPath\": \"admin/201911/12/31e3b808a0bf400ea425d9984cc8402a.mp4\"\n" +
                 "\t}],\n" +
                 "\t\"programResourceList\": [{\n" +
                 "\t\t\"fileName\": \"201911291223536548.mp4\",\n" +

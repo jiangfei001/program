@@ -110,7 +110,6 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
 //转换提日期输出格式
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
-            ProgramScheduledManager.getInstance().stopLooper();
             ProgramScheduledManager.getInstance().initAllProgramTask();
 
         }

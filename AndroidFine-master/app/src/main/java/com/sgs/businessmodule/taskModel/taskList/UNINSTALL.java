@@ -2,7 +2,7 @@ package com.sgs.businessmodule.taskModel.taskList;
 
 
 import com.alibaba.fastjson.JSON;
-import com.sgs.middle.commandModel.command.CommandHelper;
+import com.sgs.businessmodule.taskModel.commandModel.command.CommandHelper;
 import com.sgs.AppContext;
 import com.sgs.businessmodule.taskModel.TVTask;
 
