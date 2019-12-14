@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sgs.AppContext;
 import com.sgs.businessmodule.taskModel.taskList.TAKESCREEN;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
@@ -89,6 +90,7 @@ public class WebSocketActivity extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket);
         initView();
+        WebSocketHelper.initWebSocket(AppContext.getInstance().getUserName);
         WebSocketHandler.getDefault().addListener(socketListener);
         /*initSchedule();*/
         /*taskQueue = new TaskQueue(1);
@@ -107,7 +109,6 @@ public class WebSocketActivity extends EventActivity {
         }
 
         taskQueue.start();*/
-
 
     }
 
