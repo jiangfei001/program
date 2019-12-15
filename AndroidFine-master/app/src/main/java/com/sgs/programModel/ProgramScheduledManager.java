@@ -30,9 +30,10 @@ public class ProgramScheduledManager {
 
     private Context context;
 
-    //所有没有过期的节目单
+    //加载数据库中所有的List 包括接受命令获取的List
     List<ProgarmPalyInstructionVo> list;
 
+    //已经成功下载 和 今天需要进行下载的任务
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVosPri;
 
@@ -48,26 +49,27 @@ public class ProgramScheduledManager {
         initAllProgramTask();
     }
 
-    //从数据库中获取所有的节目数据
     public void initAllProgramTask() {
+        //从数据库中获取所有的节目数据
         list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
 
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
 
+        //判断资源是否已经下载，并且是在今天的下载范围
         checkResouce(list);
-
+        //设置下载监听机
         manager.setAllTaskListener(new DownloadManagerListener());
 
         if (programTaskManager != null) {
             programTaskManager = null;
         }
+        //开始轮播
         programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos, progarmPalyInstructionVosPri);
         programTaskManager.stopLooper();
     }
 
     private static ProgramScheduledManager instance;
-
 
     public void clearLooperAndDBAndResource() {
 
@@ -226,32 +228,33 @@ public class ProgramScheduledManager {
                     }
                 }
             }
-
-            for (int i = 0; i < programMusicList.size(); i++) {
-                if (programMusicList.get(i).getDownStatus() != 1) {
-                    String resourceurl = programMusicList.get(i).getUrl();
-                    String taskResourceId;
-                    taskResourceId = resourceurl;
-                    String resourceurlFilename = FileUtil.getFileNameByVirtualPath(programMusicList.get(i).getVirtualPath());
-                    String resourceurlFilenameVirPath = programMusicList.get(i).getVirtualPath();
-                    //*将任务添加到下载队列，下载器会自动开始下载
-                    //判断 Download 数据库是否是完成状态，是就检查文件是否存在  没有启动下载文件  下载成功则copy到预设目录
-                    File newfile = new File(FileHelper.getFileDefaultPath() + "/" + resourceurlFilenameVirPath);
-                    if (!newfile.exists()) {
-                        //需要下载
-                        fileStatue = 0;
-                        int resourcedownload = manager.addTask(taskResourceId, resourceurl, resourceurlFilename, newfile.getPath());
-                        if (resourcedownload == 0) {
-                            //文件已经存在
-                            Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
-                        } else if (resourcedownload == 1) {
-                            Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "需要下载！,正在监听");
+            if (programMusicList != null && programMusicList.size() > 0) {
+                for (int i = 0; i < programMusicList.size(); i++) {
+                    if (programMusicList.get(i).getDownStatus() != 1) {
+                        String resourceurl = programMusicList.get(i).getUrl();
+                        String taskResourceId;
+                        taskResourceId = resourceurl;
+                        String resourceurlFilename = FileUtil.getFileNameByVirtualPath(programMusicList.get(i).getVirtualPath());
+                        String resourceurlFilenameVirPath = programMusicList.get(i).getVirtualPath();
+                        //*将任务添加到下载队列，下载器会自动开始下载
+                        //判断 Download 数据库是否是完成状态，是就检查文件是否存在  没有启动下载文件  下载成功则copy到预设目录
+                        File newfile = new File(FileHelper.getFileDefaultPath() + "/" + resourceurlFilenameVirPath);
+                        if (!newfile.exists()) {
+                            //需要下载
+                            fileStatue = 0;
+                            int resourcedownload = manager.addTask(taskResourceId, resourceurl, resourceurlFilename, newfile.getPath());
+                            if (resourcedownload == 0) {
+                                //文件已经存在
+                                Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
+                            } else if (resourcedownload == 1) {
+                                Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "需要下载！,正在监听");
+                            } else {
+                                Log.e("sqlDownLoadInfo", "resourceurlFilename:" + resourceurlFilename + "数据库框架判断文件存在，但是实际不在！");
+                            }
                         } else {
-                            Log.e("sqlDownLoadInfo", "resourceurlFilename:" + resourceurlFilename + "数据库框架判断文件存在，但是实际不在！");
+                            Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在！");
+                            programMusicList.get(i).setDownStatus(1);
                         }
-                    } else {
-                        Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在！");
-                        programMusicList.get(i).setDownStatus(1);
                     }
                 }
             }
@@ -377,10 +380,11 @@ public class ProgramScheduledManager {
                     programTaskManager.insertTask(response, false);
                 }
             } else {
-                progarmPalyInstructionVos.add(response);
-                progarmPalyInstructionVosPri.add(response);
-
             }
+
+            progarmPalyInstructionVos.add(response);
+            progarmPalyInstructionVosPri.add(response);
+
         }
     }
 }

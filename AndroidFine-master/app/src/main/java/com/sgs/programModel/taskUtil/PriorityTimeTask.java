@@ -9,6 +9,7 @@ import android.util.Log;
 import com.sgs.programModel.entity.ProgarmPalyPlan;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PriorityTimeTask<T extends MyTask> {
@@ -57,11 +58,17 @@ public class PriorityTimeTask<T extends MyTask> {
 
 
     public void insertPriorsTask(T bobTask) {
+        if (priorsTasks == null) {
+            priorsTasks = new LinkedList<>();
+        }
         priorsTasks.add(bobTask);
         insertStartLooperTask();
     }
 
     public void insertMTasksTask(T bobTask) {
+        if (mTasks == null) {
+            mTasks = new LinkedList<>();
+        }
         mTasks.add(bobTask);
         insertStartLooperTask();
     }
@@ -167,9 +174,12 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
     private void order() {
-        if (priorsTasks.size() > 0 || mTasks.size() > 0) {
-            boolean idone = doneLooper(priorsTasks, priorsCursor);
-            if (idone) {
+        if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0)) {
+            boolean idone = false;
+            if (priorsTasks != null && priorsTasks.size() > 0) {
+                idone = doneLooper(priorsTasks, priorsCursor);
+            }
+            if (!idone) {
                 idone = doneLooper(mTasks, cursor);
             }
             if (idone) {

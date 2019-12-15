@@ -10,4 +10,26 @@ public class DateUtil {
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
         return df.format(new Date());
     }
+
+    /**
+     * 判断当前日期是否在[startDate, endDate]区间
+     *
+     * @param startDate 开始日期
+     * @param endDate   结束日期
+     * @return
+     * @author jqlin
+     */
+    public static boolean isEffectiveDate(Date startDate, Date endDate) {
+        if (startDate == null || endDate == null) {
+            return false;
+        }
+
+        long currentTime = new Date().getTime();
+        if (currentTime >= startDate.getTime()
+                && currentTime <= endDate.getTime()) {
+            return true;
+        }
+
+        return false;
+    }
 }

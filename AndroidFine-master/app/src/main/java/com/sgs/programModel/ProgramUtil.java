@@ -1,5 +1,6 @@
 package com.sgs.programModel;
 
+import android.net.ParseException;
 import android.util.Log;
 
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
@@ -7,6 +8,7 @@ import com.sgs.programModel.entity.ProgarmPalyPlan;
 import com.sgs.programModel.entity.ProgarmPalySchedule;
 import com.sgs.programModel.entity.PublicationPlanVo;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -25,78 +27,111 @@ public class ProgramUtil {
 
         publicationPlanVo.setOkProgarms(okProgarms);
 
-        //判断week是否在今天
-        List<ProgarmPalySchedule> progarmPalySchedules = publicationPlanVo.getWeekPalySchedule();
 
         boolean isTodayPlay = false;
-        if (progarmPalySchedules != null && progarmPalySchedules.size() > 0) {
-            Date date = new Date();
-            String week = getWeekOfDate(date);
-            Log.e(TAG, "week:" + week);
-            for (int i = 0; i < progarmPalySchedules.size(); i++) {
-                ProgarmPalySchedule progarmPalySchedule = progarmPalySchedules.get(i);
-                if (week.equals(progarmPalySchedule.getDateStr())) {
-                    isTodayPlay = true;
-                    Log.e(TAG, "weekProgarmPalySchedules:" + i);
-                    //"times": "08:00-10:00|12:00-16:00"
-                    String timesD = progarmPalySchedule.getTimes();
-                    Log.e(TAG, "timesD" + timesD);
-                    String a[] = timesD.split("\\|");
-                    //08:00-10:00
-                    for (int t = 0; t < a.length; t++) {
-                        String timetemp = a[t];
-                        Log.e(TAG, "timetemp" + timetemp);
-                        if (timetemp.indexOf("-") != -1) {
-                            String b[] = timetemp.split("-");
-                            ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
-                            //08:00
-                            progarmPalyPlan.setStartTime(dataOne(b[0]));
-                            progarmPalyPlan.setEndTime(dataOne(b[1]));
 
-                            okProgarms.add(progarmPalyPlan);
+        if (publicationPlanVo.getPlanType() == 1) {
+            //判断week是否在今天
+            List<ProgarmPalySchedule> progarmPalySchedules = publicationPlanVo.getWeekPalySchedule();
+            if (progarmPalySchedules != null && progarmPalySchedules.size() > 0) {
+                Date date = new Date();
+                String week = getWeekOfDate(date);
+                Log.e(TAG, "week:" + week);
+                for (int i = 0; i < progarmPalySchedules.size(); i++) {
+                    ProgarmPalySchedule progarmPalySchedule = progarmPalySchedules.get(i);
+                    if (week.equals(progarmPalySchedule.getDateStr())) {
+                        isTodayPlay = true;
+                        Log.e(TAG, "weekProgarmPalySchedules:" + i);
+                        //"times": "08:00-10:00|12:00-16:00"
+                        String timesD = progarmPalySchedule.getTimes();
+                        Log.e(TAG, "timesD" + timesD);
+                        String a[] = timesD.split("\\|");
+                        //08:00-10:00
+                        for (int t = 0; t < a.length; t++) {
+                            String timetemp = a[t];
+                            Log.e(TAG, "timetemp" + timetemp);
+                            if (timetemp.indexOf("-") != -1) {
+                                String b[] = timetemp.split("-");
+                                ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
+                                //08:00
+                                progarmPalyPlan.setStartTime(dataOne(b[0]));
+                                progarmPalyPlan.setEndTime(dataOne(b[1]));
+                                okProgarms.add(progarmPalyPlan);
+                            }
                         }
                     }
                 }
             }
+        } else if (publicationPlanVo.getPlanType() == 2) {
+            //判断自定义的时间段
+            //判断week是否在今天
+            List<ProgarmPalySchedule> customizedPalySchedule = publicationPlanVo.getCustomizedPalySchedule();
+            if (customizedPalySchedule != null && customizedPalySchedule.size() > 0) {
+                for (int i = 0; i < customizedPalySchedule.size(); i++) {
+                    ProgarmPalySchedule progarmPalySchedule = customizedPalySchedule.get(i);
+                    if (isInTime(progarmPalySchedule.getStartDate(), progarmPalySchedule.getEndDate())) {
+                        isTodayPlay = true;
+                        String timesD = progarmPalySchedule.getTimes();
+                        Log.e(TAG, "timesD" + timesD);
+                        String a[] = timesD.split("\\|");
+                        //08:00-10:00
+                        for (int t = 0; t < a.length; t++) {
+                            String timetemp = a[t];
+                            Log.e(TAG, "timetemp" + timetemp);
+                            if (timetemp.indexOf("-") != -1) {
+                                String b[] = timetemp.split("-");
+                                ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
+                                //08:00
+                                progarmPalyPlan.setStartTime(dataOne(b[0]));
+                                progarmPalyPlan.setEndTime(dataOne(b[1]));
+                                okProgarms.add(progarmPalyPlan);
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (publicationPlanVo.getPlanType() == 0) {
+            isTodayPlay = true;
+            ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
+            //08:00
+            progarmPalyPlan.setStartTime(dataOne("00:00"));
+            progarmPalyPlan.setEndTime(dataOne("24:00"));
+            okProgarms.add(progarmPalyPlan);
         }
 
-        //判断自定义的时间段
-        List<ProgarmPalySchedule> customizedPalySchedule = publicationPlanVo.getCustomizedPalySchedule();
-
-        if (progarmPalySchedules != null && progarmPalySchedules.size() > 0) {
-
-        }
 
         return isTodayPlay;
 
     }
 
-    public static void main(String[] args) {
-        String timesD = "13:03-13:12";
-        // System.out.println("timesD" + timesD);
 
-        String a[] = timesD.split("\\|");
+    static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        //08:00-10:00
+    public static boolean isInTime(String beginTime, String endTime) {
+        try {
+            Date date1 = format.parse(beginTime);
+            Date date2 = format.parse(endTime);
 
-        for (int t = 0; t < a.length; t++) {
-
-            String timetemp = a[t];
-
-            // System.out.println("timetemp" + timetemp);
-
-            if (timetemp.indexOf("-") != -1) {
-
-                String b[] = timetemp.split("-");
-
-                ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
-                //08:00
-                progarmPalyPlan.setStartTime(dataOne(b[0]));
-
-                progarmPalyPlan.setEndTime(dataOne(b[1]));
+            if (date1 == null || date2 == null) {
+                return false;
             }
+
+            long currentTime = new Date().getTime();
+            if (currentTime >= date1.getTime()
+                    && currentTime <= date2.getTime()) {
+                return true;
+            }
+
+            return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
         }
+        return false;
+
     }
+
 
     public static long dataOne(String time) {
        /* SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -140,6 +175,34 @@ public class ProgramUtil {
         System.out.println(ts);
 
         return ts;
+    }
+
+
+    public static void main(String[] args) {
+        String timesD = "13:03-13:12";
+        // System.out.println("timesD" + timesD);
+
+        String a[] = timesD.split("\\|");
+
+        //08:00-10:00
+
+        for (int t = 0; t < a.length; t++) {
+
+            String timetemp = a[t];
+
+            // System.out.println("timetemp" + timetemp);
+
+            if (timetemp.indexOf("-") != -1) {
+
+                String b[] = timetemp.split("-");
+
+                ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
+                //08:00
+                progarmPalyPlan.setStartTime(dataOne(b[0]));
+
+                progarmPalyPlan.setEndTime(dataOne(b[1]));
+            }
+        }
     }
 
 

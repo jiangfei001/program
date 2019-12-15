@@ -1,0 +1,51 @@
+{
+	"id": 32,
+	"playTime": 29,
+	"programName": "编译后测试",
+	"programResourceList": [{
+		"fileName": "1.jpg",
+		"id": 23,
+		"status": 0,
+		"url": "https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20190130/10e5c836deec4d0b87fb7a0e0322b22b.mp4",
+		"virtualPath": "admin/201911/12/10e5c836deec4d0b87fb7a0e0322b22b.mp4"
+	}, {
+		"fileName": "59.jpg",
+		"id": 22,
+		"status": 0,
+		"url": "https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20181217/fea5eab3eb244a95ad07b20fa3eee611.mp4",
+		"virtualPath": "admin/201911/12/fea5eab3eb244a95ad07b20fa3eee611.mp4"
+	}, {
+		"fileName": "56.jpg",
+		"id": 20,
+		"status": 0,
+		"url": "http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg",
+		"virtualPath": "admin/201911/12/ac3274a595b74c899798a80a5d5a2f87.jpg"
+	}, {
+		"fileName": "cdfdd.png",
+		"id": 19,
+		"status": 0,
+		"url": "http://yanxuan.nosdn.127.net/0e5e4cc4f12a72f37a0019707d333f49.jpg",
+		"virtualPath": "admin/201911/12/0e5e4cc4f12a72f37a0019707d333f49.jpg"
+	}],
+	"programZip": "http://q2jkye78n.bkt.clouddn.com/system/20191215/cb7db04158754e9db36104e483a205e9.zip",
+	"publicationPlan": {
+		"customizedPalySchedule": [{
+			"endDate": "2019-12-31",
+			"id": 1,
+			"startDate": "2019-12-01",
+			"times": "08:00-20:00"
+		}],
+		"deadline": "2019-12-31 00:00",
+		"deadlineV": "2019-12-31 00:00",
+		"exclusive": false,
+		"planType": 2,
+		"weekPalySchedule": []
+	},
+	"resolution": "1376*800",
+	"sceneList": [{
+		"html": "978a197185da41849d153318726602c9.html",
+		"palyMusic": false,
+		"playTime": 29
+	}],
+	"sceneNum": 1
+}

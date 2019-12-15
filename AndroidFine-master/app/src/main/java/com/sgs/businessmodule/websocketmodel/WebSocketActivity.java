@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -116,7 +117,11 @@ public class WebSocketActivity extends EventActivity {
         tvMsg = (TextView) findViewById(R.id.tv_msg);
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
         wvBookPlay = (WebView) findViewById(R.id.activity_main_webview1);
-        webViewInit(wvBookPlay);
+        wvBookPlay.getSettings().setJavaScriptEnabled(true);
+        wvBookPlay.getSettings().setAllowFileAccess(true);
+        wvBookPlay.getSettings().setPluginState(WebSettings.PluginState.ON);
+
+        //webViewInit(wvBookPlay);
 
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +162,12 @@ public class WebSocketActivity extends EventActivity {
         });
 
         findViewById(R.id.btn_down).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TaskProgarm.progarmTest1(DownLoadService.getDownLoadManager());
+            }
+        });
+        findViewById(R.id.btn_down2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TaskProgarm.progarmTest1(DownLoadService.getDownLoadManager());

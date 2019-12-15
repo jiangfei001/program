@@ -1,0 +1,67 @@
+{
+	"id": 29,
+	"playTime": 35,
+
+	"programName": "4444",
+	"programResourceList": [{
+		"fileName": "56.jpg",
+		"id": 20,
+		"status": 0,
+		"url": "http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg",
+		"virtualPath": "admin/201911/12/ac3274a595b74c899798a80a5d5a2f87.jpg"
+	}, {
+		"fileName": "cdfdd.png",
+		"id": 19,
+		"status": 0,
+		"url": "http://yanxuan.nosdn.127.net/0e5e4cc4f12a72f37a0019707d333f49.jpg",
+		"virtualPath": "admin/201911/12/0e5e4cc4f12a72f37a0019707d333f49.jpg"
+	}],
+	"programZip": "http://q2jkye78n.bkt.clouddn.com/system/20191215/9cad5eb577814948b33b54664c08b9cc.zip",
+	"publicationPlan": {
+		"customizedPalySchedule": [],
+		"deadline": "2019-12-31 00:00",
+		"deadlineV": "2019-12-31 00:00",
+		"exclusive": true,
+		"planType": 1,
+		"weekPalySchedule": [{
+        			"dateStr": "星期一",
+        			"id": 1,
+        			"times": "05:00-08:00|12:00-24:00"
+        		}, {
+        			"dateStr": "星期二",
+        			"id": 2,
+        			"times": "05:00-08:00|12:00-24:00"
+        		}, {
+        			"dateStr": "星期三",
+        			"id": 3,
+        			"times": "05:00-08:00|12:00-24:00"
+        		}, {
+        			"dateStr": "星期四",
+        			"id": 4,
+        			"times": "05:00-08:00|112:00-24:00"
+        		}, {
+        			"dateStr": "星期五",
+        			"id": 5,
+        			"times": "05:00-08:00|12:00-24:00"
+        		}, {
+        			"dateStr": "星期六",
+        			"id": 6,
+        			"times": "05:00-08:00|12:00-24:00"
+        		}, {
+        			"dateStr": "星期日",
+        			"id": 7,
+        			"times": "05:00-08:00|12:00-24:00"
+        		}]
+	},
+	"resolution": "1376*800",
+	"sceneList": [{
+		"html": "6b7a2959a4a5565f711e0906a59fa7c2.html",
+		"palyMusic": true,
+		"playTime": 15
+	}, {
+		"html": "e4cccedc659e1d6d2883755952a62144.html",
+		"palyMusic": true,
+		"playTime": 20
+	}],
+	"sceneNum": 2
+}
