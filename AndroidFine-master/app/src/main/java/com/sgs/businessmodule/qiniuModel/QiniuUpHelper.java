@@ -52,10 +52,10 @@ public class QiniuUpHelper {
         uploadManager.put(data, fileName, TOKEN, new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject response) {
-                Log.i("qiniu 访问链接 = ", HOST + key);
+       /*         Log.i("qiniu 访问链接 = ", HOST + key);
                 Log.i("qiniu info = ", info.toString());
-                Log.i("qiniu response = ", response.toString());
-                backUrl.getUrlandName(info.toString());
+                Log.i("qiniu response = ", response.toString());*/
+                backUrl.getUrlandName(key, info, response);
             }
         }, null);
     }

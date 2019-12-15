@@ -17,7 +17,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.qiniu.android.http.ResponseInfo;
 import com.sgs.AppContext;
+import com.sgs.businessmodule.httpModel.HttpClient;
+import com.sgs.businessmodule.httpModel.HttpResponseHandler;
 import com.sgs.businessmodule.taskModel.taskList.TAKESCREEN;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
@@ -37,6 +40,9 @@ import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
+import org.json.JSONObject;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -228,7 +234,21 @@ public class WebSocketActivity extends EventActivity {
             public void onClick(View v) {
                 QiniuUpHelper.upload(WebSocketActivity.this, false, new TAKESCREEN.BackUrl() {
                     @Override
-                    public String getUrlandName(String backUrlandName) {
+                    public String getUrlandName(String key, ResponseInfo info, JSONObject response) {
+                        final InstructionResponse responseEntity = new InstructionResponse();
+                        
+                        responseEntity.setId(123);
+                        responseEntity.setExecuteTime(new Date());
+                        responseEntity.setResult("123123");
+                        responseEntity.setStatus(1);
+                        responseEntity.setReceiveTime(new Date());
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new HttpResponseHandler());
+                            }
+                        }).start();
                         return null;
                     }
                 });
