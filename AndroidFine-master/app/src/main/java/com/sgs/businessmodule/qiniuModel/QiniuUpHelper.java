@@ -26,14 +26,15 @@ import java.util.Date;
 
 public class QiniuUpHelper {
 
+   /* qiniu:
+    accessKey: UxVCg4Xl0tmDmGPK2L_V9t3qH70gmONr1IbzdxuR
+    secretKey: 4tD6wQSCc9lknYSucf_C4QZA1tavrUur0ntViHay
+    bucket: multimedia-test
+    path: http://q2jkye78n.bkt.clouddn.com*/
     /**
      * 签名
      */
     private static String TOKEN = "cv6A8yeorA0LAoN11dboX2ybIFOBoEbe3C8ZN6PA:kcTCyjE33e1G-scr12X8ClLVkQk=:eyJzY29wZSI6Im11bHRpbWVkaWEyMDE5MTEiLCJyZXR1cm5VcmwiOiJodHRwOi8vcTB1OGhpamlsLmJrdC5jbG91ZGRuLmNvbS8iLCJyZXR1cm5Cb2R5Ijoie3N1Y2Vzczp4eHh9IiwiZGVhZGxpbmUiOjE1NzQ2Mjk5NTh9";
-    /**
-     * 上传地址
-     */
-    private static String HOST = "http://q0u8hijil.bkt.clouddn.com/";
 
     /**
      * 上传数据到七牛云服务器
@@ -59,6 +60,8 @@ public class QiniuUpHelper {
             }
         }, null);
     }
+
+
 
 
     /**

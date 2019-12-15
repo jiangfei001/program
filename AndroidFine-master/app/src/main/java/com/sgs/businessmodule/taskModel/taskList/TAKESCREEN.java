@@ -1,5 +1,6 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
+import com.alibaba.fastjson.JSON;
 import com.qiniu.android.http.ResponseInfo;
 import com.sgs.AppContext;
 import com.sgs.businessmodule.httpModel.HttpClient;
@@ -17,7 +18,7 @@ import okhttp3.Request;
 
 public class TAKESCREEN extends TVTask {
 
-    String url="http://192.168.0.97:8081/multimedia/api/terminal/callback";
+    String url = "http://192.168.0.97:8081/multimedia/api/terminal/callback";
 
     @Override
     public void runTv() {
@@ -26,12 +27,11 @@ public class TAKESCREEN extends TVTask {
             public String getUrlandName(String key, ResponseInfo info, JSONObject response) {
 
                 final InstructionResponse responseEntity = new InstructionResponse();
-                responseEntity.setId(123);
+                responseEntity.setId(TAKESCREEN.this.instructionRequest.getId());
                 responseEntity.setExecuteTime(new Date());
-                responseEntity.setResult("123123");
                 responseEntity.setStatus(1);
                 responseEntity.setReceiveTime(new Date());
-
+                responseEntity.setResult(JSON.toJSONString("http://sdf.png"));
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
