@@ -99,17 +99,17 @@ public class TaskProgarm {
                 "\t\"playTime\": 35,\n" +
                 "\t\"programName\": \"4444\",\n" +
                 "\t\"programMusicList\": [{\n" +
-                "\t\t\"fileName\": \"201907171051531430.mp4\",\n" +
+                "\t\t\"fileName\": \"599ee624350ecb9e70c32375c0cd4807.jpg\",\n" +
                 "\t\t\"id\": 29,\n" +
                 "\t\t\"status\": 0,\n" +
-                "\t\t\"url\": \"http://q0u8hijil.bkt.clouddn.com/admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4\",\n" +
-                "\t\t\"virtualPath\": \"admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4\"\n" +
+                "\t\t\"url\": \"http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg\",\n" +
+                "\t\t\"virtualPath\": \"admin/201912/01/599ee624350ecb9e70c32375c0cd4807.jpg\"\n" +
                 "\t}, {\n" +
-                "\t\t\"fileName\": \"58.jpg\",\n" +
-                "\t\t\"id\": 21,\n" +
-                "\t\t\"status\": 0,\n" +
-                "\t\t\"url\": \"https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20181217/31e3b808a0bf400ea425d9984cc8402a.mp4\",\n" +
-                "\t\t\"virtualPath\": \"admin/201911/12/31e3b808a0bf400ea425d9984cc8402a.mp4\"\n" +
+                "\t\t\"fileName\": \"599ee624350ecb9e70c32375c0cd4807.jpg\",\n" +
+                "        \t\t\"id\": 29,\n" +
+                "        \t\t\"status\": 0,\n" +
+                "        \t\t\"url\": \"http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg\",\n" +
+                "        \t\t\"virtualPath\": \"admin/201912/01/599ee624350ecb9e70c32375c0cd4807.jpg\"\n" +
                 "\t}],\n" +
                 "\t\"programResourceList\": [{\n" +
                 "\t\t\"fileName\": \"201911291223536548.mp4\",\n" +

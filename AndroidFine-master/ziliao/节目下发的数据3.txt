@@ -3,17 +3,17 @@
 	"playTime": 35,
 	"programName": "4444",
 	"programMusicList": [{
-		"fileName": "201907171051531430.mp4",
+		"fileName": "599ee624350ecb9e70c32375c0cd4807.jpg",
 		"id": 29,
 		"status": 0,
-		"url": "http://q0u8hijil.bkt.clouddn.com/admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4",
-		"virtualPath": "admin/201912/01/31e3b808a0bf400ea425d9984cc8402a.mp4"
+		"url": "http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg",
+		"virtualPath": "admin/201912/01/599ee624350ecb9e70c32375c0cd4807.jpg"
 	}, {
-		"fileName": "58.jpg",
-		"id": 21,
-		"status": 0,
-		"url": "https://test-1256466468.cos.ap-guangzhou.myqcloud.com/share/20181217/31e3b808a0bf400ea425d9984cc8402a.mp4",
-		"virtualPath": "admin/201911/12/31e3b808a0bf400ea425d9984cc8402a.mp4"
+		"fileName": "599ee624350ecb9e70c32375c0cd4807.jpg",
+        		"id": 29,
+        		"status": 0,
+        		"url": "http://yanxuan.nosdn.127.net/599ee624350ecb9e70c32375c0cd4807.jpg",
+        		"virtualPath": "admin/201912/01/599ee624350ecb9e70c32375c0cd4807.jpg"
 	}],
 	"programResourceList": [{
 		"fileName": "201911291223536548.mp4",

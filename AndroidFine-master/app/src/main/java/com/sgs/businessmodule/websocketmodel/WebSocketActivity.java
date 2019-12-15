@@ -18,7 +18,6 @@ import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
-import com.sgs.middle.eventControlModel.EventManager;
 import com.sgs.programModel.entity.ProgramResource;
 import com.sgs.businessmodule.qiniuModel.QiniuUpHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
@@ -42,7 +41,7 @@ public class WebSocketActivity extends EventActivity {
     private EditText etContent;
     private TextView tvMsg;
     private ScrollView scrollView;
-    WebView webView;
+    WebView wvBookPlay;
 
     private MediaPlayer mediaPlayer = new MediaPlayer();//实例化对象
 
@@ -116,8 +115,8 @@ public class WebSocketActivity extends EventActivity {
         etContent = (EditText) findViewById(R.id.et_content);
         tvMsg = (TextView) findViewById(R.id.tv_msg);
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
-        webView = (WebView) findViewById(R.id.activity_main_webview1);
-        EventManager.register(this);
+        wvBookPlay = (WebView) findViewById(R.id.activity_main_webview1);
+        webViewInit(wvBookPlay);
 
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +197,7 @@ public class WebSocketActivity extends EventActivity {
             case EVENT_TEST_MSG1:
 
                 Log.d(this.getClass().getName(), "我收到消息啦1");
-                webView.getSettings().setJavaScriptEnabled(true);
+                wvBookPlay.getSettings().setJavaScriptEnabled(true);
                 HashMap<EventEnum, Object> hashMap = mEvent.getParams();
                 boolean isPlayMusic = (boolean) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC);
                 String path = (String) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH);
@@ -215,7 +214,7 @@ public class WebSocketActivity extends EventActivity {
                     }
                 }
                 Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
-                webView.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
+                wvBookPlay.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
 
                 break;
             case EVENT_TEST_MSG2:

@@ -1,14 +1,20 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.sgs.AppContext;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventManager;
+import com.yuzhi.fine.R;
 
 import org.greenrobot.eventbus.Subscribe;
+
+import java.lang.reflect.Method;
 
 public abstract class EventActivity extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public abstract class EventActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
     }
 
     @Override
@@ -27,6 +35,34 @@ public abstract class EventActivity extends AppCompatActivity {
         initView();
         super.onCreate(savedInstanceState);
         AppContext.getInstance().setNowActivity(this);
+    }
+
+    protected void webViewInit(WebView webView1) {
+        webView1.getSettings().setJavaScriptEnabled(true);
+        webView1.getSettings().setUseWideViewPort(true);
+        webView1.getSettings().setLoadWithOverviewMode(true);
+        webView1.getSettings().setAllowFileAccess(true);
+        webView1.getSettings().setSupportZoom(true);
+        webView1.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        try {
+            if (Build.VERSION.SDK_INT >= 16) {
+                Class<?> clazz = webView1.getSettings().getClass();
+                Method method = clazz.getMethod("setAllowUniversalAccessFromFileURLs", boolean.class);
+                if (method != null) {
+                    method.invoke(webView1.getSettings(), true);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        webView1.getSettings().setPluginState(WebSettings.PluginState.ON);
+        webView1.getSettings().setDomStorageEnabled(true);// 必须保留，否则无法播放优酷视频，其他的OK
+        /* wvBookPlay.setWebChromeClient(new MyWebChromeClient());// 重写一下，有的时候可能会出现问题*/
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView1.getSettings().setMixedContentMode(webView1.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
+        }
     }
 
     @Override

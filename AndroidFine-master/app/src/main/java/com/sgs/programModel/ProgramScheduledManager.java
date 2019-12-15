@@ -74,7 +74,7 @@ public class ProgramScheduledManager {
         list = null;
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
-        
+
         ProgramDbManager.getInstance().delectAllProgarmPalyInstructionVoRequest();
         programTaskManager.stopLooper();
         //CommandHelper.deleteDir(FileHelper.getFileDefaultPath());
@@ -266,15 +266,8 @@ public class ProgramScheduledManager {
                 list.remove(response);
             }
         }
-
         System.out.println(response.toString());
         System.out.println(publicationPlanVo);
-    }
-
-    //获取之后，进行资源统一判断与处理，下载资源完毕状态下才会进行统一排期
-    //临时插入一条节目数据，并进行资源处理
-    public void insertProgram() {
-
     }
 
     private class DownloadManagerListener implements DownLoadListener {
