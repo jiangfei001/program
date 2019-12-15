@@ -2,6 +2,7 @@ package com.sgs.businessmodule.downloadModel;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
@@ -450,7 +451,7 @@ public class DownLoader {
         public void onTaskSeccess(String TaskID);
     }
 
-    Handler handler = new Handler() {
+    Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub

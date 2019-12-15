@@ -1,6 +1,7 @@
 package com.sgs.middle.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
@@ -225,17 +226,14 @@ public class DeviceUtil {
      * @param context
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getIMEI(Context context) {
         try {
-            if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
-                TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if (tm == null) {
-                    return "";
-                }
-                return tm.getDeviceId();
-            } else {
-                Log.e(TAG, NO_PERMISSION_TO_READ_PHONE_STATE);
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (tm == null) {
+                return "";
             }
+            return tm.getDeviceId();
         } catch (Exception e) {
             Log.e(TAG, "Get IMEI error");
         }

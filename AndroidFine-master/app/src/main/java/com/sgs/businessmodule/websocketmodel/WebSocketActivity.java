@@ -1,12 +1,17 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -90,8 +95,11 @@ public class WebSocketActivity extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket);
         initView();
+        AppContext.getInstance().getUserName = "123";
         WebSocketHelper.initWebSocket(AppContext.getInstance().getUserName);
         WebSocketHandler.getDefault().addListener(socketListener);
+        taskQueue = new TaskQueue(1);
+        taskQueue.start();
         /*initSchedule();*/
         /*taskQueue = new TaskQueue(1);
 
@@ -112,15 +120,82 @@ public class WebSocketActivity extends EventActivity {
 
     }
 
+    private class InnerWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+        /**
+         * 处理ssl请求
+         */
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed();
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        /**
+         * 页面载入完成回调
+         */
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            view.loadUrl("javascript:try{autoplay();}catch(e){}");//播放视频
+        }
+    }
+
+    private void initweb(WebView mWebView) {
+        mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
+        mWebView.setWebViewClient(new InnerWebViewClient());
+        mWebView.getSettings().setUseWideViewPort(true);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        mWebView.getSettings().setSupportZoom(true);
+        mWebView.getSettings().setAppCacheEnabled(true);
+        mWebView.getSettings().setDatabaseEnabled(true);
+        mWebView.getSettings().setDomStorageEnabled(true);
+        //        if (!NetUtil.checkNet(MainActivity.this)) {
+        mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
+        //        } else {
+        //            mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
+        //        }
+
+
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            /**
+             * 显示自定义视图，无此方法视频不能播放
+             */
+            @Override
+            public void onShowCustomView(View view, CustomViewCallback callback) {
+                super.onShowCustomView(view, callback);
+            }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppContext.getInstance().initFileService();
+    }
+
     private void initView() {
         etContent = (EditText) findViewById(R.id.et_content);
         tvMsg = (TextView) findViewById(R.id.tv_msg);
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
         wvBookPlay = (WebView) findViewById(R.id.activity_main_webview1);
-        wvBookPlay.getSettings().setJavaScriptEnabled(true);
-        wvBookPlay.getSettings().setAllowFileAccess(true);
-        wvBookPlay.getSettings().setPluginState(WebSettings.PluginState.ON);
-
+        initweb(wvBookPlay);
         //webViewInit(wvBookPlay);
 
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {

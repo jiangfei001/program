@@ -144,6 +144,41 @@ public class HttpClient {
         });
     }
 
+
+    public static void postHashMapEntity(String url, HashMap responseEntity, final HttpResponseHandler handler) {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //创建okhttp对象
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
+
+        Request request = new Request.Builder().header("Accept", "*/*")
+                .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
+                .addHeader("Content-Type", "application/json;charset=UTF-8")
+                .url(url)
+                .post(body).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                try {
+                    RestApiResponse apiResponse = getRestApiResponse(response.body().toString());
+                    handler.sendSuccessMessage(apiResponse);
+                } catch (Exception e) {
+                    handler.sendFailureMessage(call.request(), e);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendFailureMessage(call.request(), e);
+            }
+        });
+    }
+
     private static RestApiResponse getRestApiResponse(String responseBody) throws Exception {
         if (!isJsonString(responseBody)) {
             throw new Exception("server response not json string (response = " + responseBody + ")");

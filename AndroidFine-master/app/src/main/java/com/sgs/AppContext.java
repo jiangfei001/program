@@ -58,8 +58,7 @@ public class AppContext extends Application {
         registerUncaughtExceptionHandler();
         isMainProcess = isMainProcess();
         if (isMainProcess) {
-            initFileService();
-
+            //initFileService();
             alarmUploadDataOnceDaily();
         }
     }
@@ -162,7 +161,7 @@ public class AppContext extends Application {
     /**
      * 绑定常驻后台
      */
-    private void initFileService() {
+    public void initFileService() {
         Intent apkDownService = new Intent(this, DownLoadService.class);
         /* startService(apkDownService);*/
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

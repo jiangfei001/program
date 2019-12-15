@@ -11,7 +11,10 @@ public class WebSocketHelper {
         //连接地址，必填，例如 wss://echo.websocket.org
         //setting.setConnectUrl("ws://192.168.0.103:8081/multimedia/api/websocket/jf");//必填
         //setting.setConnectUrl("ws://192.168.0.97:8081/multimedia/api/websocket/jf");//必填
-        setting.setConnectUrl("ws://192.168.0.106:8082/multimedia/api/websocket/" + username);//必填
+        //setting.setConnectUrl("ws://192.168.0.106:8082/multimedia/api/websocket/" + username);//必填
+
+       /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
+        setting.setConnectUrl("ws://192.168.0.109:8081/multimedia/api/websocket/" + username);//必填
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);
 
