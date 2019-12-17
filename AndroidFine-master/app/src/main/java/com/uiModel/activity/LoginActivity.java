@@ -64,6 +64,7 @@ public class LoginActivity extends Activity {
 
                             @Override
                             public void onFailure(Request request, Exception e) {
+                                e.printStackTrace();
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -84,7 +85,7 @@ public class LoginActivity extends Activity {
         });
     }
 
-    public String serverUrl = "http://192.168.0.109:8081/multimedia/api/terminal/addMuTerminal";
+    public String serverUrl = "http://49.235.109.237:9080/multimedia/api/terminal/addMuTerminal";
 
     private void doNavigation() {
         Intent it = new Intent(this, WebSocketActivity.class);

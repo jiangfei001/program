@@ -3,6 +3,7 @@ package com.sgs.businessmodule.websocketmodel;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -172,7 +173,9 @@ public class WebSocketActivity extends EventActivity {
         //        } else {
         //            mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
         //        }
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        }
 
         mWebView.setWebChromeClient(new WebChromeClient() {
             /**

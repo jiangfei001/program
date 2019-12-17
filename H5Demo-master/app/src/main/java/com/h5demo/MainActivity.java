@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
        /* img_browser_back.setOnClickListener(this);
         img_browser_next.setOnClickListener(this);*/
         initweb();
-        url = "file:///android_asset/index.html";
+        url = "file:///android_asset/resources/project_9/493532b60cbc7613404c02ebf1453b8b.html";
         if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
         }
