@@ -62,10 +62,12 @@ public class PriorityTimeTask<T extends MyTask> {
             priorsTasks = new LinkedList<>();
         }
         priorsTasks.add(bobTask);
+        Log.e(TAG, "我是临时插入进来的一个高优先级的节目");
         insertStartLooperTask();
     }
 
     public void insertMTasksTask(T bobTask) {
+        Log.e(TAG, "我是临时插入进来的一个普通节目");
         if (mTasks == null) {
             mTasks = new LinkedList<>();
         }
@@ -117,36 +119,56 @@ public class PriorityTimeTask<T extends MyTask> {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             //启动下一次任务
-            Log.e(TAG, "开始执行startLooperTask");
+            Log.e(TAG, "进入下一次开始执行startLooperTask");
             startLooperTaskOrder();
             return;
         }
     };
 
-    public boolean doneLooper(List<T> tasklist, Integer cursor) {
-        if (tasklist.size() > cursor) {
+    public boolean doneLooper(List<T> tasklist, boolean isPri) {
+        if (!isPri) {
+            if (tasklist.size() > cursor) {
+            } else {
+                cursor = 0;
+            }
         } else {
-            cursor = 0;
+            if (tasklist.size() > priorsCursor) {
+            } else {
+                priorsCursor = 0;
+            }
         }
+
+
         long mNowtime = System.currentTimeMillis();
         //循环开始为游标的位置，循环所有任务的大小，游标等于列表的大小时，游标记录为0
         for (int i = 0; i < tasklist.size(); i++) {
-            T mTask = tasklist.get(cursor);
-            cursor++;
-            if (tasklist.size() == cursor) { //恢复普通任务
-                cursor = 0;
+            T mTask;
+            if (!isPri) {
+                mTask = tasklist.get(cursor);
+                cursor++;
+                if (tasklist.size() < cursor) { //恢复普通任务
+                    cursor = 0;
+                }
+                Log.e(TAG, "cursor" + cursor);
+            } else {
+                mTask = tasklist.get(priorsCursor);
+                priorsCursor++;
+                if (tasklist.size() < priorsCursor) { //恢复普通任务
+                    priorsCursor = 0;
+                }
+                Log.e(TAG, "priorsCursor" + priorsCursor + "tasklist.size()" + tasklist.size());
             }
             if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1) {
                 List<ProgarmPalyPlan> progarmPalyPlan = mTask.progarmPalyInstructionVo.getPublicationPlanObject().getOkProgarms();
                 for (int t = 0; t < progarmPalyPlan.size(); t++) {
                     ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
                     if (progarmPalyPlan1.getStartTime() < mNowtime && progarmPalyPlan1.getEndTime() > mNowtime) {
+                        //预设下一个节目播放
+                        Log.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
+                        mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
                         //在当前区间内立即执行
                         for (TimeHandler mTimeHandler : mTimeHandlers) {
                             mTimeHandler.exeTask(mTask);
-                            //预设下一个节目播放
-                            Log.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
-                            mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
                         }
                         return true;
                     }
@@ -177,10 +199,10 @@ public class PriorityTimeTask<T extends MyTask> {
         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0)) {
             boolean idone = false;
             if (priorsTasks != null && priorsTasks.size() > 0) {
-                idone = doneLooper(priorsTasks, priorsCursor);
+                idone = doneLooper(priorsTasks, true);
             }
             if (!idone) {
-                idone = doneLooper(mTasks, cursor);
+                idone = doneLooper(mTasks, false);
             }
             if (idone) {
                 isRuning = true;
@@ -194,6 +216,7 @@ public class PriorityTimeTask<T extends MyTask> {
     public void stopLooper() {
         priorsTasks = null;
         mTasks = null;
+        Log.e(TAG, "被移除 stopLooper");
         mHandler.removeMessages(1);
     }
 }

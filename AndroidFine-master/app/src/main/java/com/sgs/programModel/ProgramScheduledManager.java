@@ -46,6 +46,7 @@ public class ProgramScheduledManager {
         manager.changeUser("luffy");
         /*断点续传需要服务器的支持，设置该项时要先确保服务器支持断点续传功能*/
         manager.setSupportBreakpoint(true);
+        Log.e(TAG, "initAllProgramTask");
         initAllProgramTask();
     }
 
@@ -55,6 +56,12 @@ public class ProgramScheduledManager {
 
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
+
+        if (programTaskManager != null) {
+            Log.e(TAG, "programTaskManager.stopLooper");
+            programTaskManager.stopLooper();
+            programTaskManager = null;
+        }
 
         //判断资源是否已经下载，并且是在今天的下载范围
         checkResouce(list);
@@ -66,7 +73,7 @@ public class ProgramScheduledManager {
         }
         //开始轮播
         programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos, progarmPalyInstructionVosPri);
-        programTaskManager.stopLooper();
+
     }
 
     private static ProgramScheduledManager instance;
@@ -77,9 +84,11 @@ public class ProgramScheduledManager {
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
 
+        Log.e(TAG, "clearLooperAndDBAndResource programTaskManager.stopLooper");
         ProgramDbManager.getInstance().delectAllProgarmPalyInstructionVoRequest();
         programTaskManager.stopLooper();
         //CommandHelper.deleteDir(FileHelper.getFileDefaultPath());
+        Log.e(TAG, "initAllProgramTask clearLooperAndDBAndResource");
         initAllProgramTask();
     }
 
@@ -108,6 +117,7 @@ public class ProgramScheduledManager {
         if (instance == null) {
             synchronized (ProgramDbManager.class) {
                 if (instance == null) {
+                    Log.e(TAG, "getInstance");
                     instance = new ProgramScheduledManager(AppContext.getInstance());
                 }
             }
@@ -324,18 +334,18 @@ public class ProgramScheduledManager {
                     }
 
                 }
-
-                for (int i = 0; i < response1.getProgramResourceListArray().size(); i++) {
-                    if (response1.getProgramResourceListArray().get(i).getUrl().equals(sqlDownLoadInfo.getTaskID())) {
-                        Log.e("sqlDownLoadInfo", "programResourceList1下载成功：" + sqlDownLoadInfo.getTaskID());
-                        response1.getProgramResourceListArray().get(i).setDownStatus(1);
-                    }
-                    if (response1.getProgramResourceListArray().get(i).getDownStatus() != 1) {
-                        Log.e("sqlDownLoadInfo", "programResourceList1我还没有下载成功：" + response1.getProgramResourceListArray().get(i).getUrl());
-                        resourceTotle = 0;
+                if (response1.getProgramResourceListArray() != null && response1.getProgramResourceListArray().size() > 0) {
+                    for (int i = 0; i < response1.getProgramResourceListArray().size(); i++) {
+                        if (response1.getProgramResourceListArray().get(i).getUrl().equals(sqlDownLoadInfo.getTaskID())) {
+                            Log.e("sqlDownLoadInfo", "programResourceList1下载成功：" + sqlDownLoadInfo.getTaskID());
+                            response1.getProgramResourceListArray().get(i).setDownStatus(1);
+                        }
+                        if (response1.getProgramResourceListArray().get(i).getDownStatus() != 1) {
+                            Log.e("sqlDownLoadInfo", "programResourceList1我还没有下载成功：" + response1.getProgramResourceListArray().get(i).getUrl());
+                            resourceTotle = 0;
+                        }
                     }
                 }
-
                 if (response1.getProgramMusicListArray() != null && response1.getProgramMusicListArray().size() > 0) {
                     for (int i = 0; i < response1.getProgramMusicListArray().size(); i++) {
                         if (response1.getProgramMusicListArray().get(i).getUrl().equals(sqlDownLoadInfo.getTaskID())) {

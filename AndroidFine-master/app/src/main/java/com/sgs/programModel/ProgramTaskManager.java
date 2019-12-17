@@ -144,6 +144,7 @@ public class ProgramTaskManager {
     public void insertTask(ProgarmPalyInstructionVo progarmPalyInstructionVo, boolean exclusive) {
         MyTask bobTask = new MyTask();
         bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
+        Log.e(TAG, "开始插入一个优先级" + exclusive);
         if (exclusive) {
             myTaskTimeTask.insertPriorsTask(bobTask);
         } else {
