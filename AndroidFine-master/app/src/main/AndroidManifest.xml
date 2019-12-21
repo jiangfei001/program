@@ -11,6 +11,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
+        <meta-data android:name="com.baidu.lbsapi.API_KEY"
+            android:value="sLtHFx0DdAFw5pnD2lRo7NH9WTjbFMYR"/>
+
         <activity
             android:name="com.uiModel.activity.SplashActivity"
             android:label="@string/app_name"
