@@ -13,11 +13,17 @@ import android.widget.Toast;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.HttpResponseHandler;
 import com.sgs.businessmodule.httpModel.RestApiResponse;
-import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
 import com.yuzhi.fine.R;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 import okhttp3.Request;
@@ -43,20 +49,21 @@ public class LoginActivity extends Activity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
+
                 final HashMap hashMap = new HashMap();
-                
-                hashMap.put("userName", DeviceUtil.getPhoneSign(LoginActivity.this));
 
-                hashMap.put("terminalIdentity", DeviceUtil.getPhoneSign(LoginActivity.this));
+                hashMap.put("userName", "admin");
 
-                hashMap.put("terminalName", DeviceUtil.getPhoneSign(LoginActivity.this));
+                hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
+
+                hashMap.put("terminalName", DeviceUtil.getUniqueID(LoginActivity.this));
                 //应用版本号
                 hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
                 //局域网IP地址
                 hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
-                //网关IP地址
-                hashMap.put("gatewayIp", DeviceUtil.getNetIp());
+        /*        //网关IP地址
+                hashMap.put("gatewayIp", DeviceUtil.getNetIp());*/
                 //mac地址
                 hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
                 //分辨率
@@ -68,9 +75,9 @@ public class LoginActivity extends Activity {
                 //系统编号
                 hashMap.put("systemNo", DeviceUtil.getBuildVersion());
                 //设备身份编码
-                hashMap.put("equipmentNo", DeviceUtil.getPhoneSign(LoginActivity.this));
+                hashMap.put("equipmentNo", DeviceUtil.getUniqueID(LoginActivity.this));
                 //设备序列号
-                hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial());
+                hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial(LoginActivity.this));
                 //磁盘物理路径
                 hashMap.put("physicalPath", DeviceUtil.getDir());
                 //磁盘大小
@@ -82,44 +89,57 @@ public class LoginActivity extends Activity {
                 //地址
                 hashMap.put("address", "456");
 
-                new Thread(new Runnable() {
+                new
+
+                        Thread(new Runnable() {
                     @Override
                     public void run() {
-                        HttpClient.postHashMapEntity(serverUrl, hashMap, new HttpResponseHandler() {
-                            @Override
-                            public void onSuccess(RestApiResponse response) {
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(LoginActivity.this, "恭喜注册成功", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
 
-                            @Override
-                            public void onFailure(Request request, Exception e) {
-                                e.printStackTrace();
-                                handler.post(new Runnable() {
+                        hashMap.put("gatewayIp", DeviceUtil.getNetIp());
+
+                        Log.e("HashMap", hashMap.toString());
+                        HttpClient.postHashMapEntity(serverUrl, hashMap, new
+
+                                HttpResponseHandler() {
                                     @Override
-                                    public void run() {
-                                        Toast.makeText(LoginActivity.this, "恭喜注册失败", Toast.LENGTH_LONG).show();
+                                    public void onSuccess(RestApiResponse response) {
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(LoginActivity.this, "恭喜注册成功", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onFailure(Request request, Exception e) {
+                                        e.printStackTrace();
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(LoginActivity.this, "恭喜注册失败", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
                                     }
                                 });
-                            }
-                        });
                     }
-                }).start();
+                }).
+
+                        start();
             }
         });
-        findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doNavigation();
-            }
-        });
+
+        findViewById(R.id.btnSure).
+
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        doNavigation();
+                    }
+                });
     }
 
-    public String serverUrl = "http://49.235.109.237:9080/multimedia/api/terminal/addMuTerminal";
+    public String serverUrl = "http://xinlianchuangmei.com/multimedia/api/terminal/addMuTerminal";
 
     private void doNavigation() {
         Intent it = new Intent(this, WebSocketActivity.class);

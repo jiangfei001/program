@@ -22,6 +22,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -32,6 +33,7 @@ import android.view.WindowManager;
 
 import com.sgs.AppContext;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -39,14 +41,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -85,8 +90,12 @@ public class DeviceUtil {
      *
      * @return
      */
-    public static String getMobileSerial() {
-        return Build.SERIAL;
+    public static String getMobileSerial(Context context) {
+        if (StringUtil.isEmpty(Build.SERIAL) || Build.SERIAL.equals("unknown")) {
+            return getUniqueID(context);
+        } else {
+            return Build.SERIAL;
+        }
     }
 
 
@@ -401,25 +410,37 @@ public class DeviceUtil {
      * @return
      */
     public static String getWifiMacAddress(Context context) {
+        /*获取mac地址有一点需要注意的就是android 6.0版本后，以下注释方法不再适用，不管任何手机都会返回"02:00:00:00:00:00"这个默认的mac地址，这是googel官方为了加强权限管理而禁用了getSYstemService(Context.WIFI_SERVICE)方法来获得mac地址。*/
+        //        String macAddress= "";
+//        WifiManager wifiManager = (WifiManager) MyApp.getContext().getSystemService(Context.WIFI_SERVICE);
+//        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+//        macAddress = wifiInfo.getMacAddress();
+//        return macAddress;
+
+        String macAddress = null;
+        StringBuffer buf = new StringBuffer();
+        NetworkInterface networkInterface = null;
         try {
-            if (checkPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
-                WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                String wifiMac;
-                if (wm == null || wm.getConnectionInfo() == null) {
-                    return getProperty(SF_WIFI_MAC, UNKNOWN);
-                }
-                wifiMac = wm.getConnectionInfo().getMacAddress();
-                if (StringUtil.isEmpty(wifiMac) || ERROR_WIFI_MAC.equals(wifiMac)) {
-                    wifiMac = getProperty(SF_WIFI_MAC, UNKNOWN);
-                }
-                return wifiMac;
-            } else {
-                Log.w("ACCESS_WIFI_STATE", "");
+            networkInterface = NetworkInterface.getByName("eth1");
+            if (networkInterface == null) {
+                networkInterface = NetworkInterface.getByName("wlan0");
             }
-        } catch (Exception e) {
-            Log.w("ACCESS_WIFI_STATE", "");
+            if (networkInterface == null) {
+                return "02:00:00:00:00:02";
+            }
+            byte[] addr = networkInterface.getHardwareAddress();
+            for (byte b : addr) {
+                buf.append(String.format("%02X:", b));
+            }
+            if (buf.length() > 0) {
+                buf.deleteCharAt(buf.length() - 1);
+            }
+            macAddress = buf.toString();
+        } catch (SocketException e) {
+            e.printStackTrace();
+            return "02:00:00:00:00:02";
         }
-        return getProperty(SF_WIFI_MAC, UNKNOWN);
+        return macAddress;
     }
 
     //获取手机的唯一标识
@@ -456,6 +477,60 @@ public class DeviceUtil {
             deviceId.append("id").append(getUUID());
         }
         return deviceId.toString();
+    }
+
+    public static String getUniqueID(Context context) {
+        String id = null;
+        final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
+            try {
+                UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
+                id = uuid.toString();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (TextUtils.isEmpty(id)) {
+            id = getUUIDT();
+        }
+
+        return TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
+    }
+
+    @SuppressLint("MissingPermission")
+    private static String getUUIDT() {
+        String serial = null;
+
+        String m_szDevIDShort = "35" +
+                Build.BOARD.length() % 10 + Build.BRAND.length() % 10 +
+
+                Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10 +
+
+                Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 +
+
+                Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10 +
+
+                Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 +
+
+                Build.TAGS.length() % 10 + Build.TYPE.length() % 10 +
+
+                Build.USER.length() % 10; //13 位
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                serial = android.os.Build.getSerial();
+            } else {
+                serial = Build.SERIAL;
+            }
+            //API>=9 使用serial号
+            return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
+        } catch (Exception exception) {
+            serial = "serial"; // 随便一个初始化
+        }
+
+        //使用硬件信息拼凑出来的15位号码
+        return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
     }
 
     /**
@@ -809,63 +884,43 @@ public class DeviceUtil {
      * 获取IP(外网ip、公网ip)
      */
     public static String getNetIp() {
-        String IP = "";
+        String line = "";
+        URL infoUrl = null;
+        InputStream inStream = null;
         try {
-            String address = "http://ip.taobao.com/service/getIpInfo2.php?ip=myip";
-            URL url = new URL(address);
-
-            //URLConnection htpurl=url.openConnection();
-
-            HttpURLConnection connection = (HttpURLConnection) url
-                    .openConnection();
-            connection.setUseCaches(false);
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("user-agent",
-                    "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.7 Safari/537.36"); //设置浏览器ua 保证不出现503
-
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                InputStream in = connection.getInputStream();
-
-                // 将流转化为字符串
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(in));
-
-                String tmpString = "";
-                StringBuilder retJSON = new StringBuilder();
-                while ((tmpString = reader.readLine()) != null) {
-                    retJSON.append(tmpString + "\n");
+            infoUrl = new URL("http://pv.sohu.com/cityjson?ie=utf-8");
+            URLConnection connection = infoUrl.openConnection();
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+            int responseCode = httpConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                inStream = httpConnection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, "utf-8"));
+                StringBuilder strber = new StringBuilder();
+                while ((line = reader.readLine()) != null)
+                    strber.append(line + "\n");
+                inStream.close();
+                // 从反馈的结果中提取出IP地址
+                int start = strber.indexOf("{");
+                int end = strber.indexOf("}");
+                String json = strber.substring(start, end + 1);
+                if (json != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        line = jsonObject.optString("cip");
+                        Log.e("11", "11" + line);
+                        return line;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
-                JSONObject jsonObject = new JSONObject(retJSON.toString());
-                String code = jsonObject.getString("code");
-
-                if (code.equals("0")) {
-                    JSONObject data = jsonObject.getJSONObject("data");
-
-                    //格式：180.000.00.000(中国区上海上海电信)
-//                    IP = data.getString("ip") + "(" + data.getString("country")
-//                            + data.getString("area") + "区"
-//                            + data.getString("region") + data.getString("city")
-//                            + data.getString("isp") + ")";
-
-                    //格式：180.000.00.000
-                    IP = data.getString("ip");
-
-                    Log.e("提示", "您的IP地址是：" + IP);
-                } else {
-                    IP = "";
-                    Log.e("提示", "IP接口异常，无法获取IP地址！");
-                }
-            } else {
-                IP = "";
-                Log.e("提示", "网络连接异常，无法获取IP地址！");
             }
-        } catch (Exception e) {
-            IP = "";
-            Log.e("提示", "获取IP地址时出现异常，异常信息是：" + e.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return IP;
-
+        return "unkowen";
     }
 
     public static String streamreader(InputStream is) throws IOException {
