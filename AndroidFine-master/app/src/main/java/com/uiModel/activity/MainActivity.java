@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.yuzhi.fine.fragment.BufferKnifeFragment;
 import com.yuzhi.fine.fragment.MainPagerFragment;
 import com.yuzhi.fine.fragment.MemberFragment;

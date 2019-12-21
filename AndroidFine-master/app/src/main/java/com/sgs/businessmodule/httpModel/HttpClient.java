@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.sgs.AppContext;
 import com.yuzhi.fine.model.SearchParam;
 

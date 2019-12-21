@@ -14,7 +14,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 /**
  * Author:    ZhuWenWu

@@ -20,7 +20,7 @@ import com.sgs.businessmodule.taskModel.TaskQueue;
 import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
 import com.sgs.businessmodule.websocketmodel.EventActivity;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;

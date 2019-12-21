@@ -31,7 +31,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.yuzhi.fine.ui.pulltorefresh.internal.EmptyViewMethodAccessor;
 import com.yuzhi.fine.ui.pulltorefresh.internal.LoadingLayout;

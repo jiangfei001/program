@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.sgs.businessmodule.httpModel.HttpClient;
 
 import java.util.List;

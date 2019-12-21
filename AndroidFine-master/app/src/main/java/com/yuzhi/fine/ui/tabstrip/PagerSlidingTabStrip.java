@@ -37,7 +37,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 import java.util.Locale;
 

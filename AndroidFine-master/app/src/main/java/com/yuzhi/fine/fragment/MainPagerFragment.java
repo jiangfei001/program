@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.yuzhi.fine.ui.tabstrip.PagerSlidingTabStrip;
 
 public class MainPagerFragment extends Fragment {

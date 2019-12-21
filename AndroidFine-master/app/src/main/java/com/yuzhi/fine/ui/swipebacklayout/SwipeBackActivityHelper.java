@@ -6,7 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 
 /**

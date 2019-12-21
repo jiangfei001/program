@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 import java.util.ArrayList;
 import java.util.List;

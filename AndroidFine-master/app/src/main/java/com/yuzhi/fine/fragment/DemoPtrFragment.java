@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.squareup.picasso.Picasso;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.uiModel.activity.MainActivity;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.HttpResponseHandler;

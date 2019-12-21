@@ -36,7 +36,7 @@ import com.sgs.programModel.TaskProgarm;
 import com.sgs.businessmodule.taskModel.TaskQueue;
 import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
 import com.sgs.middle.utils.StringUtils;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;

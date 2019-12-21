@@ -7,7 +7,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 public class MainActivity extends Activity {
 

@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 /**
  * Author:    ZhuWenWu

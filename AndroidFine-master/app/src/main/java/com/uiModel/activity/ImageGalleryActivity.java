@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.yuzhi.fine.ui.photoview.PhotoViewAdapter;
 import com.yuzhi.fine.ui.swipebacklayout.SwipeBackActivity;
 

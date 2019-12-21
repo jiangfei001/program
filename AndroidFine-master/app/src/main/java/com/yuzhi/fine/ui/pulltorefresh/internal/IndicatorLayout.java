@@ -30,7 +30,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.yuzhi.fine.ui.pulltorefresh.PullToRefreshBase.Mode;
 
 @SuppressLint("ViewConstructor")

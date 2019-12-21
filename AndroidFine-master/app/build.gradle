@@ -22,7 +22,7 @@ android {
         renderscriptTargetApi 20
         renderscriptSupportModeEnabled true
 
-        applicationId "com.yuzhi.fine"
+        applicationId "com.jf.fine"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1

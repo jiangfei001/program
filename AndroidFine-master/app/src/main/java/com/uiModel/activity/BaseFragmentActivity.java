@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.sgs.AppManager;
 
 public class BaseFragmentActivity extends FragmentActivity {

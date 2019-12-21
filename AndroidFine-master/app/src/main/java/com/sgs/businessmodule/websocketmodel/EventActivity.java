@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import com.sgs.AppContext;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventManager;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 import org.greenrobot.eventbus.Subscribe;
 

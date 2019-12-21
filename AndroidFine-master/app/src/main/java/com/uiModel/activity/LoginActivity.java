@@ -15,7 +15,7 @@ import com.sgs.businessmodule.httpModel.HttpResponseHandler;
 import com.sgs.businessmodule.httpModel.RestApiResponse;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 import org.json.JSONObject;
 

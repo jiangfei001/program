@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 public class PhotoViewWrapper extends RelativeLayout {
 

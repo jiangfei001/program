@@ -34,7 +34,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.yuzhi.fine.ui.pulltorefresh.internal.FlipLoadingLayout;
 import com.yuzhi.fine.ui.pulltorefresh.internal.LoadingLayout;
 import com.yuzhi.fine.ui.pulltorefresh.internal.RotateLoadingLayout;

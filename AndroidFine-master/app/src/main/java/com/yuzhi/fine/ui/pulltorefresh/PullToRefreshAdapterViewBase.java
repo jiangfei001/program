@@ -31,7 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.yuzhi.fine.ui.pulltorefresh.internal.EmptyViewMethodAccessor;
 import com.yuzhi.fine.ui.pulltorefresh.internal.IndicatorLayout;
 

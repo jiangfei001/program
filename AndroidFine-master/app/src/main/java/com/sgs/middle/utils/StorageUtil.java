@@ -12,7 +12,7 @@ import android.util.Log;
 import com.sgs.AppContext;
 import com.sgs.middle.model.SDCardInfo;
 import com.sgs.middle.model.StorageSize;
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 
 import java.io.File;
 import java.lang.reflect.Array;

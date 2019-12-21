@@ -12,7 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.yuzhi.fine.R;
+import com.jf.fine.R;
 import com.yuzhi.fine.ui.UIHelper;
 import com.yuzhi.fine.ui.viewpagerindicator.CirclePageIndicator;
 import com.sgs.middle.utils.SharedPreferences;
