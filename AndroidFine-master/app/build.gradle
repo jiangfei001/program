@@ -2,9 +2,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'packer'
 
 
+repositories {
+    flatDir {
+        dir 'libs'
+    }
+}
+
 packer {
     /**渠道包**/
-    manifestMatcher = ['UMENG_CHANNEL','Promotion_Market']
+    manifestMatcher = ['UMENG_CHANNEL', 'Promotion_Market']
     archiveOutput = file(new File(project.rootProject.buildDir.path, "apks"))
     archiveNameFormat = '${appPkg}-c-${buildType}-${buildTime}'
 
@@ -34,11 +40,17 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+
     splits {
         abi {
             enable true
             reset()
-            include 'x86', 'armeabi-v7a','x86_64'
+            include 'x86', 'armeabi-v7a', 'x86_64'
             universalApk true
         }
     }
@@ -99,6 +111,7 @@ android {
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library')
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.alibaba:fastjson:1.2.33'

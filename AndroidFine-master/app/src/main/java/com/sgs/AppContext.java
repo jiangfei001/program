@@ -15,6 +15,10 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
 
@@ -29,6 +33,29 @@ public class AppContext extends Application {
 
     public static String TAG = "AppContext";
     public String getUserName = "jiangfei";
+    public String addr = "";
+
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
+//BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
+//原有BDLocationListener接口暂时同步保留。具体介绍请参考后文中的说明
+
+    public class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取地址相关的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            String addr = location.getAddrStr();    //获取详细地址信息
+            String country = location.getCountry();    //获取国家
+            String province = location.getProvince();    //获取省份
+            String city = location.getCity();    //获取城市
+            String district = location.getDistrict();    //获取区县
+            String street = location.getStreet();    //获取街道信息
+            Log.e("add", addr);
+        }
+    }
 
     public AppContext() {
     }
@@ -52,10 +79,13 @@ public class AppContext extends Application {
         app = this;
         registerUncaughtExceptionHandler();
         isMainProcess = isMainProcess();
+
+        //initFileService();
         if (isMainProcess) {
-            //initFileService();
             alarmUploadDataOnceDaily();
+            initLocation();
         }
+
     }
 
 
@@ -63,65 +93,62 @@ public class AppContext extends Application {
      * 初始化定位服务
      */
     private void initLocation() {
-        // "ex"-GPS使用Android，网络定位使用百度, "ex2"-GPS使用Android，网络定位使用高德
-        /*final MapLocationClient client = MapLocationClient.getInstance(this, "ex");
-        client.addLocationListener((MapLocation location) -> {
-            //将位置信息添加到点击流
-            SfGather.sharedInstance().setLocation(location.getLatitude(), location.getLongitude());
-            //上报设备信息
-//                ReportHelper.report(ReportModel.deviceModel());
-            try {
-                List<HashMap<String, String>> gpsList = new ArrayList<>();
-                HashMap<String, String> map = new HashMap<>();
-                map.put("longitude", Double.toString(location.getLongitude()));
-                map.put("latitude", Double.toString(location.getLatitude()));
-                map.put("createTime", StringUtil.convertTimeStamp2DateTime(System.currentTimeMillis()));
-                gpsList.add(map);
-                //SfGatherUtil.trackGpsData(JSONObject.toJSONString(gpsList));
-            } catch (Exception e) {
-                //LogUtil.e(e);
-            }
-        });
-        // 分配给项目组的key
-        client.setKey("6ea9ab1baa0efb9e19094440c317e21b");
+        mLocationClient = new LocationClient(getApplicationContext());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+        //注册监听函数
+        LocationClientOption option = new LocationClientOption();
 
-        MapLocationClientOption option = new MapLocationClientOption();
+        option.setIsNeedAddress(true);
+//可选，是否需要地址信息，默认为不需要，即参数为false
+//如果开发者需要获得当前点的地址信息，此处必须为true
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+//可选，设置定位模式，默认高精度
+//LocationMode.Hight_Accuracy：高精度；
+//LocationMode. Battery_Saving：低功耗；
+//LocationMode. Device_Sensors：仅使用设备；
 
-        // 网络请求超时时间
-        option.setHttpTimeOut(30000);
+        option.setCoorType("bd09ll");
+//可选，设置返回经纬度坐标类型，默认GCJ02
+//GCJ02：国测局坐标；
+//BD09ll：百度经纬度坐标；
+//BD09：百度墨卡托坐标；
+//海外地区定位，无需设置坐标类型，统一返回WGS84类型坐标
 
-        // 设置生产环境
-        if (!BuildConfig.DEBUG_ABLE) {
-            option.setIsProduct();
-        }
+        option.setScanSpan(10000);
+//可选，设置发起定位请求的间隔，int类型，单位ms
+//如果设置为0，则代表单次定位，即仅定位一次，默认为0
+//如果设置非0，需设置1000ms以上才有效
 
-        // 网络定位的时间间隔
-        option.setInterval(isMobileUsedInHouse() ? 90 * 60 * 1000L : 10 * 60 * 1000L);
+        option.setOpenGps(true);
+//可选，设置是否使用gps，默认false
+//使用高精度和仅用设备两种定位模式的，参数必须设置为true
 
-        // 运动状态GPS定位时间间隔
-        option.setGPSMoveInterval(isMobileUsedInHouse() ? 30 * 60 * 1000L : 10 * 60 * 1000L);
+        option.setLocationNotify(true);
+//可选，设置是否当GPS有效时按照1S/1次频率输出GPS结果，默认false
 
-        // 静止状态GPS定位时间间隔
-        option.setGPStaticInterval(isMobileUsedInHouse() ? 90 * 60 * 1000L : 15 * 60 * 1000L);
+        option.setIgnoreKillProcess(false);
+//可选，定位SDK内部是一个service，并放到了独立进程。
+//设置是否在stop的时候杀死这个进程，默认（建议）不杀死，即setIgnoreKillProcess(true)
 
-        // 打包上传时间间隔
-        option.setPackInterval(isMobileUsedInHouse() ? 100 * 60 * 1000L : 18 * 60 * 1000L);
+        option.SetIgnoreCacheException(false);
+//可选，设置是否收集Crash信息，默认收集，即参数为false
 
-        // 开启压缩打包
-        option.setCompress(true);
+        option.setWifiCacheTimeOut(5 * 60 * 1000);
+//可选，V7.2版本新增能力
+//如果设置了该接口，首次启动定位时，会先判断当前Wi-Fi是否超出有效期，若超出有效期，会先重新扫描Wi-Fi，然后定位
 
-        // 设置username
-        option.getExtrasPara().putString("un", "appStore");
+        option.setEnableSimulateGps(false);
+//可选，设置是否需要过滤GPS仿真结果，默认需要，即参数为false
 
-        client.setLocationOption(option);
-
-        // AppStore作为系统App，系统完全授权
-        // 但作为普通App，sdk需考虑权限问题(给地理信息部门提个bug，或者不用他们sdk，直接用百度或者高德)
-        try {
-            client.startLocation();
-        } catch (Exception e) {
-            LogUtil.e(e, "initLocation");
-        }*/
+        mLocationClient.setLocOption(option);
+//mLocationClient为第二步初始化过的LocationClient对象
+//需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+//更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
+        mLocationClient.start();
+//mLocationClient为第二步初始化过的LocationClient对象
+//需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+//更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
     }
 
     private boolean isMainProcess() {

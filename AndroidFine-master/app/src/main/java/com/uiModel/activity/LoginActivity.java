@@ -10,6 +10,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.sgs.AppContext;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.HttpResponseHandler;
 import com.sgs.businessmodule.httpModel.RestApiResponse;
@@ -17,13 +22,6 @@ import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 
 import okhttp3.Request;
@@ -87,7 +85,7 @@ public class LoginActivity extends Activity {
                 //最近连接时间
                 hashMap.put("recentConnectTime", DeviceUtil.getConnectionTime());
                 //地址
-                hashMap.put("address", "456");
+                hashMap.put("address", AppContext.getInstance().addr);
 
                 new
 
