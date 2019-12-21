@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -44,9 +47,11 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by tiansj on 14/12/30.
@@ -70,6 +75,20 @@ public class DeviceUtil {
         activityManager.getMemoryInfo(memoryInfo);
         return StringUtil.convertRamWithUnit(memoryInfo.totalMem);
     }
+
+    public static String getDir() {
+        return AppContext.getInstance().getExternalCacheDir().getAbsolutePath();
+    }
+
+    /**
+     * 获取巴枪设备序列号(设置--关于手机—状态信息—序列号)
+     *
+     * @return
+     */
+    public static String getMobileSerial() {
+        return Build.SERIAL;
+    }
+
 
     /**
      * 获取系统剩余RAM
@@ -376,6 +395,149 @@ public class DeviceUtil {
     }
 
     /**
+     * 获取巴枪Wifi mac地址
+     *
+     * @param context
+     * @return
+     */
+    public static String getWifiMacAddress(Context context) {
+        try {
+            if (checkPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
+                WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                String wifiMac;
+                if (wm == null || wm.getConnectionInfo() == null) {
+                    return getProperty(SF_WIFI_MAC, UNKNOWN);
+                }
+                wifiMac = wm.getConnectionInfo().getMacAddress();
+                if (StringUtil.isEmpty(wifiMac) || ERROR_WIFI_MAC.equals(wifiMac)) {
+                    wifiMac = getProperty(SF_WIFI_MAC, UNKNOWN);
+                }
+                return wifiMac;
+            } else {
+                Log.w("ACCESS_WIFI_STATE", "");
+            }
+        } catch (Exception e) {
+            Log.w("ACCESS_WIFI_STATE", "");
+        }
+        return getProperty(SF_WIFI_MAC, UNKNOWN);
+    }
+
+    //获取手机的唯一标识
+    @SuppressLint("MissingPermission")
+    public static String getPhoneSign(Context context) {
+        StringBuilder deviceId = new StringBuilder();
+        // 渠道标志
+        deviceId.append("a");
+        try {
+            //IMEI（imei）
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            String imei = tm.getDeviceId();
+            if (!TextUtils.isEmpty(imei)) {
+                deviceId.append("imei");
+                deviceId.append(imei);
+                return deviceId.toString();
+            }
+            //序列号（sn）
+            String sn = tm.getSimSerialNumber();
+            if (!TextUtils.isEmpty(sn)) {
+                deviceId.append("sn");
+                deviceId.append(sn);
+                return deviceId.toString();
+            }
+            //如果上面都没有， 则生成一个id：随机码
+            String uuid = getUUID();
+            if (!TextUtils.isEmpty(uuid)) {
+                deviceId.append("id");
+                deviceId.append(uuid);
+                return deviceId.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            deviceId.append("id").append(getUUID());
+        }
+        return deviceId.toString();
+    }
+
+    /**
+     * 得到全局唯一UUID
+     */
+    private static String uuid;
+
+    public static String getUUID() {
+        SharedPreferences mShare = AppContext.getInstance().getSharedPreferences("uuid", Context.MODE_PRIVATE);
+        if (mShare != null) {
+            uuid = mShare.getString("uuid", "");
+        }
+        if (TextUtils.isEmpty(uuid)) {
+            uuid = UUID.randomUUID().toString();
+            mShare.edit().putString("uuid", uuid).commit();
+        }
+        return uuid;
+    }
+
+    public static void setUserName(String userName) {
+        //步骤1：创建一个SharedPreferences对象
+        SharedPreferences sharedPreferences = AppContext.getInstance().getSharedPreferences("data", Context.MODE_PRIVATE);
+        //步骤2： 实例化SharedPreferences.Editor对象
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //步骤3：将获取过来的值放入文件
+        editor.putString("userName", userName);
+        //步骤4：提交
+        editor.commit();
+    }
+
+    public static void setConnectionTime() {
+        //步骤1：创建一个SharedPreferences对象
+        SharedPreferences sharedPreferences = AppContext.getInstance().getSharedPreferences("data", Context.MODE_PRIVATE);
+        //步骤2： 实例化SharedPreferences.Editor对象
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //步骤3：将获取过来的值放入文件
+        editor.putString("ConnectionTime", new Date().toString());
+        //步骤4：提交
+        editor.commit();
+    }
+
+    public static String getConnectionTime() {
+        SharedPreferences sharedPreferences = AppContext.getInstance().getSharedPreferences("data", Context.MODE_PRIVATE);
+        String connectionTime = sharedPreferences.getString("ConnectionTime", "");
+        return connectionTime;
+    }
+
+
+    /**
+     * 非正常WiFi Mac
+     */
+    private static final String ERROR_WIFI_MAC = "02:00:00:00:00:00";
+
+    /**
+     * 资产编号
+     */
+    private static final String SF_SCRIL_ID = "gsm.scril.sf";
+
+    /**
+     * WiFi Mac
+     */
+    private static final String SF_WIFI_MAC = "gsm.macaddress.sf";
+
+    private static String getProperty(String key, String defaultValue) {
+        String value = defaultValue;
+        try {
+            Class<?> c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("get", String.class, String.class);
+            value = (String) (get.invoke(c, key, UNKNOWN));
+        } catch (Exception e) {
+            Log.w("ACCESS_WIFI_STATEe", "");
+        }
+        return value;
+    }
+
+    /**
+     * unknown
+     */
+    private static final String UNKNOWN = "unknown";
+
+
+    /**
      * 获取手机品牌
      *
      * @return
@@ -554,6 +716,10 @@ public class DeviceUtil {
         }
         if (actualImageCursor != null) actualImageCursor.close();
         return file;
+    }
+
+    public static String getCPU() {
+        return android.os.Build.CPU_ABI;
     }
 
     /**

@@ -28,6 +28,7 @@ import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
+import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.entity.ProgramResource;
 import com.sgs.businessmodule.qiniuModel.QiniuUpHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
@@ -62,6 +63,7 @@ public class WebSocketActivity extends EventActivity {
         @Override
         public void onConnected() {
             appendMsgDisplay("onConnected");
+            DeviceUtil.setConnectionTime();
         }
 
         @Override

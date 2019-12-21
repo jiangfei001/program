@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,11 +43,44 @@ public class LoginActivity extends Activity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
                 final HashMap hashMap = new HashMap();
-                hashMap.put("userName", "admin");
-                hashMap.put("terminalIdentity", "123");
-                hashMap.put("terminalName", "456");
+                
+                hashMap.put("userName", DeviceUtil.getPhoneSign(LoginActivity.this));
+
+                hashMap.put("terminalIdentity", DeviceUtil.getPhoneSign(LoginActivity.this));
+
+                hashMap.put("terminalName", DeviceUtil.getPhoneSign(LoginActivity.this));
+                //应用版本号
+                hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
+                //局域网IP地址
+                hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
+                //网关IP地址
+                hashMap.put("gatewayIp", DeviceUtil.getNetIp());
+                //mac地址
+                hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
+                //分辨率
+                hashMap.put("resolution", DeviceUtil.getDisplayMetricsPixels(LoginActivity.this));
+                //固件信息
+                hashMap.put("firmwareInfo", DeviceUtil.getPhoneBrand() + "BuildLevel" + DeviceUtil.getBuildLevel());
+                //CPU ID
+                hashMap.put("cpuId", DeviceUtil.getCPU());
+                //系统编号
+                hashMap.put("systemNo", DeviceUtil.getBuildVersion());
+                //设备身份编码
+                hashMap.put("equipmentNo", DeviceUtil.getPhoneSign(LoginActivity.this));
+                //设备序列号
+                hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial());
+                //磁盘物理路径
+                hashMap.put("physicalPath", DeviceUtil.getDir());
+                //磁盘大小
+                hashMap.put("diskSize", DeviceUtil.getDeviceTotalRam());
+                //磁盘剩余大小
+                hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
+                //最近连接时间
+                hashMap.put("recentConnectTime", DeviceUtil.getConnectionTime());
+                //地址
+                hashMap.put("address", "456");
 
                 new Thread(new Runnable() {
                     @Override
