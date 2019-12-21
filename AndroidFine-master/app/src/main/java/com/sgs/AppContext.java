@@ -16,12 +16,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.sgs.businessmodule.downloadModel.DownLoadService;
-import com.sgs.businessmodule.websocketmodel.AppResponseDispatcher;
-import com.sgs.businessmodule.websocketmodel.WebSocketClientManger;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
-import com.zhangke.websocket.WebSocketHandler;
-import com.zhangke.websocket.WebSocketManager;
-import com.zhangke.websocket.WebSocketSetting;
 
 import java.util.Calendar;
 import java.util.List;
