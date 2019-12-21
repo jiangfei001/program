@@ -44,16 +44,16 @@ android {
     }
     signingConfigs {
         release {
-            keyAlias 'AndroidFine'
-            keyPassword '11118888'
+            keyAlias 'jf'
+            keyPassword '123456'
             storeFile file('keystore/release.jks')
-            storePassword '11118888'
+            storePassword '123456'
         }
         debug {
-            keyAlias 'debug'
-            keyPassword '11118888'
+            keyAlias 'jf'
+            keyPassword '123456'
             storeFile file('keystore/debug.jks')
-            storePassword '11118888'
+            storePassword '123456'
         }
     }
     buildTypes {
