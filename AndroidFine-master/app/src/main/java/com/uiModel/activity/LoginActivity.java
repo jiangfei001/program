@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sgs.AppContext;
+import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
@@ -97,7 +98,7 @@ public class LoginActivity extends Activity {
 
                         Log.e("HashMap", hashMap.toString());
 
-                        HttpClient.postHashMapEntity(serverUrl, hashMap, new
+                        HttpClient.postHashMapEntity(AppUrl.serverUrl, hashMap, new
                                 MyHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(final MyApiResponse response) {
@@ -129,17 +130,15 @@ public class LoginActivity extends Activity {
             }
         });
 
-        findViewById(R.id.btnSure).
-
-                setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        doNavigation();
-                    }
-                });
+        findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppContext.getInstance().userName = phone.getText().toString();
+                doNavigation();
+            }
+        });
     }
 
-    public String serverUrl = "http://xinlianchuangmei.com/multimedia/api/terminal/addMuTerminal";
 
     private void doNavigation() {
         Intent it = new Intent(this, WebSocketActivity.class);

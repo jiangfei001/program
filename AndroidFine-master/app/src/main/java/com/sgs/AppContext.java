@@ -32,7 +32,7 @@ public class AppContext extends Application {
     private static AppContext app;
 
     public static String TAG = "AppContext";
-    public String getUserName = "jiangfei";
+    public String userName = "123";
     public String addr = "";
 
     public LocationClient mLocationClient = null;

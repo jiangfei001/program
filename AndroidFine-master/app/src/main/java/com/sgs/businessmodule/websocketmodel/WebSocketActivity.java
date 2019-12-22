@@ -104,8 +104,7 @@ public class WebSocketActivity extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket);
         initView();
-        AppContext.getInstance().getUserName = "123";
-        WebSocketHelper.initWebSocket(AppContext.getInstance().getUserName);
+        WebSocketHelper.initWebSocket(AppContext.getInstance().userName);
         WebSocketHandler.getDefault().addListener(socketListener);
         taskQueue = new TaskQueue(1);
         taskQueue.start();
@@ -241,7 +240,7 @@ public class WebSocketActivity extends EventActivity {
                     @Override
                     public String getUrlandName(String key, ResponseInfo info, JSONObject response) {
                         final InstructionResponse responseEntity = new InstructionResponse();
-                        
+
                         responseEntity.setId(123);
                         responseEntity.setExecuteTime(new Date());
                         responseEntity.setResult("123123");

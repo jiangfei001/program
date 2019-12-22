@@ -1,11 +1,13 @@
 package com.sgs.businessmodule.websocketmodel;
 
 import com.sgs.AppContext;
+import com.sgs.AppUrl;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.WebSocketManager;
 import com.zhangke.websocket.WebSocketSetting;
 
 public class WebSocketHelper {
+
     public static void initWebSocket(String username) {
         WebSocketSetting setting = new WebSocketSetting();
         //连接地址，必填，例如 wss://echo.websocket.org
@@ -13,9 +15,9 @@ public class WebSocketHelper {
         //setting.setConnectUrl("ws://192.168.0.97:8081/multimedia/api/websocket/jf");//必填
         //setting.setConnectUrl("ws://192.168.0.106:8082/multimedia/api/websocket/" + username);//必填
 
-       /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
+        /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
 
-        setting.setConnectUrl("ws://49.235.109.237:9080/multimedia/api/websocket/" + username);//必填
+        setting.setConnectUrl(AppUrl.socketUrl + "/multimedia/api/websocket/" + username);//必填
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);
 
