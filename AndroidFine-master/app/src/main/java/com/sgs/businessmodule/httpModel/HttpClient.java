@@ -168,11 +168,9 @@ public class HttpClient {
                 try {
                     String str = response.body().string();
                     int code = response.code();
-
                     Log.e("req", "|" + str + "|" + code + "|");
                     handler.sendSuccessMessage(getMyRestApiResponse(str));
-                   /* RestApiResponse apiResponse = getRestApiResponse(str);
-                    handler.sendSuccessMessage(apiResponse);*/
+
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
                 }

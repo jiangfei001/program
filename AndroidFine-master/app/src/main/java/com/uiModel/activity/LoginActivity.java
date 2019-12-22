@@ -52,14 +52,13 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-
                 final HashMap hashMap = new HashMap();
 
                 hashMap.put("userName", phone.getText().toString());
 
-                hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
+                hashMap.put("terminalIdentity", "admin");
 
-                hashMap.put("terminalName", DeviceUtil.getUniqueID(LoginActivity.this));
+                hashMap.put("terminalName", "admin");
                 //应用版本号
                 hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
                 //局域网IP地址
@@ -87,21 +86,16 @@ public class LoginActivity extends Activity {
                 //磁盘剩余大小
                 hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
                 //最近连接时间
-                hashMap.put("recentConnectTime", "");
+                hashMap.put("recentConnectTime", DeviceUtil.getConnectionTime1());
                 //地址
                 hashMap.put("address", AppContext.getInstance().addr);
 
-                new
-
-                        Thread(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-
                         hashMap.put("gatewayIp", DeviceUtil.getNetIp());
-
                         Log.e("HashMap", hashMap.toString());
                         HttpClient.postHashMapEntity(serverUrl, hashMap, new
-
                                 MyHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(final MyApiResponse response) {
@@ -125,9 +119,7 @@ public class LoginActivity extends Activity {
                                     }
                                 });
                     }
-                }).
-
-                        start();
+                }).start();
             }
         });
 

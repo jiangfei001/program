@@ -579,7 +579,7 @@ public class DeviceUtil {
     }
 
     public static String getConnectionTime1() {
-        String s = DateUtil.getNowDateYMDCH();
+        String s = DateUtil.getNowDateYMD();
         return s;
     }
 
@@ -896,7 +896,7 @@ public class DeviceUtil {
             infoUrl = new URL("http://pv.sohu.com/cityjson?ie=utf-8");
             URLConnection connection = infoUrl.openConnection();
             HttpURLConnection httpConnection = (HttpURLConnection) connection;
-            connection.setConnectTimeout(10000);
+          /*  connection.setConnectTimeout(10000);*/
             int responseCode = httpConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 inStream = httpConnection.getInputStream();
