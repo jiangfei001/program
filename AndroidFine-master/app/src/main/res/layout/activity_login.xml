@@ -38,7 +38,6 @@
                     android:layout_toRightOf="@+id/imgPhone"
                     android:background="@null"
                     android:hint="用户名"
-                    android:inputType="number"
                     android:lines="2"
                     android:maxLength="11"
                     android:paddingLeft="15.0dip"

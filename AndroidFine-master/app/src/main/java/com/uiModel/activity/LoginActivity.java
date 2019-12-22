@@ -1,10 +1,15 @@
 package com.uiModel.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,13 +27,21 @@ import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
 import com.sgs.middle.utils.StringUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.Request;
 
 public class LoginActivity extends Activity {
 
     Handler handler = new Handler();
+
+    String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    List<String> mPermissionList = new ArrayList<>();
+
+    private static final int PERMISSION_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +155,7 @@ public class LoginActivity extends Activity {
                 doNavigation();
             }
         });
+        initPermission();
     }
 
 
@@ -150,6 +164,42 @@ public class LoginActivity extends Activity {
         startActivity(it);
         finish();
     }
+
+    private void initPermission() {
+        mPermissionList.clear();
+        /**
+         * 判断哪些权限未授予
+         */
+        for (int i = 0; i < permissions.length; i++) {
+            if (ContextCompat.checkSelfPermission(this, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+                mPermissionList.add(permissions[i]);
+            }
+        }
+        /**
+         * 判断是否为空
+         */
+        if (mPermissionList.isEmpty()) {//未授予的权限为空，表示都授予了
+        } else {//请求权限方法
+            String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
+            ActivityCompat.requestPermissions(LoginActivity.this, permissions, PERMISSION_REQUEST);
+        }
+    }
+
+    /**
+     * 响应授权
+     * 这里不管用户是否拒绝，都进入首页，不再重复申请权限
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSION_REQUEST:
+                break;
+            default:
+                break;
+        }
+    }
+
 
     @Override
     protected void onResume() {
