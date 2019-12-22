@@ -3,6 +3,8 @@ package com.sgs.businessmodule.httpModel;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -12,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.jf.fine.R;
 import com.sgs.AppContext;
+import com.uiModel.activity.LoginActivity;
 import com.yuzhi.fine.model.SearchParam;
 
 import java.io.IOException;

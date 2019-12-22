@@ -51,49 +51,52 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                final HashMap hashMap = new HashMap();
-
-                hashMap.put("userName", phone.getText().toString());
-
-                hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
-
-                hashMap.put("terminalName", DeviceUtil.getUniqueID(LoginActivity.this));
-                //应用版本号
-                hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
-                //局域网IP地址
-                hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
-        /*        //网关IP地址/
-                hashMap.put("gatewayIp", DeviceUtil.getNetIp());*/
-                //mac地址
-                hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
-                //分辨率
-                hashMap.put("resolution", DeviceUtil.getDisplayMetricsPixels(LoginActivity.this));
-                //固件信息
-                hashMap.put("firmwareInfo", DeviceUtil.getPhoneBrand() + "BuildLevel" + DeviceUtil.getBuildLevel());
-                //CPU ID
-                hashMap.put("cpuId", DeviceUtil.getCPU());
-                //系统编号
-                hashMap.put("systemNo", DeviceUtil.getBuildVersion());
-                //设备身份编码
-                hashMap.put("equipmentNo", DeviceUtil.getUniqueID(LoginActivity.this));
-                //设备序列号
-                hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial(LoginActivity.this));
-                //磁盘物理路径
-                hashMap.put("physicalPath", DeviceUtil.getDir());
-                //磁盘大小
-                hashMap.put("diskSize", DeviceUtil.getDeviceTotalRam());
-                //磁盘剩余大小
-                hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
-                //最近连接时间
-                hashMap.put("recentConnectTime", DeviceUtil.getConnectionTime1());
-                //地址
-                hashMap.put("address", AppContext.getInstance().addr);
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+
+                        final HashMap hashMap = new HashMap();
+
+                        hashMap.put("userName", phone.getText().toString());
+
+                        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
+
+                        hashMap.put("terminalName", DeviceUtil.getUniqueID(LoginActivity.this));
+                        //应用版本号
+                        hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
+                        //局域网IP地址
+                        hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
+        /*        //网关IP地址/
+                hashMap.put("gatewayIp", DeviceUtil.getNetIp());*/
+                        //mac地址
+                        hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
+                        //分辨率
+                        hashMap.put("resolution", DeviceUtil.getDisplayMetricsPixels(LoginActivity.this));
+                        //固件信息
+                        hashMap.put("firmwareInfo", DeviceUtil.getPhoneBrand() + "BuildLevel" + DeviceUtil.getBuildLevel());
+                        //CPU ID
+                        hashMap.put("cpuId", DeviceUtil.getCPU());
+                        //系统编号
+                        hashMap.put("systemNo", DeviceUtil.getBuildVersion());
+                        //设备身份编码
+                        hashMap.put("equipmentNo", DeviceUtil.getUniqueID(LoginActivity.this));
+                        //设备序列号
+                        hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial(LoginActivity.this));
+                        //磁盘物理路径
+                        hashMap.put("physicalPath", DeviceUtil.getDir());
+                        //磁盘大小
+                        hashMap.put("diskSize", DeviceUtil.getDeviceTotalRam());
+                        //磁盘剩余大小
+                        hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
+                        //最近连接时间
+                        hashMap.put("recentConnectTime", DeviceUtil.getConnectionTime1());
+                        //地址
+                        hashMap.put("address", AppContext.getInstance().addr);
+
                         hashMap.put("gatewayIp", DeviceUtil.getNetIp());
+
                         Log.e("HashMap", hashMap.toString());
+
                         HttpClient.postHashMapEntity(serverUrl, hashMap, new
                                 MyHttpResponseHandler() {
                                     @Override
@@ -103,7 +106,7 @@ public class LoginActivity extends Activity {
                                         handler1.post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(LoginActivity.this, response.msg + "code" + response.code, Toast.LENGTH_LONG).show();
+                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                             }
                                         });
                                     }
@@ -142,6 +145,11 @@ public class LoginActivity extends Activity {
         Intent it = new Intent(this, WebSocketActivity.class);
         startActivity(it);
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initView() {
