@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccc65e42-0f4b-47f5-8d4f-9e2cc5845349" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/httpModel/MyApiResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/httpModel/MyHttpResponseHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/AppContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/AppContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/httpModel/HttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/httpModel/HttpClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/middle/utils/DateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/middle/utils/DateUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/middle/utils/DeviceUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/middle/utils/DeviceUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/uiModel/activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/uiModel/activity/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -279,7 +265,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="332" y="54" width="1440" height="808" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.3390558" />

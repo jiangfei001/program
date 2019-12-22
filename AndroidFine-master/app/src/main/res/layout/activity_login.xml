@@ -39,9 +39,9 @@
                     android:background="@null"
                     android:hint="用户名"
                     android:inputType="number"
+                    android:lines="2"
                     android:maxLength="11"
                     android:paddingLeft="15.0dip"
-                    android:singleLine="true"
                     android:textColor="#ff111111"
                     android:textColorHint="#ffaaaaaa"
                     android:textSize="16.0sp" />
@@ -77,14 +77,15 @@
 
                 <EditText
                     android:id="@+id/code"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="354dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="-3dp"
                     android:layout_toRightOf="@+id/imgCode"
                     android:background="@null"
                     android:hint="序列号"
                     android:inputType="number"
+                    android:lines="2"
                     android:paddingLeft="15.0dip"
-                    android:singleLine="false"
                     android:textColor="#ff111111"
                     android:textColorHint="#ffaaaaaa"
                     android:textSize="16.0sp" />

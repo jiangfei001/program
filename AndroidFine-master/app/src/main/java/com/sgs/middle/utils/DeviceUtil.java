@@ -495,7 +495,7 @@ public class DeviceUtil {
             id = getUUIDT();
         }
 
-        return TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id+1;
+        return TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
     }
 
     @SuppressLint("MissingPermission")
