@@ -20,6 +20,7 @@ import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
+import com.sgs.middle.utils.StringUtil;
 
 import java.util.HashMap;
 
@@ -38,6 +39,7 @@ public class LoginActivity extends Activity {
         editText.setText(DeviceUtil.getUniqueID(LoginActivity.this));
 
         final EditText phone = findViewById(R.id.phone);
+        final EditText codeName = findViewById(R.id.codeName);
         phone.setText("admin");
 
         findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
@@ -46,7 +48,6 @@ public class LoginActivity extends Activity {
                 LoginActivity.this.finish();
             }
         });
-
 
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,7 @@ public class LoginActivity extends Activity {
 
                         hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
 
-                        hashMap.put("terminalName", DeviceUtil.getUniqueID(LoginActivity.this));
+                        hashMap.put("terminalName", !StringUtil.isEmpty(codeName.getText().toString()) ? codeName.getText().toString() : DeviceUtil.getUniqueID(LoginActivity.this));
                         //应用版本号
                         hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
                         //局域网IP地址
@@ -107,7 +108,11 @@ public class LoginActivity extends Activity {
                                         handler1.post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                                if (response.code.equals("0")) {
+                                                    Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                                }
                                             }
                                         });
                                     }

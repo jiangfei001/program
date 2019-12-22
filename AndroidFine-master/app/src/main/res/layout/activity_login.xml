@@ -12,7 +12,7 @@
         <RelativeLayout
             android:id="@+id/rl_1"
             android:layout_width="fill_parent"
-            android:layout_height="90.0dip"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="18.0dip"
             android:layout_marginTop="200.0dip"
             android:layout_marginRight="18.0dip"
@@ -58,6 +58,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/ff"
                 android:layout_width="fill_parent"
                 android:layout_height="45.0dip"
                 android:layout_below="@+id/layoutPhone">
@@ -82,7 +83,43 @@
                     android:layout_marginLeft="-3dp"
                     android:layout_toRightOf="@+id/imgCode"
                     android:background="@null"
+                    android:editable="false"
+                    android:enabled="false"
                     android:hint="序列号"
+                    android:inputType="number"
+                    android:paddingLeft="15.0dip"
+                    android:textColor="#ff111111"
+                    android:textColorHint="#ffaaaaaa"
+                    android:textSize="16.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dff11"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:layout_below="@id/ff">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dip"
+                    android:background="#ffdddddd" />
+
+                <ImageView
+                    android:id="@+id/imgCode2"
+                    android:layout_width="15.0dip"
+                    android:layout_height="18.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:background="@drawable/login_lock" />
+
+                <EditText
+                    android:id="@+id/codeName"
+                    android:layout_width="354dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_toRightOf="@+id/imgCode2"
+                    android:background="@null"
+                    android:hint="设备名字"
                     android:inputType="number"
                     android:lines="2"
                     android:paddingLeft="15.0dip"
@@ -96,7 +133,7 @@
             android:id="@+id/btnSure"
             android:layout_width="fill_parent"
             android:layout_height="40.0dip"
-            android:layout_below="@+id/rl_1"
+            android:layout_below="@id/rl_1"
             android:layout_marginLeft="18.0dip"
             android:layout_marginTop="30.0dip"
             android:layout_marginRight="18.0dip"

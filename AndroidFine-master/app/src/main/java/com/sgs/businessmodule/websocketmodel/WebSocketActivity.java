@@ -42,12 +42,16 @@ import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
+import org.java_websocket.WebSocket;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WebSocketActivity extends EventActivity {
 
@@ -64,6 +68,25 @@ public class WebSocketActivity extends EventActivity {
         public void onConnected() {
             appendMsgDisplay("onConnected");
             DeviceUtil.setConnectionTime();
+
+            final Timer connectionLostTimer = new Timer("WebSocketTimer");
+
+            TimerTask connectionLostTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    if (WebSocketHandler.getDefault().isConnect()) {
+                        WebSocketHandler.getDefault().send("xintiao");
+                    } else {
+                        connectionLostTimer.cancel();
+                    }
+                    Log.e(TAG, "我是心跳");
+                }
+            };
+
+            //scheduleAtFixedRate
+            connectionLostTimer.scheduleAtFixedRate(connectionLostTimerTask, 10, 1000L * 50);
+
+
         }
 
         @Override
@@ -104,7 +127,7 @@ public class WebSocketActivity extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket);
         initView();
-        WebSocketHelper.initWebSocket(AppContext.getInstance().userName);
+        WebSocketHelper.initWebSocket(DeviceUtil.getUniqueID(WebSocketActivity.this));
         WebSocketHandler.getDefault().addListener(socketListener);
         taskQueue = new TaskQueue(1);
         taskQueue.start();

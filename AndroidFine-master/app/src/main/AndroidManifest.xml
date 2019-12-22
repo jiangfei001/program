@@ -29,7 +29,7 @@
 
         <activity
             android:name="com.uiModel.activity.LoginActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,13 +39,13 @@
         <activity
             android:name="com.uiModel.activity.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
 
 
         <activity
             android:name="com.sgs.businessmodule.websocketmodel.WebSocketActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
             <!-- <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
