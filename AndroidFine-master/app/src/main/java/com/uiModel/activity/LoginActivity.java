@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -13,10 +14,8 @@ import android.widget.Toast;
 
 import com.sgs.AppContext;
 import com.sgs.businessmodule.httpModel.HttpClient;
-import com.sgs.businessmodule.httpModel.HttpResponseHandler;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
-import com.sgs.businessmodule.httpModel.RestApiResponse;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
@@ -56,9 +55,9 @@ public class LoginActivity extends Activity {
 
                 hashMap.put("userName", phone.getText().toString());
 
-                hashMap.put("terminalIdentity", "admin");
+                hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
 
-                hashMap.put("terminalName", "admin");
+                hashMap.put("terminalName", DeviceUtil.getUniqueID(LoginActivity.this));
                 //应用版本号
                 hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
                 //局域网IP地址
@@ -99,7 +98,9 @@ public class LoginActivity extends Activity {
                                 MyHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(final MyApiResponse response) {
-                                        handler.post(new Runnable() {
+                                        Log.e("tag", "response.msg ");
+                                        Handler handler1 = new Handler(Looper.getMainLooper());
+                                        handler1.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 Toast.makeText(LoginActivity.this, response.msg + "code" + response.code, Toast.LENGTH_LONG).show();
@@ -110,7 +111,9 @@ public class LoginActivity extends Activity {
                                     @Override
                                     public void onFailure(Request request, Exception e) {
                                         e.printStackTrace();
-                                        handler.post(new Runnable() {
+                                        Log.e("tag", "onFailure.msg ");
+                                        Handler handler1 = new Handler(Looper.getMainLooper());
+                                        handler1.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 Toast.makeText(LoginActivity.this, "对不起，注册失败", Toast.LENGTH_LONG).show();
