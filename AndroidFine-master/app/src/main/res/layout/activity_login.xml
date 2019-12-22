@@ -120,7 +120,6 @@
                     android:layout_toRightOf="@+id/imgCode2"
                     android:background="@null"
                     android:hint="设备名字"
-                    android:inputType="number"
                     android:lines="2"
                     android:paddingLeft="15.0dip"
                     android:textColor="#ff111111"
