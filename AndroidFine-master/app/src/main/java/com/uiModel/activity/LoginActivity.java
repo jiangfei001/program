@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
                         //磁盘剩余大小
                         hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
                         //最近连接时间
-                        hashMap.put("recentConnectTime", DeviceUtil.getConnectionTime1());
+                        hashMap.put("recentConnectTime", "");
                         //地址
                         hashMap.put("address", AppContext.getInstance().addr);
 
