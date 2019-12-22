@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doNavigation();
+                LoginActivity.this.finish();
             }
         });
 
