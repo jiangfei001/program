@@ -11,6 +11,18 @@ public class DateUtil {
         return df.format(new Date());
     }
 
+    public static String getNowDateYMD() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+        return df.format(new Date());
+    }
+
+    public static String getNowDateYMDCH() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日");//设置日期格式
+        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+        return df.format(new Date());
+    }
+
     /**
      * 判断当前日期是否在[startDate, endDate]区间
      *

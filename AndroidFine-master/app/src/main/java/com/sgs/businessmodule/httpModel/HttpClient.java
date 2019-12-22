@@ -92,6 +92,7 @@ public class HttpClient {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
+                Log.e("req", response.message() + "|" + response.body().toString() + "|" + response.code() + "|");
                 try {
                     RestApiResponse apiResponse = getRestApiResponse(response.body().toString());
                     handler.sendSuccessMessage(apiResponse);
@@ -145,7 +146,7 @@ public class HttpClient {
     }
 
 
-    public static void postHashMapEntity(String url, HashMap responseEntity, final HttpResponseHandler handler) {
+    public static void postHashMapEntity(String url, HashMap responseEntity, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
             Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
             return;
@@ -165,8 +166,13 @@ public class HttpClient {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
-                    RestApiResponse apiResponse = getRestApiResponse(response.body().toString());
-                    handler.sendSuccessMessage(apiResponse);
+                    String str = response.body().string();
+                    int code = response.code();
+
+                    Log.e("req", "|" + str + "|" + code + "|");
+                    handler.sendSuccessMessage(getMyRestApiResponse(str));
+                   /* RestApiResponse apiResponse = getRestApiResponse(str);
+                    handler.sendSuccessMessage(apiResponse);*/
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
                 }
@@ -177,6 +183,20 @@ public class HttpClient {
                 handler.sendFailureMessage(call.request(), e);
             }
         });
+    }
+
+    private static MyApiResponse getMyRestApiResponse(String responseBody) throws Exception {
+        if (!isJsonString(responseBody)) {
+            throw new Exception("server response not json string (response = " + responseBody + ")");
+        }
+        MyApiResponse apiResponse = JSON.parseObject(responseBody, MyApiResponse.class);
+        if (apiResponse == null) {
+            throw new Exception("server error (response = " + responseBody + ")");
+        }
+       /* if (apiResponse.head.status == RestApiResponse.STATUS_SUCCESS) {
+            throw new Exception("server error (business status code = " + apiResponse.head.status + "; response =" + responseBody + ")");
+        }*/
+        return apiResponse;
     }
 
     private static RestApiResponse getRestApiResponse(String responseBody) throws Exception {
@@ -194,7 +214,7 @@ public class HttpClient {
     }
 
     private static boolean isJsonString(String responseBody) {
-        return TextUtils.isEmpty(responseBody) && (responseBody.startsWith("{") && responseBody.endsWith("}"));
+        return !TextUtils.isEmpty(responseBody) && (responseBody.startsWith("{") && responseBody.endsWith("}"));
     }
 
     public static String mapToQueryString(Map<String, String> map) {

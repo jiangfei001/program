@@ -8,15 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.sgs.AppContext;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.HttpResponseHandler;
+import com.sgs.businessmodule.httpModel.MyApiResponse;
+import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.httpModel.RestApiResponse;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
@@ -35,6 +34,11 @@ public class LoginActivity extends Activity {
         initView();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        EditText editText = findViewById(R.id.code);
+        editText.setText(DeviceUtil.getUniqueID(LoginActivity.this));
+
+        final EditText phone = findViewById(R.id.phone);
+        phone.setText("admin");
 
         findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +55,7 @@ public class LoginActivity extends Activity {
 
                 final HashMap hashMap = new HashMap();
 
-                hashMap.put("userName", "admin");
+                hashMap.put("userName", phone.getText().toString());
 
                 hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
 
@@ -60,7 +64,7 @@ public class LoginActivity extends Activity {
                 hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
                 //局域网IP地址
                 hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
-        /*        //网关IP地址
+        /*        //网关IP地址/
                 hashMap.put("gatewayIp", DeviceUtil.getNetIp());*/
                 //mac地址
                 hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
@@ -83,7 +87,7 @@ public class LoginActivity extends Activity {
                 //磁盘剩余大小
                 hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
                 //最近连接时间
-                hashMap.put("recentConnectTime", DeviceUtil.getConnectionTime());
+                hashMap.put("recentConnectTime", "");
                 //地址
                 hashMap.put("address", AppContext.getInstance().addr);
 
@@ -98,13 +102,13 @@ public class LoginActivity extends Activity {
                         Log.e("HashMap", hashMap.toString());
                         HttpClient.postHashMapEntity(serverUrl, hashMap, new
 
-                                HttpResponseHandler() {
+                                MyHttpResponseHandler() {
                                     @Override
-                                    public void onSuccess(RestApiResponse response) {
+                                    public void onSuccess(final MyApiResponse response) {
                                         handler.post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(LoginActivity.this, "恭喜注册成功", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(LoginActivity.this, response.msg + "code" + response.code, Toast.LENGTH_LONG).show();
                                             }
                                         });
                                     }
@@ -115,7 +119,7 @@ public class LoginActivity extends Activity {
                                         handler.post(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(LoginActivity.this, "恭喜注册失败", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(LoginActivity.this, "对不起，注册失败", Toast.LENGTH_LONG).show();
                                             }
                                         });
                                     }

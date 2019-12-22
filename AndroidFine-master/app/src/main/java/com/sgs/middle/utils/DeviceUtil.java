@@ -495,7 +495,7 @@ public class DeviceUtil {
             id = getUUIDT();
         }
 
-        return TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
+        return TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id+1;
     }
 
     @SuppressLint("MissingPermission")
@@ -567,7 +567,7 @@ public class DeviceUtil {
         //步骤2： 实例化SharedPreferences.Editor对象
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //步骤3：将获取过来的值放入文件
-        editor.putString("ConnectionTime", new Date().toString());
+        editor.putString("ConnectionTime", DateUtil.getNowDateYMD());
         //步骤4：提交
         editor.commit();
     }
@@ -576,6 +576,11 @@ public class DeviceUtil {
         SharedPreferences sharedPreferences = AppContext.getInstance().getSharedPreferences("data", Context.MODE_PRIVATE);
         String connectionTime = sharedPreferences.getString("ConnectionTime", "");
         return connectionTime;
+    }
+
+    public static String getConnectionTime1() {
+        String s = DateUtil.getNowDateYMDCH();
+        return s;
     }
 
 
