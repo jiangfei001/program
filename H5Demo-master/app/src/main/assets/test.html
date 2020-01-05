@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 使页面适配手机屏幕 -->
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title></title>
+</head>
+
+<body>
+<!-- 这里是通过点击某个Div来隐式创建一个 input 控件，然后实现直接访问相机的功能。-->
+<div id="demoForClick">
+    <div id="btnID">H5调用安卓扫一扫功能</div>
+</div>
+<!-- 换行 -->
+<button onclick='startTest()'>开始测试</button>
+<label style='width: 100%;height: auto;word-wrap:break-word;word-break:break-all;overflow: hidden;'
+       id='result'>测试结果：</label>
+<script>
+			function startTest(){
+			window.android.takeScan();
+			}
+			function testResult(content){
+		    //document.getElementById('result').innerHTML='测试结果:'+content;
+		    alert(content);
+			}
+</script>
+</body>
+</html>

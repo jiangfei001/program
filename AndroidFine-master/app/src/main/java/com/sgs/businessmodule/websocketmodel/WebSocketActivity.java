@@ -259,7 +259,7 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QiniuUpHelper.upload(WebSocketActivity.this, false, new TAKESCREEN.BackUrl() {
+               /* QiniuUpHelper.upload(WebSocketActivity.this, false, new TAKESCREEN.BackUrl() {
                     @Override
                     public String getUrlandName(String key, ResponseInfo info, JSONObject response) {
                         final InstructionResponse responseEntity = new InstructionResponse();
@@ -278,7 +278,7 @@ public class WebSocketActivity extends EventActivity {
                         }).start();
                         return null;
                     }
-                });
+                });*/
 
             }
         });

@@ -1,22 +1,26 @@
 package com.h5demo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -58,22 +62,85 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
        /* img_browser_back.setOnClickListener(this);
         img_browser_next.setOnClickListener(this);*/
         initweb();
-        url = "file:///android_asset/resources/project_9/493532b60cbc7613404c02ebf1453b8b.html";
+        // url = "file:///android_asset/resources/project_9/493532b60cbc7613404c02ebf1453b8b.html";
+        url = "https://cfs-api-sit.sf-financial.com:7443/entry/index.html?utm_source=fxg#/introduce";
+
+        mWebView.addJavascriptInterface(new JsInterface(), "android");
+        //url="http://mclasstest.club/test.html";
         if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 扫描二维码/条码回传
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (data != null) {
+                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                //showToast(content);
+                Toast.makeText(MainActivity.this, content, Toast.LENGTH_LONG).show();
+                String method = "javascript:testResult('" + content + "')";
+                mWebView.loadUrl(method);
+            }
         }
     }
 
 
+    private class JsInterface {
+        // 安卓原生与h5互调方法定义
+        @JavascriptInterface //js接口声明
+        public void takeScan() {
+            Intent intent = new Intent(MainActivity.this, CaptureActivity.class); //打开扫一扫
+            startActivityForResult(intent, 1);
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initweb() {
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
-        mWebView.setWebViewClient(new InnerWebViewClient());
+   /*     mWebView.setWebViewClient(new InnerWebViewClient());*/
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不另跳浏览器
+                // 在2.3上面不加这句话，可以加载出页面，在4.0上面必须要加入，不然出现白屏
+                if (url.startsWith("http://") || url.startsWith("https://")) {
+                    view.loadUrl(url);
+                    mWebView.stopLoading();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode,
+                                        String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+            }
+        });
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setAppCacheEnabled(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         mWebView.getSettings().setDatabaseEnabled(true);
         mWebView.getSettings().setDomStorageEnabled(true);
         //        if (!NetUtil.checkNet(MainActivity.this)) {
@@ -84,21 +151,6 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }
-
-        mWebView.setWebChromeClient(new WebChromeClient() {
-            /**
-             * 显示自定义视图，无此方法视频不能播放
-             */
-            @Override
-            public void onShowCustomView(View view, CustomViewCallback callback) {
-                super.onShowCustomView(view, callback);
-            }
-
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-            }
-        });
     }
 
     @Override
@@ -168,19 +220,22 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         return false;
     }
 
-    private class InnerWebViewClient extends WebViewClient {
+
+
+ /*   private class InnerWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
 
-        /**
+        *//**
          * 处理ssl请求
-         */
+         *//*
         @Override
         public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
             handler.proceed();
+
         }
 
         @Override
@@ -188,9 +243,9 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
             super.onPageStarted(view, url, favicon);
         }
 
-        /**
+        *//**
          * 页面载入完成回调
-         */
+         *//*
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
@@ -199,7 +254,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
                     "catch(e){}");//播放视频
             uichange();
         }
-    }
+    }*/
 
 
     public void uichange() {

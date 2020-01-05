@@ -15,8 +15,6 @@ import com.sgs.middle.utils.DeviceUtil;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
-
 
 /**
  * 设备信息的工具类
@@ -34,34 +32,32 @@ public class QiniuUpHelper {
     /**
      * 签名
      */
-    private static String TOKEN = "cv6A8yeorA0LAoN11dboX2ybIFOBoEbe3C8ZN6PA:kcTCyjE33e1G-scr12X8ClLVkQk=:eyJzY29wZSI6Im11bHRpbWVkaWEyMDE5MTEiLCJyZXR1cm5VcmwiOiJodHRwOi8vcTB1OGhpamlsLmJrdC5jbG91ZGRuLmNvbS8iLCJyZXR1cm5Cb2R5Ijoie3N1Y2Vzczp4eHh9IiwiZGVhZGxpbmUiOjE1NzQ2Mjk5NTh9";
+    //private static String TOKEN = "cv6A8yeorA0LAoN11dboX2ybIFOBoEbe3C8ZN6PA:kcTCyjE33e1G-scr12X8ClLVkQk=:eyJzY29wZSI6Im11bHRpbWVkaWEyMDE5MTEiLCJyZXR1cm5VcmwiOiJodHRwOi8vcTB1OGhpamlsLmJrdC5jbG91ZGRuLmNvbS8iLCJyZXR1cm5Cb2R5Ijoie3N1Y2Vzczp4eHh9IiwiZGVhZGxpbmUiOjE1NzQ2Mjk5NTh9";
 
     /**
      * 上传数据到七牛云服务器
      *
      * @param activity View
      */
-    public static void upload(Activity activity, boolean hasStatusBar, final TAKESCREEN.BackUrl backUrl) {
+    public static void upload(Activity activity, boolean hasStatusBar, String Token, final TAKESCREEN.BackUrl backUrl) {
         UploadManager uploadManager = new UploadManager();
         Bitmap bitmap = DeviceUtil.snapCurrentScreenShot(activity, hasStatusBar);
         byte[] data = Bitmap2Bytes(bitmap);
 
-        String fileName = DateUtil.getNowDate() + ".png";
+        String fileName = System.currentTimeMillis() + ".png";
         //data = "hello".getBytes();
         /*fileName = "hello.txt";*/
 
-        uploadManager.put(data, fileName, TOKEN, new UpCompletionHandler() {
+        uploadManager.put(data, fileName, Token, new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject response) {
-       /*         Log.i("qiniu 访问链接 = ", HOST + key);
+                Log.i("qiniu 访问链接 = ", key);
                 Log.i("qiniu info = ", info.toString());
-                Log.i("qiniu response = ", response.toString());*/
+                Log.i("qiniu response = ", response.toString());
                 backUrl.getUrlandName(key, info, response);
             }
         }, null);
     }
-
-
 
 
     /**

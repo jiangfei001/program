@@ -25,6 +25,7 @@ import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
+import com.sgs.middle.utils.SharedPreferences;
 import com.sgs.middle.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -112,7 +113,7 @@ public class LoginActivity extends Activity {
 
                         Log.e("HashMap", hashMap.toString());
 
-                        HttpClient.postHashMapEntity(AppUrl.serverUrl, hashMap, new
+                        HttpClient.postHashMapEntity(AppUrl.serverUrlAddMuTerminal, hashMap, new
                                 MyHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(final MyApiResponse response) {
@@ -122,6 +123,7 @@ public class LoginActivity extends Activity {
                                             @Override
                                             public void run() {
                                                 if (response.code.equals("0")) {
+                                                    SharedPreferences.getInstance().putBoolean(SharedPreferences.KEY_ISREGISTER, true);
                                                     Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
                                                 } else {
                                                     Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
@@ -204,6 +206,9 @@ public class LoginActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (SharedPreferences.getInstance().getBoolean(SharedPreferences.KEY_ISREGISTER, false)) {
+            doNavigation();
+        }
     }
 
     private void initView() {

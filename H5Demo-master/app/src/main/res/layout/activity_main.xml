@@ -16,10 +16,14 @@
         android:layout_below="@id/mProgress"
         android:layout_marginBottom="50dip">
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="https://cfs-api-sit.sf-financial.com:7443/entry/index.html?utm_source=fxg#/introduce"/>
         <com.h5demo.ArticleWebView
             android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="visible"/>
 
         <!--<View-->
