@@ -113,6 +113,7 @@ public class WebSocketActivity extends EventActivity {
         public <T> void onMessage(String message, T data) {
             if (data instanceof InstructionRequest) {
                 appendMsgDisplay(data.toString());
+                Log.e(TAG,data.toString());
                 final InstructionRequest requestEntity = (InstructionRequest) data;
                 TVTask tvTask = TaskFactory.createTask(requestEntity);
                 taskQueue.add(tvTask);

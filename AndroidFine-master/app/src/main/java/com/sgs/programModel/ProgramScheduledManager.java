@@ -17,6 +17,7 @@ import com.sgs.programModel.entity.PublicationPlanVo;
 import com.sgs.AppContext;
 import com.sgs.middle.utils.StringUtils;
 import com.sgs.middle.utils.ZipUtil;
+import com.sgs.programModel.taskUtil.PRI;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class ProgramScheduledManager {
     //已经成功下载 和 今天需要进行下载的任务
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVosPri;
+    LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVosD;
 
     DownLoadManager manager;
 
@@ -56,7 +58,7 @@ public class ProgramScheduledManager {
 
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
-
+        progarmPalyInstructionVosD = new LinkedList<>();
         if (programTaskManager != null) {
             Log.e(TAG, "programTaskManager.stopLooper");
             programTaskManager.stopLooper();
@@ -72,7 +74,7 @@ public class ProgramScheduledManager {
             programTaskManager = null;
         }
         //开始轮播
-        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos, progarmPalyInstructionVosPri);
+        programTaskManager = new ProgramTaskManager(context, progarmPalyInstructionVos, progarmPalyInstructionVosPri, progarmPalyInstructionVosD);
 
     }
 
@@ -110,6 +112,12 @@ public class ProgramScheduledManager {
                 break;
             }
         }
+        for (int i = 0; i < progarmPalyInstructionVosD.size(); i++) {
+            if (progarmPalyInstructionVosD.get(i).getId() == 1) {
+                progarmPalyInstructionVosD.remove(i);
+                break;
+            }
+        }
     }
 
 
@@ -128,7 +136,8 @@ public class ProgramScheduledManager {
     //开机的时候，进行节目排期任务启动
     ProgramTaskManager programTaskManager;
 
-    public void checkResouce(List<ProgarmPalyInstructionVo> prolist) {
+    public void checkResouce(List<ProgarmPalyInstructionVo> list) {
+        List<ProgarmPalyInstructionVo> prolist = list;
         if (prolist != null && prolist.size() > 0) {
             for (int i = 0; i < prolist.size(); i++) {
                 doProgarm(prolist.get(i), false);
@@ -276,7 +285,7 @@ public class ProgramScheduledManager {
                 Log.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
-                list.remove(response);
+                /* list.remove(response);*/
             }
         }
         System.out.println(response.toString());
@@ -380,21 +389,35 @@ public class ProgramScheduledManager {
     }
 
     private void addProgramToTask(ProgarmPalyInstructionVo response, boolean isInsert) {
+        Log.e(TAG, "addProgramToTaskLL:" + response.getProgramName());
         if (ProgramUtil.getWeekPalySchedule(response)) {
-            Log.e(TAG, "getWeekPalySchedule：");
+            Log.e(TAG, "addProgramToTask getWeekPalySchedule：" + response.getProgramName());
             if (isInsert) {
-                Log.e(TAG, "progarmPalyInstructionVos.size() == 1 && isInsert");
+                Log.e(TAG, "我是从命令加载进来的，" + response.getProgramName());
                 if (response.getPublicationPlanObject().isExclusive()) {
-                    programTaskManager.insertTask(response, true);
+                    programTaskManager.insertTask(response, PRI.TASK_PRI);
+                    progarmPalyInstructionVosPri.add(response);
                 } else {
-                    programTaskManager.insertTask(response, false);
+                    if (response.getPublicationPlanObject().getPlanType() == 0) {
+                        programTaskManager.insertTask(response, PRI.TASK_D);
+                        progarmPalyInstructionVos.add(response);
+                    } else {
+                        programTaskManager.insertTask(response, PRI.TASK_NOR);
+                        progarmPalyInstructionVos.add(response);
+                    }
                 }
             } else {
+                Log.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());
+                if (response.getPublicationPlanObject().isExclusive()) {
+                    progarmPalyInstructionVosPri.add(response);
+                } else {
+                    if (response.getPublicationPlanObject().getPlanType() == 0) {
+                        progarmPalyInstructionVosD.add(response);
+                    } else {
+                        progarmPalyInstructionVos.add(response);
+                    }
+                }
             }
-
-            progarmPalyInstructionVos.add(response);
-            progarmPalyInstructionVosPri.add(response);
-
         }
     }
 }

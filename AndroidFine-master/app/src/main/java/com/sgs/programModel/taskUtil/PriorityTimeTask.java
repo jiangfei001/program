@@ -19,17 +19,20 @@ public class PriorityTimeTask<T extends MyTask> {
     private int priors = 0;
     private List<TimeHandler> mTimeHandlers = new ArrayList<TimeHandler>();
     private static PendingIntent mPendingIntent;
+
+    private List<T> dTasks = new ArrayList<T>();
     private List<T> mTasks = new ArrayList<T>();
     private List<T> priorsTasks = new ArrayList<T>();
     private List<T> mTempTasks;
+
 
     String mActionName;
 
     private boolean isSpotsTaskIng = false;
 
+    private Integer dcursor = 0;
     private Integer cursor = 0;
     private Integer priorsCursor = 0;
-
 
     private Context mContext;
 
@@ -56,6 +59,34 @@ public class PriorityTimeTask<T extends MyTask> {
         priorsCursor = 0;
     }
 
+    private void cursorDInit() {
+        dcursor = 0;
+    }
+
+
+    public void insertTaskByPri(T bobTask, PRI pRi) {
+        if (PRI.TASK_PRI == pRi) {
+            if (priorsTasks == null) {
+                priorsTasks = new LinkedList<>();
+            }
+            priorsTasks.add(bobTask);
+            Log.e(TAG, "我是临时插入进来的一个高优先级的节目");
+
+        } else if (PRI.TASK_NOR == pRi) {
+            if (mTasks == null) {
+                mTasks = new LinkedList<>();
+            }
+            mTasks.add(bobTask);
+            Log.e(TAG, "我是临时插入进来的一个高优先级的节目");
+        } else {
+            if (dTasks == null) {
+                dTasks = new LinkedList<>();
+            }
+            dTasks.add(bobTask);
+            Log.e(TAG, "我是临时插入进来的一个低级优先级的节目");
+        }
+        insertStartLooperTask();
+    }
 
     public void insertPriorsTask(T bobTask) {
         if (priorsTasks == null) {
@@ -66,14 +97,6 @@ public class PriorityTimeTask<T extends MyTask> {
         insertStartLooperTask();
     }
 
-    public void insertMTasksTask(T bobTask) {
-        Log.e(TAG, "我是临时插入进来的一个普通节目");
-        if (mTasks == null) {
-            mTasks = new LinkedList<>();
-        }
-        mTasks.add(bobTask);
-        insertStartLooperTask();
-    }
 
     public void setTasks(List<T> mES) {
         cursorInit();
@@ -83,6 +106,12 @@ public class PriorityTimeTask<T extends MyTask> {
     public void setPriTasks(List<T> mES) {
         cursorPriorityInit();
         this.priorsTasks = mES;
+    }
+
+
+    public void setDTasks(List<T> mES) {
+        cursorDInit();
+        this.dTasks = mES;
     }
 
 
@@ -125,38 +154,49 @@ public class PriorityTimeTask<T extends MyTask> {
         }
     };
 
-    public boolean doneLooper(List<T> tasklist, boolean isPri) {
-        if (!isPri) {
+    public boolean doneLooper(List<T> tasklist, PRI isPri) {
+        if (isPri == PRI.TASK_NOR) {
             if (tasklist.size() > cursor) {
             } else {
                 cursor = 0;
             }
-        } else {
+        } else if (isPri == PRI.TASK_PRI) {
             if (tasklist.size() > priorsCursor) {
             } else {
                 priorsCursor = 0;
             }
+        } else if (isPri == PRI.TASK_D) {
+            if (tasklist.size() > dcursor) {
+            } else {
+                dcursor = 0;
+            }
         }
-
 
         long mNowtime = System.currentTimeMillis();
         //循环开始为游标的位置，循环所有任务的大小，游标等于列表的大小时，游标记录为0
         for (int i = 0; i < tasklist.size(); i++) {
-            T mTask;
-            if (!isPri) {
+            T mTask = null;
+            if (isPri == PRI.TASK_NOR) {
                 mTask = tasklist.get(cursor);
                 cursor++;
                 if (tasklist.size() < cursor) { //恢复普通任务
                     cursor = 0;
                 }
                 Log.e(TAG, "cursor" + cursor);
-            } else {
+            } else if (isPri == PRI.TASK_PRI) {
                 mTask = tasklist.get(priorsCursor);
                 priorsCursor++;
                 if (tasklist.size() < priorsCursor) { //恢复普通任务
                     priorsCursor = 0;
                 }
                 Log.e(TAG, "priorsCursor" + priorsCursor + "tasklist.size()" + tasklist.size());
+            } else if (isPri == PRI.TASK_D) {
+                mTask = tasklist.get(dcursor);
+                dcursor++;
+                if (tasklist.size() < dcursor) { //恢复普通任务
+                    dcursor = 0;
+                }
+                Log.e(TAG, "norCursor" + dcursor + "tasklist.size()" + tasklist.size());
             }
             if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1) {
                 List<ProgarmPalyPlan> progarmPalyPlan = mTask.progarmPalyInstructionVo.getPublicationPlanObject().getOkProgarms();
@@ -196,14 +236,24 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
     private void order() {
-        if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0)) {
+         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
             boolean idone = false;
             if (priorsTasks != null && priorsTasks.size() > 0) {
-                idone = doneLooper(priorsTasks, true);
+                idone = doneLooper(priorsTasks, PRI.TASK_PRI);
             }
+
             if (!idone) {
-                idone = doneLooper(mTasks, false);
+                if (mTasks != null && mTasks.size() > 0) {
+                    idone = doneLooper(mTasks, PRI.TASK_NOR);
+                }
             }
+
+            if (!idone) {
+                if (dTasks != null && dTasks.size() > 0) {
+                    idone = doneLooper(dTasks, PRI.TASK_D);
+                }
+            }
+
             if (idone) {
                 isRuning = true;
             }
@@ -216,7 +266,9 @@ public class PriorityTimeTask<T extends MyTask> {
     public void stopLooper() {
         priorsTasks = null;
         mTasks = null;
+        dTasks = null;
         Log.e(TAG, "被移除 stopLooper");
         mHandler.removeMessages(1);
     }
+
 }

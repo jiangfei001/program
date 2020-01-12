@@ -11,6 +11,7 @@ import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalySceneVo;
 import com.sgs.programModel.taskUtil.MyTask;
+import com.sgs.programModel.taskUtil.PRI;
 import com.sgs.programModel.taskUtil.PriorityTimeTask;
 import com.sgs.programModel.taskUtil.TimeHandler;
 
@@ -117,16 +118,18 @@ public class ProgramTaskManager {
     final String ACTION = "timeTask.action";
     private PriorityTimeTask<MyTask> myTaskTimeTask;
 
-    ProgramTaskManager(Context context, LinkedList<ProgarmPalyInstructionVo> list, LinkedList<ProgarmPalyInstructionVo> priorslist) {
+    ProgramTaskManager(Context context, LinkedList<ProgarmPalyInstructionVo> list, LinkedList<ProgarmPalyInstructionVo> priorslist, LinkedList<ProgarmPalyInstructionVo> dlist) {
         // TODO: 2017/11/8  创建一个任务处理器
         myTaskTimeTask = new PriorityTimeTask<>(context, ACTION, handler);
 
         // TODO: 2017/11/8   添加时间回掉
         myTaskTimeTask.addHandler(timeHandler);
 
-        // TODO: 2017/11/8  创建时间任务资源
-        creatTasks(list, false);
-        creatTasks(priorslist, true);
+        // TODO: 2017/11/8  创建时间任务资源 0： 循环播放  1：按周播放  2：自定义播放
+        creatTasks(list, PRI.TASK_NOR);
+        creatTasks(priorslist, PRI.TASK_PRI);
+        creatTasks(dlist, PRI.TASK_D);
+
 
         myTaskTimeTask.startLooperTaskOrder();
 
@@ -141,18 +144,14 @@ public class ProgramTaskManager {
         myTaskTimeTask.removeByid(id);
     }
 
-    public void insertTask(ProgarmPalyInstructionVo progarmPalyInstructionVo, boolean exclusive) {
+    public void insertTask(ProgarmPalyInstructionVo progarmPalyInstructionVo, PRI exclusive) {
         MyTask bobTask = new MyTask();
         bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
         Log.e(TAG, "开始插入一个优先级" + exclusive);
-        if (exclusive) {
-            myTaskTimeTask.insertPriorsTask(bobTask);
-        } else {
-            myTaskTimeTask.insertMTasksTask(bobTask);
-        }
+        myTaskTimeTask.insertTaskByPri(bobTask, exclusive);
     }
 
-    private void creatTasks(List<ProgarmPalyInstructionVo> list, boolean exclusive) {
+    private void creatTasks(List<ProgarmPalyInstructionVo> list, PRI prilevel) {
         LinkedList<MyTask> mytasks = new LinkedList<MyTask>();
         for (int i = 0; i < list.size(); i++) {
             ProgarmPalyInstructionVo progarmPalyInstructionVo = list.get(i);
@@ -160,10 +159,15 @@ public class ProgramTaskManager {
             bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
             mytasks.add(bobTask);
         }
-        if (exclusive) {
-            myTaskTimeTask.setPriTasks(mytasks);
-        } else {
+
+        if (prilevel == PRI.TASK_D) {
+            myTaskTimeTask.setDTasks(mytasks);
+        } else if (prilevel == PRI.TASK_NOR) {
             myTaskTimeTask.setTasks(mytasks);
+        } else if (prilevel == PRI.TASK_PRI) {
+            myTaskTimeTask.setPriTasks(mytasks);
         }
+
+
     }
 }

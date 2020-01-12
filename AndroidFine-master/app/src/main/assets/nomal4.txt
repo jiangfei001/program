@@ -1,0 +1,22 @@
+{
+	"id": 41,
+	"playTime": 15,
+	"programName": "jf2",
+	"programResourceList": [],
+	"programZip": "http://q2jkye78n.bkt.clouddn.com/system/20200112/dfd3f68053ae4f27a74f18ec5a43b184.zip",
+	"publicationPlan": {
+		"customizedPalySchedule": [],
+		"deadline": "2020-01-31 00:00",
+		"deadlineV": "2020-01-31 00:00",
+		"exclusive": false,
+		"planType": 0,
+		"weekPalySchedule": []
+	},
+	"resolution": "1376*800",
+	"sceneList": [{
+		"html": "d69af30ae75501807dc0bdf48fcec219.html",
+		"palyMusic": false,
+		"playTime": 15
+	}],
+	"sceneNum": 1
+}
