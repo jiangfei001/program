@@ -77,7 +77,7 @@ public class PriorityTimeTask<T extends MyTask> {
                 mTasks = new LinkedList<>();
             }
             mTasks.add(bobTask);
-            Log.e(TAG, "我是临时插入进来的一个高优先级的节目");
+            Log.e(TAG, "我是临时插入进来的一个普通优先级的节目");
         } else {
             if (dTasks == null) {
                 dTasks = new LinkedList<>();
@@ -236,7 +236,7 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
     private void order() {
-         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
+        if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
             boolean idone = false;
             if (priorsTasks != null && priorsTasks.size() > 0) {
                 idone = doneLooper(priorsTasks, PRI.TASK_PRI);
