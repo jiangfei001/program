@@ -49,28 +49,6 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/btn_down_pri"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="优先1" />
-
-        <Button
-            android:id="@+id/btn_down_pri2"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="优先2" />
-    </LinearLayout>
-
-
     <com.sgs.businessmodule.websocketmodel.ArticleWebView
         android:id="@+id/activity_main_webview1"
         android:layout_width="match_parent"

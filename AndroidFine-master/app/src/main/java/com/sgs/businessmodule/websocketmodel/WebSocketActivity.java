@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +46,8 @@ import com.zhangke.websocket.response.ErrorResponse;
 import org.java_websocket.WebSocket;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,6 +62,15 @@ public class WebSocketActivity extends EventActivity {
     private EditText etContent;
     private TextView tvMsg;
     private ScrollView scrollView;
+
+    public WebView getWvBookPlay() {
+        return wvBookPlay;
+    }
+
+    public void setWvBookPlay(WebView wvBookPlay) {
+        this.wvBookPlay = wvBookPlay;
+    }
+
     WebView wvBookPlay;
 
     private MediaPlayer mediaPlayer = new MediaPlayer();//实例化对象
@@ -113,7 +125,7 @@ public class WebSocketActivity extends EventActivity {
         public <T> void onMessage(String message, T data) {
             if (data instanceof InstructionRequest) {
                 appendMsgDisplay(data.toString());
-                Log.e(TAG,data.toString());
+                Log.e(TAG, data.toString());
                 final InstructionRequest requestEntity = (InstructionRequest) data;
                 TVTask tvTask = TaskFactory.createTask(requestEntity);
                 taskQueue.add(tvTask);
@@ -260,27 +272,23 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* QiniuUpHelper.upload(WebSocketActivity.this, false, new TAKESCREEN.BackUrl() {
-                    @Override
-                    public String getUrlandName(String key, ResponseInfo info, JSONObject response) {
-                        final InstructionResponse responseEntity = new InstructionResponse();
-
-                        responseEntity.setId(123);
-                        responseEntity.setExecuteTime(new Date());
-                        responseEntity.setResult("123123");
-                        responseEntity.setStatus(1);
-                        responseEntity.setReceiveTime(new Date());
-
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new HttpResponseHandler());
-                            }
-                        }).start();
-                        return null;
+                Bitmap bitmap = DeviceUtil.snapCurrentWebViewShot(WebSocketActivity.this.getWvBookPlay());
+                Log.e("b", bitmap.toString());
+                try {
+                    // 指纹图片存放路径
+                   String sdCardDir = FileHelper.getTempDirPath() + "/fingerprintimages/";
+                    File dirFile = new File(sdCardDir);
+                    if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
+                        dirFile.mkdirs();
                     }
-                });*/
-
+                    File file = new File(sdCardDir,  "dd.jpg");
+                    FileOutputStream fos = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.flush();
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

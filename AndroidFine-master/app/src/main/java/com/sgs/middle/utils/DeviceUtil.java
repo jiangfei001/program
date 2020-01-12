@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Picture;
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -30,6 +32,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 
 import com.sgs.AppContext;
 
@@ -136,6 +139,27 @@ public class DeviceUtil {
         decorView.destroyDrawingCache();
         return shot;
     }
+
+
+    /**
+     * 截取当前屏幕画面为bitmap图片
+     *
+     * @param webView
+     * @return
+     */
+    public static Bitmap snapCurrentWebViewShot(WebView webView) {
+        Picture picture = webView.capturePicture();
+        int width = picture.getWidth();
+        int height = picture.getHeight();
+        if (width > 0 && height > 0) {
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+            Canvas canvas = new Canvas(bitmap);
+            picture.draw(canvas);
+            return bitmap;
+        }
+        return null;
+    }
+
 
     /**
      * 获取屏幕大小[0]宽，[1]高
@@ -896,7 +920,7 @@ public class DeviceUtil {
             infoUrl = new URL("http://pv.sohu.com/cityjson?ie=utf-8");
             URLConnection connection = infoUrl.openConnection();
             HttpURLConnection httpConnection = (HttpURLConnection) connection;
-          /*  connection.setConnectTimeout(10000);*/
+            /*  connection.setConnectTimeout(10000);*/
             int responseCode = httpConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 inStream = httpConnection.getInputStream();
