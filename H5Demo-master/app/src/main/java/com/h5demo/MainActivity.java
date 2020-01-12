@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements GestureDetector.OnGestureL
         img_browser_next.setOnClickListener(this);*/
         initweb();
         // url = "file:///android_asset/resources/project_9/493532b60cbc7613404c02ebf1453b8b.html";
-        url = "https://cfs-api-sit.sf-financial.com:7443/entry/index.html?utm_source=fxg#/introduce";
+        url = "https://gsp-1258805345.cos.ap-shenzhen-fsi.myqcloud.com/html/wzej/1.1/www/index.html";
 
         mWebView.addJavascriptInterface(new JsInterface(), "android");
         //url="http://mclasstest.club/test.html";

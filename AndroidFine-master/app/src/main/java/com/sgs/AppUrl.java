@@ -6,7 +6,7 @@ public class AppUrl {
     public static String prodIP = "http://xinlianchuangmei.com/";
     public static String testIP = "http://192.168.0.110:8082/";
 
-    public static boolean isTest = true;
+    public static boolean isTest = false;
 
     //注册
     public static String serverUrlAddMuTerminal;
@@ -25,6 +25,13 @@ public class AppUrl {
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
         }
+    }
+
+    public static void initip(String ip, String duankou) {
+        isTest=false;
+        socketUrl = "ws://" + ip + ":" + duankou + "";
+        serverUrlAddMuTerminal = "http://" + ip + ":" + duankou + "/" + "/multimedia/api/terminal/addMuTerminal";
+        callbackUrl = "http://" + ip + ":" + duankou + "/" + "/multimedia/api/terminal/callback";
     }
 
 }

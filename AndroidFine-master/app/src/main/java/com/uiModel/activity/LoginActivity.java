@@ -54,11 +54,16 @@ public class LoginActivity extends Activity {
 
         final EditText phone = findViewById(R.id.phone);
         final EditText codeName = findViewById(R.id.codeName);
-        phone.setText("admin");
 
+        final EditText ip = findViewById(R.id.codeName1);
+
+        final EditText duanou = findViewById(R.id.codeName11);
         findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!StringUtil.isEmpty(ip.getText().toString())) {
+                    AppUrl.initip(ip.getText().toString(), duanou.getText().toString());
+                }
                 LoginActivity.this.finish();
             }
         });
@@ -70,6 +75,10 @@ public class LoginActivity extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+
+                        if (!StringUtil.isEmpty(ip.getText().toString())) {
+                            AppUrl.initip(ip.getText().toString(), duanou.getText().toString());
+                        }
 
                         final HashMap hashMap = new HashMap();
 
@@ -153,6 +162,9 @@ public class LoginActivity extends Activity {
         findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!StringUtil.isEmpty(ip.getText().toString())) {
+                    AppUrl.initip(ip.getText().toString(), duanou.getText().toString());
+                }
                 AppContext.getInstance().userName = phone.getText().toString();
                 doNavigation();
             }
@@ -206,9 +218,9 @@ public class LoginActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (SharedPreferences.getInstance().getBoolean(SharedPreferences.KEY_ISREGISTER, false)) {
+       /* if (SharedPreferences.getInstance().getBoolean(SharedPreferences.KEY_ISREGISTER, false)) {
             doNavigation();
-        }
+        }*/
     }
 
     private void initView() {

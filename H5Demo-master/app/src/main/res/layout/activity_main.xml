@@ -19,7 +19,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://cfs-api-sit.sf-financial.com:7443/entry/index.html?utm_source=fxg#/introduce"/>
+            android:text="https://gsp-1258805345.cos.ap-shenzhen-fsi.myqcloud.com/html/wzej/1.1/www/index.html"/>
         <com.h5demo.ArticleWebView
             android:id="@+id/webview"
             android:layout_width="wrap_content"

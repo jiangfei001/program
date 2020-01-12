@@ -38,6 +38,7 @@
                     android:layout_toRightOf="@+id/imgPhone"
                     android:background="@null"
                     android:hint="用户名"
+                    android:text="admin"
                     android:lines="2"
                     android:maxLength="11"
                     android:paddingLeft="15.0dip"
@@ -119,6 +120,75 @@
                     android:layout_toRightOf="@+id/imgCode2"
                     android:background="@null"
                     android:hint="设备名字"
+                    android:lines="2"
+                    android:paddingLeft="15.0dip"
+                    android:textColor="#ff111111"
+                    android:textColorHint="#ffaaaaaa"
+                    android:textSize="16.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dff111"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:layout_below="@id/dff11">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dip"
+                    android:background="#ffdddddd" />
+
+                <ImageView
+                    android:id="@+id/imgCode21"
+                    android:layout_width="15.0dip"
+                    android:layout_height="18.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:background="@drawable/login_lock" />
+
+                <EditText
+                    android:id="@+id/codeName1"
+                    android:layout_width="354dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_toRightOf="@+id/imgCode21"
+                    android:background="@null"
+                    android:hint="测试的ip地址"
+                    android:lines="2"
+                    android:paddingLeft="15.0dip"
+                    android:textColor="#ff111111"
+                    android:textColorHint="#ffaaaaaa"
+                    android:textSize="16.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/dff1111"
+                android:layout_width="fill_parent"
+                android:layout_height="45.0dip"
+                android:layout_below="@id/dff111">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dip"
+                    android:background="#ffdddddd" />
+
+                <ImageView
+                    android:id="@+id/imgCode211"
+                    android:layout_width="15.0dip"
+                    android:layout_height="18.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:background="@drawable/login_lock" />
+
+                <EditText
+                    android:id="@+id/codeName11"
+                    android:layout_width="354dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_toRightOf="@+id/imgCode211"
+                    android:background="@null"
+                    android:hint="测试的端口"
+                    android:text="8082"
                     android:lines="2"
                     android:paddingLeft="15.0dip"
                     android:textColor="#ff111111"
