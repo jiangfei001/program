@@ -17,6 +17,16 @@ public abstract class TVTask extends BasicTask {
     public static String TAG = "TVTask";
 
 
+    public boolean isNeedSend() {
+        return isNeedSend;
+    }
+
+    public void setNeedSend(boolean needSend) {
+        isNeedSend = needSend;
+    }
+
+    public boolean isNeedSend = true;
+
     public InstructionRequest instructionRequest;
     InstructionResponse responseEntity;
 
@@ -46,18 +56,20 @@ public abstract class TVTask extends BasicTask {
     }
 
     void sendEventToService() {
-        responseEntity.setResult("OK");
-        responseEntity.setStatus(1);
-        responseEntity.setReceiveTime(new Date());
-        HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
-            @Override
-            public void onSuccess(RestApiResponse response) {
-            }
+        if (isNeedSend()) {
+            responseEntity.setResult("OK");
+            responseEntity.setStatus(1);
+            responseEntity.setReceiveTime(new Date());
+            HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
+                @Override
+                public void onSuccess(RestApiResponse response) {
+                }
 
-            @Override
-            public void onFailure(Request request, Exception e) {
-            }
-        });
+                @Override
+                public void onFailure(Request request, Exception e) {
+                }
+            });
+        }
     }
 
     public abstract void runTv();
