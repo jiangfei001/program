@@ -1,5 +1,6 @@
 package com.sgs.businessmodule.taskModel;
 
+import com.sgs.AppUrl;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.InstructionRequestManager;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.httpModel.HttpClient;
@@ -15,7 +16,6 @@ public abstract class TVTask extends BasicTask {
 
     public static String TAG = "TVTask";
 
-    private String serverUrl = "http://192.168.0.97:8081/multimedia/api/terminal/callback";
 
     public InstructionRequest instructionRequest;
     InstructionResponse responseEntity;
@@ -49,7 +49,7 @@ public abstract class TVTask extends BasicTask {
         responseEntity.setResult("OK");
         responseEntity.setStatus(1);
         responseEntity.setReceiveTime(new Date());
-        HttpClient.postResponseEntity(serverUrl, responseEntity, new HttpResponseHandler() {
+        HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
             @Override
             public void onSuccess(RestApiResponse response) {
             }
