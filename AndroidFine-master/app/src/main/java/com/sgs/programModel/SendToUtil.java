@@ -16,6 +16,7 @@ public class SendToUtil {
     public static void sendEventToService(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
 
         InstructionResponse responseEntity = new InstructionResponse();
+        responseEntity.setId(progarmPalyInstructionVo.getZlid());
         responseEntity.setReceiveTime(progarmPalyInstructionVo.getReceiveTime());
         responseEntity.setExecuteTime(progarmPalyInstructionVo.getExecuteTime());
         Date nowDate = new Date();

@@ -22,6 +22,7 @@ public class RELEASE extends TVTask {
         isNeedSend = false;
         response = JSON.parseObject(prog, new TypeReference<ProgarmPalyInstructionVo>() {
         });
+        response.setZlid(this.instructionRequest.getId());
         response.setReceiveTime(new Date());
         response.setExecuteTime(new Date());
         ProgramScheduledManager.getInstance().doProgarm(response, true);

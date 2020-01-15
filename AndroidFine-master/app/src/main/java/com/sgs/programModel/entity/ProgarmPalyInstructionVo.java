@@ -15,6 +15,8 @@ public class ProgarmPalyInstructionVo {
     @DatabaseField(id = true, canBeNull = false, columnName = "id")
     private int id;
     @DatabaseField
+    private int zlid;
+    @DatabaseField
     private String programName;
     @DatabaseField
     private Date receiveTime;
@@ -22,7 +24,6 @@ public class ProgarmPalyInstructionVo {
      * 开始执行时间
      */
     private Date executeTime;
-
     @DatabaseField
     private int playTime;
     @DatabaseField
@@ -68,6 +69,14 @@ public class ProgarmPalyInstructionVo {
 
     List<ProgramResource> programMusicListArray;
 
+
+    public int getZlid() {
+        return zlid;
+    }
+
+    public void setZlid(int zlid) {
+        this.zlid = zlid;
+    }
 
     public Date getExecuteTime() {
         return executeTime;
