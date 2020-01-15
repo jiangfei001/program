@@ -34,6 +34,7 @@ public abstract class TVTask extends BasicTask {
         this.instructionRequest = instructionRequest;
         responseEntity = new InstructionResponse();
         responseEntity.setId(this.instructionRequest.getId());
+        responseEntity.setReceiveTime(new Date());
     }
 
     @Override
@@ -55,11 +56,22 @@ public abstract class TVTask extends BasicTask {
         InstructionRequestManager.getInstance().saveInstructionRequest(instructionRequest);
     }
 
+    public static long getTimeDifferenceAboutSecond(Date beginTime, Date endTime) {
+        // getTime() 方法获取的是毫秒值  将其转为秒返回
+        long timeDifference = endTime.getTime() - beginTime.getTime();
+        return timeDifference / 1000;
+    }
+
     void sendEventToService() {
         if (isNeedSend()) {
-            responseEntity.setResult("OK");
-            responseEntity.setStatus(1);
-            responseEntity.setReceiveTime(new Date());
+            Date nowDate = new Date();
+            responseEntity.setFinishTime(new Date());
+
+            long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
+            responseEntity.setTimes(between);
+
+            responseEntity.setResult("ok");
+
             HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
                 @Override
                 public void onSuccess(RestApiResponse response) {
