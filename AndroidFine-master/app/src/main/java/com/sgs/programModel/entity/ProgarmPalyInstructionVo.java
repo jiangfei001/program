@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +16,13 @@ public class ProgarmPalyInstructionVo {
     private int id;
     @DatabaseField
     private String programName;
+    @DatabaseField
+    private Date receiveTime;
+    /**
+     * 开始执行时间
+     */
+    private Date executeTime;
+
     @DatabaseField
     private int playTime;
     @DatabaseField
@@ -30,7 +38,6 @@ public class ProgarmPalyInstructionVo {
      */
     @DatabaseField
     private String programZip;
-
     /**
      *
      */
@@ -60,6 +67,23 @@ public class ProgarmPalyInstructionVo {
     List<ProgramResource> programResourceListArray;
 
     List<ProgramResource> programMusicListArray;
+
+
+    public Date getExecuteTime() {
+        return executeTime;
+    }
+
+    public void setExecuteTime(Date executeTime) {
+        this.executeTime = executeTime;
+    }
+
+    public Date getReceiveTime() {
+        return receiveTime;
+    }
+
+    public void setReceiveTime(Date receiveTime) {
+        this.receiveTime = receiveTime;
+    }
 
     public String getProgramMusicList() {
         return programMusicList;

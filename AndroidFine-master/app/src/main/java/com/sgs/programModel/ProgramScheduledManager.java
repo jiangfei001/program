@@ -5,11 +5,16 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.sgs.AppUrl;
 import com.sgs.businessmodule.downloadModel.DownLoadListener;
 import com.sgs.businessmodule.downloadModel.DownLoadManager;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
+import com.sgs.businessmodule.httpModel.HttpClient;
+import com.sgs.businessmodule.httpModel.HttpResponseHandler;
+import com.sgs.businessmodule.httpModel.RestApiResponse;
+import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.sgs.middle.utils.FileUtil;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgramResource;
@@ -21,9 +26,12 @@ import com.sgs.programModel.taskUtil.PRI;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import okhttp3.Request;
 
 public class ProgramScheduledManager {
 
@@ -377,6 +385,9 @@ public class ProgramScheduledManager {
                     Log.e("DownloadManagerListener", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
                     addProgramToTask(response1, true);
+
+
+
                 }
             }
         }
@@ -393,6 +404,7 @@ public class ProgramScheduledManager {
         if (ProgramUtil.getWeekPalySchedule(response)) {
             Log.e(TAG, "addProgramToTask getWeekPalySchedule：" + response.getProgramName());
             if (isInsert) {
+
                 Log.e(TAG, "我是从命令加载进来的，" + response.getProgramName());
                 if (response.getPublicationPlanObject().isExclusive()) {
                     programTaskManager.insertTask(response, PRI.TASK_PRI);
@@ -406,6 +418,9 @@ public class ProgramScheduledManager {
                         progarmPalyInstructionVos.add(response);
                     }
                 }
+
+                SendToUtil.sendEventToService(response);
+
             } else {
                 Log.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());
                 if (response.getPublicationPlanObject().isExclusive()) {
