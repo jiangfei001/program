@@ -1,5 +1,7 @@
 package com.sgs.programModel;
 
+import android.util.Log;
+
 import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.HttpResponseHandler;
@@ -13,8 +15,10 @@ import okhttp3.Request;
 
 public class SendToUtil {
 
-    public static void sendEventToService(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
+    public static String TAG = "SendToUtil";
 
+    public static void sendEventToService(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
+        Log.e(TAG, "上报节目处理结果");
         InstructionResponse responseEntity = new InstructionResponse();
         responseEntity.setId(progarmPalyInstructionVo.getZlid());
         responseEntity.setReceiveTime(progarmPalyInstructionVo.getReceiveTime());
