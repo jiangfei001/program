@@ -19,7 +19,7 @@ public class RELEASE extends TVTask {
     public void runTv() {
         String prog = super.instructionRequest.getData();
         Log.e(TAG, "progJson:" + prog);
-
+        isNeedSend = false;
         response = JSON.parseObject(prog, new TypeReference<ProgarmPalyInstructionVo>() {
         });
         response.setReceiveTime(new Date());

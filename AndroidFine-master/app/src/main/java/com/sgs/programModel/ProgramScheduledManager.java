@@ -385,9 +385,6 @@ public class ProgramScheduledManager {
                     Log.e("DownloadManagerListener", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
                     addProgramToTask(response1, true);
-
-
-
                 }
             }
         }
@@ -418,7 +415,6 @@ public class ProgramScheduledManager {
                         progarmPalyInstructionVos.add(response);
                     }
                 }
-
                 SendToUtil.sendEventToService(response);
 
             } else {

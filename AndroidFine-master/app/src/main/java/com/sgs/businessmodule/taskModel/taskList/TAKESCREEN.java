@@ -11,11 +11,9 @@ import com.sgs.businessmodule.httpModel.HttpResponseHandler;
 import com.sgs.businessmodule.httpModel.RestApiResponse;
 import com.sgs.businessmodule.qiniuModel.QiniuUpHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
-import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.HashMap;
 
 import okhttp3.Request;
@@ -24,6 +22,8 @@ public class TAKESCREEN extends TVTask {
 
     @Override
     public void runTv() {
+
+        isNeedSend = false;
 
         String data = this.instructionRequest.getData();
 
@@ -44,12 +44,7 @@ public class TAKESCREEN extends TVTask {
         QiniuUpHelper.upload(AppContext.getInstance().getNowActivity(), false, uptoken, new BackUrl() {
             @Override
             public String getUrlandName(String key, ResponseInfo info, JSONObject response) {
-
-                final InstructionResponse responseEntity = new InstructionResponse();
                 responseEntity.setId(TAKESCREEN.this.instructionRequest.getId());
-                responseEntity.setExecuteTime(new Date());
-                responseEntity.setStatus(1);
-                responseEntity.setReceiveTime(new Date());
                 HashMap hashMap = new HashMap();
                 hashMap.put("path", finalPath + "/" + key);
                 responseEntity.setResult(JSON.toJSONString(hashMap));

@@ -28,11 +28,11 @@ public abstract class TVTask extends BasicTask {
     public boolean isNeedSend = true;
 
     public InstructionRequest instructionRequest;
-    InstructionResponse responseEntity;
+
+    public final InstructionResponse responseEntity = new InstructionResponse();
 
     public void setInstructionRequest(InstructionRequest instructionRequest) {
         this.instructionRequest = instructionRequest;
-        responseEntity = new InstructionResponse();
         responseEntity.setId(this.instructionRequest.getId());
         responseEntity.setReceiveTime(new Date());
     }
@@ -82,6 +82,26 @@ public abstract class TVTask extends BasicTask {
                 }
             });
         }
+    }
+
+    void sendEventToServiceZhu() {
+            Date nowDate = new Date();
+            responseEntity.setFinishTime(new Date());
+
+            long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
+            responseEntity.setTimes(between);
+
+            responseEntity.setResult("ok");
+
+            HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
+                @Override
+                public void onSuccess(RestApiResponse response) {
+                }
+
+                @Override
+                public void onFailure(Request request, Exception e) {
+                }
+            });
     }
 
     public abstract void runTv();
