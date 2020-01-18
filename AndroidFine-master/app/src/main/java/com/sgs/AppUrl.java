@@ -16,6 +16,8 @@ public class AppUrl {
     public static String callbackUrl;
     //节目列表新增
     public static String addTerminalProgramListUrl;
+    //节目列表新增
+    public static String addDayProgramList;
 
     static {
         if (isTest) {
@@ -23,11 +25,13 @@ public class AppUrl {
             serverUrlAddMuTerminal = "http://" + testIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = "http://" + testIP + "/multimedia/api/terminal/callback";
             addTerminalProgramListUrl = "http://" + testIP + "/multimedia/api/terminal/addTerminalProgramList";
+            addDayProgramList = "http://" + testIP + "/multimedia/api/terminal/addDayProgramList";
         } else {
             socketUrl = "ws://49.235.109.237:9080";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
             addTerminalProgramListUrl = prodIP + "/multimedia/api/terminal/addTerminalProgramList";
+            addDayProgramList = prodIP + "/multimedia/api/terminal/addDayProgramList";
         }
     }
 

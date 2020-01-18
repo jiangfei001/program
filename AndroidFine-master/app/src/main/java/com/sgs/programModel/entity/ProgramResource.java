@@ -70,4 +70,17 @@ public class ProgramResource {
     public void setVirtualPath(String virtualPath) {
         this.virtualPath = virtualPath;
     }
+
+    @Override
+    public String toString() {
+        return "ProgramResource{" +
+                "fileName='" + fileName + '\'' +
+                ", id=" + id +
+                ", url='" + url + '\'' +
+                ", virtualPath='" + virtualPath + '\'' +
+                ", status=" + status +
+                ", downStatus=" + downStatus +
+                ", realfileName='" + realfileName + '\'' +
+                '}';
+    }
 }

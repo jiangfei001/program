@@ -37,5 +37,12 @@ public class ProgarmPalyPlan {
         super();
     }
 
-
+    @Override
+    public String toString() {
+        return "ProgarmPalyPlan{" +
+                "startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", duan='" + duan + '\'' +
+                '}';
+    }
 }

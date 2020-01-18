@@ -300,7 +300,7 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_down3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendToServerUtil.sendEventToAllProList((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());
+                SendToServerUtil.sendEventToToDayAll((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());
             }
         });
 

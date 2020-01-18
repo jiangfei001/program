@@ -40,6 +40,7 @@ public class PublicationPlanVo {
 
     private List<ProgarmPalyPlan> okProgarms;
 
+
     public List<ProgarmPalyPlan> getOkProgarms() {
         return okProgarms;
     }
@@ -103,4 +104,19 @@ public class PublicationPlanVo {
     public void setCustomizedPalySchedule(List<ProgarmPalySchedule> customizedPalySchedule) {
         this.customizedPalySchedule = customizedPalySchedule;
     }
+
+    @Override
+    public String toString() {
+        return "PublicationPlanVo{" +
+                "deadlineV='" + deadlineV + '\'' +
+                ", resolution='" + resolution + '\'' +
+                ", deadline='" + deadline + '\'' +
+                ", exclusive=" + exclusive +
+                ", planType=" + planType +
+                ", weekPalySchedule=" + weekPalySchedule +
+                ", customizedPalySchedule=" + customizedPalySchedule +
+                ", okProgarms=" + okProgarms +
+                '}';
+    }
+
 }

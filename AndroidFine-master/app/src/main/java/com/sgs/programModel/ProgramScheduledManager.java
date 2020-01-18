@@ -302,8 +302,8 @@ public class ProgramScheduledManager {
                 /* list.remove(response);*/
             }
         }
-        System.out.println(response.toString());
-        System.out.println(publicationPlanVo);
+        Log.e(TAG, response.toString());
+        Log.e(TAG, publicationPlanVo.toString());
     }
 
     private class DownloadManagerListener implements DownLoadListener {
@@ -403,7 +403,7 @@ public class ProgramScheduledManager {
     }
 
     private void addProgramToTask(ProgarmPalyInstructionVo response, boolean isInsert) {
-        Log.e(TAG, "addProgramToTaskLL:" + response.getProgramName());
+        Log.e(TAG, "addProgramToTaskLL:" + response.toString());
         if (ProgramUtil.getWeekPalySchedule(response)) {
             prolistToday.add(response);
             Log.e(TAG, "addProgramToTask getWeekPalySchedule：" + response.getProgramName());

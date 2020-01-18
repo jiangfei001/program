@@ -269,4 +269,29 @@ public class ProgarmPalyInstructionVo {
         this.resolution = resolution;
     }
 
+    @Override
+    public String toString() {
+        return "ProgarmPalyInstructionVo{" +
+                "id=" + id +
+                ", zlid=" + zlid +
+                ", programName='" + programName + '\'' +
+                ", receiveTime=" + receiveTime +
+                ", executeTime=" + executeTime +
+                ", playTime=" + playTime +
+                ", sceneNum=" + sceneNum +
+                ", resolution='" + resolution + '\'' +
+                ", sceneList='" + sceneList + '\'' +
+                ", programZipName='" + programZipName + '\'' +
+                ", programZip='" + programZip + '\'' +
+                ", programZipStatus=" + programZipStatus +
+                ", totalStatus=" + totalStatus +
+                ", isDownloadSuccess=" + isDownloadSuccess +
+                ", programResourceList='" + programResourceList + '\'' +
+                ", publicationPlan='" + publicationPlan + '\'' +
+                ", publicationPlanObject=" + publicationPlanObject +
+                ", programMusicList='" + programMusicList + '\'' +
+                ", programResourceListArray=" + programResourceListArray +
+                ", programMusicListArray=" + programMusicListArray +
+                '}';
+    }
 }

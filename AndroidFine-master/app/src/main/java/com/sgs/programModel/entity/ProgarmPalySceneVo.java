@@ -53,4 +53,12 @@ public class ProgarmPalySceneVo {
         this.playTime = playTime;
     }
 
+    @Override
+    public String toString() {
+        return "ProgarmPalySceneVo{" +
+                "html='" + html + '\'' +
+                ", playTime=" + playTime +
+                ", palyMusic=" + palyMusic +
+                '}';
+    }
 }

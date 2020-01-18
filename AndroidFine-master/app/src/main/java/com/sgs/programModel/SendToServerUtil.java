@@ -147,7 +147,7 @@ public class SendToServerUtil {
             responseEntity.add(proListVo);
         }
 
-        HttpClient.postResponseList(AppUrl.addTerminalProgramListUrl, responseEntity, new MyHttpResponseHandler() {
+        HttpClient.postResponseList(AppUrl.addDayProgramList, responseEntity, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
                 Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
