@@ -6,9 +6,10 @@ import com.sgs.AppContext;
 import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.HttpResponseHandler;
+import com.sgs.businessmodule.httpModel.MyApiResponse;
+import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.httpModel.RestApiResponse;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
-import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.entity.ProListVo;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
@@ -20,9 +21,9 @@ import java.util.List;
 
 import okhttp3.Request;
 
-public class SendToUtil {
+public class SendToServerUtil {
 
-    public static String TAG = "SendToUtil";
+    public static String TAG = "SendToServerUtil";
 
     public static void sendEventToService(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
         Log.e(TAG, "上报节目处理结果");
@@ -60,22 +61,24 @@ public class SendToUtil {
         if (progarmPalyInstructionVo != null) {
             proListVo.setProgramId(progarmPalyInstructionVo.getId());
             proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-
             StringBuilder sb = new StringBuilder();
             List<ProgarmPalyPlan> okProgarms = progarmPalyInstructionVo.getPublicationPlanObject().getOkProgarms();
-            for (int i = 0; i < okProgarms.size(); i++) {
-                ProgarmPalyPlan progarmPalyPlan = okProgarms.get(i);
-                sb.append(progarmPalyPlan.getDuan() + "|");
+            for (int t = 0; t < okProgarms.size(); t++) {
+                if (t > 0) {
+                    sb.append("|");
+                }
+                ProgarmPalyPlan progarmPalyPlan = okProgarms.get(t);
+                sb.append(progarmPalyPlan.getDuan());
             }
             proListVo.setTimeQuantum(sb.toString());
-
             proListVo.setType(0);
         }
         responseEntity.add(proListVo);
 
-        HttpClient.postResponseList(AppUrl.addTerminalProgramListUrl, responseEntity, new HttpResponseHandler() {
+        HttpClient.postResponseList(AppUrl.addTerminalProgramListUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
-            public void onSuccess(RestApiResponse response) {
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToAddProList" + response.msg);
             }
 
             @Override
@@ -92,30 +95,21 @@ public class SendToUtil {
             Log.e(TAG, "节目列表全量增加null");
         }
         ArrayList<ProListVo> responseEntity = new ArrayList<>();
-
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
-            proListVo.setProgramId(12312323);
+            proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
             proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-
             StringBuilder sb = new StringBuilder();
-            List<ProgarmPalyPlan> okProgarms = progarmPalyInstructionVos.get(i).getPublicationPlanObject().getOkProgarms();
-            for (int t = 0; t < okProgarms.size(); t++) {
-                if (t > 0) {
-                    sb.append("|");
-                }
-                ProgarmPalyPlan progarmPalyPlan = okProgarms.get(t);
-                sb.append(progarmPalyPlan.getDuan());
-            }
+            sb.append(progarmPalyInstructionVos.get(i).getPublicationPlanObject().getDeadline() + "~" + progarmPalyInstructionVos.get(i).getPublicationPlanObject().getDeadlineV());
             proListVo.setTimeQuantum(sb.toString());
-
             proListVo.setType(0);
             responseEntity.add(proListVo);
         }
 
-        HttpClient.postResponseList(AppUrl.addTerminalProgramListUrl, responseEntity, new HttpResponseHandler() {
+        HttpClient.postResponseList(AppUrl.addTerminalProgramListUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
-            public void onSuccess(RestApiResponse response) {
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToAllProList onSuccess" + response.msg);
             }
 
             @Override
@@ -132,30 +126,30 @@ public class SendToUtil {
         } else {
             Log.e(TAG, "当天节目全量接口null");
         }
-        /*2019-1-3 10:00~2019-2-3 11:00 | 2019-1-3 14:00~2019-2-3 15:00*/
-       /* InstructionResponse responseEntity = new InstructionResponse();
-        responseEntity.setId(progarmPalyInstructionVo.getZlid());
-        responseEntity.setReceiveTime(progarmPalyInstructionVo.getReceiveTime());
-        responseEntity.setExecuteTime(progarmPalyInstructionVo.getExecuteTime());
-        Date nowDate = new Date();
-        responseEntity.setFinishTime(nowDate);
-        long between = getTimeDifferenceAboutSecond(progarmPalyInstructionVo.getReceiveTime(), nowDate);
-        responseEntity.setTimes(between);
-        responseEntity.setResult("ok");*/
-
         ArrayList<ProListVo> responseEntity = new ArrayList<>();
 
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
             proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            StringBuilder sb = new StringBuilder();
+            List<ProgarmPalyPlan> okProgarms = progarmPalyInstructionVos.get(i).getPublicationPlanObject().getOkProgarms();
+            for (int t = 0; t < okProgarms.size(); t++) {
+                if (t > 0) {
+                    sb.append("|");
+                }
+                ProgarmPalyPlan progarmPalyPlan = okProgarms.get(t);
+                sb.append(progarmPalyPlan.getDuan());
+            }
+            proListVo.setTimeQuantum(sb.toString());
             proListVo.setType(0);
             responseEntity.add(proListVo);
         }
 
-        HttpClient.postResponseList(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
+        HttpClient.postResponseList(AppUrl.addTerminalProgramListUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
-            public void onSuccess(RestApiResponse response) {
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
             }
 
             @Override

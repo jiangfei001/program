@@ -5,7 +5,6 @@ import android.media.MediaPlayer;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,11 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qiniu.android.http.ResponseInfo;
 import com.sgs.AppContext;
-import com.sgs.businessmodule.httpModel.HttpClient;
-import com.sgs.businessmodule.httpModel.HttpResponseHandler;
-import com.sgs.businessmodule.taskModel.taskList.TAKESCREEN;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
@@ -31,10 +26,9 @@ import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.ProgramScheduledManager;
-import com.sgs.programModel.SendToUtil;
+import com.sgs.programModel.SendToServerUtil;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgramResource;
-import com.sgs.businessmodule.qiniuModel.QiniuUpHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.programModel.TaskProgarm;
 import com.sgs.businessmodule.taskModel.TaskQueue;
@@ -46,13 +40,9 @@ import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
-import org.java_websocket.WebSocket;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -310,7 +300,7 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_down3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendToUtil.sendEventToAllProList((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());
+                SendToServerUtil.sendEventToAllProList((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());
             }
         });
 

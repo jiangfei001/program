@@ -150,7 +150,7 @@ public class HttpClient {
         });
     }
 
-    public static void postResponseList(String url, ArrayList responseEntityList, final HttpResponseHandler handler) {
+    public static void postResponseList(String url, ArrayList responseEntityList, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
             Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
             return;
@@ -173,6 +173,7 @@ public class HttpClient {
                     String str = response.body().string();
                     int code = response.code();
                     Log.e("req", "|" + str + "|" + code + "|");
+                    handler.sendSuccessMessage(getMyRestApiResponse(str));
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
                 }
@@ -210,7 +211,6 @@ public class HttpClient {
                     int code = response.code();
                     Log.e("req", "|" + str + "|" + code + "|");
                     handler.sendSuccessMessage(getMyRestApiResponse(str));
-
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
                 }

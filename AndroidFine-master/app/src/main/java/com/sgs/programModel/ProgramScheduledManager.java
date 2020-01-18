@@ -5,16 +5,11 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.sgs.AppUrl;
 import com.sgs.businessmodule.downloadModel.DownLoadListener;
 import com.sgs.businessmodule.downloadModel.DownLoadManager;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
-import com.sgs.businessmodule.httpModel.HttpClient;
-import com.sgs.businessmodule.httpModel.HttpResponseHandler;
-import com.sgs.businessmodule.httpModel.RestApiResponse;
-import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.sgs.middle.utils.FileUtil;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgramResource;
@@ -27,12 +22,9 @@ import com.sgs.programModel.taskUtil.PRI;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import okhttp3.Request;
 
 public class ProgramScheduledManager {
 
@@ -161,10 +153,10 @@ public class ProgramScheduledManager {
             }
         }
         //发送当前节目表
-
+        SendToServerUtil.sendEventToToDayAll(prolistToday);
     }
 
-    List<ProgarmPalyInstructionVo> prolistToday = new ArrayList<>();
+    ArrayList<ProgarmPalyInstructionVo> prolistToday = new ArrayList<>();
 
     public void saveToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
         Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
@@ -429,8 +421,9 @@ public class ProgramScheduledManager {
                         progarmPalyInstructionVos.add(response);
                     }
                 }
-                SendToUtil.sendEventToService(response);
-                SendToUtil.sendEventToAddProList(response);
+                SendToServerUtil.sendEventToService(response);
+                SendToServerUtil.sendEventToAddProList(response);
+                SendToServerUtil.sendEventToToDayAll(prolistToday);
                 //发送当前节目接口 和 增量接口
             } else {
                 Log.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());
