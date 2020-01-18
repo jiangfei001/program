@@ -53,6 +53,7 @@ public class ProgramUtil {
                             if (timetemp.indexOf("-") != -1) {
                                 String b[] = timetemp.split("-");
                                 ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
+                                progarmPalyPlan.setDuan(timetemp);
                                 //08:00
                                 progarmPalyPlan.setStartTime(dataOne(b[0]));
                                 progarmPalyPlan.setEndTime(dataOne(b[1]));
@@ -81,6 +82,7 @@ public class ProgramUtil {
                             if (timetemp.indexOf("-") != -1) {
                                 String b[] = timetemp.split("-");
                                 ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
+                                progarmPalyPlan.setDuan(timetemp);
                                 //08:00
                                 progarmPalyPlan.setStartTime(dataOne(b[0]));
                                 progarmPalyPlan.setEndTime(dataOne(b[1]));
@@ -96,6 +98,7 @@ public class ProgramUtil {
             //08:00
             progarmPalyPlan.setStartTime(dataOne("00:00"));
             progarmPalyPlan.setEndTime(dataOne("24:00"));
+            progarmPalyPlan.setDuan("00:00-24:00");
             okProgarms.add(progarmPalyPlan);
         }
 

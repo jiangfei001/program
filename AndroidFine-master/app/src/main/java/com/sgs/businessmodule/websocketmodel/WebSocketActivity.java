@@ -30,6 +30,9 @@ import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
+import com.sgs.programModel.ProgramScheduledManager;
+import com.sgs.programModel.SendToUtil;
+import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgramResource;
 import com.sgs.businessmodule.qiniuModel.QiniuUpHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
@@ -276,12 +279,12 @@ public class WebSocketActivity extends EventActivity {
                 Log.e("b", bitmap.toString());
                 try {
                     // 指纹图片存放路径
-                   String sdCardDir = FileHelper.getTempDirPath() + "/fingerprintimages/";
+                    String sdCardDir = FileHelper.getTempDirPath() + "/fingerprintimages/";
                     File dirFile = new File(sdCardDir);
                     if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
                         dirFile.mkdirs();
                     }
-                    File file = new File(sdCardDir,  "dd.jpg");
+                    File file = new File(sdCardDir, "dd.jpg");
                     FileOutputStream fos = new FileOutputStream(file);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                     fos.flush();
@@ -304,6 +307,13 @@ public class WebSocketActivity extends EventActivity {
                 TaskProgarm.progarmTest1(DownLoadService.getDownLoadManager());
             }
         });
+        findViewById(R.id.btn_down3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendToUtil.sendEventToAllProList((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());
+            }
+        });
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import android.util.Log;
+
 import com.sgs.AppContext;
 import com.sgs.AppUrl;
 import com.zhangke.websocket.WebSocketHandler;
@@ -17,6 +19,7 @@ public class WebSocketHelper {
 
         /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
 
+        Log.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
         setting.setConnectUrl(AppUrl.socketUrl + "/multimedia/api/websocket/" + username);//必填
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);

@@ -135,8 +135,9 @@ public class HttpClient {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
-                    RestApiResponse apiResponse = getRestApiResponse(response.body().toString());
-                    handler.sendSuccessMessage(apiResponse);
+                    String str = response.body().string();
+                    int code = response.code();
+                    Log.e("req", "|" + str + "|" + code + "|");
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
                 }
@@ -169,8 +170,9 @@ public class HttpClient {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
-                    RestApiResponse apiResponse = getRestApiResponse(response.body().toString());
-                    handler.sendSuccessMessage(apiResponse);
+                    String str = response.body().string();
+                    int code = response.code();
+                    Log.e("req", "|" + str + "|" + code + "|");
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
                 }

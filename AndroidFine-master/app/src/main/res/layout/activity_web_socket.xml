@@ -46,6 +46,12 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="测节目2" />
+
+        <Button
+            android:id="@+id/btn_down3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="节目增量" />
     </LinearLayout>
 
 
