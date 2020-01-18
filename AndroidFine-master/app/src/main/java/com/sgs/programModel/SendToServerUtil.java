@@ -37,9 +37,10 @@ public class SendToServerUtil {
         responseEntity.setTimes(between);
         responseEntity.setResult("ok");
 
-        HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
+        HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
-            public void onSuccess(RestApiResponse response) {
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToService" + response.msg);
             }
 
             @Override

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.InstructionRequestManager;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
@@ -112,7 +113,7 @@ public class MainTestActivity extends EventActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new HttpResponseHandler());
+                        HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new MyHttpResponseHandler());
                     }
                 }).start();
             }

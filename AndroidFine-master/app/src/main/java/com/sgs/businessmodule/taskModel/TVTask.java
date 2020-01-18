@@ -1,6 +1,10 @@
 package com.sgs.businessmodule.taskModel;
 
+import android.util.Log;
+
 import com.sgs.AppUrl;
+import com.sgs.businessmodule.httpModel.MyApiResponse;
+import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.InstructionRequestManager;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.httpModel.HttpClient;
@@ -72,9 +76,10 @@ public abstract class TVTask extends BasicTask {
 
             responseEntity.setResult("ok");
 
-            HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
+            HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
                 @Override
-                public void onSuccess(RestApiResponse response) {
+                public void onSuccess(MyApiResponse response) {
+                    Log.e(TAG, "sendEventToService" + response.msg);
                 }
 
                 @Override
@@ -85,23 +90,24 @@ public abstract class TVTask extends BasicTask {
     }
 
     void sendEventToServiceZhu() {
-            Date nowDate = new Date();
-            responseEntity.setFinishTime(new Date());
+        Date nowDate = new Date();
+        responseEntity.setFinishTime(new Date());
 
-            long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
-            responseEntity.setTimes(between);
+        long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
+        responseEntity.setTimes(between);
 
-            responseEntity.setResult("ok");
+        responseEntity.setResult("ok");
 
-            HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
-                @Override
-                public void onSuccess(RestApiResponse response) {
-                }
+        HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "TAKESCREEN" + response.msg);
+            }
 
-                @Override
-                public void onFailure(Request request, Exception e) {
-                }
-            });
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
     }
 
     public abstract void runTv();

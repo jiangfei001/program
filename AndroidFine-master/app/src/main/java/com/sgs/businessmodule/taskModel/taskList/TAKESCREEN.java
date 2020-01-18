@@ -8,6 +8,8 @@ import com.sgs.AppContext;
 import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.HttpResponseHandler;
+import com.sgs.businessmodule.httpModel.MyApiResponse;
+import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.httpModel.RestApiResponse;
 import com.sgs.businessmodule.qiniuModel.QiniuUpHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
@@ -51,10 +53,10 @@ public class TAKESCREEN extends TVTask {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new HttpResponseHandler() {
+                        HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
                             @Override
-                            public void onSuccess(RestApiResponse response) {
-                                Log.e("onSuccess", "onSuccess");
+                            public void onSuccess(MyApiResponse response) {
+                                Log.e(TAG, "TAKESCREEN" + response.msg);
                             }
 
                             @Override
