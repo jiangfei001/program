@@ -68,6 +68,7 @@ public class ProgramScheduledManager {
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
         progarmPalyInstructionVosD = new LinkedList<>();
+        prolistToday = new LinkedList<>();
         if (programTaskManager != null) {
             Log.e(TAG, "programTaskManager.stopLooper");
             programTaskManager.stopLooper();
@@ -91,42 +92,60 @@ public class ProgramScheduledManager {
 
     public void clearLooperAndDBAndResource() {
 
+        ArrayList listss = (ArrayList) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        SendToServerUtil.sendAddOrDelProList(listss, 1);
         list = null;
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
-
+        prolistToday = null;
         Log.e(TAG, "clearLooperAndDBAndResource programTaskManager.stopLooper");
         ProgramDbManager.getInstance().delectAllProgarmPalyInstructionVoRequest();
         programTaskManager.stopLooper();
+        manager.deleteAllTask();
+        manager.removeAllDownLoadListener();
         //CommandHelper.deleteDir(FileHelper.getFileDefaultPath());
         Log.e(TAG, "initAllProgramTask clearLooperAndDBAndResource");
         initAllProgramTask();
+        SendToServerUtil.sendEventToToDayAll(prolistToday);
     }
 
-    public void clearLooperAndDBById(int id) {
+    public void clearLooperAndDBById(ArrayList<Integer> arrayList) {
+        ArrayList arrayList1 = new ArrayList();
+        for (int t = 0; t < arrayList.size(); t++) {
+            ProgarmPalyInstructionVo getProgarmPalyInstructionVoRequestById = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(arrayList.get(t));
+            if (getProgarmPalyInstructionVoRequestById != null) {
+                ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(arrayList.get(t));
+                programTaskManager.removeByid(arrayList.get(t));
+                for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
+                    if (progarmPalyInstructionVos.get(i).getId() == 1) {
+                        progarmPalyInstructionVos.remove(i);
+                        break;
+                    }
+                }
+                for (int i = 0; i < progarmPalyInstructionVosPri.size(); i++) {
+                    if (progarmPalyInstructionVosPri.get(i).getId() == 1) {
+                        progarmPalyInstructionVosPri.remove(i);
+                        break;
+                    }
+                }
+                for (int i = 0; i < progarmPalyInstructionVosD.size(); i++) {
+                    if (progarmPalyInstructionVosD.get(i).getId() == 1) {
+                        progarmPalyInstructionVosD.remove(i);
+                        break;
+                    }
+                }
 
-        ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(id);
-        programTaskManager.removeByid(id);
-
-        for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
-            if (progarmPalyInstructionVos.get(i).getId() == 1) {
-                progarmPalyInstructionVos.remove(i);
-                break;
+                for (int i = 0; i < prolistToday.size(); i++) {
+                    if (prolistToday.get(i).getId() == 1) {
+                        prolistToday.remove(i);
+                        break;
+                    }
+                }
+                arrayList1.add(getProgarmPalyInstructionVoRequestById);
             }
         }
-
-        for (int i = 0; i < progarmPalyInstructionVosPri.size(); i++) {
-            if (progarmPalyInstructionVosPri.get(i).getId() == 1) {
-                progarmPalyInstructionVosPri.remove(i);
-                break;
-            }
-        }
-        for (int i = 0; i < progarmPalyInstructionVosD.size(); i++) {
-            if (progarmPalyInstructionVosD.get(i).getId() == 1) {
-                progarmPalyInstructionVosD.remove(i);
-                break;
-            }
-        }
+        SendToServerUtil.sendAddOrDelProList(arrayList1, 1);
+        SendToServerUtil.sendEventToToDayAll(prolistToday);
     }
 
 
@@ -156,7 +175,7 @@ public class ProgramScheduledManager {
         SendToServerUtil.sendEventToToDayAll(prolistToday);
     }
 
-    ArrayList<ProgarmPalyInstructionVo> prolistToday = new ArrayList<>();
+    LinkedList<ProgarmPalyInstructionVo> prolistToday = new LinkedList<>();
 
     public void saveToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
         Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
@@ -422,7 +441,9 @@ public class ProgramScheduledManager {
                     }
                 }
                 SendToServerUtil.sendEventToService(response);
-                SendToServerUtil.sendEventToAddProList(response);
+                ArrayList arrayList = new ArrayList();
+                arrayList.add(response);
+                SendToServerUtil.sendAddOrDelProList(arrayList, 0);
                 SendToServerUtil.sendEventToToDayAll(prolistToday);
                 //发送当前节目接口 和 增量接口
             } else {

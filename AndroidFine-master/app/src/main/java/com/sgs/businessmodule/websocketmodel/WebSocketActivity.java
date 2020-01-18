@@ -44,6 +44,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -300,7 +301,7 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_down3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendToServerUtil.sendEventToToDayAll((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());
+                SendToServerUtil.sendEventToToDayAll((LinkedList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());
             }
         });
 

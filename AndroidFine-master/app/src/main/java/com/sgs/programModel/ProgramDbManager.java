@@ -44,6 +44,10 @@ public class ProgramDbManager {
         new ProgrameDao(context).delByProgarmPalyInstructionVoID(id);
     }
 
+    public ProgarmPalyInstructionVo getProgarmPalyInstructionVoRequestById(int id) {
+        return new ProgrameDao(context).get(id);
+    }
+
     public void delectAllProgarmPalyInstructionVoRequest() {
         new ProgrameDao(context).delAllProgarmPalyInstructionVo();
     }

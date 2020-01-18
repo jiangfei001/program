@@ -29,6 +29,7 @@ public enum InstructionTypeEnum {
     UPDATEFIRMWAREINFO(123, "updateFirmwareInfo", "更新分发服务器信息"),
     UNINSTALL(125, "uninstall", "远程卸载APK"),
     SETOSTERMINAL(127, "setOsTerminal", "设置每天开关机时间"),
+    GETALLPROGRAM(128, "sendGetProgramOrder", "获取终端节目列表"),
     ;
 
     InstructionTypeEnum(int code, String type, String name) {
