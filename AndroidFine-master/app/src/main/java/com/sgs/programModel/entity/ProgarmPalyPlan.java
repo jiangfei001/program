@@ -6,7 +6,15 @@ public class ProgarmPalyPlan {
 
     public long endTime;
 
+    public String duan;
 
+    public String getDuan() {
+        return duan;
+    }
+
+    public void setDuan(String duan) {
+        this.duan = duan;
+    }
 
     public long getStartTime() {
         return startTime;

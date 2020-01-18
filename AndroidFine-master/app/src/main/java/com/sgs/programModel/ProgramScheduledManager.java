@@ -26,6 +26,7 @@ import com.sgs.programModel.taskUtil.PRI;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -38,6 +39,14 @@ public class ProgramScheduledManager {
     private static final String TAG = "ProgramDbManager";
 
     private Context context;
+
+    public List<ProgarmPalyInstructionVo> getList() {
+        return list;
+    }
+
+    public void setList(List<ProgarmPalyInstructionVo> list) {
+        this.list = list;
+    }
 
     //加载数据库中所有的List 包括接受命令获取的List
     List<ProgarmPalyInstructionVo> list;
@@ -151,7 +160,11 @@ public class ProgramScheduledManager {
                 doProgarm(prolist.get(i), false);
             }
         }
+        //发送当前节目表
+
     }
+
+    List<ProgarmPalyInstructionVo> prolistToday = new ArrayList<>();
 
     public void saveToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
         Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
@@ -293,6 +306,7 @@ public class ProgramScheduledManager {
                 Log.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
+                //调用增量接口
                 /* list.remove(response);*/
             }
         }
@@ -399,9 +413,9 @@ public class ProgramScheduledManager {
     private void addProgramToTask(ProgarmPalyInstructionVo response, boolean isInsert) {
         Log.e(TAG, "addProgramToTaskLL:" + response.getProgramName());
         if (ProgramUtil.getWeekPalySchedule(response)) {
+            prolistToday.add(response);
             Log.e(TAG, "addProgramToTask getWeekPalySchedule：" + response.getProgramName());
             if (isInsert) {
-
                 Log.e(TAG, "我是从命令加载进来的，" + response.getProgramName());
                 if (response.getPublicationPlanObject().isExclusive()) {
                     programTaskManager.insertTask(response, PRI.TASK_PRI);
@@ -416,7 +430,8 @@ public class ProgramScheduledManager {
                     }
                 }
                 SendToUtil.sendEventToService(response);
-
+                SendToUtil.sendEventToAddProList(response);
+                //发送当前节目接口 和 增量接口
             } else {
                 Log.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());
                 if (response.getPublicationPlanObject().isExclusive()) {

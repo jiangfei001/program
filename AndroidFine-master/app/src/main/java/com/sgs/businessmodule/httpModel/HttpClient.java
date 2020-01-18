@@ -20,6 +20,7 @@ import com.yuzhi.fine.model.SearchParam;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -123,6 +124,40 @@ public class HttpClient {
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
+
+        Request request = new Request.Builder().header("Accept", "*/*")
+                .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
+                .addHeader("Content-Type", "application/json;charset=UTF-8")
+                .url(url)
+                .post(body).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                try {
+                    RestApiResponse apiResponse = getRestApiResponse(response.body().toString());
+                    handler.sendSuccessMessage(apiResponse);
+                } catch (Exception e) {
+                    handler.sendFailureMessage(call.request(), e);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendFailureMessage(call.request(), e);
+            }
+        });
+    }
+
+    public static void postResponseList(String url, ArrayList responseEntityList, final HttpResponseHandler handler) {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //创建okhttp对象
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntityList));
 
         Request request = new Request.Builder().header("Accept", "*/*")
                 .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
