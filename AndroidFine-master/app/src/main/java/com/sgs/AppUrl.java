@@ -4,9 +4,9 @@ package com.sgs;
 public class AppUrl {
 
     public static String prodIP = "http://xinlianchuangmei.com/";
-    public static String testIP = "192.168.43.47:8082";
+    public static String testIP = "172.20.10.4:8082";
 
-    public static boolean isTest = true;
+    public static boolean isTest = false;
 
     //注册
     public static String serverUrlAddMuTerminal;

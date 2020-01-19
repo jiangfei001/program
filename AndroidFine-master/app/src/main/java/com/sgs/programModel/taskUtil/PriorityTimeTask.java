@@ -3,6 +3,7 @@ package com.sgs.programModel.taskUtil;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
@@ -143,7 +144,7 @@ public class PriorityTimeTask<T extends MyTask> {
 
 
     //新建Handler对象。
-    Handler mHandler = new Handler() {
+    Handler mHandler = new Handler(Looper.getMainLooper()) {
         //handleMessage为处理消息的方法
         public void handleMessage(Message msg) {
             super.handleMessage(msg);

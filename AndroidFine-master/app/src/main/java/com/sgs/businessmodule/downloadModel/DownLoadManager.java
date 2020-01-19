@@ -252,12 +252,7 @@ public class DownLoadManager {
      * (删除一个任务，包括已下载的本地文件)
      */
     public void deleteAllTask() {
-        int taskSize = taskList.size();
-        for (int i = 0; i < taskSize; i++) {
-            DownLoader deletedownloader = taskList.get(i);
-            deletedownloader.destroy();
-            taskList.remove(deletedownloader);
-        }
+        taskList = new ArrayList<DownLoader>();
     }
 
     /**

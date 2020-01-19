@@ -2,6 +2,7 @@ package com.sgs.programModel;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
@@ -79,7 +80,7 @@ public class ProgramTaskManager {
     }
 
 
-    Handler handler = new Handler() {
+    Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(final Message msg) {
             int time1 = sendPlayHtml(nowscene);
