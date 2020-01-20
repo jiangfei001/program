@@ -124,6 +124,31 @@ public class SendToServerUtil {
         });
     }
 
+    //当天节目全量接口
+    public static void sendNowPro(LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
+        if (progarmPalyInstructionVos != null) {
+            Log.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
+        } else {
+            Log.e(TAG, "当天节目全量接口null");
+        }
+        ArrayList<Integer> responseEntity = new ArrayList<>();
+
+        for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
+            responseEntity.add(progarmPalyInstructionVos.get(i).getId());
+        }
+
+        HttpClient.postResponseList(AppUrl.addDayProgramList, responseEntity, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
+    }
+
     public static long getTimeDifferenceAboutSecond(Date beginTime, Date endTime) {
         // getTime() 方法获取的是毫秒值  将其转为秒返回
         long timeDifference = endTime.getTime() - beginTime.getTime();

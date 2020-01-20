@@ -30,6 +30,7 @@ public enum InstructionTypeEnum {
     UNINSTALL(125, "uninstall", "远程卸载APK"),
     SETOSTERMINAL(127, "setOsTerminal", "设置每天开关机时间"),
     GETALLPROGRAM(128, "sendGetProgramOrder", "获取终端节目列表"),
+    GETNEWPROGRAMMESSAGE(129, "getNewProgramMessage", "获取正在播放节目信息"),
     ;
 
     InstructionTypeEnum(int code, String type, String name) {

@@ -51,6 +51,7 @@ public abstract class TVTask extends BasicTask {
         InstructionRequestManager.getInstance().saveInstructionRequest(instructionRequest);
 
         responseEntity.setExecuteTime(new Date());
+        Log.e(TAG, this.getClass().getName() + ":runTv:");
         runTv();
         //告知服务器
         sendEventToService();

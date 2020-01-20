@@ -11,7 +11,7 @@ public class InstructionRequest {
     /**
      * 指令id
      */
-    @DatabaseField
+    @DatabaseField(id = true, canBeNull = false, columnName = "id")
     private int id;
 
     /**

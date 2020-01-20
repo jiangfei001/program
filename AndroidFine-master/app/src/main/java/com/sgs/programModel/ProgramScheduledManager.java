@@ -162,7 +162,7 @@ public class ProgramScheduledManager {
     }
 
     //开机的时候，进行节目排期任务启动
-    ProgramTaskManager programTaskManager;
+    public ProgramTaskManager programTaskManager;
 
     public void checkResouce(List<ProgarmPalyInstructionVo> list) {
         List<ProgarmPalyInstructionVo> prolist = list;
