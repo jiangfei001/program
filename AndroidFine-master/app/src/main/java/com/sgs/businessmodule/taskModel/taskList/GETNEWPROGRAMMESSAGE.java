@@ -37,7 +37,7 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
 
             HashMap hashMap = new HashMap();
             hashMap.put("nowproids", nowproid);
-
+            Log.e(TAG, "nowproids" +nowproid);
             responseEntity.setResult(com.alibaba.fastjson.JSON.toJSONString(hashMap));
         } else {
             Log.e(TAG, "当天节目全量接口null");
