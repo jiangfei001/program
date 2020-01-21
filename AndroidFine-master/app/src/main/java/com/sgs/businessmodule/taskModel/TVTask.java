@@ -54,6 +54,7 @@ public abstract class TVTask extends BasicTask {
         Log.e(TAG, this.getClass().getName() + ":runTv:");
         runTv();
         //告知服务器
+        setResult();
         sendEventToService();
 
         //更新数据库
@@ -112,4 +113,8 @@ public abstract class TVTask extends BasicTask {
     }
 
     public abstract void runTv();
+
+    public void setResult() {
+        responseEntity.setResult("ok");
+    }
 }
