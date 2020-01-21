@@ -15,7 +15,6 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
 
     @Override
     public void runTv() {
-        isNeedSend = false;
         Log.e(TAG, "GETNEWPROGRAMMESSAGE:");
         ProgarmPalyInstructionVo progarmPalyInstructionVo = ProgramScheduledManager.getInstance().programTaskManager.getNowProgarmPalyInstructionVo();
         progarmPalyInstructionVos.add(progarmPalyInstructionVo);

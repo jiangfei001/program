@@ -54,7 +54,6 @@ public abstract class TVTask extends BasicTask {
         Log.e(TAG, this.getClass().getName() + ":runTv:");
         runTv();
         //告知服务器
-        setResult();
         sendEventToService();
 
         //更新数据库
@@ -70,13 +69,12 @@ public abstract class TVTask extends BasicTask {
 
     void sendEventToService() {
         if (isNeedSend()) {
+            setResult();
             Date nowDate = new Date();
             responseEntity.setFinishTime(new Date());
 
             long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
             responseEntity.setTimes(between);
-
-            responseEntity.setResult("ok");
 
             HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
                 @Override
@@ -97,8 +95,6 @@ public abstract class TVTask extends BasicTask {
 
         long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
         responseEntity.setTimes(between);
-
-        responseEntity.setResult("ok");
 
         HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
