@@ -18,6 +18,7 @@ import com.sgs.programModel.entity.PublicationPlanVo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -125,7 +126,7 @@ public class SendToServerUtil {
     }
 
     //当天节目全量接口
-    public static void sendNowPro(LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
+    public static void sendNowPro(InstructionResponse instructionResponse,ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
         if (progarmPalyInstructionVos != null) {
             Log.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
         } else {
@@ -137,7 +138,17 @@ public class SendToServerUtil {
             responseEntity.add(progarmPalyInstructionVos.get(i).getId());
         }
 
-        HttpClient.postResponseList(AppUrl.addDayProgramList, responseEntity, new MyHttpResponseHandler() {
+        HashMap hashMap = new HashMap();
+        hashMap.put("nowproids", responseEntity);
+
+        Date nowDate = new Date();
+        instructionResponse.setFinishTime(new Date());
+
+        long between = getTimeDifferenceAboutSecond(instructionResponse.getReceiveTime(), nowDate);
+        instructionResponse.setTimes(between);
+        instructionResponse.setResult(com.alibaba.fastjson.JSON.toJSONString(hashMap));
+
+        HttpClient.postResponseEntity(AppUrl.addDayProgramList, instructionResponse, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
                 Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);

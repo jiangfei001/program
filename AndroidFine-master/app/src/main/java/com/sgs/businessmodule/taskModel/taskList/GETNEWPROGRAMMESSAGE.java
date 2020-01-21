@@ -7,15 +7,16 @@ import com.sgs.programModel.ProgramScheduledManager;
 import com.sgs.programModel.SendToServerUtil;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class GETNEWPROGRAMMESSAGE extends TVTask {
     @Override
     public void runTv() {
+        isNeedSend = false;
         Log.e(TAG, "GETNEWPROGRAMMESSAGE:");
         ProgarmPalyInstructionVo progarmPalyInstructionVo = ProgramScheduledManager.getInstance().programTaskManager.getNowProgarmPalyInstructionVo();
-        LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos = new LinkedList<>();
+        ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos = new ArrayList<>();
         progarmPalyInstructionVos.add(progarmPalyInstructionVo);
-        SendToServerUtil.sendNowPro(progarmPalyInstructionVos);
+        SendToServerUtil.sendNowPro(this.responseEntity, progarmPalyInstructionVos);
     }
 }

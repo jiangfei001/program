@@ -117,7 +117,12 @@ public class HttpClient {
 
     public static void postResponseEntity(String url, InstructionResponse responseEntity, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
-            Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
+                }
+            });
             return;
         }
 
