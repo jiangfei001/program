@@ -21,7 +21,10 @@ import com.sgs.programModel.taskUtil.PRI;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,10 +64,23 @@ public class ProgramScheduledManager {
         initAllProgramTask();
     }
 
+
+    public static ProgramScheduledManager getInstance() {
+        if (instance == null) {
+            synchronized (ProgramDbManager.class) {
+                if (instance == null) {
+                    Log.e(TAG, "getInstance");
+                    instance = new ProgramScheduledManager(AppContext.getInstance());
+                }
+            }
+        }
+        return instance;
+    }
+
+
     public void initAllProgramTask() {
         //从数据库中获取所有的节目数据
         list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
-
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
         progarmPalyInstructionVosD = new LinkedList<>();
@@ -117,26 +133,26 @@ public class ProgramScheduledManager {
                 ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(arrayList.get(t));
                 programTaskManager.removeByid(arrayList.get(t));
                 for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
-                    if (progarmPalyInstructionVos.get(i).getId() == 1) {
+                    if (progarmPalyInstructionVos.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {
                         progarmPalyInstructionVos.remove(i);
                         break;
                     }
                 }
                 for (int i = 0; i < progarmPalyInstructionVosPri.size(); i++) {
-                    if (progarmPalyInstructionVosPri.get(i).getId() == 1) {
+                    if (progarmPalyInstructionVosPri.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {
                         progarmPalyInstructionVosPri.remove(i);
                         break;
                     }
                 }
                 for (int i = 0; i < progarmPalyInstructionVosD.size(); i++) {
-                    if (progarmPalyInstructionVosD.get(i).getId() == 1) {
+                    if (progarmPalyInstructionVosD.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {
                         progarmPalyInstructionVosD.remove(i);
                         break;
                     }
                 }
 
                 for (int i = 0; i < prolistToday.size(); i++) {
-                    if (prolistToday.get(i).getId() == 1) {
+                    if (prolistToday.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {
                         prolistToday.remove(i);
                         break;
                     }
@@ -146,19 +162,6 @@ public class ProgramScheduledManager {
         }
         SendToServerUtil.sendAddOrDelProList(arrayList1, 1);
         SendToServerUtil.sendEventToToDayAll(prolistToday);
-    }
-
-
-    public static ProgramScheduledManager getInstance() {
-        if (instance == null) {
-            synchronized (ProgramDbManager.class) {
-                if (instance == null) {
-                    Log.e(TAG, "getInstance");
-                    instance = new ProgramScheduledManager(AppContext.getInstance());
-                }
-            }
-        }
-        return instance;
     }
 
     //开机的时候，进行节目排期任务启动
@@ -183,6 +186,12 @@ public class ProgramScheduledManager {
         ProgramDbManager.getInstance().saveProgarmPalyInstructionVoRequest(progarmPalyInstructionVo);
     }
 
+    public void delToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
+        Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
+        //将数据保存到节目播放数据库，并通知节目播放，进行插入播放
+        ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(progarmPalyInstructionVo.getId());
+    }
+
     public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert) {
 
         if (isInsert) {
@@ -196,6 +205,20 @@ public class ProgramScheduledManager {
 
         PublicationPlanVo publicationPlanVo = JSON.parseObject(publicationPlanJson, new TypeReference<PublicationPlanVo>() {
         });
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date deadLineV = null;
+        try {
+            deadLineV = df.parse(publicationPlanVo.getDeadlineV());
+            if (deadLineV.getTime() < System.currentTimeMillis()) {
+                delToDB(response);
+                list.remove(response);
+                return;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         response.setPublicationPlanObject(publicationPlanVo);
 
         Log.e(TAG, "response.getProgramResourceList:" + response.getProgramResourceList());
