@@ -8,8 +8,6 @@ import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.InstructionRequestManager;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.httpModel.HttpClient;
-import com.sgs.businessmodule.httpModel.HttpResponseHandler;
-import com.sgs.businessmodule.httpModel.RestApiResponse;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 
 import java.util.Date;

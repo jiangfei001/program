@@ -16,6 +16,7 @@ import com.sgs.businessmodule.taskModel.TVTask;
 
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import okhttp3.Request;
@@ -47,6 +48,10 @@ public class TAKESCREEN extends TVTask {
             @Override
             public String getUrlandName(String key, ResponseInfo info, JSONObject response) {
                 responseEntity.setId(TAKESCREEN.this.instructionRequest.getId());
+                Date nowDate = new Date();
+                responseEntity.setFinishTime(nowDate);
+                long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
+                responseEntity.setTimes(between);
                 HashMap hashMap = new HashMap();
                 hashMap.put("path", finalPath + "/" + key);
                 responseEntity.setResult(JSON.toJSONString(hashMap));

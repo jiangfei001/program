@@ -107,7 +107,7 @@ public class ProgramScheduledManager {
     private static ProgramScheduledManager instance;
 
     public void clearLooperAndDBAndResource() {
-
+        Log.e(TAG, "initAllProgramTask clearLooperAndDBAndResource");
         ArrayList listss = (ArrayList) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
         SendToServerUtil.sendAddOrDelProList(listss, 1);
         list = null;
@@ -120,7 +120,6 @@ public class ProgramScheduledManager {
         manager.deleteAllTask();
         manager.removeAllDownLoadListener();
         //CommandHelper.deleteDir(FileHelper.getFileDefaultPath());
-        Log.e(TAG, "initAllProgramTask clearLooperAndDBAndResource");
         initAllProgramTask();
         SendToServerUtil.sendEventToToDayAll(prolistToday);
     }

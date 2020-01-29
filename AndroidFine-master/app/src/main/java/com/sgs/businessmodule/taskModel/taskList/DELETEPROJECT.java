@@ -9,12 +9,10 @@ import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.programModel.ProgramScheduledManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DELETEPROJECT extends TVTask {
     @Override
     public void runTv() {
-        Log.e(TAG, "DELETEPROJECT:");
         String dataJson = this.instructionRequest.getData();
 
         JSONObject jsonObject = JSON.parseObject(dataJson);
