@@ -18,23 +18,20 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jf.fine.R;
 import com.sgs.AppContext;
-import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
+import com.sgs.businessmodule.taskModel.TVTask;
+import com.sgs.businessmodule.taskModel.TaskQueue;
+import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
+import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
-import com.sgs.programModel.ProgramScheduledManager;
-import com.sgs.programModel.SendToServerUtil;
-import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
-import com.sgs.programModel.entity.ProgramResource;
-import com.sgs.businessmodule.taskModel.TVTask;
-import com.sgs.programModel.TaskProgarm;
-import com.sgs.businessmodule.taskModel.TaskQueue;
-import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
 import com.sgs.middle.utils.StringUtils;
-import com.jf.fine.R;
+import com.sgs.programModel.TaskProgarm;
+import com.sgs.programModel.entity.ProgramResource;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
@@ -42,21 +39,19 @@ import com.zhangke.websocket.response.ErrorResponse;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WebSocketActivity extends EventActivity {
+public class WebSocketActivityRelease extends EventActivity {
 
     private String TAG = "WebSocketActivity";
-    private EditText etContent;
+   /* private EditText etContent;
     private TextView tvMsg;
     private ScrollView scrollView;
-
+*/
     public WebView getWvBookPlay() {
         return wvBookPlay;
     }
@@ -132,9 +127,9 @@ public class WebSocketActivity extends EventActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_socket);
+        setContentView(R.layout.activity_web_socket1);
         initView();
-        WebSocketHelper.initWebSocket(DeviceUtil.getUniqueID(WebSocketActivity.this));
+        WebSocketHelper.initWebSocket(DeviceUtil.getUniqueID(WebSocketActivityRelease.this));
         WebSocketHandler.getDefault().addListener(socketListener);
         taskQueue = new TaskQueue(1);
         taskQueue.start();
@@ -202,6 +197,7 @@ public class WebSocketActivity extends EventActivity {
         mWebView.setScrollContainer(false);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
+
         //        if (!NetUtil.checkNet(MainActivity.this)) {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
         //        } else {
@@ -234,10 +230,14 @@ public class WebSocketActivity extends EventActivity {
     }
 
     private void initView() {
-        etContent = (EditText) findViewById(R.id.et_content);
+        wvBookPlay = (WebView) findViewById(R.id.activity_main_webview1);
+        wvBookPlay.setHorizontalScrollBarEnabled(false);//水平不显示
+        wvBookPlay.setVerticalScrollBarEnabled(false); //垂直不显示
+        initweb(wvBookPlay);
+     /*   etContent = (EditText) findViewById(R.id.et_content);
         tvMsg = (TextView) findViewById(R.id.tv_msg);
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
-        wvBookPlay = (WebView) findViewById(R.id.activity_main_webview1);
+        ;
         initweb(wvBookPlay);
         //webViewInit(wvBookPlay);
 
@@ -246,12 +246,12 @@ public class WebSocketActivity extends EventActivity {
             public void onClick(View v) {
                 String text = etContent.getText().toString();
                 if (TextUtils.isEmpty(text)) {
-                    Toast.makeText(WebSocketActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WebSocketActivityRelease.this, "输入不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 WebSocketHandler.getDefault().send(text);
 
-              /*  final InstructionResponse responseEntity = new InstructionResponse();
+              *//*  final InstructionResponse responseEntity = new InstructionResponse();
                 responseEntity.setId(123);
                 responseEntity.setExecuteTime(new Date());
                 responseEntity.setResult("123123");
@@ -263,13 +263,13 @@ public class WebSocketActivity extends EventActivity {
                     public void run() {
                         HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new HttpResponseHandler());
                     }
-                }).start();*/
+                }).start();*//*
             }
         });
         findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bitmap bitmap = DeviceUtil.snapCurrentWebViewShot(WebSocketActivity.this.getWvBookPlay());
+                Bitmap bitmap = DeviceUtil.snapCurrentWebViewShot(WebSocketActivityRelease.this.getWvBookPlay());
                 Log.e("b", bitmap.toString());
                 try {
                     // 指纹图片存放路径
@@ -304,9 +304,9 @@ public class WebSocketActivity extends EventActivity {
         findViewById(R.id.btn_down3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*SendToServerUtil.sendNowPro((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());*/
+                *//*SendToServerUtil.sendNowPro((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());*//*
             }
-        });
+        });*/
 
     }
 
@@ -321,7 +321,7 @@ public class WebSocketActivity extends EventActivity {
     }
 
     private void appendMsgDisplay(String msg) {
-        StringBuilder textBuilder = new StringBuilder();
+       /* StringBuilder textBuilder = new StringBuilder();
         if (!TextUtils.isEmpty(tvMsg.getText())) {
             textBuilder.append("收到命令：" + tvMsg.getText().toString());
             textBuilder.append("\n");
@@ -334,7 +334,7 @@ public class WebSocketActivity extends EventActivity {
             public void run() {
                 scrollView.fullScroll(ScrollView.FOCUS_DOWN);
             }
-        });
+        });*/
     }
 
     @Override
@@ -389,7 +389,12 @@ public class WebSocketActivity extends EventActivity {
 
     List<ProgramResource> musicList;
     int index = 0;
-
+    /**
+     * 规定开始音乐、暂停音乐、结束音乐的标志
+     */
+    public static final int PLAT_MUSIC = 1;
+    public static final int PAUSE_MUSIC = 2;
+    public static final int STOP_MUSIC = 3;
 
     private void initMediaPlayer() {
         try {
@@ -403,7 +408,7 @@ public class WebSocketActivity extends EventActivity {
             mediaPlayer.prepare();
             //为播放器添加播放完成时的监听器
         } catch (Exception e) {
-            Toast.makeText(WebSocketActivity.this, "the sd have not music.mp3" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(WebSocketActivityRelease.this, "the sd have not music.mp3" + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

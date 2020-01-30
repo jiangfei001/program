@@ -53,6 +53,18 @@
              </intent-filter>-->
         </activity>
 
+
+        <activity
+            android:name="com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat">
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>-->
+        </activity>
+
         <activity
             android:name="com.uiModel.activity.HouseDetailActivity"
             android:screenOrientation="portrait" />

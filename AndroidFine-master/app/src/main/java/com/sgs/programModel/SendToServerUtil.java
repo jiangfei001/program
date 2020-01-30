@@ -34,7 +34,7 @@ public class SendToServerUtil {
         responseEntity.setId(progarmPalyInstructionVo.getZlid());
         responseEntity.setReceiveTime(progarmPalyInstructionVo.getReceiveTime());
         responseEntity.setExecuteTime(progarmPalyInstructionVo.getExecuteTime());
-        responseEntity.setInstructionType(progarmPalyInstructionVo.getType());
+        responseEntity.setInstructionType("110");
         Date nowDate = new Date();
         responseEntity.setFinishTime(nowDate);
         long between = getTimeDifferenceAboutSecond(progarmPalyInstructionVo.getReceiveTime(), nowDate);
@@ -56,9 +56,9 @@ public class SendToServerUtil {
     //节目列表全量  type 0 增加 1 删除
     public static void sendAddOrDelProList(ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos, int type) {
         if (progarmPalyInstructionVos != null) {
-            Log.e(TAG, "节目列表全量增加" + progarmPalyInstructionVos.size());
+            Log.e(TAG, "节目列表全量增加" + progarmPalyInstructionVos.size() + "type" + type);
         } else {
-            Log.e(TAG, "节目列表全量增加null");
+            Log.e(TAG, "节目列表全量增加null" + "type" + type);
         }
         ArrayList<ProListVo> responseEntity = new ArrayList<>();
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {

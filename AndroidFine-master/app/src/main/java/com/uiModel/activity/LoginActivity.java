@@ -23,6 +23,7 @@ import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
+import com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
 import com.sgs.middle.utils.SharedPreferences;
@@ -174,7 +175,8 @@ public class LoginActivity extends Activity {
 
 
     private void doNavigation() {
-        Intent it = new Intent(this, WebSocketActivity.class);
+        // Intent it = new Intent(this, WebSocketActivity.class);
+        Intent it = new Intent(this, WebSocketActivityRelease.class);
         startActivity(it);
         finish();
     }

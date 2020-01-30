@@ -64,7 +64,7 @@ public class PlayingMusicServices extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         switch (intent.getIntExtra("type", -1)) {
-            case WebSocketActivity.PLAT_MUSIC:
+            case PlayUtil.PLAT_MUSIC:
                 if (isStop) {
                     //重置mediaplayer
                     mediaPlayer.reset();
@@ -79,13 +79,13 @@ public class PlayingMusicServices extends Service {
                     mediaPlayer.start();
                 }
                 break;
-            case WebSocketActivity.PAUSE_MUSIC:
+            case PlayUtil.PAUSE_MUSIC:
                 //播放器不为空，并且正在播放
                 if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                 }
                 break;
-            case WebSocketActivity.STOP_MUSIC:
+            case PlayUtil.STOP_MUSIC:
                 if (mediaPlayer != null) {
                     //停止之后要开始播放音乐
                     mediaPlayer.stop();

@@ -37,7 +37,7 @@ public abstract class TVTask extends BasicTask {
         this.instructionRequest = instructionRequest;
         responseEntity.setId(this.instructionRequest.getId());
         responseEntity.setReceiveTime(new Date());
-        responseEntity.setInstructionType(instructionRequest.getType());
+        responseEntity.setInstructionType(instructionRequest.getCode() + "");
     }
 
     @Override
