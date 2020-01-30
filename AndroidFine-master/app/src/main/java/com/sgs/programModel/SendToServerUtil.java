@@ -34,6 +34,7 @@ public class SendToServerUtil {
         responseEntity.setId(progarmPalyInstructionVo.getZlid());
         responseEntity.setReceiveTime(progarmPalyInstructionVo.getReceiveTime());
         responseEntity.setExecuteTime(progarmPalyInstructionVo.getExecuteTime());
+        responseEntity.setInstructionType(progarmPalyInstructionVo.getType());
         Date nowDate = new Date();
         responseEntity.setFinishTime(nowDate);
         long between = getTimeDifferenceAboutSecond(progarmPalyInstructionVo.getReceiveTime(), nowDate);
@@ -126,7 +127,7 @@ public class SendToServerUtil {
     }
 
     //当天节目全量接口
-    public static void sendNowPro(InstructionResponse instructionResponse,ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
+    public static void sendNowPro(InstructionResponse instructionResponse, ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
         if (progarmPalyInstructionVos != null) {
             Log.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
         } else {

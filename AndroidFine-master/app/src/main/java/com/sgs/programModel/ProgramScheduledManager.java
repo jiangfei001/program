@@ -81,6 +81,9 @@ public class ProgramScheduledManager {
     public void initAllProgramTask() {
         //从数据库中获取所有的节目数据
         list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        if (list == null) {
+            list = new ArrayList<>();
+        }
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
         progarmPalyInstructionVosD = new LinkedList<>();

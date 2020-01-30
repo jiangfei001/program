@@ -65,10 +65,24 @@ public class ProgarmPalyInstructionVo {
     @DatabaseField
     private String programMusicList;
 
+    @DatabaseField
+    private String type;
+
     List<ProgramResource> programResourceListArray;
 
     List<ProgramResource> programMusicListArray;
 
+    /**
+     * 节目资源列表 数据库中只保存json
+     */
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getZlid() {
         return zlid;

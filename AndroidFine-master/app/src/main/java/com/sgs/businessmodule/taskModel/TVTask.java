@@ -37,6 +37,7 @@ public abstract class TVTask extends BasicTask {
         this.instructionRequest = instructionRequest;
         responseEntity.setId(this.instructionRequest.getId());
         responseEntity.setReceiveTime(new Date());
+        responseEntity.setInstructionType(instructionRequest.getType());
     }
 
     @Override
@@ -47,7 +48,6 @@ public abstract class TVTask extends BasicTask {
         //更新数据库
         instructionRequest.setStatus(1);
         InstructionRequestManager.getInstance().saveInstructionRequest(instructionRequest);
-
         responseEntity.setExecuteTime(new Date());
         Log.e(TAG, this.getClass().getName() + ":runTv:");
         runTv();

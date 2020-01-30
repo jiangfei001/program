@@ -39,6 +39,16 @@ public class InstructionResponse {
      */
     private long times;
 
+    private String instructionType;
+
+    public String getInstructionType() {
+        return instructionType;
+    }
+
+    public void setInstructionType(String instructionType) {
+        this.instructionType = instructionType;
+    }
+
     public int getId() {
         return id;
     }

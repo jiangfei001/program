@@ -25,6 +25,7 @@ public class RELEASE extends TVTask {
         response.setZlid(this.instructionRequest.getId());
         response.setReceiveTime(new Date());
         response.setExecuteTime(new Date());
+        response.setType(this.instructionRequest.getType());
         ProgramScheduledManager.getInstance().doProgarm(response, true);
     }
 }
