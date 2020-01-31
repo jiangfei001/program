@@ -189,6 +189,8 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
+        // 这句解决本地跨域问题，如果你的 PDF 文件在站点里，是不需要的，但是，我们一般情况是加载站点外部 PDF 文件
+        mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setAppCacheEnabled(true);
@@ -197,6 +199,7 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.setScrollContainer(false);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
+
 
         //        if (!NetUtil.checkNet(MainActivity.this)) {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
