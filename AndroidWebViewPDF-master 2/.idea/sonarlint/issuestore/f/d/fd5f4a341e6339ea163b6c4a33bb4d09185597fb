@@ -1,0 +1,10 @@
+
+R
+squid:S106"9Replace this use of System.out or System.err by a logger.(ÇÃáûÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(ºµÓéÿÿÿÿÿ
+Ysquid:UselessImportCheck"7Remove this unused import 'com.google.gson.JsonParser'.(Œƒ¸Æ
+R
+squid:S106"9Replace this use of System.out or System.err by a logger.(ûÛÏçùÿÿÿÿ
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
