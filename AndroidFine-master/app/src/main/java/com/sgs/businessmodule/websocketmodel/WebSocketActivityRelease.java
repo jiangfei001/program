@@ -268,7 +268,7 @@ public class WebSocketActivityRelease extends EventActivity {
             }
         });
 
-      /*  findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
+       /* findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String orgin = "{\n" +
@@ -280,7 +280,7 @@ public class WebSocketActivityRelease extends EventActivity {
                         "\t\"fontSize\": \"100\",\n" +
                         "\t\"id\": 2,\n" +
                         "\t\"msgContent\": \"gdd 大范甘迪高蛋白\",\n" +
-                        "\t\"playTimes\": 60,\n" +
+                        "\t\"playTimes\": 10,\n" +
                         "\t\"position\": 1,\n" +
                         "\t\"speed\": 2,\n" +
                         "\t\"status\": 0,\n" +
@@ -500,6 +500,12 @@ public class WebSocketActivityRelease extends EventActivity {
                 } else {
                     cutMsgList.add(muTerminalMsg);
                 }
+
+                Message msg1 = Message.obtain();
+                msg1.obj = muTerminalMsg;
+                msg1.what = 1;
+                mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
+
                 Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                 break;
             case EVENT_TEST_SETCLEARCUTMSG:
@@ -509,9 +515,25 @@ public class WebSocketActivityRelease extends EventActivity {
         }
     }
 
+    //新建Handler对象。
+    Handler mymHandler = new Handler() {
+        //handleMessage为处理消息的方法
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                MuTerminalMsg muTerminalMsg = (MuTerminalMsg) msg.obj;
+                if (muTerminalMsg != null) {
+                    Log.e(TAG, "DelMuTerminalMsg:" + muTerminalMsg.getMsgContent());
+                    cutMsgList.remove(muTerminalMsg);
+                }
+            }
+        }
+    };
+
     public void playNext() {
         Log.e(TAG, "playNext");
         if (cutMsgList.size() <= 0) {
+            resetCutMsg();
             return;
         }
        /* mMarqueeView1.reset();
