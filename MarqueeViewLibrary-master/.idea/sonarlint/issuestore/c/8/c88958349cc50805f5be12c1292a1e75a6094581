@@ -1,0 +1,9 @@
+
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ü­È€ûÿÿÿÿ8‰·Ëöÿ-
+Dsquid:S1659"*Declare "marqueeView2" on a separate line.(ñ¡Ã¢ýÿÿÿÿ
+Dsquid:S1659"*Declare "marqueeView6" on a separate line.(ñ¡Ã¢ýÿÿÿÿ
+Dsquid:S1659"*Declare "marqueeView5" on a separate line.(ñ¡Ã¢ýÿÿÿÿ
+vsquid:S1450"\Remove the "yellowSpeaker" field and declare it as a local variable in the relevant methods.(ñôëÖûÿÿÿÿ
+Msquid:S2387"8"mHandler" is the name of a field in "FragmentActivity".(àæ§â
+vsquid:S1192"aDefine a constant instead of duplicating this literal "mPosition:%s,mData:%s,mView:%s,." 3 times.(É¢ÒÃ
+csquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(²Ú±Ž

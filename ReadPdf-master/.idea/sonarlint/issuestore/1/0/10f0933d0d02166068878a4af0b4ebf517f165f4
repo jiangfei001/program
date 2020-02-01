@@ -1,0 +1,17 @@
+
+]javascript:S2259"CTypeError can be thrown as "bytes" might be null or undefined here.(‹´˜é
+\javascript:S2259"BTypeError can be thrown as "grad" might be null or undefined here.(Ì­‡Ê
+ujavascript:S2873"VThis expression might have a value which cannot be called; it might not be a function.(ÃÚÏüÿÿÿÿ
+‡javascript:S2583"mChange this condition so that it does not always evaluate to "false"; some subsequent code is never executed.(ıÇšà
+]'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(ñ—»Ğùÿÿÿÿ
+]'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(ñ—»Ğùÿÿÿÿ
+Yjavascript:S4030"?Either use this collection's contents or remove the collection.(–ÙÔ‘
+ijavascript:S3523"OReview this "Function" call and make sure its arguments are properly validated.(¤È–ô
+h"javascript:MultilineStringLiterals"7Use string concatenation rather than line continuation.(óšİúÿÿÿÿ
+h"javascript:MultilineStringLiterals"7Use string concatenation rather than line continuation.(ÖÏš±úÿÿÿÿ
+h"javascript:MultilineStringLiterals"7Use string concatenation rather than line continuation.(ãĞ÷¬úÿÿÿÿ
+h"javascript:MultilineStringLiterals"7Use string concatenation rather than line continuation.(üª½¯ÿÿÿÿÿ
+Wjavascript:UnusedVariable"4Remove the declaration of the unused 'key' variable.(òí†
+hjavascript:UnusedVariable"ERemove the declaration of the unused 'WorkerMessageHandler' variable.(ŸÆ‚º
+Pjavascript:S1854"6Remove this useless assignment to local variable "key"(òí†
+^javascript:S1854"?Remove this useless assignment to local variable "styleElement"(Øª­üûÿÿÿÿ

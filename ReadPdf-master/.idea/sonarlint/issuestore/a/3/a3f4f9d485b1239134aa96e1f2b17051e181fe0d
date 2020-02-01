@@ -1,0 +1,79 @@
+
+]javascript:S2259"CTypeError can be thrown as "bytes" might be null or undefined here.(‹´˜é
+\javascript:S2259"CTypeError can be thrown as "frame" might be null or undefined here.(Ë¬»V
+\javascript:S2259"BTypeError can be thrown as "args" might be null or undefined here.(Î‚Í¡
+‚javascript:S4165"cReview this useless assignment: "isLTR" already holds the assigned value along all execution paths.(•‹¤”şÿÿÿÿ
+‚javascript:S4165"cReview this useless assignment: "isLTR" already holds the assigned value along all execution paths.(•‹¤”şÿÿÿÿ
+‚javascript:S4165"cReview this useless assignment: "found" already holds the assigned value along all execution paths.(¥’†¦ûÿÿÿÿ
+ƒjavascript:S4165"iReview this useless assignment: "format31012" already holds the assigned value along all execution paths.(¨æ’æ
+~javascript:S4165"_Review this useless assignment: "i" already holds the assigned value along all execution paths.(¯Î‘ıÿÿÿÿ
+xjavascript:S4165"_Review this useless assignment: "i" already holds the assigned value along all execution paths.(šçü1
+‹javascript:S2583"lChange this condition so that it does not always evaluate to "true"; some subsequent code is never executed.(ùüß‚şÿÿÿÿ
+X'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(¸Û‚£
+]'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(öìºûÿÿÿÿ
+X'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(Ãè©á
+]'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(Ï©šêÿÿÿÿÿ
+X'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(…‹¢Œ
+}javascript:S1871"cEither merge this case with the identical one on line "24689" or change one of the implementations.(Áµ–
+}javascript:S1871"cEither merge this case with the identical one on line "24689" or change one of the implementations.(ˆÛğ›
+‚javascript:S1871"cEither merge this case with the identical one on line "24689" or change one of the implementations.(Í’•şÿÿÿÿÿ
+}javascript:S1871"cEither merge this case with the identical one on line "24824" or change one of the implementations.(ùê÷˜
+‚javascript:S1871"cEither merge this case with the identical one on line "26290" or change one of the implementations.(±šì‹ùÿÿÿÿ
+‚javascript:S1871"cEither merge this case with the identical one on line "26297" or change one of the implementations.(£å·Åşÿÿÿÿ
+}javascript:S1871"cEither merge this case with the identical one on line "38028" or change one of the implementations.(ëªó„
+Ojavascript:S1751"5Remove this "return" statement or make it conditional(ĞÚáÔ
+Ojavascript:S1751"5Remove this "return" statement or make it conditional(ĞÚáÔ
+Ojavascript:S1751"5Remove this "return" statement or make it conditional(ĞÚáÔ
+Ojavascript:S1751"5Remove this "return" statement or make it conditional(ĞÚáÔ
+Ojavascript:S1751"5Remove this "return" statement or make it conditional(ĞÚáÔ
+^javascript:S4030"?Either use this collection's contents or remove the collection.(ÒÅÇáÿÿÿÿÿ
+Yjavascript:S4030"?Either use this collection's contents or remove the collection.(–ÙÔ‘
+njavascript:S3523"OReview this "Function" call and make sure its arguments are properly validated.(¹£‚–ıÿÿÿÿ
+]javascript:UnusedVariable"5Remove the declaration of the unused 'rcon' variable.(Š½İÖşÿÿÿÿ
+cjavascript:UnusedVariable";Remove the declaration of the unused 'pdfjsBuild' variable.(çÉ¬ïıÿÿÿÿ
+^javascript:UnusedVariable"6Remove the declaration of the unused 'dummy' variable.(ÿßƒ›ùÿÿÿÿ
+[javascript:UnusedVariable"9Remove the declaration of the unused 'segments' variable.(ÈÜñN
+_javascript:UnusedVariable"7Remove the declaration of the unused 'length' variable.(½¨±ùÿÿÿÿ
+[javascript:UnusedVariable"3Remove the declaration of the unused 'wy' variable.(“Õàáÿÿÿÿÿ
+ajavascript:UnusedVariable"9Remove the declaration of the unused 'language' variable.(Çş²—üÿÿÿÿ
+cjavascript:UnusedVariable";Remove the declaration of the unused 'scanLength' variable.(Ëœ¶úÿÿÿÿ
+ajavascript:UnusedVariable">Remove the declaration of the unused 'pdfjsFilePath' variable.(¿«£˜
+pjavascript:UnusedVariable"HRemove the declaration of the unused 'pageStripingInformation' variable.(›‘ï“øÿÿÿÿ
+Wjavascript:UnusedVariable"4Remove the declaration of the unused 'key' variable.(òí†
+Vjavascript:UnusedVariable"4Remove the declaration of the unused 'num' variable.(¸°o
+[javascript:UnusedVariable"8Remove the declaration of the unused 'version' variable.(³«æ½
+`javascript:UnusedVariable"=Remove the declaration of the unused 'pdfjsVersion' variable.(¯’›
+Yjavascript:UnusedVariable"6Remove the declaration of the unused 'xhrId' variable.(ª·ŒÏ
+Gjavascript:UnusedVariable"$Remove unused function 'parseJbig2'.(Ñä‡
+\javascript:S1854"=Remove this useless assignment to local variable "pdfjsBuild"(çÉ¬ïıÿÿÿÿ
+Yjavascript:S1854"?Remove this useless assignment to local variable "pdfjsVersion"(¯’›
+Zjavascript:S1854"@Remove this useless assignment to local variable "pdfjsFilePath"(¿«£˜
+Pjavascript:S1854"6Remove this useless assignment to local variable "key"(òí†
+_javascript:S1854"@Remove this useless assignment to local variable "hasSupplement"(•ÿçíøÿÿÿÿ
+ijavascript:S1854"JRemove this useless assignment to local variable "pageStripingInformation"(›‘ï“øÿÿÿÿ
+Tjavascript:S1854";Remove this useless assignment to local variable "segments"(ÈÜñN
+\javascript:S1854"=Remove this useless assignment to local variable "scanLength"(Ëœ¶úÿÿÿÿ
+Tjavascript:S1854":Remove this useless assignment to local variable "llItems"(€ƒöˆ
+Vjavascript:S1854"7Remove this useless assignment to local variable "rcon"(Š½İÖşÿÿÿÿ
+Sjavascript:S1854"9Remove this useless assignment to local variable "length"(Ó‰Ğ±
+Xjavascript:S1854"9Remove this useless assignment to local variable "length"(û…“àùÿÿÿÿ
+Tjavascript:S1854"5Remove this useless assignment to local variable "wy"(“Õàáÿÿÿÿÿ
+Wjavascript:S1854"8Remove this useless assignment to local variable "token"(ÄÎ¤äüÿÿÿÿ
+Ojavascript:S1854"6Remove this useless assignment to local variable "num"(¸°o
+Vjavascript:S1854"7Remove this useless assignment to local variable "code"(ì¸öäùÿÿÿÿ
+Vjavascript:S1854"7Remove this useless assignment to local variable "code"(ì¸öäùÿÿÿÿ
+Rjavascript:S1854"8Remove this useless assignment to local variable "names"(Êˆò
+Tjavascript:S1854":Remove this useless assignment to local variable "version"(³«æ½
+Xjavascript:S1854"9Remove this useless assignment to local variable "length"(½¨±ùÿÿÿÿ
+Zjavascript:S1854";Remove this useless assignment to local variable "language"(Çş²—üÿÿÿÿ
+bjavascript:S1854"CRemove this useless assignment to local variable "eexecBlockLength"(ëÍ×İúÿÿÿÿ
+^javascript:S1854"DRemove this useless assignment to local variable "headerBlockLength"(Å¦ª²
+Qjavascript:S1854"7Remove this useless assignment to local variable "args"(ÆÊ©
+Qjavascript:S1854"7Remove this useless assignment to local variable "args"(ÆÊ©
+Qjavascript:S1854"7Remove this useless assignment to local variable "args"(ÆÊ©
+Qjavascript:S1854"7Remove this useless assignment to local variable "args"(ÆÊ©
+Zjavascript:S1854";Remove this useless assignment to local variable "vMetricY"(úì“”ıÿÿÿÿ
+Ujavascript:S1854";Remove this useless assignment to local variable "vMetricY"(·èŠ
+Zjavascript:S1854";Remove this useless assignment to local variable "vMetricX"(êœôüÿÿÿÿ
+Ujavascript:S1854";Remove this useless assignment to local variable "vMetricX"(ØìÈª
+Rjavascript:S1854"8Remove this useless assignment to local variable "xhrId"(ª·ŒÏ
