@@ -268,8 +268,7 @@ public class WebSocketActivityRelease extends EventActivity {
             }
         });
 
-
-        findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
+      /*  findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String orgin = "{\n" +
@@ -335,6 +334,14 @@ public class WebSocketActivityRelease extends EventActivity {
             }
         });
 
+        findViewById(R.id.btn_send2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event event = new Event();
+                event.setId(EventEnum.EVENT_TEST_SETCLEARCUTMSG);
+                EventBus.getDefault().post(event);
+            }
+        });*/
 
      /*   etContent = (EditText) findViewById(R.id.et_content);
         tvMsg = (TextView) findViewById(R.id.tv_msg);

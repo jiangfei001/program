@@ -7,12 +7,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_send"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Socket" />
-
 
     <com.sgs.businessmodule.websocketmodel.ArticleWebView
         android:id="@+id/activity_main_webview1"
@@ -60,12 +54,27 @@
             app:textSize="16sp"
             app:textcolor="@color/colorAccent" />
 
+        <!--<Button
+            android:id="@+id/btn_send"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Socket" />
+
         <Button
             android:id="@+id/btn_send1"
-            android:layout_marginRight="-300dp"
             android:layout_width="100dp"
-            android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="-300dp"
             android:text="Socket1" />
+
+        <Button
+            android:id="@+id/btn_send2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btn_send1"
+            android:layout_alignParentRight="true"
+            android:text="Socket3" />-->
     </RelativeLayout>
 </FrameLayout>
