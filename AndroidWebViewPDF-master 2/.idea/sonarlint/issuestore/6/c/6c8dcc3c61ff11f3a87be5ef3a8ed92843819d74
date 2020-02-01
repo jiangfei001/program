@@ -1,4 +1,4 @@
 
+Ksquid:UselessImportCheck")Remove this unused import 'java.io.File'.(†Ð¥Å
 Zsquid:UselessImportCheck"3Remove this unused import 'android.os.Environment'.(É¿‹Ãûÿÿÿÿ
 rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(ºµÓéÿÿÿÿÿ
-Ksquid:UselessImportCheck")Remove this unused import 'java.io.File'.(†Ð¥Å

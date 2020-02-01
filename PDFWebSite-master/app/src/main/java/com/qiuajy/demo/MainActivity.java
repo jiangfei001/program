@@ -30,6 +30,6 @@ public class MainActivity extends AppCompatActivity {
          * 参数：pdf = 这里是 PDF 文件路径
          */
         //webView.loadUrl("file:///android_asset/pdf-website/index.html?pdf=/storage/emulated/0/1.pdf");
-        webView.loadUrl("file:///android_asset/pdftest/22.html");
+        webView.loadUrl("file:///android_asset/pdftest/test25.html");
     }
 }
