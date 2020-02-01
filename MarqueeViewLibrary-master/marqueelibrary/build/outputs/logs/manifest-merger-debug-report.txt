@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+	package
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:11-41
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:1:1-4:12
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+application
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml:3:5-20
+uses-sdk
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/src/main/AndroidManifest.xml

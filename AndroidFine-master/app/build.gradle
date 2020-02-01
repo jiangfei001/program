@@ -116,6 +116,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.alibaba:fastjson:1.2.33'
     implementation project(':websocketlib')
+    implementation project(':marqueeview')
     implementation 'com.jakewharton:butterknife:7.0.1'
     implementation 'com.squareup.okhttp3:okhttp:3.8.0'
     implementation 'com.squareup.okio:okio:1.12.0'

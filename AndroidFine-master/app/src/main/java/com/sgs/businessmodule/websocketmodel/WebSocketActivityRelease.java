@@ -5,7 +5,8 @@ import android.media.MediaPlayer;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -13,33 +14,33 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.dalong.marqueeview.MarqueeView;
 import com.jf.fine.R;
 import com.sgs.AppContext;
-import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.businessmodule.taskModel.TaskQueue;
 import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
+import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.StringUtils;
-import com.sgs.programModel.TaskProgarm;
 import com.sgs.programModel.entity.ProgramResource;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -48,10 +49,11 @@ import java.util.TimerTask;
 public class WebSocketActivityRelease extends EventActivity {
 
     private String TAG = "WebSocketActivity";
-   /* private EditText etContent;
-    private TextView tvMsg;
-    private ScrollView scrollView;
-*/
+
+    /* private EditText etContent;
+     private TextView tvMsg;
+     private ScrollView scrollView;
+ */
     public WebView getWvBookPlay() {
         return wvBookPlay;
     }
@@ -199,8 +201,6 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.setScrollContainer(false);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
-
-
         //        if (!NetUtil.checkNet(MainActivity.this)) {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
         //        } else {
@@ -232,11 +232,110 @@ public class WebSocketActivityRelease extends EventActivity {
         AppContext.getInstance().initFileService();
     }
 
+    MarqueeView mMarqueeView1;
+    MarqueeView mMarqueeView2;
+    MarqueeView mMarqueeView3;
+
     private void initView() {
         wvBookPlay = (WebView) findViewById(R.id.activity_main_webview1);
-        wvBookPlay.setHorizontalScrollBarEnabled(false);//水平不显示
-        wvBookPlay.setVerticalScrollBarEnabled(false); //垂直不显示
+        mMarqueeView1 = (MarqueeView) findViewById(R.id.mMarqueeView1);
+        mMarqueeView2 = (MarqueeView) findViewById(R.id.mMarqueeView2);
+        mMarqueeView3 = (MarqueeView) findViewById(R.id.mMarqueeView3);
+
         initweb(wvBookPlay);
+
+
+        mMarqueeView1.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
+            @Override
+            public void onRollOver() {
+                Log.e(TAG, "mMarqueeView1 onRollOver");
+                playNext();
+            }
+        });
+        mMarqueeView2.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
+            @Override
+            public void onRollOver() {
+                Log.e(TAG, "mMarqueeView2 onRollOver");
+                playNext();
+            }
+        });
+
+        mMarqueeView3.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
+            @Override
+            public void onRollOver() {
+                Log.e(TAG, "mMarqueeView3 onRollOver");
+                playNext();
+            }
+        });
+
+
+        findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String orgin = "{\n" +
+                        "\t\"append\": 0,\n" +
+                        "\t\"createTime\": 1580473823521,\n" +
+                        "\t\"createUser\": \"admin\",\n" +
+                        "\t\"deptId\": 2,\n" +
+                        "\t\"fontColor\": \"#92e3ed\",\n" +
+                        "\t\"fontSize\": \"100\",\n" +
+                        "\t\"id\": 2,\n" +
+                        "\t\"msgContent\": \"gdd 大范甘迪高蛋白\",\n" +
+                        "\t\"playTimes\": 60,\n" +
+                        "\t\"position\": 1,\n" +
+                        "\t\"speed\": 2,\n" +
+                        "\t\"status\": 0,\n" +
+                        "\t\"terminalIds\": \"16,18\"\n" +
+                        "}";
+
+                MuTerminalMsg orderProgarmPalyInstructionVo = JSON.parseObject(orgin, new TypeReference<MuTerminalMsg>() {
+                });
+
+                Event event = new Event();
+                HashMap<EventEnum, Object> params = new HashMap();
+                params.put(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG, orderProgarmPalyInstructionVo);
+                event.setParams(params);
+                event.setId(EventEnum.EVENT_TEST_SETCUTMSG);
+                EventBus.getDefault().post(event);
+
+                System.out.println("orderProgarmPalyInstructionVo.toString()" + orderProgarmPalyInstructionVo.toString());
+            }
+        });
+
+        findViewById(R.id.btn_send1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String orgin = "{\n" +
+                        "\t\"append\": 1,\n" +
+                        "\t\"createTime\": 1580473823521,\n" +
+                        "\t\"createUser\": \"admin\",\n" +
+                        "\t\"deptId\": 2,\n" +
+                        "\t\"fontColor\": \"#92e3ed\",\n" +
+                        "\t\"fontSize\": \"100\",\n" +
+                        "\t\"id\": 2,\n" +
+                        "\t\"msgContent\": \"阿斯顿发送到发送到发算地方\",\n" +
+                        "\t\"playTimes\": 60,\n" +
+                        "\t\"position\": 2,\n" +
+                        "\t\"speed\": 2,\n" +
+                        "\t\"status\": 0,\n" +
+                        "\t\"terminalIds\": \"16,18\"\n" +
+                        "}";
+
+                MuTerminalMsg orderProgarmPalyInstructionVo = JSON.parseObject(orgin, new TypeReference<MuTerminalMsg>() {
+                });
+
+                Event event = new Event();
+                HashMap<EventEnum, Object> params = new HashMap();
+                params.put(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG, orderProgarmPalyInstructionVo);
+                event.setParams(params);
+                event.setId(EventEnum.EVENT_TEST_SETCUTMSG);
+                EventBus.getDefault().post(event);
+
+                System.out.println("orderProgarmPalyInstructionVo.toString()" + orderProgarmPalyInstructionVo.toString());
+            }
+        });
+
+
      /*   etContent = (EditText) findViewById(R.id.et_content);
         tvMsg = (TextView) findViewById(R.id.tv_msg);
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
@@ -344,13 +443,11 @@ public class WebSocketActivityRelease extends EventActivity {
     public void onEvent(Event mEvent) {
         switch (mEvent.getId()) {
             case EVENT_TEST_MSG1:
-
-                Log.d(this.getClass().getName(), "我收到消息啦1");
+                Log.d(this.getClass().getName(), "我收到播放消息啦1");
                 wvBookPlay.getSettings().setJavaScriptEnabled(true);
                 HashMap<EventEnum, Object> hashMap = mEvent.getParams();
                 boolean isPlayMusic = (boolean) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC);
                 String path = (String) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH);
-
                 if (isPlayMusic) {
                     //控制音乐的播放与暂停
                     if (!mediaPlayer.isPlaying()) {
@@ -364,7 +461,6 @@ public class WebSocketActivityRelease extends EventActivity {
                 }
                 Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
                 wvBookPlay.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
-
                 break;
             case EVENT_TEST_MSG2:
                 Map event = mEvent.getParams();
@@ -387,11 +483,87 @@ public class WebSocketActivityRelease extends EventActivity {
                     }
                 }
                 break;
+            case EVENT_TEST_SETCUTMSG:
+                Map event2 = mEvent.getParams();
+                MuTerminalMsg muTerminalMsg = (MuTerminalMsg) event2.get(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG);
+                if (muTerminalMsg.getAppend() == 0 || cutMsgList.size() == 0) {
+                    resetCutMsg();
+                    cutMsgList.add(muTerminalMsg);
+                    playNext();
+                } else {
+                    cutMsgList.add(muTerminalMsg);
+                }
+                Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
+                break;
+            case EVENT_TEST_SETCLEARCUTMSG:
+                resetCutMsg();
+                Log.d(this.getClass().getName(), "EVENT_TEST_SETCLEARCUTMSG");
+                break;
         }
     }
 
+    public void playNext() {
+        Log.e(TAG, "playNext");
+        if (cutMsgList.size() <= 0) {
+            return;
+        }
+       /* mMarqueeView1.reset();
+        mMarqueeView2.reset();
+        mMarqueeView3.reset();*/
+        if (nowCutMsgIndex >= cutMsgList.size() - 1) {
+            nowCutMsgIndex = 0;
+        } else {
+            nowCutMsgIndex++;
+        }
+
+        Log.e(TAG, "playNext" + nowCutMsgIndex);
+        MuTerminalMsg muTerminalMsg = cutMsgList.get(nowCutMsgIndex);
+        if (muTerminalMsg.getPosition() == 0) {
+            mMarqueeView1.setVisibility(View.VISIBLE);
+            mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
+            mMarqueeView1.setText(muTerminalMsg.getMsgContent());
+            Log.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
+            mMarqueeView1.startScroll();
+        } else if (muTerminalMsg.getPosition() == 1) {
+            mMarqueeView3.setVisibility(View.VISIBLE);
+            mMarqueeView3.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
+            mMarqueeView3.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView3.startScroll();
+        } else if (muTerminalMsg.getPosition() == 2) {
+            mMarqueeView2.setVisibility(View.VISIBLE);
+            mMarqueeView2.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
+            mMarqueeView2.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView2.startScroll();
+        }
+    }
+
+    public void resetCutMsg() {
+        Log.e(TAG, "resetCutMsg");
+        nowCutMsgIndex = 0;
+        cutMsgList.clear();
+        mMarqueeView1.setVisibility(View.INVISIBLE);
+        mMarqueeView2.setVisibility(View.INVISIBLE);
+        mMarqueeView3.setVisibility(View.INVISIBLE);
+        mMarqueeView1.stopScroll();
+        mMarqueeView2.stopScroll();
+        mMarqueeView3.stopScroll();
+        /*mMarqueeView1.reset();
+        mMarqueeView2.reset();
+        mMarqueeView3.reset();*/
+       /* mMarqueeView1.stopScroll();
+        mMarqueeView2.stopScroll();
+        mMarqueeView3.stopScroll();
+        mMarqueeView1.reset();
+        mMarqueeView2.reset();
+        mMarqueeView3.reset();*/
+    }
+
+
+    List<MuTerminalMsg> cutMsgList = new LinkedList<>();
+    int nowCutMsgIndex = 0;
+
     List<ProgramResource> musicList;
-    int index = 0;
+    int musicindex = 0;
     /**
      * 规定开始音乐、暂停音乐、结束音乐的标志
      */
@@ -402,7 +574,7 @@ public class WebSocketActivityRelease extends EventActivity {
     private void initMediaPlayer() {
         try {
             String path = null;
-            ProgramResource programResource = musicList.get(index);
+            ProgramResource programResource = musicList.get(musicindex);
             if (!StringUtils.isEmpty(programResource.getVirtualPath())) {
                 path = "file://" + FileHelper.getFileDefaultPath() + "/" + programResource.getVirtualPath();
                 Log.e(TAG, "path111" + path);
@@ -420,9 +592,9 @@ public class WebSocketActivityRelease extends EventActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                index = index + 1;
-                if (index >= musicList.size()) {
-                    index = 0;
+                musicindex = musicindex + 1;
+                if (musicindex >= musicList.size()) {
+                    musicindex = 0;
                 }
                 initMediaPlayer();
                 mediaPlayer.start();

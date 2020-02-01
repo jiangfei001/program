@@ -1,0 +1,165 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+MERGED from [:marqueelibrary] /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/build/intermediates/manifests/full/debug/AndroidManifest.xml:2:1-14:12
+MERGED from [com.android.support:design:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/design-27.0.2.aar/60b865df78ff3a709473c01cc38aa2e7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/434cf447b508f824026a55d1e0c124fa/AndroidManifest.xml:17:1-22:12
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:17:1-59:12
+MERGED from [com.android.support:support-v4:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/93bd8c3afe4f714a8b6613c8bbe73647/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/e21a4f8f2f160c10f9df927a7f182da6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/beeb51b68a66aa4e86d452449fd1469b/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/49e0237d07317361feb020f5eba502e5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/c3ca3e5c41b1056c90508d37550963e7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.0.2.aar/779dfedb7c24287530775da8b421ce5e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/transition-27.0.2.aar/8f98fae101f9647688392f16f44f8164/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/3851d73ed7c346eb436afc38392cfc6a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/f03b4c5152d1eca683c17c6e2e052608/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/d487b230357e471a5b3e0f7311fb0201/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/438e1fdea09a9e1029625efbcf2ca7fc/AndroidManifest.xml:17:1-24:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+	package
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:3:5-29
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:5:5-19:19
+MERGED from [:marqueelibrary] /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/build/intermediates/manifests/full/debug/AndroidManifest.xml:12:5-20
+MERGED from [:marqueelibrary] /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/build/intermediates/manifests/full/debug/AndroidManifest.xml:12:5-20
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:28:5-57:19
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:28:5-57:19
+	android:supportsRtl
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:10:9-35
+	android:label
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:9:9-41
+	android:icon
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:8:9-43
+	android:allowBackup
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:7:9-35
+	android:theme
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:11:9-40
+	android:name
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:6:9-40
+activity#com.gw.marquee.MainActivity
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:12:9-18:20
+	android:name
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:12:19-47
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:13:13-17:29
+action#android.intent.action.MAIN
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:14:17-69
+	android:name
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:14:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:16:17-77
+	android:name
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:16:27-74
+uses-sdk
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+MERGED from [:marqueelibrary] /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/build/intermediates/manifests/full/debug/AndroidManifest.xml:8:5-10:41
+MERGED from [:marqueelibrary] /Users/jiangfei/program/MarqueeViewLibrary-master/marqueelibrary/build/intermediates/manifests/full/debug/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:design:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/design-27.0.2.aar/60b865df78ff3a709473c01cc38aa2e7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/design-27.0.2.aar/60b865df78ff3a709473c01cc38aa2e7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/434cf447b508f824026a55d1e0c124fa/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.0.2.aar/434cf447b508f824026a55d1e0c124fa/AndroidManifest.xml:20:5-44
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:20:5-22:41
+MERGED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support:support-v4:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/93bd8c3afe4f714a8b6613c8bbe73647/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-v4-27.0.2.aar/93bd8c3afe4f714a8b6613c8bbe73647/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/e21a4f8f2f160c10f9df927a7f182da6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-fragment-27.0.2.aar/e21a4f8f2f160c10f9df927a7f182da6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/beeb51b68a66aa4e86d452449fd1469b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-core-utils-27.0.2.aar/beeb51b68a66aa4e86d452449fd1469b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/49e0237d07317361feb020f5eba502e5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.0.2.aar/49e0237d07317361feb020f5eba502e5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/c3ca3e5c41b1056c90508d37550963e7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.0.2.aar/c3ca3e5c41b1056c90508d37550963e7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.0.2.aar/779dfedb7c24287530775da8b421ce5e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.0.2.aar/779dfedb7c24287530775da8b421ce5e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/transition-27.0.2.aar/8f98fae101f9647688392f16f44f8164/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/transition-27.0.2.aar/8f98fae101f9647688392f16f44f8164/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/3851d73ed7c346eb436afc38392cfc6a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-core-ui-27.0.2.aar/3851d73ed7c346eb436afc38392cfc6a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/f03b4c5152d1eca683c17c6e2e052608/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.0.2.aar/f03b4c5152d1eca683c17c6e2e052608/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/d487b230357e471a5b3e0f7311fb0201/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/support-compat-27.0.2.aar/d487b230357e471a5b3e0f7311fb0201/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/438e1fdea09a9e1029625efbcf2ca7fc/AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.3] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/runtime-1.0.3.aar/438e1fdea09a9e1029625efbcf2ca7fc/AndroidManifest.xml:20:5-22:41
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+		ADDED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:25:5-80
+IMPLIED from /Users/jiangfei/program/MarqueeViewLibrary-master/app/src/main/AndroidManifest.xml:2:1-21:12 reason: com.squareup.leakcanary requested WRITE_EXTERNAL_STORAGE
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:25:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:26:5-81
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:26:22-78
+service#com.squareup.leakcanary.internal.HeapAnalyzerService
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:29:9-32:45
+	android:process
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:32:13-42
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:31:13-36
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:30:13-80
+service#com.squareup.leakcanary.DisplayLeakService
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:33:9-35:39
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:35:13-36
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:34:13-70
+activity#com.squareup.leakcanary.internal.DisplayLeakActivity
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:37:9-49:20
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:39:13-36
+	android:label
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:41:13-71
+	android:icon
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:40:13-54
+	android:theme
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:43:13-63
+	android:taskAffinity
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:42:13-59
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:38:13-80
+activity#com.squareup.leakcanary.internal.RequestStoragePermissionActivity
+ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:50:9-56:68
+	android:enabled
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:52:13-36
+	android:label
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:54:13-82
+	android:icon
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:53:13-54
+	android:theme
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:56:13-65
+	android:taskAffinity
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:55:13-59
+	android:name
+		ADDED from [com.squareup.leakcanary:leakcanary-android:1.5] /Users/jiangfei/.gradle/caches/transforms-1/files-1.1/leakcanary-android-1.5.aar/1c696e9294b839d6709ecc7c1a8b3e29/AndroidManifest.xml:51:13-93

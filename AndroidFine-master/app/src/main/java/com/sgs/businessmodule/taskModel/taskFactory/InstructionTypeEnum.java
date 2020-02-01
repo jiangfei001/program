@@ -31,6 +31,8 @@ public enum InstructionTypeEnum {
     SETOSTERMINAL(127, "setOsTerminal", "设置每天开关机时间"),
     GETALLPROGRAM(128, "sendGetProgramOrder", "获取终端节目列表"),
     GETNEWPROGRAMMESSAGE(129, "getNewProgramMessage", "获取正在播放节目信息"),
+    CUTMSG(130, "cutMsg", "插播消息"),
+    CLEARCUTMSG(131, "clearCutMsg", "清空插播消息"),
     ;
 
     InstructionTypeEnum(int code, String type, String name) {
