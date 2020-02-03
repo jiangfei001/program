@@ -33,6 +33,7 @@ public enum InstructionTypeEnum {
     GETNEWPROGRAMMESSAGE(129, "getNewProgramMessage", "获取正在播放节目信息"),
     CUTMSG(130, "cutMsg", "插播消息"),
     CLEARCUTMSG(131, "clearCutMsg", "清空插播消息"),
+    DELETECUTMSG(132, "deleteCutMsg", "删除插播消息"),
     ;
 
     InstructionTypeEnum(int code, String type, String name) {

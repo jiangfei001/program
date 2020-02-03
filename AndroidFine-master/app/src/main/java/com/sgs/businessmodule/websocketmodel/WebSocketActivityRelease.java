@@ -39,7 +39,9 @@ import com.zhangke.websocket.response.ErrorResponse;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -505,12 +507,30 @@ public class WebSocketActivityRelease extends EventActivity {
                 msg1.obj = muTerminalMsg;
                 msg1.what = 1;
                 mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
-
                 Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                 break;
             case EVENT_TEST_SETCLEARCUTMSG:
                 resetCutMsg();
                 Log.d(this.getClass().getName(), "EVENT_TEST_SETCLEARCUTMSG");
+                break;
+            case EVENT_TEST_DELETECUTMSG:
+                Log.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
+                Map eventDel = mEvent.getParams();
+                ArrayList<Integer> arrayList = (ArrayList<Integer>) eventDel.get(EventEnum.EVENT_TEST_MSG1_KEY_DELETECUTMSG);
+                if (arrayList != null && arrayList.size() > 0) {
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        int index = arrayList.get(i);
+                        Iterator<MuTerminalMsg> iterator = cutMsgList.iterator();
+                        while (iterator.hasNext()) {
+                            MuTerminalMsg value = iterator.next();
+                            if (value.getId() == index) {
+                                iterator.remove();
+                                Log.e("======", value + "已经移除");
+                            }
+                        }
+                    }
+                }
+
                 break;
         }
     }
