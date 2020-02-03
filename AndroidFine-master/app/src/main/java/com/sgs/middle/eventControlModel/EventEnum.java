@@ -7,6 +7,7 @@ public enum EventEnum {
     EVENT_TEST_SETMUSIC,    //消息2
     EVENT_TEST_SETCUTMSG,    //消息2
     EVENT_TEST_SETCLEARCUTMSG,    //消息2
+    EVENT_TEST_CLEARPROG,    //消息2
     EVENT_TEST_DELETECUTMSG, //消息2
     EVENT_TEST_MSG2_KEY,//key
     EVENT_TEST_MSG2_KEY_MUSIC,//key

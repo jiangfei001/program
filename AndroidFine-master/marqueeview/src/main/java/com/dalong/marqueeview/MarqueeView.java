@@ -15,6 +15,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 /**
@@ -24,6 +25,8 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
     public Context mContext;
 
     private float mTextSize = 100; //字体大小
+
+    private int backColer = Color.BLUE; //字体大小
 
     private int mTextColor = Color.RED; //字体的颜色
 
@@ -95,6 +98,7 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         mTextPaint.setTextAlign(Paint.Align.LEFT);
         setZOrderOnTop(true);//使surfaceview放到最顶层
         getHolder().setFormat(PixelFormat.TRANSLUCENT);//使窗口支持透明度
+
     }
 
     public void setText(String msg) {
@@ -129,6 +133,11 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         textWidth = (int) mTextPaint.measureText(margueeString);
         Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
         textHeight = (int) fontMetrics.bottom;
+
+        ViewGroup.LayoutParams LayoutParams = this.getLayoutParams();
+        LayoutParams.height=textHeight*4;
+        this.setLayoutParams(LayoutParams);
+
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         if (mStartPoint == 0) {
@@ -140,6 +149,8 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
                 currentX = -textWidth;
             }
         }
+
+
     }
 
     @Override
@@ -199,7 +210,6 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         public void onDraw() {
             try {
                 synchronized (holder) {
-                    Log.e("holder", "holder");
                     if (TextUtils.isEmpty(margueeString)) {
                         Thread.sleep(1000);//睡眠时间为1秒
                         return;

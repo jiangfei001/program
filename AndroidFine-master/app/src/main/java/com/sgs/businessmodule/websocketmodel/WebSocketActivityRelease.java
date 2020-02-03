@@ -133,6 +133,7 @@ public class WebSocketActivityRelease extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket1);
         initView();
+        getWvBookPlay().loadUrl("file:///android_asset/index.html");
         WebSocketHelper.initWebSocket(DeviceUtil.getUniqueID(WebSocketActivityRelease.this));
         WebSocketHandler.getDefault().addListener(socketListener);
         taskQueue = new TaskQueue(1);
@@ -203,11 +204,7 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.setScrollContainer(false);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
-        //        if (!NetUtil.checkNet(MainActivity.this)) {
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
-        //        } else {
-        //            mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);  //设置 缓存模式
-        //        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }
@@ -519,7 +516,7 @@ public class WebSocketActivityRelease extends EventActivity {
                             Message msg1 = Message.obtain();
                             msg1.obj = muTerminalMsg;
                             msg1.what = 2;
-                            Log.e(TAG,"muTerminalMsg.getPlayTimes()"+muTerminalMsg.getPlayTimes());
+                            Log.e(TAG, "muTerminalMsg.getPlayTimes()" + muTerminalMsg.getPlayTimes());
                             mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
                             Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                             playNext();
@@ -563,6 +560,14 @@ public class WebSocketActivityRelease extends EventActivity {
                     }
                 }
 
+                break;
+            case EVENT_TEST_CLEARPROG:
+                mymHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        getWvBookPlay().loadUrl("file:///android_asset/index.html");
+                    }
+                });
                 break;
         }
     }

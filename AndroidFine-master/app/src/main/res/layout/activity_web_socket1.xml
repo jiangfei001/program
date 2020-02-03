@@ -20,9 +20,10 @@
         <com.dalong.marqueeview.MarqueeView
             android:id="@+id/mMarqueeView1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
             app:direction="right"
+            android:layout_gravity="top"
             app:isRepeat="false"
             app:speed="20"
             app:startPoint="end"
@@ -33,7 +34,7 @@
         <com.dalong.marqueeview.MarqueeView
             android:id="@+id/mMarqueeView2"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
             app:direction="right"
             app:isRepeat="false"
@@ -45,11 +46,12 @@
         <com.dalong.marqueeview.MarqueeView
             android:id="@+id/mMarqueeView3"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_alignParentBottom="true"
             app:direction="right"
             app:isRepeat="false"
             app:speed="20"
+            android:gravity="bottom"
             app:startPoint="end"
             app:textSize="16sp"
             app:textcolor="@color/colorAccent" />
