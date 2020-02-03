@@ -251,14 +251,24 @@ public class WebSocketActivityRelease extends EventActivity {
             @Override
             public void onRollOver() {
                 Log.e(TAG, "mMarqueeView1 onRollOver");
-                playNext();
+                mymHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        playNext();
+                    }
+                });
             }
         });
         mMarqueeView2.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override
             public void onRollOver() {
                 Log.e(TAG, "mMarqueeView2 onRollOver");
-                playNext();
+                mymHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        playNext();
+                    }
+                });
             }
         });
 
@@ -266,7 +276,12 @@ public class WebSocketActivityRelease extends EventActivity {
             @Override
             public void onRollOver() {
                 Log.e(TAG, "mMarqueeView3 onRollOver");
-                playNext();
+                mymHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        playNext();
+                    }
+                });
             }
         });
 
@@ -494,24 +509,41 @@ public class WebSocketActivityRelease extends EventActivity {
                 break;
             case EVENT_TEST_SETCUTMSG:
                 Map event2 = mEvent.getParams();
-                MuTerminalMsg muTerminalMsg = (MuTerminalMsg) event2.get(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG);
-                if (muTerminalMsg.getAppend() == 0 || cutMsgList.size() == 0) {
-                    resetCutMsg();
-                    cutMsgList.add(muTerminalMsg);
-                    playNext();
-                } else {
-                    cutMsgList.add(muTerminalMsg);
-                }
+                final MuTerminalMsg muTerminalMsg = (MuTerminalMsg) event2.get(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG);
+                mymHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (muTerminalMsg.getAppend() == 0 || cutMsgList.size() == 0) {
+                            resetCutMsg();
+                            cutMsgList.add(muTerminalMsg);
+                            Message msg1 = Message.obtain();
+                            msg1.obj = muTerminalMsg;
+                            msg1.what = 2;
+                            Log.e(TAG,"muTerminalMsg.getPlayTimes()"+muTerminalMsg.getPlayTimes());
+                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
+                            Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
+                            playNext();
+                        } else {
+                            Message msg1 = Message.obtain();
+                            msg1.obj = muTerminalMsg;
+                            msg1.what = 2;
+                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
+                            Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
+                            cutMsgList.add(muTerminalMsg);
+                        }
 
-                Message msg1 = Message.obtain();
-                msg1.obj = muTerminalMsg;
-                msg1.what = 1;
-                mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
-                Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
+
+                    }
+                });
                 break;
             case EVENT_TEST_SETCLEARCUTMSG:
-                resetCutMsg();
-                Log.d(this.getClass().getName(), "EVENT_TEST_SETCLEARCUTMSG");
+                mymHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        resetCutMsg();
+                        Log.d(this.getClass().getName(), "EVENT_TEST_SETCLEARCUTMSG");
+                    }
+                });
                 break;
             case EVENT_TEST_DELETECUTMSG:
                 Log.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
@@ -540,7 +572,8 @@ public class WebSocketActivityRelease extends EventActivity {
         //handleMessage为处理消息的方法
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 1) {
+            if (msg.what == 2) {
+                Log.e(TAG, "msg.what=2");
                 MuTerminalMsg muTerminalMsg = (MuTerminalMsg) msg.obj;
                 if (muTerminalMsg != null) {
                     Log.e(TAG, "DelMuTerminalMsg:" + muTerminalMsg.getMsgContent());
@@ -551,7 +584,7 @@ public class WebSocketActivityRelease extends EventActivity {
     };
 
     public void playNext() {
-        Log.e(TAG, "playNext");
+        Log.e(TAG, "playNext" + cutMsgList.size());
         if (cutMsgList.size() <= 0) {
             resetCutMsg();
             return;
@@ -567,14 +600,14 @@ public class WebSocketActivityRelease extends EventActivity {
 
         Log.e(TAG, "playNext" + nowCutMsgIndex);
         MuTerminalMsg muTerminalMsg = cutMsgList.get(nowCutMsgIndex);
-        if (muTerminalMsg.getPosition() == 0) {
+        if (muTerminalMsg.getPosition() == 1) {
             mMarqueeView1.setVisibility(View.VISIBLE);
             mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView1.setText(muTerminalMsg.getMsgContent());
             mMarqueeView1.setSep(muTerminalMsg.getSpeed());
             Log.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
             mMarqueeView1.startScroll();
-        } else if (muTerminalMsg.getPosition() == 1) {
+        } else if (muTerminalMsg.getPosition() == 0) {
             mMarqueeView3.setVisibility(View.VISIBLE);
             mMarqueeView3.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView3.setText(muTerminalMsg.getMsgContent());
@@ -593,6 +626,7 @@ public class WebSocketActivityRelease extends EventActivity {
         Log.e(TAG, "resetCutMsg");
         nowCutMsgIndex = 0;
         cutMsgList.clear();
+        mymHandler.removeMessages(2);
         mMarqueeView1.setVisibility(View.INVISIBLE);
         mMarqueeView2.setVisibility(View.INVISIBLE);
         mMarqueeView3.setVisibility(View.INVISIBLE);

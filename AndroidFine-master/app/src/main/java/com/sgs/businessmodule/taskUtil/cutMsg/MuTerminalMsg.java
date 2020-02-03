@@ -30,7 +30,7 @@ public class MuTerminalMsg {
     //消息内容
     private String msgContent;
 
-    //方向
+    //方向 1 从左到右
     private Integer direction;
 
     private Integer id;
