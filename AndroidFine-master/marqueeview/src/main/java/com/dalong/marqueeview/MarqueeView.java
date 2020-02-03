@@ -51,6 +51,17 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     public int sepX = 5;//每一步滚动的距离
 
+
+    public void setSep(int speed) {
+        if (speed == 0) {
+            sepX = 5;
+        } else if (speed == 1) {
+            sepX = 10;
+        } else {
+            sepX = 20;
+        }
+    }
+
     public MarqueeView(Context context) {
         this(context, null);
     }
@@ -64,6 +75,7 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         this.mContext = context;
         init(attrs, defStyleAttr);
     }
+
 
     private void init(AttributeSet attrs, int defStyleAttr) {
 
@@ -187,7 +199,7 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         public void onDraw() {
             try {
                 synchronized (holder) {
-                    Log.e("holder","holder");
+                    Log.e("holder", "holder");
                     if (TextUtils.isEmpty(margueeString)) {
                         Thread.sleep(1000);//睡眠时间为1秒
                         return;

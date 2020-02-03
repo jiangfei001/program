@@ -571,17 +571,20 @@ public class WebSocketActivityRelease extends EventActivity {
             mMarqueeView1.setVisibility(View.VISIBLE);
             mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView1.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView1.setSep(muTerminalMsg.getSpeed());
             Log.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
             mMarqueeView1.startScroll();
         } else if (muTerminalMsg.getPosition() == 1) {
             mMarqueeView3.setVisibility(View.VISIBLE);
             mMarqueeView3.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView3.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView3.setSep(muTerminalMsg.getSpeed());
             mMarqueeView3.startScroll();
         } else if (muTerminalMsg.getPosition() == 2) {
             mMarqueeView2.setVisibility(View.VISIBLE);
             mMarqueeView2.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView2.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView2.setSep(muTerminalMsg.getSpeed());
             mMarqueeView2.startScroll();
         }
     }

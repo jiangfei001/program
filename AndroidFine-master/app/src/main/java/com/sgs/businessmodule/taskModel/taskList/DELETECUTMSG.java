@@ -8,8 +8,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
-import com.sgs.programModel.ProgramScheduledManager;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
