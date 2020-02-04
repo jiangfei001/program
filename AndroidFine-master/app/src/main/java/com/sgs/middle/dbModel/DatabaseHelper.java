@@ -3,6 +3,7 @@ package com.sgs.middle.dbModel;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -55,11 +56,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
-            /*TableUtils.createTable(connectionSource, User.class);
-            TableUtils.createTable(connectionSource, Article.class);
-            TableUtils.createTable(connectionSource, Student.class);*/
             TableUtils.createTable(connectionSource, InstructionRequest.class);
             TableUtils.createTable(connectionSource, ProgarmPalyInstructionVo.class);
+            TableUtils.createTable(connectionSource, MuTerminalMsg.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,8 +71,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Article.class, true);
             TableUtils.dropTable(connectionSource, Student.class, true);*/
             TableUtils.dropTable(connectionSource, ProgarmPalyInstructionVo.class, true);
+            TableUtils.dropTable(connectionSource, InstructionRequest.class, true);
+            TableUtils.dropTable(connectionSource, MuTerminalMsg.class, true);
+
             TableUtils.createTable(connectionSource, ProgarmPalyInstructionVo.class);
             TableUtils.createTable(connectionSource, InstructionRequest.class);
+            TableUtils.createTable(connectionSource, MuTerminalMsg.class);
+
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -16,8 +16,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.dalong.marqueeview.MarqueeView;
 import com.jf.fine.R;
 import com.sgs.AppContext;
@@ -25,6 +23,7 @@ import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.businessmodule.taskModel.TaskQueue;
 import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
+import com.sgs.businessmodule.taskUtil.cutMsg.MsgDbManager;
 import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
@@ -52,10 +51,6 @@ public class WebSocketActivityRelease extends EventActivity {
 
     private String TAG = "WebSocketActivity";
 
-    /* private EditText etContent;
-     private TextView tvMsg;
-     private ScrollView scrollView;
- */
     public WebView getWvBookPlay() {
         return wvBookPlay;
     }
@@ -138,24 +133,14 @@ public class WebSocketActivityRelease extends EventActivity {
         WebSocketHandler.getDefault().addListener(socketListener);
         taskQueue = new TaskQueue(1);
         taskQueue.start();
-        /*initSchedule();*/
-        /*taskQueue = new TaskQueue(1);
 
-        //从数据库加载所有未完成和未结束的任务
-        InstructionRequestDao instructionRequestDao = new InstructionRequestDao(this);
-        List<InstructionRequest> instructionRequests = instructionRequestDao.getAllTask();
-
-        // 3. 使用Iterator迭代器
-        Iterator<InstructionRequest> it = instructionRequests.iterator();
-        while (it.hasNext()) {
-            InstructionRequest instructionRequest = it.next();
-            System.out.println(instructionRequest);
-            TVTask tvTask = TaskFactory.createTask(instructionRequest);
-            taskQueue.add(tvTask);
+        cutMsgList = MsgDbManager.getInstance().getAllMuTerminalMsg();
+        if (cutMsgList != null && cutMsgList.size() > 0) {
+            Log.e(TAG, "我是从数据库中获取的消息列表" + cutMsgList.size());
+            playNext();
+        } else {
+            cutMsgList = new LinkedList<>();
         }
-
-        taskQueue.start();*/
-
     }
 
     private class InnerWebViewClient extends WebViewClient {
@@ -243,29 +228,18 @@ public class WebSocketActivityRelease extends EventActivity {
 
         initweb(wvBookPlay);
 
-
         mMarqueeView1.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override
             public void onRollOver() {
                 Log.e(TAG, "mMarqueeView1 onRollOver");
-                mymHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        playNext();
-                    }
-                });
+                gotoPlay();
             }
         });
         mMarqueeView2.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override
             public void onRollOver() {
                 Log.e(TAG, "mMarqueeView2 onRollOver");
-                mymHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        playNext();
-                    }
-                });
+                gotoPlay();
             }
         });
 
@@ -273,164 +247,36 @@ public class WebSocketActivityRelease extends EventActivity {
             @Override
             public void onRollOver() {
                 Log.e(TAG, "mMarqueeView3 onRollOver");
-                mymHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        playNext();
+                gotoPlay();
+            }
+        });
+    }
+
+    private void gotoPlay() {
+        mymHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (nowPlayTime != 0) {
+                    Long totleTime = (System.currentTimeMillis() - nowPlayTime) / 1000;
+                    Log.e("totleTime", "totleTime" + totleTime);
+                    if (nowTerminalMsg != null) {
+                        Long integer = nowTerminalMsg.getHasplay();
+                        nowTerminalMsg.setHasplay(totleTime + integer);
+                        Log.e(TAG, "mMarqueeView3 getHasplay" + nowTerminalMsg.getHasplay() + "content" + nowTerminalMsg.getMsgContent());
+                        if (nowTerminalMsg.getHasplay() >= nowTerminalMsg.getPlayTimes()) {
+                            Log.e(TAG, "mMarqueeView3 getHasplay" + nowTerminalMsg.getHasplay() + "getPlayTimes:" + nowTerminalMsg.getPlayTimes());
+                            if (cutMsgList != null && cutMsgList.size() > 0) {
+                                cutMsgList.remove(nowTerminalMsg);
+                                MsgDbManager.getInstance().delByMuTerminalMsgID(nowTerminalMsg.getId());
+                                nowTerminalMsg = null;
+                                nowCutMsgIndex--;
+                            }
+                        }
                     }
-                });
-            }
-        });
-
-       /* findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String orgin = "{\n" +
-                        "\t\"append\": 0,\n" +
-                        "\t\"createTime\": 1580473823521,\n" +
-                        "\t\"createUser\": \"admin\",\n" +
-                        "\t\"deptId\": 2,\n" +
-                        "\t\"fontColor\": \"#92e3ed\",\n" +
-                        "\t\"fontSize\": \"100\",\n" +
-                        "\t\"id\": 2,\n" +
-                        "\t\"msgContent\": \"gdd 大范甘迪高蛋白\",\n" +
-                        "\t\"playTimes\": 10,\n" +
-                        "\t\"position\": 1,\n" +
-                        "\t\"speed\": 2,\n" +
-                        "\t\"status\": 0,\n" +
-                        "\t\"terminalIds\": \"16,18\"\n" +
-                        "}";
-
-                MuTerminalMsg orderProgarmPalyInstructionVo = JSON.parseObject(orgin, new TypeReference<MuTerminalMsg>() {
-                });
-
-                Event event = new Event();
-                HashMap<EventEnum, Object> params = new HashMap();
-                params.put(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG, orderProgarmPalyInstructionVo);
-                event.setParams(params);
-                event.setId(EventEnum.EVENT_TEST_SETCUTMSG);
-                EventBus.getDefault().post(event);
-
-                System.out.println("orderProgarmPalyInstructionVo.toString()" + orderProgarmPalyInstructionVo.toString());
-            }
-        });
-
-        findViewById(R.id.btn_send1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String orgin = "{\n" +
-                        "\t\"append\": 1,\n" +
-                        "\t\"createTime\": 1580473823521,\n" +
-                        "\t\"createUser\": \"admin\",\n" +
-                        "\t\"deptId\": 2,\n" +
-                        "\t\"fontColor\": \"#92e3ed\",\n" +
-                        "\t\"fontSize\": \"100\",\n" +
-                        "\t\"id\": 2,\n" +
-                        "\t\"msgContent\": \"阿斯顿发送到发送到发算地方\",\n" +
-                        "\t\"playTimes\": 60,\n" +
-                        "\t\"position\": 2,\n" +
-                        "\t\"speed\": 2,\n" +
-                        "\t\"status\": 0,\n" +
-                        "\t\"terminalIds\": \"16,18\"\n" +
-                        "}";
-
-                MuTerminalMsg orderProgarmPalyInstructionVo = JSON.parseObject(orgin, new TypeReference<MuTerminalMsg>() {
-                });
-
-                Event event = new Event();
-                HashMap<EventEnum, Object> params = new HashMap();
-                params.put(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG, orderProgarmPalyInstructionVo);
-                event.setParams(params);
-                event.setId(EventEnum.EVENT_TEST_SETCUTMSG);
-                EventBus.getDefault().post(event);
-
-                System.out.println("orderProgarmPalyInstructionVo.toString()" + orderProgarmPalyInstructionVo.toString());
-            }
-        });
-
-        findViewById(R.id.btn_send2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Event event = new Event();
-                event.setId(EventEnum.EVENT_TEST_SETCLEARCUTMSG);
-                EventBus.getDefault().post(event);
-            }
-        });*/
-
-     /*   etContent = (EditText) findViewById(R.id.et_content);
-        tvMsg = (TextView) findViewById(R.id.tv_msg);
-        scrollView = (ScrollView) findViewById(R.id.scroll_view);
-        ;
-        initweb(wvBookPlay);
-        //webViewInit(wvBookPlay);
-
-        findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = etContent.getText().toString();
-                if (TextUtils.isEmpty(text)) {
-                    Toast.makeText(WebSocketActivityRelease.this, "输入不能为空", Toast.LENGTH_SHORT).show();
-                    return;
                 }
-                WebSocketHandler.getDefault().send(text);
-
-              *//*  final InstructionResponse responseEntity = new InstructionResponse();
-                responseEntity.setId(123);
-                responseEntity.setExecuteTime(new Date());
-                responseEntity.setResult("123123");
-                responseEntity.setStatus(1);
-                responseEntity.setReceiveTime(new Date());
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        HttpClient.postResponseEntity("http://192.168.0.97:8081/multimedia/api/terminal/callback", responseEntity, new HttpResponseHandler());
-                    }
-                }).start();*//*
+                playNext();
             }
         });
-        findViewById(R.id.btn_upqiniu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bitmap bitmap = DeviceUtil.snapCurrentWebViewShot(WebSocketActivityRelease.this.getWvBookPlay());
-                Log.e("b", bitmap.toString());
-                try {
-                    // 指纹图片存放路径
-                    String sdCardDir = FileHelper.getTempDirPath() + "/fingerprintimages/";
-                    File dirFile = new File(sdCardDir);
-                    if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
-                        dirFile.mkdirs();
-                    }
-                    File file = new File(sdCardDir, "dd.jpg");
-                    FileOutputStream fos = new FileOutputStream(file);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    fos.flush();
-                    fos.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        findViewById(R.id.btn_down).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TaskProgarm.progarmTest1(DownLoadService.getDownLoadManager());
-            }
-        });
-        findViewById(R.id.btn_down2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TaskProgarm.progarmTest1(DownLoadService.getDownLoadManager());
-            }
-        });
-        findViewById(R.id.btn_down3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                *//*SendToServerUtil.sendNowPro((ArrayList<ProgarmPalyInstructionVo>) ProgramScheduledManager.getInstance().getList());*//*
-            }
-        });*/
-
     }
 
     @Override
@@ -444,20 +290,6 @@ public class WebSocketActivityRelease extends EventActivity {
     }
 
     private void appendMsgDisplay(String msg) {
-       /* StringBuilder textBuilder = new StringBuilder();
-        if (!TextUtils.isEmpty(tvMsg.getText())) {
-            textBuilder.append("收到命令：" + tvMsg.getText().toString());
-            textBuilder.append("\n");
-        }
-        textBuilder.append(msg);
-        textBuilder.append("\n");
-        tvMsg.setText(textBuilder.toString());
-        tvMsg.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-            }
-        });*/
     }
 
     @Override
@@ -507,29 +339,35 @@ public class WebSocketActivityRelease extends EventActivity {
             case EVENT_TEST_SETCUTMSG:
                 Map event2 = mEvent.getParams();
                 final MuTerminalMsg muTerminalMsg = (MuTerminalMsg) event2.get(EventEnum.EVENT_TEST_MSG1_KEY_CUTMSG);
+
                 mymHandler.post(new Runnable() {
                     @Override
                     public void run() {
+
+                        if (muTerminalMsg.getAppend() == 0) {
+                            MsgDbManager.getInstance().delAllMuTerminalMsg();
+                        }
+                        MsgDbManager.getInstance().saveMuTermianlMsg(muTerminalMsg);
+                        List<MuTerminalMsg> l = MsgDbManager.getInstance().getAllMuTerminalMsg();
+                        Log.e("l", "lfff" + l.size());
                         if (muTerminalMsg.getAppend() == 0 || cutMsgList.size() == 0) {
                             resetCutMsg();
                             cutMsgList.add(muTerminalMsg);
-                            Message msg1 = Message.obtain();
+                            /*Message msg1 = Message.obtain();
                             msg1.obj = muTerminalMsg;
                             msg1.what = 2;
                             Log.e(TAG, "muTerminalMsg.getPlayTimes()" + muTerminalMsg.getPlayTimes());
-                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
+                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);*/
                             Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                             playNext();
                         } else {
-                            Message msg1 = Message.obtain();
+                           /* Message msg1 = Message.obtain();
                             msg1.obj = muTerminalMsg;
                             msg1.what = 2;
-                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);
+                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);*/
                             Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                             cutMsgList.add(muTerminalMsg);
                         }
-
-
                     }
                 });
                 break;
@@ -588,8 +426,13 @@ public class WebSocketActivityRelease extends EventActivity {
         }
     };
 
+    public Long nowPlayTime;
+    public MuTerminalMsg nowTerminalMsg;
+
     public void playNext() {
         Log.e(TAG, "playNext" + cutMsgList.size());
+        nowPlayTime = System.currentTimeMillis();
+
         if (cutMsgList.size() <= 0) {
             resetCutMsg();
             return;
@@ -605,6 +448,7 @@ public class WebSocketActivityRelease extends EventActivity {
 
         Log.e(TAG, "playNext" + nowCutMsgIndex);
         MuTerminalMsg muTerminalMsg = cutMsgList.get(nowCutMsgIndex);
+        nowTerminalMsg = muTerminalMsg;
         if (muTerminalMsg.getPosition() == 1) {
             mMarqueeView1.setVisibility(View.VISIBLE);
             mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());

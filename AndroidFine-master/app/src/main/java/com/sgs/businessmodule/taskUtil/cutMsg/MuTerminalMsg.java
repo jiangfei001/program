@@ -1,39 +1,63 @@
 package com.sgs.businessmodule.taskUtil.cutMsg;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "tb_muTerminalMsg")
 public class MuTerminalMsg {
-
+    @DatabaseField(id = true, canBeNull = false, columnName = "id")
+    private int id;
+    @DatabaseField
     private Integer playTimes;
 
+    @DatabaseField
+    private Long hasplay = 0l;
+
     //优先级 0：慢  1：正常 2：快
+    @DatabaseField
     private Integer speed;
     //背景色
+    @DatabaseField
     private String backGroundColor;
     //字体颜色
+    @DatabaseField
     private String fontColor;
     //字体
+    @DatabaseField
     private String fontName;
     //字号
+    @DatabaseField
     private String fontSize;
     //透明度
+    @DatabaseField
     private Integer opacity;
     //位置：0顶部 1：底部
+    @DatabaseField
     private Integer position;
     //追加播放 0：否 1：是
+    @DatabaseField
     private Integer append;
     //终端设备ID，逗号,分隔
+    @DatabaseField
     private String terminalIds;
     //播报终端数量
+    @DatabaseField
     private Integer terminalNum;
     //消息内容
+    @DatabaseField
     private String msgContent;
 
     //方向 1 从左到右
+    @DatabaseField
     private Integer direction;
 
-    private Integer id;
+    public Long getHasplay() {
+        return hasplay;
+    }
+
+    public void setHasplay(Long hasplay) {
+        this.hasplay = hasplay;
+    }
 
     public Integer getId() {
         return id;
@@ -148,7 +172,7 @@ public class MuTerminalMsg {
     }
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         String orgin = "{\n" +
                 "\t\"append\": 0,\n" +
                 "\t\"createTime\": 1580473823521,\n" +
@@ -170,5 +194,5 @@ public class MuTerminalMsg {
 
         System.out.println("orderProgarmPalyInstructionVo.toString()" + orderProgarmPalyInstructionVo.toString());
 
-    }
+    }*/
 }
