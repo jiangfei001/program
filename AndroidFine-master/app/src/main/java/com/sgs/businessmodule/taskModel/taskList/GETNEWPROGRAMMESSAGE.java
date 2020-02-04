@@ -13,7 +13,6 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
 
     ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos = new ArrayList<>();
 
-
     @Override
     public void runTv() {
         Log.e(TAG, "GETNEWPROGRAMMESSAGE:");
@@ -45,6 +44,5 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
         } else {
             Log.e(TAG, "当天节目全量接口null");
         }
-
     }
 }

@@ -10,25 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b55144ca-41c2-4964-99e5-2b83d522406a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskUtil/cutMsg/MsgDbManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/middle/dbModel/dao/MsgDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/CUTMSG.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/CUTMSG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskUtil/cutMsg/MuTerminalMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskUtil/cutMsg/MuTerminalMsg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskUtil/cutMsg/MuTerminalBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/CLEARCUTMSG.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/CLEARCUTMSG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/DELETECUTMSG.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/DELETECUTMSG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/GETNEWPROGRAMMESSAGE.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/GETNEWPROGRAMMESSAGE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/websocketmodel/WebSocketActivityRelease.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/websocketmodel/WebSocketActivityRelease.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/middle/dbModel/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/middle/dbModel/DatabaseHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/programModel/ProgramScheduledManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/programModel/ProgramScheduledManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MarqueeViewLibrary-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MarqueeViewLibrary-master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

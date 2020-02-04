@@ -375,6 +375,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 mymHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        MsgDbManager.getInstance().delAllMuTerminalMsg();
                         resetCutMsg();
                         Log.d(this.getClass().getName(), "EVENT_TEST_SETCLEARCUTMSG");
                     }
