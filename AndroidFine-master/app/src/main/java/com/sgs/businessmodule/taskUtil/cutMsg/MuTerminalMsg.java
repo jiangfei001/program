@@ -51,6 +51,21 @@ public class MuTerminalMsg {
     @DatabaseField
     private Integer direction;
 
+    @DatabaseField
+    private String status;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Long getHasplay() {
         return hasplay;
     }

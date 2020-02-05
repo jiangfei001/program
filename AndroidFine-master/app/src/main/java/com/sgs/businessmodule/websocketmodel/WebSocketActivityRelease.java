@@ -35,9 +35,6 @@ import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

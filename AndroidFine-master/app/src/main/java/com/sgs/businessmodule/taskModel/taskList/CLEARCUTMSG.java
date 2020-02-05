@@ -25,7 +25,7 @@ public class CLEARCUTMSG extends TVTask {
         ArrayList<com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg> muTerminalMsgs1 = (ArrayList<MuTerminalMsg>) MsgDbManager.getInstance().getAllMuTerminalMsg();
         for (int i = 0; i < muTerminalMsgs1.size(); i++) {
             MuTerminalBack muTerminalBack = new MuTerminalBack();
-            muTerminalBack.setMsgStatus("0");
+            muTerminalBack.setMsgStatus("2");
             muTerminalBack.setMsgId(muTerminalMsgs1.get(i).getId());
             muTerminalBack.setFinishTime(muTerminalMsgs1.get(i).getHasplay());
             muTerminalMsgs.add(muTerminalBack);

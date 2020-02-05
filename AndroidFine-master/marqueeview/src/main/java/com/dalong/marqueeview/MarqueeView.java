@@ -101,9 +101,17 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     }
 
+    String func1(String string1) {//反向输出
+        String string2 = "";
+        for (int i = string1.length() - 1; i >= 0; --i) {//倒着读取每个字符。然后拼接
+            string2 += string1.charAt(i);
+        }
+        return string2;
+    }
+
     public void setText(String msg) {
         if (!TextUtils.isEmpty(msg)) {
-            measurementsText(msg);
+            measurementsText(func1(msg));
         }
     }
 
@@ -135,7 +143,7 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         textHeight = (int) fontMetrics.bottom;
 
         ViewGroup.LayoutParams LayoutParams = this.getLayoutParams();
-        LayoutParams.height=textHeight*4;
+        LayoutParams.height = textHeight * 4;
         this.setLayoutParams(LayoutParams);
 
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);

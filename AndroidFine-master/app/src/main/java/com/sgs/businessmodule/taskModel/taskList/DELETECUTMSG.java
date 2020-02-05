@@ -32,11 +32,13 @@ public class DELETECUTMSG extends TVTask {
 
             for (int i = 0; i < arrayList.size(); i++) {
                 MuTerminalMsg muTerminalMsg = MsgDbManager.getInstance().getMuTerminalMsgById(arrayList.get(i));
-                MuTerminalBack muTerminalBack = new MuTerminalBack();
-                muTerminalBack.setMsgStatus("0");
-                muTerminalBack.setMsgId(muTerminalMsg.getId());
-                muTerminalBack.setFinishTime(muTerminalMsg.getHasplay());
-                muTerminalMsgs.add(muTerminalBack);
+                if (muTerminalMsg != null) {
+                    MuTerminalBack muTerminalBack = new MuTerminalBack();
+                    muTerminalBack.setMsgStatus("2");
+                    muTerminalBack.setMsgId(muTerminalMsg.getId());
+                    muTerminalBack.setFinishTime(muTerminalMsg.getHasplay());
+                    muTerminalMsgs.add(muTerminalBack);
+                }
             }
 
             Event event = new Event();

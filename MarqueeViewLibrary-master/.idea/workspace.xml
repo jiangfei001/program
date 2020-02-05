@@ -10,12 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b55144ca-41c2-4964-99e5-2b83d522406a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskUtil/cutMsg/MuTerminalBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/CLEARCUTMSG.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/CLEARCUTMSG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/DELETECUTMSG.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/DELETECUTMSG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/GETNEWPROGRAMMESSAGE.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskModel/taskList/GETNEWPROGRAMMESSAGE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskUtil/cutMsg/MuTerminalMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/taskUtil/cutMsg/MuTerminalMsg.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/websocketmodel/WebSocketActivityRelease.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/websocketmodel/WebSocketActivityRelease.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/marqueeview/src/main/java/com/dalong/marqueeview/MarqueeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/marqueeview/src/main/java/com/dalong/marqueeview/MarqueeView.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
