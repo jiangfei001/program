@@ -25,6 +25,7 @@ import com.sgs.businessmodule.taskModel.TaskQueue;
 import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
 import com.sgs.businessmodule.taskUtil.cutMsg.MsgDbManager;
 import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
+import com.sgs.businessmodule.websocketmodel.js.JsInterface;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
@@ -183,6 +184,7 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.getSettings().setAppCacheEnabled(true);
         mWebView.getSettings().setDatabaseEnabled(true);
         mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.addJavascriptInterface(new JsInterface(this), "native");
         mWebView.setScrollContainer(false);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
