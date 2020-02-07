@@ -1,6 +1,8 @@
 package com.sgs.businessmodule.websocketmodel.js;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
@@ -21,8 +23,23 @@ public class JsInterface {
     }
 
     @JavascriptInterface
-    public void getInfoFromJs(int a, int b) {
-        int c = a + b;
-        Toast.makeText(mContext, "" + c, Toast.LENGTH_SHORT).show();
+    public void openApp(String action, String packagename) {
+        Log.e("aa", "action" + action + "packagename" + packagename);
+        Intent intent = new Intent();
+        intent.setAction(action);
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.setPackage(packagename);
+        this.mContext.startActivity(intent);
     }
+
+    @JavascriptInterface
+    public void openAppByActivy(String activity, String packagename) {
+        Log.e("aa", "activity" + activity + "packagename" + packagename);
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        /**知道要跳转应用的包命与目标Activity*/
+        ComponentName componentName = new ComponentName(packagename, activity);
+        intent.setComponent(componentName);
+        this.mContext.startActivity(intent);
+    }
+
 }
