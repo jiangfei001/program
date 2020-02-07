@@ -34,6 +34,7 @@ public enum InstructionTypeEnum {
     CUTMSG(130, "cutMsg", "插播消息"),
     CLEARCUTMSG(131, "clearCutMsg", "清空插播消息"),
     DELETECUTMSG(132, "deleteCutMsg", "删除插播消息"),
+    GETDAYPROGRAM(133, "getDayProgram", "获取当天节目"),
     ;
 
     InstructionTypeEnum(int code, String type, String name) {

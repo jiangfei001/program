@@ -22,8 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
-            app:direction="right"
             android:layout_gravity="top"
+            app:direction="right"
             app:isRepeat="false"
             app:speed="20"
             app:startPoint="end"
@@ -48,10 +48,10 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
+            android:gravity="bottom"
             app:direction="right"
             app:isRepeat="false"
             app:speed="20"
-            android:gravity="bottom"
             app:startPoint="end"
             app:textSize="16sp"
             app:textcolor="@color/colorAccent" />
@@ -79,4 +79,21 @@
             android:layout_alignParentRight="true"
             android:text="Socket3" />-->
     </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:fillViewport="true"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:textColor="@android:color/black" />
+    </ScrollView>
 </FrameLayout>

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -14,6 +15,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dalong.marqueeview.MarqueeView;
@@ -31,11 +34,13 @@ import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.StringUtils;
+import com.sgs.programModel.SendToServerUtil;
 import com.sgs.programModel.entity.ProgramResource;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -218,6 +223,7 @@ public class WebSocketActivityRelease extends EventActivity {
     MarqueeView mMarqueeView1;
     MarqueeView mMarqueeView2;
     MarqueeView mMarqueeView3;
+    private TextView tvMsg;
 
     private void initView() {
         wvBookPlay = (WebView) findViewById(R.id.activity_main_webview1);
@@ -226,6 +232,7 @@ public class WebSocketActivityRelease extends EventActivity {
         mMarqueeView3 = (MarqueeView) findViewById(R.id.mMarqueeView3);
 
         initweb(wvBookPlay);
+        tvMsg = (TextView) findViewById(R.id.tv_msg);
 
         mMarqueeView1.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override
@@ -289,6 +296,15 @@ public class WebSocketActivityRelease extends EventActivity {
     }
 
     private void appendMsgDisplay(String msg) {
+        StringBuilder textBuilder = new StringBuilder();
+        if (!TextUtils.isEmpty(tvMsg.getText())) {
+            textBuilder.append("收到命令：" + tvMsg.getText().toString());
+            textBuilder.append("\n");
+        }
+        textBuilder.append(msg);
+        textBuilder.append("\n");
+        tvMsg.setText(textBuilder.toString());
+
     }
 
     @Override
@@ -397,7 +413,6 @@ public class WebSocketActivityRelease extends EventActivity {
                         }
                     }
                 }
-
                 break;
             case EVENT_TEST_CLEARPROG:
                 mymHandler.post(new Runnable() {

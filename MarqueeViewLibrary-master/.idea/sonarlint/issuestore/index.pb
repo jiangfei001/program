@@ -17,3 +17,5 @@ u
 Emarqueelibrary/src/main/java/com/gongwen/marqueen/MarqueeFactory.java,9/7/97f7d45e47d04cfb314e74b27d2a984bf3a6e218
 b
 2app/src/main/java/com/gw/marquee/MainActivity.java,c/8/c88958349cc50805f5be12c1292a1e75a6094581
+a
+1app/src/main/java/com/gw/marquee/WeakHandler.java,e/7/e7092a69c722d259272431b9fea11f0d8064a156

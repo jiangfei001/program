@@ -133,7 +133,7 @@ public class ProgramScheduledManager {
 
         //CommandHelper.deleteDir(FileHelper.getFileDefaultPath());
         initAllProgramTask();
-        SendToServerUtil.sendEventToToDayAll(prolistToday);
+        /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
     }
 
     public void clearLooperAndDBById(ArrayList<Integer> arrayList) {
@@ -172,7 +172,7 @@ public class ProgramScheduledManager {
             }
         }
         SendToServerUtil.sendAddOrDelProList(arrayList1, 1);
-        SendToServerUtil.sendEventToToDayAll(prolistToday);
+        /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
     }
 
     //开机的时候，进行节目排期任务启动
@@ -186,8 +186,13 @@ public class ProgramScheduledManager {
             }
         }
         //发送当前节目表
-        SendToServerUtil.sendEventToToDayAll(prolistToday);
+        /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
     }
+
+    public LinkedList<ProgarmPalyInstructionVo> getProlistToday() {
+        return prolistToday;
+    }
+
 
     LinkedList<ProgarmPalyInstructionVo> prolistToday = new LinkedList<>();
 
@@ -478,7 +483,7 @@ public class ProgramScheduledManager {
                 ArrayList arrayList = new ArrayList();
                 arrayList.add(response);
                 SendToServerUtil.sendAddOrDelProList(arrayList, 0);
-                SendToServerUtil.sendEventToToDayAll(prolistToday);
+                /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
                 //发送当前节目接口 和 增量接口
             } else {
                 Log.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());

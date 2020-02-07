@@ -10,8 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b55144ca-41c2-4964-99e5-2b83d522406a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/websocketmodel/js/JsInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TestScreenShot-master/app/src/main/java/com/example/testscreenshot/RootCmd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/packer.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/websocketmodel/WebSocketActivityRelease.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/java/com/sgs/businessmodule/websocketmodel/WebSocketActivityRelease.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/res/layout/activity_web_socket1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/app/src/main/res/layout/activity_web_socket1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidFine-master/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidFine-master/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gw/marquee/MainApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="210">
+              <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -87,8 +90,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="6" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="792" />
@@ -410,7 +412,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="6" y="23" width="1440" height="792" extended-state="1" />
+    <frame x="0" y="23" width="1440" height="792" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
@@ -569,8 +571,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/gw/marquee/MainApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="210">
+          <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
         </state>
       </provider>
     </entry>
