@@ -10,7 +10,12 @@
         android:layerType="software"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5e40dc73cb23d2b32c0001a2" />
+        <meta-data
+            android:name="CHANNEL_KEY"
+            android:value="123" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="sLtHFx0DdAFw5pnD2lRo7NH9WTjbFMYR" />

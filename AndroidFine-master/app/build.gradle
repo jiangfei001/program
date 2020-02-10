@@ -111,6 +111,8 @@ android {
 }
 
 dependencies {
+    compile  'com.umeng.umsdk:analytics:7.5.4'
+    compile  'com.umeng.umsdk:common:1.5.4'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library')
     implementation 'org.greenrobot:eventbus:3.0.0'
