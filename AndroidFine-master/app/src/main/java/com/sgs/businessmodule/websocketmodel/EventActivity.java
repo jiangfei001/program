@@ -11,6 +11,7 @@ import com.sgs.AppContext;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventManager;
 import com.jf.fine.R;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -28,6 +29,12 @@ public abstract class EventActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -68,7 +75,7 @@ public abstract class EventActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        MobclickAgent.onResume(this);
     }
 
     @Override

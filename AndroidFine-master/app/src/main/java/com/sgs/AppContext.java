@@ -20,7 +20,10 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
+import com.sgs.businessmodule.websocketmodel.ActivityLifeManager;
+import com.sgs.businessmodule.websocketmodel.CrashHandler;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
+import com.umeng.commonsdk.UMConfigure;
 
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +37,7 @@ public class AppContext extends Application {
     public static String TAG = "AppContext";
     public String userName = "123";
     public String addr = "";
-
+    public String gonghao = "123456";
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
 //BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
@@ -74,19 +77,35 @@ public class AppContext extends Application {
     private boolean isMainProcess;
     private ServiceConnection connection;
 
+    public String tag = "jiangfei";
+
     @Override
     public void onCreate() {
         super.onCreate();
+
         app = this;
         registerUncaughtExceptionHandler();
         isMainProcess = isMainProcess();
+        //设置LOG开关，默认为false
+        UMConfigure.setLogEnabled(true);
+        // 初始化SDK
+        UMConfigure.init(AppContext.getInstance(), "5e40dc73cb23d2b32c0001a2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
+        CrashHandler.getInstance().initCrashHandlerException(this);
 
         //initFileService();
         if (isMainProcess) {
             alarmUploadDataOnceDaily();
             initLocation();
         }
+        ActivityLifeManager.getInstance().setAppStatusListener(new ActivityLifeManager.AppStatusListener() {
+            @Override
+            public void goForeground() {
+            }
 
+            @Override
+            public void goBackgroud() {
+            }
+        });
     }
 
 

@@ -28,6 +28,7 @@ import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
 import com.sgs.middle.utils.SharedPreferences;
 import com.sgs.middle.utils.StringUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +46,12 @@ public class LoginActivity extends Activity {
 
     private static final int PERMISSION_REQUEST = 1;
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initView();
@@ -220,6 +227,8 @@ public class LoginActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        MobclickAgent.onResume(this);
        /* if (SharedPreferences.getInstance().getBoolean(SharedPreferences.KEY_ISREGISTER, false)) {
             doNavigation();
         }*/

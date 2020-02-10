@@ -34,10 +34,8 @@ import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.StringUtils;
-import com.sgs.programModel.SendToServerUtil;
 import com.sgs.programModel.entity.ProgramResource;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.commonsdk.UMConfigure;
 import com.zhangke.websocket.SimpleListener;
 import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
@@ -132,17 +130,12 @@ public class WebSocketActivityRelease extends EventActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket1);
-        //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(true);
-        // 初始化SDK
-        UMConfigure.init(AppContext.getInstance(), "5e40dc73cb23d2b32c0001a2", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
         initView();
         getWvBookPlay().loadUrl("file:///android_asset/index.html");
         WebSocketHelper.initWebSocket(DeviceUtil.getUniqueID(WebSocketActivityRelease.this));
         WebSocketHandler.getDefault().addListener(socketListener);
         taskQueue = new TaskQueue(1);
         taskQueue.start();
-
         cutMsgList = MsgDbManager.getInstance().getAllMuTerminalMsg();
         if (cutMsgList != null && cutMsgList.size() > 0) {
             Log.e(TAG, "我是从数据库中获取的消息列表" + cutMsgList.size());
@@ -150,6 +143,7 @@ public class WebSocketActivityRelease extends EventActivity {
         } else {
             cutMsgList = new LinkedList<>();
         }
+
     }
 
     private class InnerWebViewClient extends WebViewClient {
@@ -224,6 +218,12 @@ public class WebSocketActivityRelease extends EventActivity {
     protected void onResume() {
         super.onResume();
         AppContext.getInstance().initFileService();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     MarqueeView mMarqueeView1;
