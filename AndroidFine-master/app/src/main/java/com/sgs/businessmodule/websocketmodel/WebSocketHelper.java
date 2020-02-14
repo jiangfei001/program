@@ -20,7 +20,7 @@ public class WebSocketHelper {
         /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
 
         Log.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
-        setting.setConnectUrl(AppUrl.socketUrl + "/multimedia/api/websocket/" + username);//必填
+        setting.setConnectUrl(AppUrl.socketUrl + "/" + username);//必填
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);
 

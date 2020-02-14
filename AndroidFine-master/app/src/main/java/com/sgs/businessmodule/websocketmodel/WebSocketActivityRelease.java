@@ -52,7 +52,7 @@ import java.util.TimerTask;
 
 public class WebSocketActivityRelease extends EventActivity {
 
-    private String TAG = "WebSocketActivity";
+    private String TAG = "WebSocketActivityRelease";
 
     public WebView getWvBookPlay() {
         return wvBookPlay;
@@ -236,9 +236,20 @@ public class WebSocketActivityRelease extends EventActivity {
         mMarqueeView1 = (MarqueeView) findViewById(R.id.mMarqueeView1);
         mMarqueeView2 = (MarqueeView) findViewById(R.id.mMarqueeView2);
         mMarqueeView3 = (MarqueeView) findViewById(R.id.mMarqueeView3);
-
+        final ScrollView scroll_view = (ScrollView) findViewById(R.id.scroll_view);
         initweb(wvBookPlay);
         tvMsg = (TextView) findViewById(R.id.tv_msg);
+
+        /*wvBookPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (scroll_view.getVisibility() == View.VISIBLE) {
+                    scroll_view.setVisibility(View.INVISIBLE);
+                } else {
+                    scroll_view.setVisibility(View.VISIBLE);
+                }
+            }
+        });*/
 
         mMarqueeView1.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override

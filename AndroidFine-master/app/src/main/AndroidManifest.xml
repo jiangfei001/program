@@ -64,6 +64,7 @@
             android:name="com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat">
             <!-- <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
