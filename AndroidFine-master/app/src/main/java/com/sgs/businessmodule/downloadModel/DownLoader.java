@@ -50,7 +50,7 @@ public class DownLoader {
     private long fileSize = 0;//文件总大小
     private long downFileSize = 0;//已经下载的文件的大小
     private int downloadtimes = 0;//当前尝试请求的次数
-    private int maxdownloadtimes = 3;//失败重新请求次数
+    private int maxdownloadtimes = 9;//失败重新请求次数
     /**
      * 当前任务的状态
      */
@@ -161,7 +161,7 @@ public class DownLoader {
      * @param isSupportBreakpoint
      */
     public void setSupportBreakpoint(boolean isSupportBreakpoint) {
-        this.isSupportBreakpoint = isSupportBreakpoint;
+        this.isSupportBreakpoint = false;
     }
 
 
@@ -200,6 +200,8 @@ public class DownLoader {
                     Log.e("url", "url:" + url);
                     urlConn = (HttpURLConnection) url.openConnection();
                     urlConn.setRequestProperty("Accept-Encoding", "identity");
+                    urlConn.setRequestProperty("GData-Version", "3.0");
+                    urlConn.setDoOutput(true);
                     urlConn.connect();
                     urlConn.setConnectTimeout(5000);
                     urlConn.setReadTimeout(10000);

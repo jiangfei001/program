@@ -131,6 +131,13 @@ public class WebSocketActivityRelease extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket1);
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppContext.getInstance().initFileService();
+
         getWvBookPlay().loadUrl("file:///android_asset/index.html");
         WebSocketHelper.initWebSocket(DeviceUtil.getUniqueID(WebSocketActivityRelease.this));
         WebSocketHandler.getDefault().addListener(socketListener);
@@ -143,8 +150,8 @@ public class WebSocketActivityRelease extends EventActivity {
         } else {
             cutMsgList = new LinkedList<>();
         }
-
     }
+
 
     private class InnerWebViewClient extends WebViewClient {
         @Override
@@ -214,11 +221,6 @@ public class WebSocketActivityRelease extends EventActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        AppContext.getInstance().initFileService();
-    }
 
     @Override
     protected void onPause() {

@@ -3,6 +3,7 @@ package com.sgs.businessmodule.httpModel;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.nfc.Tag;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -165,7 +166,6 @@ public class HttpClient {
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntityList));
-
         Request request = new Request.Builder().header("Accept", "*/*")
                 .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
                 .addHeader("Content-Type", "application/json;charset=UTF-8")
@@ -199,10 +199,10 @@ public class HttpClient {
             return;
         }
 
+        Log.e("com.alibab:", "com.alibab:" + com.alibaba.fastjson.JSON.toJSONString(responseEntity));
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
-
         Request request = new Request.Builder().header("Accept", "*/*")
                 .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
                 .addHeader("Content-Type", "application/json;charset=UTF-8")

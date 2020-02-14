@@ -43,12 +43,12 @@ public class ProgramScheduledManager {
         return list;
     }
 
-    public void setList(List<ProgarmPalyInstructionVo> list) {
+    public void setList(ArrayList<ProgarmPalyInstructionVo> list) {
         this.list = list;
     }
 
     //加载数据库中所有的List 包括接受命令获取的List
-    List<ProgarmPalyInstructionVo> list;
+    ArrayList<ProgarmPalyInstructionVo> list;
 
     //已经成功下载 和 今天需要进行下载的任务
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
@@ -63,7 +63,7 @@ public class ProgramScheduledManager {
         /*设置用户ID，客户端切换用户时可以显示相应用户的下载任务*/
         manager.changeUser("luffy");
         /*断点续传需要服务器的支持，设置该项时要先确保服务器支持断点续传功能*/
-        manager.setSupportBreakpoint(true);
+        manager.setSupportBreakpoint(false);
         Log.e(TAG, "initAllProgramTask");
         initAllProgramTask();
     }
@@ -84,7 +84,7 @@ public class ProgramScheduledManager {
 
     public void initAllProgramTask() {
         //从数据库中获取所有的节目数据
-        list = ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        list = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
         if (list == null) {
             list = new ArrayList<>();
         }
@@ -115,8 +115,6 @@ public class ProgramScheduledManager {
 
     public void clearLooperAndDBAndResource() {
         Log.e(TAG, "initAllProgramTask clearLooperAndDBAndResource");
-        ArrayList listss = (ArrayList) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
-        SendToServerUtil.sendAddOrDelProList(listss, 1);
         list = null;
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
@@ -168,11 +166,19 @@ public class ProgramScheduledManager {
                         break;
                     }
                 }
+
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {
+                        list.remove(i);
+                        break;
+                    }
+                }
                 arrayList1.add(getProgarmPalyInstructionVoRequestById);
             }
         }
-        SendToServerUtil.sendAddOrDelProList(arrayList1, 1);
-        /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
+
+        Log.e("clearLooperAndDBById", "sendAddOrDelProListNew");
+        SendToServerUtil.sendAddOrDelProListNew((ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo(), 0, prolistToday);
     }
 
     //开机的时候，进行节目排期任务启动
@@ -187,6 +193,8 @@ public class ProgramScheduledManager {
         }
         //发送当前节目表
         /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
+        Log.e("checkResouce", "sendAddOrDelProListNew");
+        SendToServerUtil.sendAddOrDelProListNew(this.list, 0, prolistToday);
     }
 
     public LinkedList<ProgarmPalyInstructionVo> getProlistToday() {
@@ -211,9 +219,15 @@ public class ProgramScheduledManager {
     public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert) {
 
         if (isInsert) {
+            //保存到节目数据中
+            ProgarmPalyInstructionVo v = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(response.getId());
+            if (v != null) {
+                ArrayList<Integer> arrayList = new ArrayList<>();
+                arrayList.add(v.getId());
+                clearLooperAndDBById(arrayList);
+            }
             list.add(response);
             response.setProgramZipName(FileUtil.getFileNameByVirtualPath(response.getProgramZip()));
-            //保存到节目数据中
             saveToDB(response);
         }
 
@@ -357,7 +371,7 @@ public class ProgramScheduledManager {
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
                 //调用增量接口
-                /* list.remove(response);*/
+                list.remove(response);
             }
         }
         Log.e(TAG, response.toString());
@@ -398,8 +412,9 @@ public class ProgramScheduledManager {
             int resourceTotle = 1;
 
             Iterator iterator = list.iterator();
-
+            Log.e("iterator", "onSuccess");
             while (iterator.hasNext()) {
+                Log.e("iterator", "");
                 //如果是ProgramZip
                 ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
                 if (response1.getProgramZipStatus() != 1 && response1.getProgramZip().equals(sqlDownLoadInfo.getTaskID())) {
@@ -479,11 +494,10 @@ public class ProgramScheduledManager {
                         progarmPalyInstructionVos.add(response);
                     }
                 }
-                SendToServerUtil.sendEventToService(response);
-                ArrayList arrayList = new ArrayList();
-                arrayList.add(response);
-                SendToServerUtil.sendAddOrDelProList(arrayList, 0);
-                /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
+                /* SendToServerUtil.sendEventToService(response);*/
+                Log.e("checkResouce", "addProgramToTask");
+                SendToServerUtil.sendAddOrDelProListNew((ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo(), 0, prolistToday);
+
                 //发送当前节目接口 和 增量接口
             } else {
                 Log.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());

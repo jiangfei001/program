@@ -104,6 +104,12 @@ public class DownLoadManager {
                 DownLoader sqlDownLoader = new DownLoader(context, sqlDownLoadInfo, pool, userID, isSupportBreakpoint, false);
                 sqlDownLoader.setDownLodSuccesslistener(downloadsuccessListener);
                 sqlDownLoader.setDownLoadListener("public", alltasklistener);
+                if (isSupportBreakpoint) {
+                    sqlDownLoader.setSupportBreakpoint(true);
+                } else {
+                    sqlDownLoader.setSupportBreakpoint(false);
+                }
+                sqlDownLoader.start();
                 taskList.add(sqlDownLoader);
             }
         }

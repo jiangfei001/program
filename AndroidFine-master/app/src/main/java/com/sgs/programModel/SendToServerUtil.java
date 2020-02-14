@@ -84,8 +84,72 @@ public class SendToServerUtil {
             public void onFailure(Request request, Exception e) {
             }
         });
-
     }
+
+
+    /*第一个参数：terminalProgramEntity 第一个就是节目列表的数据
+    第二个参数就是类型  0：全量更新  1：增量新增  2：删除    3： 无更新
+    第三个参数就是 daylist 当天节目*/
+
+    public static void sendAddOrDelProListNew(ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos, int type, LinkedList<ProgarmPalyInstructionVo> todays) {
+
+        if (progarmPalyInstructionVos != null) {
+            Log.e(TAG, "节目列表全量增加" + progarmPalyInstructionVos.size() + "type" + type);
+        } else {
+            Log.e(TAG, "节目列表全量增加null" + "type" + type);
+        }
+
+        ArrayList<ProListVo> terminalProgramEntity = new ArrayList<>();
+        for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
+            ProListVo proListVo = new ProListVo();
+            proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
+            proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            StringBuilder sb = new StringBuilder();
+            PublicationPlanVo publicationPlanVo = JSON.parseObject(progarmPalyInstructionVos.get(i).getPublicationPlan(), new TypeReference<PublicationPlanVo>() {
+            });
+            sb.append(publicationPlanVo.getDeadline() + "~" + publicationPlanVo.getDeadlineV());
+            proListVo.setTimeQuantum(sb.toString());
+            proListVo.setType(type);
+            terminalProgramEntity.add(proListVo);
+        }
+
+        ArrayList<ProListVo> daylist = new ArrayList<>();
+        for (int i = 0; i < todays.size(); i++) {
+            ProListVo proListVo = new ProListVo();
+            proListVo.setProgramId(todays.get(i).getId());
+            proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            StringBuilder sb = new StringBuilder();
+            List<ProgarmPalyPlan> okProgarms = todays.get(i).getPublicationPlanObject().getOkProgarms();
+            for (int t = 0; t < okProgarms.size(); t++) {
+                if (t > 0) {
+                    sb.append("|");
+                }
+                ProgarmPalyPlan progarmPalyPlan = okProgarms.get(t);
+                sb.append(progarmPalyPlan.getDuan());
+            }
+            proListVo.setTimeQuantum(sb.toString());
+            proListVo.setType(0);
+            daylist.add(proListVo);
+        }
+
+        HashMap hashMap = new HashMap();
+        hashMap.put("terminalProgramEntity", terminalProgramEntity);
+        hashMap.put("type", type);
+        hashMap.put("daylist", daylist);
+
+
+        HttpClient.postHashMapEntity(AppUrl.addTerminalProgramListUrl, hashMap, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToAllProList onSuccess" + response.msg);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
+    }
+
 
     //当天节目全量接口
     public static void sendEventToToDayAll(LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
