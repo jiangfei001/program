@@ -17,8 +17,8 @@ public class AppUrl {
     //节目列表新增
     public static String addDayProgramList;
 
-    public static String socketIP = "49.235.109.237:9090";
-    public static String jiekouIP = "49.235.109.237:9090";
+    public static String socketIP = "49.235.109.237:9080";
+    public static String jiekouIP = "49.235.109.237:9080";
     //  public static String jiekouIP = "http://xinlianchuangmei.com/";
 
     static {
@@ -39,11 +39,11 @@ public class AppUrl {
         isTest = false;
         socketIP = ipstr;
         jiekouIP = jiekouIPstr;
-        socketUrl = "ws://" + socketIP + "/multimedia_test/api/websocket";
-        serverUrlAddMuTerminal = "http://" + jiekouIP + "/multimedia_test/api/terminal/addMuTerminal";
-        callbackUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/callback";
-        addTerminalProgramListUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/addTerminalProgramList";
-        addDayProgramList = "http://" + jiekouIP + "/multimedia_test/api/terminal/addDayProgramList";
+        socketUrl = "ws://" + socketIP + "/multimedia/api/websocket";
+        serverUrlAddMuTerminal = "http://" + jiekouIP + "/multimedia/api/terminal/addMuTerminal";
+        callbackUrl = "http://" + jiekouIP + "/multimedia/api/terminal/callback";
+        addTerminalProgramListUrl = "http://" + jiekouIP + "/multimedia/api/terminal/addTerminalProgramList";
+        addDayProgramList = "http://" + jiekouIP + "/multimedia/api/terminal/addDayProgramList";
     }
 
 }

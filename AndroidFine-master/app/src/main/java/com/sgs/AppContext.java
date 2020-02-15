@@ -13,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -235,35 +236,37 @@ public class AppContext extends Application {
 
     public static void alarmUploadDataOnceDaily() {
 
+        //获取当前毫秒值
+        long systemTime = System.currentTimeMillis();
+        long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
+
         Calendar mCalendar = Calendar.getInstance();
         //得到日历实例，主要是为了下面的获取时间
         mCalendar = Calendar.getInstance();
-        mCalendar.setTimeInMillis(System.currentTimeMillis());
-
-        //获取当前毫秒值
-        long systemTime = System.currentTimeMillis();
 
         //是设置日历的时间，主要是让日历的年月日和当前同步
         mCalendar.setTimeInMillis(System.currentTimeMillis());
         // 这里时区需要设置一下，不然可能个别手机会有8个小时的时间差
         mCalendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-        //设置在几点提醒 设置的为13点
+        //设置在几点提醒 设置的为0点
         mCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        //设置在几分提醒 设置的为25分
-        mCalendar.set(Calendar.MINUTE, 0);
+        //设置在几分提醒 设置的为0分
+        mCalendar.set(Calendar.MINUTE, (int) (Math.random() * 59));
         //下面这两个看字面意思也知道
         mCalendar.set(Calendar.SECOND, 0);
         mCalendar.set(Calendar.MILLISECOND, 0);
 
-        //上面设置的就是13点25分的时间点
-
-        //获取上面设置的13点25分的毫秒值
         long selectTime = mCalendar.getTimeInMillis();
-
-        // 如果当前时间大于设置的时间，那么就从第二天的设定时间开始
+        //选择的每天的定时时间即下班时间
+        //如果当前时间大于设置的时间，那么从第二天的设定时间开始
         if (systemTime > selectTime) {
             mCalendar.add(Calendar.DAY_OF_MONTH, 1);
+            selectTime = mCalendar.getTimeInMillis();
         }
+
+        //计算现在时间到设置时间的时间差
+        long diffTime1 = selectTime - systemTime;
+        firstTime += diffTime1;
 
         //AlarmReceiver.class为广播接受者
         Intent intent = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
@@ -276,11 +279,11 @@ public class AppContext extends Application {
         /** * 单次提醒 * mCalendar.getTimeInMillis() 上面设置的13点25分的时间点毫秒值 */
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, mCalendar.getTimeInMillis(), pi);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, mCalendar.getTimeInMillis(), pi);
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
             } else {
-                alarmManager.set(AlarmManager.ELAPSED_REALTIME, mCalendar.getTimeInMillis(), pi);
+                alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
             }
         } catch (Exception e) {
             Log.e("e", e.getMessage());
