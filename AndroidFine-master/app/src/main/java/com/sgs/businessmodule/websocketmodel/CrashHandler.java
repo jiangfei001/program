@@ -73,12 +73,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         } else {
             //自定义处理，传递异常处理后，延迟1s进行全部进程杀死
             mDefaultHandler.uncaughtException(thread, ex);
-            HandlerUtil.runUITask(new Runnable() {
+            AppContext.getInstance().exitApp();
+           /* HandlerUtil.runUITask(new Runnable() {
                 @Override
                 public void run() {
                     ActivityLifeManager.getInstance().restartAPP(mContext);
                 }
-            }, 1000);
+            }, 1000);*/
         }
     }
 
@@ -93,7 +94,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             return false;
         }
 
-        MobclickAgent.reportError(mContext, "工号"+ AppContext.getInstance().gonghao +"message:"+ex.getMessage());//errorContent是String格式
+        MobclickAgent.reportError(mContext, "工号" + AppContext.getInstance().gonghao + "message:" + ex.getMessage());//errorContent是String格式
         Log.e("handleException", "handleException");
         //保存日志文件
        /* MainLogUtils.logWithCaller(ex,6,Long.toString(System.currentTimeMillis()));

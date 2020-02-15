@@ -140,7 +140,7 @@ public class ProgramScheduledManager {
         for (int t = 0; t < arrayList.size(); t++) {
             ProgarmPalyInstructionVo getProgarmPalyInstructionVoRequestById = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(arrayList.get(t));
             if (getProgarmPalyInstructionVoRequestById != null) {
-                ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(arrayList.get(t));
+                ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(getProgarmPalyInstructionVoRequestById.getId());
                 programTaskManager.removeByid(arrayList.get(t));
                 for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
                     if (progarmPalyInstructionVos.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {

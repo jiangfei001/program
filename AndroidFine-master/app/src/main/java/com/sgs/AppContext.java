@@ -305,4 +305,19 @@ public class AppContext extends Application {
         this.nowActivity = nowActivity;
     }
 
+    /**
+     * 退出应用程序
+     */
+    public void exitApp() {
+        try {
+            Log.e("ActivityLifeManager", "exit by application");
+            android.app.ActivityManager activityMgr = (android.app.ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+            activityMgr.killBackgroundProcesses(this.getPackageName());
+            activityMgr.killBackgroundProcesses(this.getPackageName() + ":remote");
+        } catch (Exception e) {
+            Log.e("ActivityLifeManager", e.getMessage(), e);
+        }
+
+        System.exit(0);
+    }
 }
