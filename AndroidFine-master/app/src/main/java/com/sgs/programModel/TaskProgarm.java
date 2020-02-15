@@ -23,6 +23,6 @@ public class TaskProgarm {
         orderProgarmPalyInstructionVo = JSON.parseObject(orgin, new TypeReference<ProgarmPalyInstructionVo>() {
         });
 
-        ProgramScheduledManager.getInstance().doProgarm(orderProgarmPalyInstructionVo, true);
+        ProgramScheduledManager.getInstance().doProgarm(orderProgarmPalyInstructionVo, true, null);
     }
 }

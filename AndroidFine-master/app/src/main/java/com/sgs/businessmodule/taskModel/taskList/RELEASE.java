@@ -26,6 +26,6 @@ public class RELEASE extends TVTask {
         response.setReceiveTime(new Date());
         response.setExecuteTime(new Date());
         response.setType(this.instructionRequest.getType());
-        ProgramScheduledManager.getInstance().doProgarm(response, true);
+        ProgramScheduledManager.getInstance().doProgarm(response, true, null);
     }
 }

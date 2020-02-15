@@ -39,15 +39,7 @@ public class ProgramScheduledManager {
 
     private Context context;
 
-    public List<ProgarmPalyInstructionVo> getList() {
-        return list;
-    }
-
-    public void setList(ArrayList<ProgarmPalyInstructionVo> list) {
-        this.list = list;
-    }
-
-    //加载数据库中所有的List 包括接受命令获取的List
+    //加载数据库中所有的List 包括接受命令获取的List,保存没有准备好的列表
     ArrayList<ProgarmPalyInstructionVo> list;
 
     //已经成功下载 和 今天需要进行下载的任务
@@ -186,16 +178,20 @@ public class ProgramScheduledManager {
     public ProgramTaskManager programTaskManager;
 
     public void checkResouce(List<ProgarmPalyInstructionVo> list) {
-        List<ProgarmPalyInstructionVo> prolist = list;
-        if (prolist != null && prolist.size() > 0) {
-            for (int i = 0; i < prolist.size(); i++) {
-                doProgarm(prolist.get(i), false);
+        if (list != null && list.size() > 0) {
+            Iterator iterator = list.iterator();
+            Log.e("iterator", "onSuccess");
+            while (iterator.hasNext()) {
+                ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
+                doProgarm(response1, false, iterator);
             }
         }
         //发送当前节目表
         /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
-        Log.e("checkResouce", "sendAddOrDelProListNew");
-        SendToServerUtil.sendAddOrDelProListNew((ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo(), 0, prolistToday);
+
+        ArrayList<ProgarmPalyInstructionVo> arlist = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        Log.e("checkResouce", "sendAddOrDelProListNew arlist:" + arlist.size());
+        SendToServerUtil.sendAddOrDelProListNew(arlist, 0, prolistToday);
     }
 
     public LinkedList<ProgarmPalyInstructionVo> getProlistToday() {
@@ -217,7 +213,7 @@ public class ProgramScheduledManager {
         ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(progarmPalyInstructionVo.getId());
     }
 
-    public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert) {
+    public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert, Iterator iterator) {
         Log.e(TAG, "doProgarm");
         if (isInsert) {
             Log.e(TAG, " isInsert response" + response.getId());
@@ -372,8 +368,11 @@ public class ProgramScheduledManager {
                 Log.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
-                //调用增量接口
-                list.remove(response);
+                if (iterator != null) {
+                    iterator.remove();
+                } else {
+                    list.remove(response);
+                }
             }
         }
         Log.e(TAG, response.toString());
