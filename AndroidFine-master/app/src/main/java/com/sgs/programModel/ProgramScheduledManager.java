@@ -215,13 +215,13 @@ public class ProgramScheduledManager {
     }
 
     public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert, Iterator iterator) {
-        Log.e(TAG, "doProgarm"+ response.getId());
+        Log.e(TAG, "doProgarm" + response.getId());
         if (isInsert) {
             Log.e(TAG, " isInsert response" + response.getId());
             //保存到节目数据中
             ProgarmPalyInstructionVo v = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(response.getId());
             if (v != null) {
-                Log.e(TAG, "我已经存在了：" + response.getId()+"");
+                Log.e(TAG, "我已经存在了：" + response.getId() + "");
                 ArrayList<Integer> arrayList = new ArrayList<>();
                 arrayList.add(v.getId());
                 clearLooperAndDBById(arrayList);
@@ -239,10 +239,15 @@ public class ProgramScheduledManager {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date deadLineV = null;
         try {
+            //过期的要删除
             deadLineV = df.parse(publicationPlanVo.getDeadlineV());
             if (deadLineV.getTime() < System.currentTimeMillis()) {
                 delToDB(response);
-                list.remove(response);
+                if (iterator != null) {
+                    iterator.remove();
+                } else {
+                    list.remove(response);
+                }
                 return;
             }
         } catch (ParseException e) {
