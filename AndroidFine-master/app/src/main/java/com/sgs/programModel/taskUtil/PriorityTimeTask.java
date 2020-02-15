@@ -71,20 +71,20 @@ public class PriorityTimeTask<T extends MyTask> {
                 priorsTasks = new LinkedList<>();
             }
             priorsTasks.add(bobTask);
-            Log.e(TAG, "我是临时插入进来的一个高优先级的节目");
+            Log.e(TAG, "我是临时插入进来的一个高优先级的节目priorsTasks");
 
         } else if (PRI.TASK_NOR == pRi) {
             if (mTasks == null) {
                 mTasks = new LinkedList<>();
             }
             mTasks.add(bobTask);
-            Log.e(TAG, "我是临时插入进来的一个普通优先级的节目");
+            Log.e(TAG, "我是临时插入进来的一个普通优先级的节目mTasks");
         } else {
             if (dTasks == null) {
                 dTasks = new LinkedList<>();
             }
             dTasks.add(bobTask);
-            Log.e(TAG, "我是临时插入进来的一个低级优先级的节目");
+            Log.e(TAG, "我是临时插入进来的一个低级优先级的节目dTasks");
         }
         insertStartLooperTask();
     }
@@ -117,15 +117,25 @@ public class PriorityTimeTask<T extends MyTask> {
 
 
     public void removeByid(int id) {
+        Log.e(TAG, "removeByid:" + id);
         for (int i = 0; i < mTasks.size(); i++) {
             if (mTasks.get(i).progarmPalyInstructionVo.getId() == id) {
+                Log.e(TAG, "mTasks removeByid:" + id);
                 mTasks.remove(i);
                 break;
             }
         }
         for (int i = 0; i < priorsTasks.size(); i++) {
             if (priorsTasks.get(i).progarmPalyInstructionVo.getId() == id) {
+                Log.e(TAG, "priorsTasks removeByid:" + id);
                 priorsTasks.remove(i);
+                break;
+            }
+        }
+        for (int i = 0; i < dTasks.size(); i++) {
+            if (dTasks.get(i).progarmPalyInstructionVo.getId() == id) {
+                Log.e(TAG, "dTasks removeByid:" + id);
+                dTasks.remove(i);
                 break;
             }
         }
@@ -156,6 +166,7 @@ public class PriorityTimeTask<T extends MyTask> {
     };
 
     public boolean doneLooper(List<T> tasklist, PRI isPri) {
+        Log.e(TAG, "doneLooper tasklist：" + tasklist.size() + "isPri:" + isPri);
         if (isPri == PRI.TASK_NOR) {
             if (tasklist.size() > cursor) {
             } else {
@@ -233,10 +244,12 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
     public void startLooperTaskOrder() {
+        Log.e(TAG, "startLooperTaskOrder");
         order();
     }
 
     private void order() {
+        Log.e(TAG, "priorsTasks order");
         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
             boolean idone = false;
             if (priorsTasks != null && priorsTasks.size() > 0) {
