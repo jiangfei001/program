@@ -132,6 +132,7 @@ public class ProgramScheduledManager {
         for (int t = 0; t < arrayList.size(); t++) {
             ProgarmPalyInstructionVo getProgarmPalyInstructionVoRequestById = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(arrayList.get(t));
             if (getProgarmPalyInstructionVoRequestById != null) {
+                //删除数据库
                 ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(getProgarmPalyInstructionVoRequestById.getId());
                 programTaskManager.removeByid(arrayList.get(t));
                 for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
@@ -214,12 +215,13 @@ public class ProgramScheduledManager {
     }
 
     public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert, Iterator iterator) {
-        Log.e(TAG, "doProgarm");
+        Log.e(TAG, "doProgarm"+ response.getId());
         if (isInsert) {
             Log.e(TAG, " isInsert response" + response.getId());
             //保存到节目数据中
             ProgarmPalyInstructionVo v = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(response.getId());
             if (v != null) {
+                Log.e(TAG, "我已经存在了：" + response.getId()+"");
                 ArrayList<Integer> arrayList = new ArrayList<>();
                 arrayList.add(v.getId());
                 clearLooperAndDBById(arrayList);
