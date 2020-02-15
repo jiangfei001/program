@@ -32,6 +32,7 @@ import com.sgs.businessmodule.websocketmodel.js.JsInterface;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
+import com.sgs.middle.eventControlModel.EventManager;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.StringUtils;
 import com.sgs.programModel.entity.ProgramResource;
@@ -133,11 +134,12 @@ public class WebSocketActivityRelease extends EventActivity {
         initView();
     }
 
+    Handler handler = new Handler();
+
     @Override
     protected void onResume() {
         super.onResume();
         AppContext.getInstance().initFileService();
-
         getWvBookPlay().loadUrl("file:///android_asset/index.html");
         WebSocketHelper.initWebSocket(DeviceUtil.getUniqueID(WebSocketActivityRelease.this));
         WebSocketHandler.getDefault().addListener(socketListener);
@@ -181,6 +183,7 @@ public class WebSocketActivityRelease extends EventActivity {
             super.onPageFinished(view, url);
             view.loadUrl("javascript:try{autoplay();}catch(e){}");//播放视频
         }
+
     }
 
     private void initweb(WebView mWebView) {

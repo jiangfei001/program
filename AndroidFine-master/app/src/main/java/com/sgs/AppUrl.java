@@ -3,9 +3,6 @@ package com.sgs;
 
 public class AppUrl {
 
-    public static String prodIP = "http://xinlianchuangmei.com/";
-    public static String testIP = "172.20.10.4:8082";
-
 
     public static boolean isTest = false;
 
@@ -20,33 +17,33 @@ public class AppUrl {
     //节目列表新增
     public static String addDayProgramList;
 
+    public static String socketIP = "49.235.109.237:9090";
+    //  public static String jiekouIP = "http://xinlianchuangmei.com/";
+    public static String jiekouIP = "49.235.109.237:9090";
+
     static {
-        if (isTest) {
-            socketUrl = "ws://" + testIP + "/multimedia/api/websocket";
-            serverUrlAddMuTerminal = "http://" + testIP + "/multimedia/api/terminal/addMuTerminal";
-            callbackUrl = "http://" + testIP + "/multimedia/api/terminal/callback";
-            addTerminalProgramListUrl = "http://" + testIP + "/multimedia/api/terminal/addTerminalProgramList";
-            addDayProgramList = "http://" + testIP + "/multimedia/api/terminal/addDayProgramList";
-        } else {
-            socketUrl = "ws://49.235.109.237:9090/multimedia_test/api/websocket";
-            serverUrlAddMuTerminal = "http://49.235.109.237:9090/multimedia_test/api/terminal/addMuTerminal";
-            callbackUrl = "http://49.235.109.237:9090/multimedia_test/api/terminal/callback";
-            addTerminalProgramListUrl = "http://49.235.109.237:9090//multimedia_test/api/terminal/addTerminalProgramList";
-            addDayProgramList = "http://49.235.109.237:9090/multimedia_test/api/terminal/addDayProgramList";
+        socketUrl = "ws://" + socketIP + "/multimedia_test/api/websocket";
+        serverUrlAddMuTerminal = "http://" + jiekouIP + "/multimedia_test/api/terminal/addMuTerminal";
+        callbackUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/callback";
+        addTerminalProgramListUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/addTerminalProgramList";
+        addDayProgramList = "http://" + jiekouIP + "/multimedia_test/api/terminal/addDayProgramList";
             /*socketUrl = "ws://49.235.109.237:9080/multimedia/api/websocket";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
             addTerminalProgramListUrl = prodIP + "/multimedia/api/terminal/addTerminalProgramList";
             addDayProgramList = prodIP + "/multimedia/api/terminal/addDayProgramList";*/
-        }
     }
 
-    public static void initip(String ip, String duankou) {
+
+    public static void initip(String ipstr, String jiekouIPstr) {
         isTest = false;
-        socketUrl = "ws://" + ip + ":" + duankou + "";
-        serverUrlAddMuTerminal = "http://" + ip + ":" + duankou + "/" + "/multimedia/api/terminal/addMuTerminal";
-        callbackUrl = "http://" + ip + ":" + duankou + "/" + "/multimedia/api/terminal/callback";
-        addTerminalProgramListUrl = "http://" + ip + ":" + duankou + "/" + "/multimedia/api/terminal/addTerminalProgramListUrl";
+        socketIP = ipstr;
+        jiekouIP = jiekouIPstr;
+        socketUrl = "ws://" + socketIP + "/multimedia_test/api/websocket";
+        serverUrlAddMuTerminal = "http://" + jiekouIP + "/multimedia_test/api/terminal/addMuTerminal";
+        callbackUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/callback";
+        addTerminalProgramListUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/addTerminalProgramList";
+        addDayProgramList = "http://" + jiekouIP + "/multimedia_test/api/terminal/addDayProgramList";
     }
 
 }

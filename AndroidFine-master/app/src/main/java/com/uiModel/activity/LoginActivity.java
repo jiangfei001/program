@@ -52,6 +52,7 @@ public class LoginActivity extends Activity {
         super.onPause();
         MobclickAgent.onPause(this);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         initView();
@@ -60,21 +61,13 @@ public class LoginActivity extends Activity {
         EditText editText = findViewById(R.id.code);
         editText.setText(DeviceUtil.getUniqueID(LoginActivity.this));
 
-        final EditText phone = findViewById(R.id.phone);
-        final EditText codeName = findViewById(R.id.codeName);
+        final EditText yonghuming = findViewById(R.id.yonghuming);
+        final EditText shebeiName = findViewById(R.id.shebeiName);
+        final EditText socketip = findViewById(R.id.socketip);
+        final EditText jiekouip = findViewById(R.id.jiekouip);
 
-        final EditText ip = findViewById(R.id.codeName1);
-
-        final EditText duanou = findViewById(R.id.codeName11);
-        findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!StringUtil.isEmpty(ip.getText().toString())) {
-                    AppUrl.initip(ip.getText().toString(), duanou.getText().toString());
-                }
-                LoginActivity.this.finish();
-            }
-        });
+        socketip.setText(AppUrl.socketIP);
+        jiekouip.setText(AppUrl.jiekouIP);
 
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,17 +77,16 @@ public class LoginActivity extends Activity {
                     @Override
                     public void run() {
 
-                        if (!StringUtil.isEmpty(ip.getText().toString())) {
-                            AppUrl.initip(ip.getText().toString(), duanou.getText().toString());
-                        }
+
+                        AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim());
 
                         final HashMap hashMap = new HashMap();
 
-                        hashMap.put("userName", phone.getText().toString());
+                        hashMap.put("userName", yonghuming.getText().toString());
 
                         hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
 
-                        hashMap.put("terminalName", !StringUtil.isEmpty(codeName.getText().toString()) ? codeName.getText().toString() : DeviceUtil.getUniqueID(LoginActivity.this));
+                        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : DeviceUtil.getUniqueID(LoginActivity.this));
                         //应用版本号
                         hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
                         //局域网IP地址
@@ -170,10 +162,8 @@ public class LoginActivity extends Activity {
         findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!StringUtil.isEmpty(ip.getText().toString())) {
-                    AppUrl.initip(ip.getText().toString(), duanou.getText().toString());
-                }
-                AppContext.getInstance().userName = phone.getText().toString();
+                AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim());
+                AppContext.getInstance().userName = yonghuming.getText().toString();
                 doNavigation();
             }
         });

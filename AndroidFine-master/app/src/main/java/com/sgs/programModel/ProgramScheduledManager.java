@@ -85,6 +85,7 @@ public class ProgramScheduledManager {
     public void initAllProgramTask() {
         //从数据库中获取所有的节目数据
         list = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        Log.e(TAG, "初始化数据initAllProgramTask");
         if (list == null) {
             list = new ArrayList<>();
         }
@@ -100,6 +101,7 @@ public class ProgramScheduledManager {
 
         //判断资源是否已经下载，并且是在今天的下载范围
         checkResouce(list);
+        Log.e(TAG, "checkResouceinitAllProgramTask");
         //设置下载监听机
         manager.setAllTaskListener(new DownloadManagerListener());
 
@@ -114,12 +116,11 @@ public class ProgramScheduledManager {
     private static ProgramScheduledManager instance;
 
     public void clearLooperAndDBAndResource() {
-        Log.e(TAG, "initAllProgramTask clearLooperAndDBAndResource");
+        Log.e(TAG, "收到清楚命令 clearLooperAndDBAndResource");
         list = null;
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
         prolistToday = null;
-        Log.e(TAG, "clearLooperAndDBAndResource programTaskManager.stopLooper");
         ProgramDbManager.getInstance().delectAllProgarmPalyInstructionVoRequest();
         programTaskManager.stopLooper();
         manager.deleteAllTask();
@@ -194,7 +195,7 @@ public class ProgramScheduledManager {
         //发送当前节目表
         /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
         Log.e("checkResouce", "sendAddOrDelProListNew");
-        SendToServerUtil.sendAddOrDelProListNew(this.list, 0, prolistToday);
+        SendToServerUtil.sendAddOrDelProListNew((ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo(), 0, prolistToday);
     }
 
     public LinkedList<ProgarmPalyInstructionVo> getProlistToday() {
@@ -211,14 +212,15 @@ public class ProgramScheduledManager {
     }
 
     public void delToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
-        Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
+        Log.e(TAG, "delToDB");
         //将数据保存到节目播放数据库，并通知节目播放，进行插入播放
         ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(progarmPalyInstructionVo.getId());
     }
 
     public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert) {
-
+        Log.e(TAG, "doProgarm");
         if (isInsert) {
+            Log.e(TAG, " isInsert response" + response.getId());
             //保存到节目数据中
             ProgarmPalyInstructionVo v = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(response.getId());
             if (v != null) {

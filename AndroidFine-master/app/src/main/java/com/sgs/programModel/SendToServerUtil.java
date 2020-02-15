@@ -133,9 +133,9 @@ public class SendToServerUtil {
         }
 
         HashMap hashMap = new HashMap();
-        hashMap.put("terminalProgramEntity", terminalProgramEntity);
+        hashMap.put("terminalProgramEntity", com.alibaba.fastjson.JSON.toJSONString(terminalProgramEntity));
         hashMap.put("type", type);
-        hashMap.put("daylist", daylist);
+        hashMap.put("daylist", com.alibaba.fastjson.JSON.toJSONString(daylist));
 
 
         HttpClient.postHashMapEntity(AppUrl.addTerminalProgramListUrl, hashMap, new MyHttpResponseHandler() {

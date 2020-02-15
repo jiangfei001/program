@@ -11,7 +11,7 @@
 
         <RelativeLayout
             android:id="@+id/rl_1"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18.0dip"
             android:layout_marginTop="200.0dip"
@@ -23,25 +23,25 @@
                 android:layout_width="fill_parent"
                 android:layout_height="45.0dip">
 
-                <ImageView
+                <TextView
                     android:id="@+id/imgPhone"
-                    android:layout_width="15.0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="18.0dip"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10.0dip"
-                    android:background="@drawable/login_phone" />
+                    android:text="用户的名字:" />
 
                 <EditText
-                    android:id="@+id/phone"
+                    android:id="@+id/yonghuming"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_toRightOf="@+id/imgPhone"
                     android:background="@null"
                     android:hint="用户名"
-                    android:text="admin"
                     android:lines="2"
                     android:maxLength="11"
                     android:paddingLeft="15.0dip"
+                    android:text="admin"
                     android:textColor="#ff111111"
                     android:textColorHint="#ffaaaaaa"
                     android:textSize="16.0sp" />
@@ -53,7 +53,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12.0dip"
-                    android:background="@drawable/cancel_phone"
                     android:visibility="invisible" />
             </RelativeLayout>
 
@@ -68,13 +67,13 @@
                     android:layout_height="0.5dip"
                     android:background="#ffdddddd" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/imgCode"
-                    android:layout_width="15.0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="18.0dip"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10.0dip"
-                    android:background="@drawable/login_lock" />
+                    android:text="设备的唯一号(自动获取)：" />
 
                 <EditText
                     android:id="@+id/code"
@@ -104,22 +103,22 @@
                     android:layout_height="0.5dip"
                     android:background="#ffdddddd" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/imgCode2"
-                    android:layout_width="15.0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="18.0dip"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10.0dip"
-                    android:background="@drawable/login_lock" />
+                    android:text="设备的名字（注册填写）:" />
 
                 <EditText
-                    android:id="@+id/codeName"
+                    android:id="@+id/shebeiName"
                     android:layout_width="354dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="-3dp"
                     android:layout_toRightOf="@+id/imgCode2"
                     android:background="@null"
-                    android:hint="设备名字"
+                    android:hint="请填写设备名字"
                     android:lines="2"
                     android:paddingLeft="15.0dip"
                     android:textColor="#ff111111"
@@ -138,22 +137,22 @@
                     android:layout_height="0.5dip"
                     android:background="#ffdddddd" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/imgCode21"
-                    android:layout_width="15.0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="18.0dip"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10.0dip"
-                    android:background="@drawable/login_lock" />
+                    android:text="socket的IP（连接socket）:" />
 
                 <EditText
-                    android:id="@+id/codeName1"
+                    android:id="@+id/socketip"
                     android:layout_width="354dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="-3dp"
                     android:layout_toRightOf="@+id/imgCode21"
                     android:background="@null"
-                    android:hint="测试的ip地址"
+                    android:hint="socket的IP"
                     android:lines="2"
                     android:paddingLeft="15.0dip"
                     android:textColor="#ff111111"
@@ -172,25 +171,25 @@
                     android:layout_height="0.5dip"
                     android:background="#ffdddddd" />
 
-                <ImageView
+                <TextView
                     android:id="@+id/imgCode211"
-                    android:layout_width="15.0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="18.0dip"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10.0dip"
-                    android:background="@drawable/login_lock" />
+                    android:text="接口的ip（服务的ip）:" />
 
                 <EditText
-                    android:id="@+id/codeName11"
+                    android:id="@+id/jiekouip"
                     android:layout_width="354dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="-3dp"
                     android:layout_toRightOf="@+id/imgCode211"
                     android:background="@null"
-                    android:hint="测试的端口"
-                    android:text="8082"
+                    android:hint="接口的ip"
                     android:lines="2"
                     android:paddingLeft="15.0dip"
+                    android:text="8082"
                     android:textColor="#ff111111"
                     android:textColorHint="#ffaaaaaa"
                     android:textSize="16.0sp" />
