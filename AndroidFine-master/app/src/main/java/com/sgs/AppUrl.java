@@ -18,8 +18,8 @@ public class AppUrl {
     public static String addDayProgramList;
 
     public static String socketIP = "49.235.109.237:9090";
-    //  public static String jiekouIP = "http://xinlianchuangmei.com/";
     public static String jiekouIP = "49.235.109.237:9090";
+    //  public static String jiekouIP = "http://xinlianchuangmei.com/";
 
     static {
         socketUrl = "ws://" + socketIP + "/multimedia_test/api/websocket";
