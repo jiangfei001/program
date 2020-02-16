@@ -65,7 +65,7 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
 
-    public void insertTaskByPri(T bobTask, PRI pRi) {
+    public synchronized void insertTaskByPri(T bobTask, PRI pRi) {
         if (PRI.TASK_PRI == pRi) {
             if (priorsTasks == null) {
                 priorsTasks = new LinkedList<>();
@@ -89,28 +89,19 @@ public class PriorityTimeTask<T extends MyTask> {
         insertStartLooperTask();
     }
 
-    public void insertPriorsTask(T bobTask) {
-        if (priorsTasks == null) {
-            priorsTasks = new LinkedList<>();
-        }
-        priorsTasks.add(bobTask);
-        Log.e(TAG, "我是临时插入进来的一个高优先级的节目");
-        insertStartLooperTask();
-    }
 
-
-    public void setTasks(List<T> mES) {
+    public synchronized void setTasks(List<T> mES) {
         cursorInit();
         this.mTasks = mES;
     }
 
-    public void setPriTasks(List<T> mES) {
+    public synchronized void setPriTasks(List<T> mES) {
         cursorPriorityInit();
         this.priorsTasks = mES;
     }
 
 
-    public void setDTasks(List<T> mES) {
+    public synchronized void setDTasks(List<T> mES) {
         cursorDInit();
         this.dTasks = mES;
     }
