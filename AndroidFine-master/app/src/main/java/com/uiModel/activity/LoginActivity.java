@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.sgs.AppContext;
@@ -22,7 +23,6 @@ import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
-import com.sgs.businessmodule.websocketmodel.WebSocketActivity;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
@@ -70,6 +70,9 @@ public class LoginActivity extends Activity {
         jiekouip.setText(AppUrl.jiekouIP);
         shebeiName.setText(DeviceUtil.getUniqueID(LoginActivity.this));
 
+        final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
+
+
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +81,15 @@ public class LoginActivity extends Activity {
                     @Override
                     public void run() {
 
+                        String s_test = "_test";
+                        int id = radioButton.getCheckedRadioButtonId();
+                        if (id == R.id.jia) {
+                            s_test = "_test";
+                        } else {
+                            s_test = "";
+                        }
 
-                        AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim());
+                        AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim(), s_test);
 
                         final HashMap hashMap = new HashMap();
 
@@ -163,7 +173,16 @@ public class LoginActivity extends Activity {
         findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim());
+
+                String s_test = "_test";
+                int id = radioButton.getCheckedRadioButtonId();
+                if (id == R.id.jia) {
+                    s_test = "_test";
+                } else {
+                    s_test = "";
+                }
+
+                AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim(), s_test);
                 AppContext.getInstance().userName = yonghuming.getText().toString();
                 doNavigation();
             }

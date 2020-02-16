@@ -196,11 +196,45 @@
             </RelativeLayout>
         </RelativeLayout>
 
+        <RadioGroup
+            android:id="@+id/radiogroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_1">
+
+            <RadioButton
+                android:id="@+id/jia"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="50.0dip"
+                android:layout_marginTop="30.0dip"
+                android:layout_marginRight="20.0dip"
+                android:background="@drawable/btn_bg_gray"
+                android:checked="true"
+                android:text="multimedia_test"
+                android:textColor="#ffffffff"
+                android:textSize="18.0sp" />
+
+            <RadioButton
+                android:id="@+id/bujia"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="50.0dip"
+                android:layout_marginTop="30.0dip"
+                android:layout_marginRight="20.0dip"
+                android:background="@drawable/btn_bg_gray"
+                android:text="multimedia"
+                android:textColor="#ffffffff"
+                android:textSize="18.0sp" />
+
+        </RadioGroup>
+
+
         <Button
             android:id="@+id/btnSure"
             android:layout_width="fill_parent"
             android:layout_height="40.0dip"
-            android:layout_below="@id/rl_1"
+            android:layout_below="@id/radiogroup1"
             android:layout_marginLeft="18.0dip"
             android:layout_marginTop="30.0dip"
             android:layout_marginRight="18.0dip"

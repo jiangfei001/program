@@ -1,6 +1,8 @@
 package com.sgs;
 
 
+import android.util.Log;
+
 public class AppUrl {
 
 
@@ -35,15 +37,16 @@ public class AppUrl {
     }
 
 
-    public static void initip(String ipstr, String jiekouIPstr) {
+    public static void initip(String ipstr, String jiekouIPstr, String isTeststr) {
         isTest = false;
         socketIP = ipstr;
         jiekouIP = jiekouIPstr;
-        socketUrl = "ws://" + socketIP + "/multimedia_test/api/websocket";
-        serverUrlAddMuTerminal = "http://" + jiekouIP + "/multimedia_test/api/terminal/addMuTerminal";
-        callbackUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/callback";
-        addTerminalProgramListUrl = "http://" + jiekouIP + "/multimedia_test/api/terminal/addTerminalProgramList";
-        addDayProgramList = "http://" + jiekouIP + "/multimedia_test/api/terminal/addDayProgramList";
+        socketUrl = "ws://" + socketIP + "/multimedia" + isTeststr.trim() + "/api/websocket";
+        serverUrlAddMuTerminal = "http://" + jiekouIP + "/multimedia" + isTeststr.trim() + "/api/terminal/addMuTerminal";
+        callbackUrl = "http://" + jiekouIP + "/multimedia" + isTeststr.trim() + "/api/terminal/callback";
+        addTerminalProgramListUrl = "http://" + jiekouIP + "/multimedia" + isTeststr.trim() + "/api/terminal/addTerminalProgramList";
+        addDayProgramList = "http://" + jiekouIP + "/multimedia" + isTeststr.trim() + "/api/terminal/addDayProgramList";
+        Log.e("socketUrl", "socketUrl:" + socketUrl + "callbackUrl:" + callbackUrl);
     }
 
 }
