@@ -165,7 +165,7 @@ public class PriorityTimeTask<T extends MyTask> {
         }
     };
 
-    public boolean doneLooper(List<T> tasklist, PRI isPri) {
+    public synchronized boolean doneLooper(List<T> tasklist, PRI isPri) {
         Log.e(TAG, "doneLooper tasklist：" + tasklist.size() + "isPri:" + isPri);
         if (isPri == PRI.TASK_NOR) {
             if (tasklist.size() > cursor) {

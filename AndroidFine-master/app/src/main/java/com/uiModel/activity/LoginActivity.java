@@ -68,6 +68,7 @@ public class LoginActivity extends Activity {
 
         socketip.setText(AppUrl.socketIP);
         jiekouip.setText(AppUrl.jiekouIP);
+        shebeiName.setText(DeviceUtil.getUniqueID(LoginActivity.this));
 
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override

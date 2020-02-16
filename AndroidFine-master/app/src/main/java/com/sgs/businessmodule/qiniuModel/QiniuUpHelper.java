@@ -52,8 +52,12 @@ public class QiniuUpHelper {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject response) {
                 Log.i("qiniu 访问链接 = ", key);
-                Log.i("qiniu info = ", info.toString());
-                Log.i("qiniu response = ", response.toString());
+                if (info != null) {
+                    Log.i("qiniu info = ", info.toString());
+                }
+                if (response != null) {
+                    Log.i("qiniu response = ", response.toString());
+                }
                 backUrl.getUrlandName(key, info, response);
             }
         }, null);

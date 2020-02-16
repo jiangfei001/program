@@ -11,15 +11,17 @@ import java.util.HashMap;
 
 public class GETNEWPROGRAMMESSAGE extends TVTask {
 
-    ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos = new ArrayList<>();
+    ArrayList<Integer> progarmPalyInstructionVos;
 
     @Override
     public void runTv() {
         Log.e(TAG, "GETNEWPROGRAMMESSAGE:");
-        ProgarmPalyInstructionVo progarmPalyInstructionVo = ProgramScheduledManager.getInstance().programTaskManager.getNowProgarmPalyInstructionVo();
-        ProgarmPalyInstructionVo progarmPalyInstructionVoa = new ProgarmPalyInstructionVo();
-        progarmPalyInstructionVoa = progarmPalyInstructionVo;
-        progarmPalyInstructionVos.add(progarmPalyInstructionVoa);
+        progarmPalyInstructionVos = new ArrayList<>();
+        ProgarmPalyInstructionVo progarmPalyInstructionVo1 = ProgramScheduledManager.getInstance().programTaskManager.getNowProgarmPalyInstructionVo();
+        if (progarmPalyInstructionVo1 != null) {
+            Log.e(TAG, "GETNEWPROGRAMMESSAGE:我不为空");
+            progarmPalyInstructionVos.add(progarmPalyInstructionVo1.getId());
+        }
         // SendToServerUtil.sendNowPro(this.responseEntity, progarmPalyInstructionVos);
     }
 
@@ -34,7 +36,7 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
                 if (i != 0) {
                     nowproid.append(",");
                 }
-                nowproid.append(progarmPalyInstructionVos.get(i).getId());
+                nowproid.append(progarmPalyInstructionVos.get(i));
             }
 
             HashMap hashMap = new HashMap();
