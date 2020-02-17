@@ -15,6 +15,9 @@ import com.sgs.middle.utils.DeviceUtil;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 设备信息的工具类
@@ -44,7 +47,9 @@ public class QiniuUpHelper {
         Bitmap bitmap = DeviceUtil.snapCurrentScreenShot(activity, hasStatusBar);
         byte[] data = Bitmap2Bytes(bitmap);
 
-        String fileName = System.currentTimeMillis() + ".png";
+        String strNow = new SimpleDateFormat("yyyyMMdd").format(new Date()).toString();
+
+        String fileName = "/sreenshots/" + strNow.toString() + "/" + System.currentTimeMillis() + ".png";
         //data = "hello".getBytes();
         /*fileName = "hello.txt";*/
 
@@ -71,6 +76,14 @@ public class QiniuUpHelper {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
+    }
+
+
+    public static void main(String[] args) {
+        String strNow = new SimpleDateFormat("yyyyMMdd").format(new Date()).toString();
+
+        String fileName = "/sreenshots/" + strNow.toString() + "/" + System.currentTimeMillis() + ".png";
+        System.out.println(fileName);
     }
 }
 
