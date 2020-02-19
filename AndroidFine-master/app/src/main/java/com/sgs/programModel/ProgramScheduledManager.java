@@ -502,7 +502,7 @@ public class ProgramScheduledManager {
                         progarmPalyInstructionVos.add(response);
                     }
                 }
-                /* SendToServerUtil.sendEventToService(response);*/
+                SendToServerUtil.sendEventToService(response);
                 Log.e("checkResouce", "addProgramToTask");
                 SendToServerUtil.sendAddOrDelProListNew((ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo(), 0, prolistToday);
 

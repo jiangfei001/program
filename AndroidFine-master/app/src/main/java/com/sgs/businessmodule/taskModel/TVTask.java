@@ -66,6 +66,7 @@ public abstract class TVTask extends BasicTask {
     }
 
     void sendEventToService() {
+        Log.e(TAG, "sendEventToService");
         if (isNeedSend()) {
             setResult();
             Date nowDate = new Date();

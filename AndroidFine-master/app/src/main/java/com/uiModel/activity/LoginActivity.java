@@ -250,8 +250,5 @@ public class LoginActivity extends Activity {
         //设置全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_splash);
     }
-
 }
