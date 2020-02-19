@@ -311,11 +311,20 @@ public class WebSocketActivityRelease extends EventActivity {
     protected void onDestroy() {
         super.onDestroy();
         WebSocketHandler.getDefault().removeListener(socketListener);
+        clearMediaPlayer();
+        AppContext.getInstance().exitApp();
+    }
+
+
+    public void clearMediaPlayer() {
+        if (musicList != null) {
+            musicList.clear();
+        }
+        musicindex = 0;
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
         }
-        AppContext.getInstance().exitApp();
     }
 
     private void appendMsgDisplay(String msg) {
@@ -441,6 +450,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 mymHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        clearMediaPlayer();
                         getWvBookPlay().loadUrl("file:///android_asset/index.html");
                     }
                 });
