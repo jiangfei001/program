@@ -71,9 +71,9 @@ public class LoginActivity extends Activity {
         jiekouip.setText(AppUrl.jiekouIP);
         shebeiName.setText(DeviceUtil.getUniqueID(LoginActivity.this));
 
-        String dnsUtil = DnsUtil.getDns(this);
+   /*     String dnsUtil = DnsUtil.getDns(this);
         Log.e("dnsUtil", "dnsUtil" + dnsUtil);
-
+*/
 
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
 
