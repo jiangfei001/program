@@ -26,6 +26,7 @@ import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
+import com.sgs.middle.utils.DnsUtil;
 import com.sgs.middle.utils.SharedPreferences;
 import com.sgs.middle.utils.StringUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -69,6 +70,10 @@ public class LoginActivity extends Activity {
         socketip.setText(AppUrl.socketIP);
         jiekouip.setText(AppUrl.jiekouIP);
         shebeiName.setText(DeviceUtil.getUniqueID(LoginActivity.this));
+
+        String dnsUtil = DnsUtil.getDns(this);
+        Log.e("dnsUtil", "dnsUtil" + dnsUtil);
+
 
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
 
