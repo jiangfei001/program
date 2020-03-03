@@ -7,9 +7,17 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.sgs.middle.eventControlModel.Event;
+import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.programModel.entity.ProgarmPalyPlan;
+import com.sgs.programModel.entity.PublicationPlanVo;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -203,20 +211,37 @@ public class PriorityTimeTask<T extends MyTask> {
             }
             if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1) {
                 List<ProgarmPalyPlan> progarmPalyPlan = mTask.progarmPalyInstructionVo.getPublicationPlanObject().getOkProgarms();
-                for (int t = 0; t < progarmPalyPlan.size(); t++) {
-                    ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
-                    if (progarmPalyPlan1.getStartTime() < mNowtime && progarmPalyPlan1.getEndTime() > mNowtime) {
-                        //预设下一个节目播放
-                        Log.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
-                        mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
-                        //在当前区间内立即执行
-                        for (TimeHandler mTimeHandler : mTimeHandlers) {
-                            mTimeHandler.exeTask(mTask);
-                        }
-                        return true;
-                    }
-                }
 
+                //判断截止时间：
+                PublicationPlanVo publicationPlanVo = mTask.progarmPalyInstructionVo.getPublicationPlanObject();
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                Date deadLineV = null;
+                try {
+                    //如果此时的节目要跳过
+                    deadLineV = df.parse(publicationPlanVo.getDeadlineV());
+                    Log.e(TAG, "播放过程中deadLineV。。。" + publicationPlanVo.getDeadlineV());
+                    if (deadLineV.getTime() < System.currentTimeMillis()) {
+                        Log.e(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV());
+                    } else {
+                        for (int t = 0; t < progarmPalyPlan.size(); t++) {
+                            ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
+                            if (progarmPalyPlan1.getStartTime() < mNowtime && progarmPalyPlan1.getEndTime() > mNowtime) {
+                                //预设下一个节目播放
+                                Log.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
+                                mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
+                                //在当前区间内立即执行
+                                for (TimeHandler mTimeHandler : mTimeHandlers) {
+                                    Log.e(TAG, "开始播放节目拉" + mTask.progarmPalyInstructionVo.getPlayTime());
+                                    mTimeHandler.exeTask(mTask);
+                                }
+                                return true;
+                            }
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -229,6 +254,7 @@ public class PriorityTimeTask<T extends MyTask> {
      * 开始任务
      */
     public void insertStartLooperTask() {
+        //如果队列里面有在运行的话，那么就开始运行，否则不就管
         if (!isRuning) {
             order();
         }
@@ -261,6 +287,16 @@ public class PriorityTimeTask<T extends MyTask> {
 
             if (idone) {
                 isRuning = true;
+                Log.e(TAG, "isRuning = true 开跑");
+            } else {
+                Log.e(TAG, "队列里面没有符合要求的任务，1秒后再进行判断");
+                isRuning = false;
+                //需要清空WebSocketActivityRelease里面的内容
+                Event event = new Event();
+                event.setId(EventEnum.EVENT_TEST_CLEARPROG);
+                EventBus.getDefault().post(event);
+                //如果为空的话，1秒钟检查一次，是否有新的任务
+                mHandler.sendEmptyMessageDelayed(1, 1000);
             }
         }
     }
