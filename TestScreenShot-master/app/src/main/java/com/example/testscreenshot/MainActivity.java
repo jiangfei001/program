@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public static String getScreenshot() {
         Process process = null;
-        String mSavedPath = Environment.getExternalStorageDirectory() + File.separator + "screenshot.png";
+        String mSavedPath = Environment.getExternalStorageDirectory() + File.separator + "jf.png";
         try {
             process = Runtime.getRuntime().exec("screencap -p " + mSavedPath);
             PrintStream outputStream = null;

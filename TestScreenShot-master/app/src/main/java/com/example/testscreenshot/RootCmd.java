@@ -79,7 +79,6 @@ public final class RootCmd {
         try {
             Process p = Runtime.getRuntime().exec("su");
             dos = new DataOutputStream(p.getOutputStream());
-
             Log.i(TAG, cmd);
             dos.writeBytes(cmd + "\n");
             dos.flush();

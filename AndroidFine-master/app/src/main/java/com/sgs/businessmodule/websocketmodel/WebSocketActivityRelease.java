@@ -34,6 +34,7 @@ import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
+import com.sgs.middle.utils.RootUtil;
 import com.sgs.middle.utils.StringUtils;
 import com.sgs.programModel.entity.ProgramResource;
 import com.umeng.analytics.MobclickAgent;
