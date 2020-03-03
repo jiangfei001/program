@@ -2,5 +2,11 @@
 <resources>
 
     <string name="app_name">WebView App</string>
-
+    <string name="takex_no_match_city">wupipei</string>
+    <string name="takex_service_status_not_covered">未开通</string>
+    <string name="takex_service_status_full">全境</string>
+    <string name="takex_service_status_partial">非全境</string>
+    <string name="takex_service_status_self_service">自取</string>
+    <string name="takex_product_sf_today">即日</string>
+    <string name="takex_product_next_morning">次晨</string>
 </resources>

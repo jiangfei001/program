@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_com_courier_transparent_white">#7f000000</color>
+    <color name="color_com_courier_exception_dialog">#BDBDBD</color>
+    <color name="color_com_courier_exception_dialog_button_transparent">#7FBD6B4D</color>
+
+  <color name="courier_new_blue_type">#2a9dff</color>
+
+  <color name="color_mark_custom_bg">#FAFAFA</color>
+    <color name="color_mark_custom_text">#BBBBBB</color>
+    <color name="transparent">#00000000</color>
+</resources>
