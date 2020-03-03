@@ -323,7 +323,9 @@ public class WebSocketActivityRelease extends EventActivity {
         }
         musicindex = 0;
         if (mediaPlayer != null) {
-            mediaPlayer.stop();
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
             mediaPlayer.release();
         }
     }
