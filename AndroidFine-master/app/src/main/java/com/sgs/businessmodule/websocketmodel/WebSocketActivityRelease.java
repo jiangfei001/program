@@ -322,11 +322,15 @@ public class WebSocketActivityRelease extends EventActivity {
             musicList.clear();
         }
         musicindex = 0;
-        if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
+        try {
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
             }
-            mediaPlayer.release();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
         }
     }
 
