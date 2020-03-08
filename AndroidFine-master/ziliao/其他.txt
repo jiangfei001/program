@@ -1,0 +1,25 @@
+CLEARCUTMSG(131, "clearCutMsg", "清空插播消息"),
+DELETECUTMSG(132, "deleteCutMsg", "删除插播消息"),
+CUTMSG(130, "cutMsg", "插播消息"),
+调用返回接口名：
+
+返回参数：
+
+[{"finishTime":0,"msgId":191,"msgStatus":"0"}]
+
+开始时间和结束时间你会写在返回对象里面的ExecuteTime  FinishTime
+
+
+GETDAYPROGRAM(133, "getDayProgram", "获取当天节目"),
+ [{"programId":86,"terminalIdentity":"72a45a74-1337-3ebf-85f7-71d8bee73564","timeQuantum":"00:00-23:00","type":0}]
+
+
+ 还有一个 不是有一个固件升级的功能吗？ 你安装成功了之后你要回调的  然后我会记录库的
+
+ INSTALL(134, "install", "远程APK"),
+
+ UPDATEFIRMWAREINFO(124, "updateFirmwareInfo", "更新固件信息"),
+ 然后返回的json是  {"appName":"appName1","packName":"com.fdfd.23432df.dsfasd","edition":"1.9.0"}
+ appName：名称   packName 包名   edition:版本号
+
+ 你调的都是通用接口

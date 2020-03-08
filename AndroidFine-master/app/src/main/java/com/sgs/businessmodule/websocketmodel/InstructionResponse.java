@@ -1,5 +1,7 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 public class InstructionResponse {
@@ -103,5 +105,19 @@ public class InstructionResponse {
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    @Override
+    public String toString() {
+        return "InstructionResponse{" +
+                "id=" + id +
+                ", result='" + result + '\'' +
+                ", receiveTime=" + receiveTime +
+                ", finishTime=" + finishTime +
+                ", status=" + status +
+                ", executeTime=" + executeTime +
+                ", times=" + times +
+                ", instructionType='" + instructionType + '\'' +
+                '}';
     }
 }

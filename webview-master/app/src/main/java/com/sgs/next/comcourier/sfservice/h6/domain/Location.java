@@ -215,8 +215,8 @@ public class Location implements Serializable {
     public static final ModelBuilder<Location> LOCATION_MODEL_BUILDER = new ModelBuilder<Location>() {
         @Override
         public Location buildModel(Cursor cursor) {
-          long id1 = readCursorLong(cursor, COL_ID);
-            // long id1 = readCursorBold(cursor, COL_ID);
+          //long id1 = readCursorLong(cursor, COL_ID);
+            long id1 = readCursorBold(cursor, COL_ID);
             String name1 = readCursorString(cursor, COL_NAME);
             LocationType type1 = readCursorEnum(cursor, LocationType.class, COL_TYPE);
             String cityCode1 = readCursorString(cursor, COL_CODE, null);

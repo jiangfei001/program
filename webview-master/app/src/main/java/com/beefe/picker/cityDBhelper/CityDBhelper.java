@@ -17,7 +17,7 @@ import java.io.InputStream;
 
 public class CityDBhelper extends SQLiteOpenHelper {
     private final String DB_HELP_TAG = "DBhelp";
-    public static final String DB_NAME = "gat.db"; // 数据库名称
+    public static final String DB_NAME = "gat1.db"; // 数据库名称
     private static final int version = 1; // 数据库版本
 
     public static String PACKAGE_NAME = "com.example.app"; //
@@ -66,7 +66,7 @@ public class CityDBhelper extends SQLiteOpenHelper {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        if (copyRawData(R.raw.gat, DB_PATH + "/" + DB_NAME)) {
+        if (copyRawData(R.raw.gat1, DB_PATH + "/" + DB_NAME)) {
             SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DB_PATH + "/" + DB_NAME, null);
             return database;
         } else {

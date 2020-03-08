@@ -68,6 +68,12 @@ public class GETDAYPROGRAM extends TVTask {
             proListVo.setType(0);
             responseEntity1.add(proListVo);
         }
-        responseEntity.setResult(com.alibaba.fastjson.JSON.toJSONString(responseEntity1));
+
+        String reEnti = com.alibaba.fastjson.JSON.toJSONString(responseEntity1);
+        Log.e(TAG, reEnti);
+        
+        responseEntity.setResult(reEnti);
     }
+
+    public String TAG = this.getClass().getName();
 }

@@ -236,11 +236,12 @@ public class ProgramScheduledManager {
         PublicationPlanVo publicationPlanVo = JSON.parseObject(publicationPlanJson, new TypeReference<PublicationPlanVo>() {
         });
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date deadLineV = null;
         try {
             //过期的要删除
             deadLineV = df.parse(publicationPlanVo.getDeadlineV());
+            Log.e("deadLineV","deadLineV"+deadLineV);
             if (deadLineV.getTime() < System.currentTimeMillis()) {
                 delToDB(response);
                 if (iterator != null) {

@@ -12,7 +12,7 @@ public class DeviceUtil {
     private DeviceUtil() {
     }
 
-    public static final String SERVICES_DATABASE_NAME = "gat.db";
+    public static final String SERVICES_DATABASE_NAME = "gat1.db";
 
     private static File serviceDatabaseFile;
 

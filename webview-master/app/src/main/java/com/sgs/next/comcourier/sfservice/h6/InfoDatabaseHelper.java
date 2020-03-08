@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.sgs.next.comcourier.sfservice.fourlevel.LogUtils;
 import com.sgs.next.comcourier.sfservice.fourlevel.StringUtils;
 import com.sgs.next.comcourier.sfservice.h6.domain.Location;
@@ -235,8 +236,6 @@ public class InfoDatabaseHelper {
     }
 
 
-
-
     public Location loadLocationsByParentIdAndName(long parentId, String name) {
         SQLiteDatabase database = getDatabase();
         Cursor cursor = Location.QUERY_LOAD_LOCATIONS_BY_PARENT_ID_AND_NAME.execute(database, valueOf(parentId), "%" + name + "%");
@@ -275,7 +274,6 @@ public class InfoDatabaseHelper {
 //    }
 
 
-
 ////    public boolean isUseNewCashierAccount() {
 //        String nowTime = formatToYMD(now());
 //        boolean isUseNewCashier = false;
@@ -302,7 +300,6 @@ public class InfoDatabaseHelper {
 //            return new ArrayList<MatrixProductFlow>();
 //        }
 //    }
-
 
 
     public boolean updateTableVersion(String tableName, String areaCode, int fileVersion, String fileMd5) {
@@ -341,4 +338,85 @@ public class InfoDatabaseHelper {
         }
         return false;
     }
+
+
+    public static void main(String[] args) {
+        Gson gson = new Gson();
+        H5UserInfo h5DataBean = new H5UserInfo("120929", "asdf", "123123123", "755A", "755", "jiang");
+
+        System.out.println(gson.toJson(new H5DataBean<H5UserInfo>(true, h5DataBean)));
+
+
+        H5TokenBean h5DataBean1 = new H5TokenBean("1gasgasdf3asdf");
+
+        System.out.println(gson.toJson(new H5DataBean<H5TokenBean>(true, h5DataBean1)));
+    }
+
+    public static class H5TokenBean {
+        private String token;
+
+        public H5TokenBean(String token) {
+            this.token = token;
+        }
+
+        @Override
+        public String toString() {
+            return "H5TokenBean{" +
+                    "token='" + token + '\'' +
+                    '}';
+        }
+    }
+
+
+    public static class H5UserInfo {
+        private String id;//用户编号(userId,对应res_user表里的id,对应u_user表里的resourceId)
+        private String userName;//工号
+        private String mobile;//手机号
+        private String netCode;//网点代码
+        private String areaCode;//大区代码
+        private String fullName;//客户名
+
+        public H5UserInfo(String id, String userName, String mobile, String netCode, String areaCode, String fullName) {
+            this.id = id;
+            this.userName = userName;
+            this.mobile = mobile;
+            this.netCode = netCode;
+            this.areaCode = areaCode;
+            this.fullName = fullName;
+        }
+
+        @Override
+        public String toString() {
+            return "H5UserInfo{" +
+                    "id='" + id + '\'' +
+                    ", userName='" + userName + '\'' +
+                    ", mobile='" + mobile + '\'' +
+                    ", netCode='" + netCode + '\'' +
+                    ", areaCode='" + areaCode + '\'' +
+                    ", fullName='" + fullName + '\'' +
+                    '}';
+        }
+    }
+
+    public static class H5DataBean<T> {
+
+        private boolean success;
+
+        private T data;
+
+        public H5DataBean(boolean success, T data) {
+            this.data = data;
+            this.success = success;
+        }
+
+        @Override
+        public String toString() {
+            return "H5DataBean{" +
+                    "success=" + success +
+                    ", Data=" + data +
+                    '}';
+        }
+    }
+
+
 }

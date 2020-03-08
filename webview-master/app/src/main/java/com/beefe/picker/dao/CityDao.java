@@ -49,13 +49,15 @@ public class CityDao {
             PriBean priBean = new PriBean();
             priBean.city = new LinkedList<CityBean>();
             allBean.PriBeans.add(priBean);
-           /* byte[] b = cursor.getBlob(0);
-              Log.e("getBlob",b.toString());
-            String code = new String(b); */
-            String code = cursor.getString(0);
-            /*  Log.e("getBlob", b.toString());*/
+
+            byte[] b = cursor.getBlob(0);
+            String code = new String(b);
+
             priBean.name = cursor.getString(1);
+            String name = priBean.name;
+
             Log.e("pribean", priBean.name);
+
             selectCity(code, db, priBean.city);
         }
         cursor.close();
@@ -75,11 +77,18 @@ public class CityDao {
             CityBean bean = new CityBean();
             cb.add(bean);
             bean.area = new LinkedList<>();
-   /*         byte[] b = cursor.getBlob(0);*/
+            /*         byte[] b = cursor.getBlob(0);*/
             /* Log.e("getBlob",b.toString());*/
 
-            String code = cursor.getString(0);//这个却没有报错
+            /* String code = cursor.getString(0);//这个却没有报错*/
+
+            byte[] b = cursor.getBlob(0);
+            String code = new String(b);
+
             bean.name = cursor.getString(1);
+            Log.e("d", "city:" + code + "code" + bean.name);
+
+
             selectDistrict(code, db, bean.area);
         }
     }
@@ -93,6 +102,7 @@ public class CityDao {
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             String name = cursor.getString(1);
+            Log.e("qu", name);
             areas.add(name);
         }
     }

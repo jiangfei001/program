@@ -222,7 +222,7 @@ public class PriorityTimeTask<T extends MyTask> {
                     deadLineV = df.parse(publicationPlanVo.getDeadlineV());
                     Log.e(TAG, "播放过程中deadLineV。。。" + publicationPlanVo.getDeadlineV());
                     if (deadLineV.getTime() < System.currentTimeMillis()) {
-                        Log.e(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV());
+                        Log.e(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()" + deadLineV.getTime());
                     } else {
                         for (int t = 0; t < progarmPalyPlan.size(); t++) {
                             ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);

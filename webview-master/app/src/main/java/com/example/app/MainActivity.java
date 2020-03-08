@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
                 String sb = g.toJson(cb);
                 Log.e("cb", "cb" + sb);
 
-                for (int i = 0; i < cb.PriBeans.size(); i++) {
+               /* for (int i = 0; i < cb.PriBeans.size(); i++) {
                     PriBean dc = cb.PriBeans.get(i);
                     for (int t = 0; t < dc.city.size(); t++) {
                         com.beefe.picker.cityBean.CityBean bc = dc.city.get(t);
@@ -57,16 +57,13 @@ public class MainActivity extends Activity {
                             String b = bc.area.get(dt);
                             LinkedList arrayList = new LinkedList();
                             arrayList.add(dc.name);
-                            arrayList.add(bc.name);
                             arrayList.add(b);
-                            Log.e("BB", dc.name);
-                            String att = FourlevelAddressUtil.splitAddressFuzzy1(arrayList);
-                            Log.e("KK", att);
+                            Log.e("sheng", dc.name);
                         }
                     }
-                }
+                }*/
 
-                String[] att = FourlevelAddressUtil.splitAddressFuzzy("香港特别行政区香港特别行政区湾仔区灣仔軒尼詩道226號",true);
+                String[] att = FourlevelAddressUtil.splitAddressFuzzy("四川省成都市成都高新西区西源大道1899号华为成都研究所华为成都研究所U8",true);
                 Log.e("BB", att.toString());
 
             }

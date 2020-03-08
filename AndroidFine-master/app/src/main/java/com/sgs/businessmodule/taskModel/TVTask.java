@@ -75,6 +75,8 @@ public abstract class TVTask extends BasicTask {
             long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
             responseEntity.setTimes(between);
 
+            Log.e("ReSult", "url:" + AppUrl.callbackUrl + "Entity:" + responseEntity.toString()+"chabo:");
+
             HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
                 @Override
                 public void onSuccess(MyApiResponse response) {
