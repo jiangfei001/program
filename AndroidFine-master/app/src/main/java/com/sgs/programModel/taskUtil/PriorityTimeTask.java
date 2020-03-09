@@ -166,27 +166,12 @@ public class PriorityTimeTask<T extends MyTask> {
 
     public synchronized boolean doneLooper(List<T> tasklist, PRI isPri) {
         Log.e(TAG, "doneLooper tasklist：" + tasklist.size() + "isPri:" + isPri);
-        if (isPri == PRI.TASK_NOR) {
-            if (tasklist.size() > cursor) {
-            } else {
-                cursor = 0;
-            }
-        } else if (isPri == PRI.TASK_PRI) {
-            if (tasklist.size() > priorsCursor) {
-            } else {
-                priorsCursor = 0;
-            }
-        } else if (isPri == PRI.TASK_D) {
-            if (tasklist.size() > dcursor) {
-            } else {
-                dcursor = 0;
-            }
-        }
-
+        checkCursor(tasklist, isPri);
         long mNowtime = System.currentTimeMillis();
         //循环开始为游标的位置，循环所有任务的大小，游标等于列表的大小时，游标记录为0
         for (int i = 0; i < tasklist.size(); i++) {
             T mTask = null;
+            checkCursor(tasklist, isPri);
             if (isPri == PRI.TASK_NOR) {
                 mTask = tasklist.get(cursor);
                 cursor++;
@@ -220,9 +205,9 @@ public class PriorityTimeTask<T extends MyTask> {
                 try {
                     //如果此时的节目要跳过
                     deadLineV = df.parse(publicationPlanVo.getDeadlineV());
-                    Log.e(TAG, "播放过程中deadLineV。。。" + publicationPlanVo.getDeadlineV());
+                    Log.d(TAG, "播放过程中deadLineV。。。" + publicationPlanVo.getDeadlineV());
                     if (deadLineV.getTime() < System.currentTimeMillis()) {
-                        Log.e(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()" + deadLineV.getTime());
+                        Log.d(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()" + deadLineV.getTime());
                     } else {
                         for (int t = 0; t < progarmPalyPlan.size(); t++) {
                             ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
@@ -246,6 +231,25 @@ public class PriorityTimeTask<T extends MyTask> {
         }
 
         return false;
+    }
+
+    private void checkCursor(List<T> tasklist, PRI isPri) {
+        if (isPri == PRI.TASK_NOR) {
+            if (tasklist.size() > cursor) {
+            } else {
+                cursor = 0;
+            }
+        } else if (isPri == PRI.TASK_PRI) {
+            if (tasklist.size() > priorsCursor) {
+            } else {
+                priorsCursor = 0;
+            }
+        } else if (isPri == PRI.TASK_D) {
+            if (tasklist.size() > dcursor) {
+            } else {
+                dcursor = 0;
+            }
+        }
     }
 
     public boolean isRuning = false;
