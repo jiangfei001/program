@@ -15,6 +15,7 @@ import com.sgs.programModel.entity.ProListVo;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalyPlan;
 import com.sgs.programModel.entity.PublicationPlanVo;
+import com.uiModel.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -136,7 +137,7 @@ public class SendToServerUtil {
         hashMap.put("terminalProgramEntity", com.alibaba.fastjson.JSON.toJSONString(terminalProgramEntity));
         hashMap.put("type", type);
         hashMap.put("daylist", com.alibaba.fastjson.JSON.toJSONString(daylist));
-
+        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(AppContext.getInstance()));
 
         HttpClient.postHashMapEntity(AppUrl.addTerminalProgramListUrl, hashMap, new MyHttpResponseHandler() {
             @Override
