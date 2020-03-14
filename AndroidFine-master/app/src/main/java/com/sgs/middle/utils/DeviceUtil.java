@@ -506,10 +506,12 @@ public class DeviceUtil {
     public static String getUniqueID(Context context) {
         String id = null;
         final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.e(TAG, "androidId:" + androidId);
         if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
             try {
                 UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
                 id = uuid.toString();
+                Log.e(TAG, "id1:" + id);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -517,9 +519,12 @@ public class DeviceUtil {
 
         if (TextUtils.isEmpty(id)) {
             id = getUUIDT();
+            Log.e(TAG, "id2:" + id);
         }
 
-        return TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
+        String uid = TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
+        Log.e(TAG, "ids3:" + id);
+        return uid;
     }
 
     @SuppressLint("MissingPermission")

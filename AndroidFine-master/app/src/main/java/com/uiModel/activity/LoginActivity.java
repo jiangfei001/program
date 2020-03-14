@@ -85,91 +85,7 @@ public class LoginActivity extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-
-                        String s_test = "_test";
-                        int id = radioButton.getCheckedRadioButtonId();
-                        if (id == R.id.jia) {
-                            s_test = "_test";
-                        } else {
-                            s_test = "";
-                        }
-
-                        AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim(), s_test);
-
-                        final HashMap hashMap = new HashMap();
-
-                        hashMap.put("userName", yonghuming.getText().toString());
-
-                        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
-
-                        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : DeviceUtil.getUniqueID(LoginActivity.this));
-                        //应用版本号
-                        hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
-                        //局域网IP地址
-                        hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
-        /*        //网关IP地址/
-                hashMap.put("gatewayIp", DeviceUtil.getNetIp());*/
-                        //mac地址
-                        hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
-                        //分辨率
-                        hashMap.put("resolution", DeviceUtil.getDisplayMetricsPixels(LoginActivity.this));
-                        //固件信息
-                        hashMap.put("firmwareInfo", DeviceUtil.getPhoneBrand() + "BuildLevel" + DeviceUtil.getBuildLevel());
-                        //CPU ID
-                        hashMap.put("cpuId", DeviceUtil.getCPU());
-                        //系统编号
-                        hashMap.put("systemNo", DeviceUtil.getBuildVersion());
-                        //设备身份编码
-                        hashMap.put("equipmentNo", DeviceUtil.getUniqueID(LoginActivity.this));
-                        //设备序列号
-                        hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial(LoginActivity.this));
-                        //磁盘物理路径
-                        hashMap.put("physicalPath", DeviceUtil.getDir());
-                        //磁盘大小
-                        hashMap.put("diskSize", DeviceUtil.getDeviceTotalRam());
-                        //磁盘剩余大小
-                        hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
-                        //最近连接时间
-                        hashMap.put("recentConnectTime", "");
-                        //地址
-                        hashMap.put("address", AppContext.getInstance().addr);
-
-                        hashMap.put("gatewayIp", DeviceUtil.getNetIp());
-
-                        Log.e("HashMap", hashMap.toString());
-
-                        HttpClient.postHashMapEntity(AppUrl.serverUrlAddMuTerminal, hashMap, new
-                                MyHttpResponseHandler() {
-                                    @Override
-                                    public void onSuccess(final MyApiResponse response) {
-                                        Log.e("tag", "response.msg ");
-                                        Handler handler1 = new Handler(Looper.getMainLooper());
-                                        handler1.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if (response.code.equals("0")) {
-                                                    SharedPreferences.getInstance().putBoolean(SharedPreferences.KEY_ISREGISTER, true);
-                                                    Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
-                                                } else {
-                                                    Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onFailure(Request request, Exception e) {
-                                        e.printStackTrace();
-                                        Log.e("tag", "onFailure.msg ");
-                                        Handler handler1 = new Handler(Looper.getMainLooper());
-                                        handler1.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Toast.makeText(LoginActivity.this, "对不起，注册失败", Toast.LENGTH_LONG).show();
-                                            }
-                                        });
-                                    }
-                                });
+                        zhuce(radioButton, socketip, jiekouip, yonghuming, shebeiName);
                     }
                 }).start();
             }
@@ -179,7 +95,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                String s_test = "_test";
+                /*String s_test = "_test";
                 int id = radioButton.getCheckedRadioButtonId();
                 if (id == R.id.jia) {
                     s_test = "_test";
@@ -189,10 +105,118 @@ public class LoginActivity extends Activity {
 
                 AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim(), s_test);
                 AppContext.getInstance().userName = yonghuming.getText().toString();
-                doNavigation();
+                doNavigation();*/
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        zhuce(radioButton, socketip, jiekouip, yonghuming, shebeiName);
+                    }
+                }).start();
+
             }
         });
         initPermission();
+    }
+
+    private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip, final EditText yonghuming, EditText shebeiName) {
+        String s_test = "_test";
+        int id = radioButton.getCheckedRadioButtonId();
+        if (id == R.id.jia) {
+            s_test = "_test";
+        } else {
+            s_test = "";
+        }
+        AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim(), s_test);
+
+        final HashMap hashMap = new HashMap();
+
+        hashMap.put("userName", yonghuming.getText().toString());
+
+        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
+
+        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : DeviceUtil.getUniqueID(LoginActivity.this));
+        //应用版本号
+        hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
+        //局域网IP地址
+        hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
+        /*        //网关IP地址/
+                hashMap.put("gatewayIp", DeviceUtil.getNetIp());*/
+        //mac地址
+        hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
+        //分辨率
+        hashMap.put("resolution", DeviceUtil.getDisplayMetricsPixels(LoginActivity.this));
+        //固件信息
+        hashMap.put("firmwareInfo", DeviceUtil.getPhoneBrand() + "BuildLevel" + DeviceUtil.getBuildLevel());
+        //CPU ID
+        hashMap.put("cpuId", DeviceUtil.getCPU());
+        //系统编号
+        hashMap.put("systemNo", DeviceUtil.getBuildVersion());
+        //设备身份编码
+        hashMap.put("equipmentNo", DeviceUtil.getUniqueID(LoginActivity.this));
+        //设备序列号
+        hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial(LoginActivity.this));
+        //磁盘物理路径
+        hashMap.put("physicalPath", DeviceUtil.getDir());
+        //磁盘大小
+        hashMap.put("diskSize", DeviceUtil.getDeviceTotalRam());
+        //磁盘剩余大小
+        hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
+        //最近连接时间
+        hashMap.put("recentConnectTime", "");
+        //地址
+        hashMap.put("address", AppContext.getInstance().addr);
+
+        hashMap.put("gatewayIp", DeviceUtil.getNetIp());
+
+        Log.e("HashMap", hashMap.toString());
+
+        HttpClient.postHashMapEntity(AppUrl.serverUrlAddMuTerminal, hashMap, new
+                MyHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(final MyApiResponse response) {
+                        Log.e("tag", "response.msg ");
+                        final Handler handler1 = new Handler(Looper.getMainLooper());
+                        handler1.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (response.code.equals("0")) {
+                                    SharedPreferences.getInstance().putBoolean(SharedPreferences.KEY_ISREGISTER, true);
+                                    Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
+                                    handler1.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            AppContext.getInstance().userName = yonghuming.getText().toString();
+                                            doNavigation();
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                    handler1.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            AppContext.getInstance().userName = yonghuming.getText().toString();
+                                            doNavigation();
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Request request, Exception e) {
+                        e.printStackTrace();
+                        Log.e("tag", "onFailure.msg ");
+                        Handler handler1 = new Handler(Looper.getMainLooper());
+                        handler1.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "对不起，注册失败", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                    }
+                });
     }
 
 

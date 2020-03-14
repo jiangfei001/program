@@ -23,8 +23,8 @@ public class AppUrl {
     public static String jiekouIP = "49.235.109.237:9090";
 
     /*public static String socketIP = "49.235.109.237:9080";
-    public static String jiekouIP = "xinlianchuangmei.com";*/
-
+    public static String jiekouIP = "xinlianchuangmei.com";
+*/
 
     //  public static String jiekouIP = "http://xinlianchuangmei.com/";
 

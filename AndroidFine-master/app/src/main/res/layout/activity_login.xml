@@ -252,6 +252,7 @@
             android:layout_marginTop="30.0dip"
             android:layout_marginRight="18.0dip"
             android:background="@drawable/btn_bg_gray"
+            android:visibility="gone"
             android:text="注册"
             android:textColor="#ffffffff"
             android:textSize="18.0sp" />
