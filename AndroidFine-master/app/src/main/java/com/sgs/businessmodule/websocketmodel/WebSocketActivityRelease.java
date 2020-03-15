@@ -404,28 +404,27 @@ public class WebSocketActivityRelease extends EventActivity {
                 Map event1 = mEvent.getParams();
                 musicList = (List<ProgramResource>) event1.get(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC);
                 //reset播放
+                boolean isPlay = false;
+                try {
+                    if (mediaPlayer != null) {
+                        isPlay = mediaPlayer.isPlaying();
+                    }
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, "这个节目有音乐isPlay" + isPlay);
+                if (mediaPlayer != null && isPlay) {
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
                 if (musicList != null && musicList.size() > 0) {
                     Log.d(TAG, "这个节目有音乐" + musicList.size());
-
-                    boolean isPlay = false;
-                    try {
-                        isPlay = mediaPlayer.isPlaying();
-                    } catch (IllegalStateException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d(TAG, "这个节目有音乐isPlay" + isPlay);
-                    if (mediaPlayer != null && isPlay) {
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                        mediaPlayer = null;
-                    }
-                    mediaPlayer = null;
                     mediaPlayer = new MediaPlayer();
                     initMediaPlayer();
                     setComp();
                 } else {
                     Log.e(TAG, "这个节目没有音乐要播放的");
-                    mediaPlayer = null;
                 }
                 break;
             case EVENT_TEST_SETCUTMSG:
