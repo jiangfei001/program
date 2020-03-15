@@ -355,15 +355,40 @@ public class WebSocketActivityRelease extends EventActivity {
                 HashMap<EventEnum, Object> hashMap = mEvent.getParams();
                 boolean isPlayMusic = (boolean) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC);
                 String path = (String) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH);
+                Log.e(TAG, "isPlayMusic:" + isPlayMusic);
                 if (isPlayMusic) {
-                    //控制音乐的播放与暂停
-                    if (!mediaPlayer.isPlaying()) {
-                        mediaPlayer.start();
-                    } else {
-                        //pause
-                        if (mediaPlayer.isPlaying()) {
-                            mediaPlayer.pause();
+                    //需要播放，则开始播放
+                    Log.e(TAG, "这个场景需要播放音乐");
+                    try {
+                        if (mediaPlayer == null) {
+                            mediaPlayer = new MediaPlayer();
                         }
+                        boolean isplay = false;
+                        try {
+                            isplay = mediaPlayer.isPlaying();
+                        } catch (IllegalStateException e) {
+                            e.printStackTrace();
+                        }
+                        if (!isplay && (musicList != null && musicList.size() > 0)) {
+                            Log.e(TAG, "音乐开始执行");
+                            mediaPlayer.start();
+                        }
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    //不需要播放，则要暂停播放
+                    Log.e(TAG, "这个场景不需要播放音乐");
+                    try {
+                        if (mediaPlayer != null) {
+                            Log.e(TAG, "isPlayMusic:pause2" + mediaPlayer.isPlaying());
+                            if (mediaPlayer.isPlaying()) {
+                                Log.e(TAG, "isPlayMusic:pause3");
+                                mediaPlayer.pause();
+                            }
+                        }
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
                     }
                 }
                 Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
@@ -380,14 +405,27 @@ public class WebSocketActivityRelease extends EventActivity {
                 musicList = (List<ProgramResource>) event1.get(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC);
                 //reset播放
                 if (musicList != null && musicList.size() > 0) {
-                    mediaPlayer.reset();
+                    Log.d(TAG, "这个节目有音乐" + musicList.size());
+
+                    boolean isPlay = false;
+                    try {
+                        isPlay = mediaPlayer.isPlaying();
+                    } catch (IllegalStateException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d(TAG, "这个节目有音乐isPlay" + isPlay);
+                    if (mediaPlayer != null && isPlay) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
+                    mediaPlayer = null;
+                    mediaPlayer = new MediaPlayer();
                     initMediaPlayer();
                     setComp();
                 } else {
-                    if (mediaPlayer != null) {
-                        mediaPlayer.stop();
-                        mediaPlayer.release();
-                    }
+                    Log.e(TAG, "这个节目没有音乐要播放的");
+                    mediaPlayer = null;
                 }
                 break;
             case EVENT_TEST_SETCUTMSG:
@@ -583,10 +621,15 @@ public class WebSocketActivityRelease extends EventActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                Log.e(TAG, "音乐播放完成");
+                if (musicList == null || musicList.size() <= 0) {
+                    return;
+                }
                 musicindex = musicindex + 1;
                 if (musicindex >= musicList.size()) {
                     musicindex = 0;
                 }
+                Log.e(TAG, "开始播放音乐序号为" + musicindex + "总共的音乐数目为：" + musicList.size());
                 initMediaPlayer();
                 mediaPlayer.start();
             }

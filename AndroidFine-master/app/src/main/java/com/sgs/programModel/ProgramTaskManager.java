@@ -36,28 +36,39 @@ public class ProgramTaskManager {
 
     public String TAG = "ProgramTaskManager";
 
+    //接受task的返回
     TimeHandler<MyTask> timeHandler = new TimeHandler<MyTask>() {
         @Override
         public void exeTask(MyTask mTask) {
             handler.removeMessages(1);
-            //通知webview进行播放
+            //通知webview进行播放 整个节目
             Log.e(TAG, "我是现在真正执行" + mTask.name);
             nowMyTask = mTask;
             //控制html的播放时长
             nowProgarmPalyInstructionVo = mTask.getProgarmPalyInstructionVo();
+            //获取所有的场景
             nowProgarmPalySceneVos = JSON.parseArray(nowProgarmPalyInstructionVo.getSceneList(), ProgarmPalySceneVo.class);
             if (nowProgarmPalySceneVos != null && nowProgarmPalySceneVos.size() > 0) {
                 //通知播放 控制播放时间
-                //通知播放音乐
+                //将音乐丢给前端进行循环播放
                 if (nowProgarmPalyInstructionVo.getProgramMusicListArray() != null && nowProgarmPalyInstructionVo.getProgramMusicListArray().size() > 0) {
+                    Log.e(TAG, "音乐" + nowProgarmPalyInstructionVo.getProgramMusicListArray().size() + "size");
                     Event event = new Event();
                     HashMap<EventEnum, Object> params = new HashMap();
                     params.put(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC, nowProgarmPalyInstructionVo.getProgramMusicListArray());
                     event.setParams(params);
                     event.setId(EventEnum.EVENT_TEST_SETMUSIC);
                     EventBus.getDefault().post(event);
+                } else {
+                    //清空背景音乐
+                    Log.e(TAG, "音乐清空" + nowProgarmPalyInstructionVo.getProgramMusicListArray() + "");
+                    Event event = new Event();
+                    HashMap<EventEnum, Object> params = new HashMap();
+                    params.put(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC, null);
+                    event.setParams(params);
+                    event.setId(EventEnum.EVENT_TEST_SETMUSIC);
+                    EventBus.getDefault().post(event);
                 }
-
                 startRunScence();
             }
         }
