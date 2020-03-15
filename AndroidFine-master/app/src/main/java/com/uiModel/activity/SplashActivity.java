@@ -1,8 +1,12 @@
 package com.uiModel.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -16,6 +20,9 @@ import com.jf.fine.R;
 import com.yuzhi.fine.ui.UIHelper;
 import com.yuzhi.fine.ui.viewpagerindicator.CirclePageIndicator;
 import com.sgs.middle.utils.SharedPreferences;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tiansj on 15/7/29.
@@ -33,29 +40,53 @@ public class SplashActivity extends FragmentActivity {
             R.drawable.newer04
     };
 
+    String[] permissions = new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    List<String> mPermissionList = new ArrayList<>();
+
+    private static final int PERMISSION_REQUEST = 1;
+
+    private void initPermission() {
+        mPermissionList.clear();
+        /**
+         * 判断哪些权限未授予
+         */
+        for (int i = 0; i < permissions.length; i++) {
+            if (ContextCompat.checkSelfPermission(this, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+                mPermissionList.add(permissions[i]);
+            }
+        }
+        /**
+         * 判断是否为空
+         */
+        if (mPermissionList.isEmpty()) {//未授予的权限为空，表示都授予了
+            UIHelper.showLogin(SplashActivity.this);
+            finish();
+        } else {//请求权限方法
+            String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
+            ActivityCompat.requestPermissions(SplashActivity.this, permissions, PERMISSION_REQUEST);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    initPermission();
+                }
+            }, 2000);
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         final boolean firstTimeUse = SharedPreferences.getInstance().getBoolean("first-time-use", true);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(firstTimeUse) {
-                    Animation fadeOut = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.fadeout);
-                    fadeOut.setFillAfter(true);
-                    findViewById(R.id.guideImage).startAnimation(fadeOut);
-                    initGuideGallery();
-                } else {
-                    UIHelper.showHome(SplashActivity.this);
-                }
-            }
-        }, 2000);
+
+
+        initPermission();
     }
 
     private void initGuideGallery() {
-        final Animation fadeIn= AnimationUtils.loadAnimation(this, R.anim.fadein);
+        final Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
         btnHome = (Button) findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override

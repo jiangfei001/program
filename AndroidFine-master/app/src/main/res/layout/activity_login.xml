@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18.0dip"
-            android:layout_marginTop="200.0dip"
+            android:layout_marginTop="100.0dip"
             android:layout_marginRight="18.0dip"
             android:background="@drawable/login_rect_white">
 
@@ -261,9 +261,9 @@
             android:id="@+id/btnClose"
             android:layout_width="20.0dip"
             android:layout_height="20.0dip"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/register"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40.0dip"
+            android:layout_marginTop="40.0dip"
             android:background="@drawable/login_close" />
 
     </RelativeLayout>

@@ -28,7 +28,7 @@
 		android:visibility="gone"
 		android:layout_width="140dp"
 		android:layout_height="40dp"
-		android:background="@drawable/btn_orange"
+		android:background="@drawable/house_background_1"
 		android:text="立即找房"
 		android:textSize="@dimen/text_size_18"
 		android:textColor="@color/white"
@@ -41,6 +41,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:scaleType="centerCrop"
-		android:src="@drawable/newer04" />
+		android:src="@drawable/house_background_1" />
 
 </RelativeLayout>

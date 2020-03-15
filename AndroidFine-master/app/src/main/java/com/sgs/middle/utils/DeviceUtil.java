@@ -35,6 +35,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.sgs.AppContext;
+import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,10 +56,12 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -272,26 +275,6 @@ public class DeviceUtil {
     }
 
 
-    /**
-     * 获取巴枪IMEI
-     *
-     * @param context
-     * @return
-     */
-    @SuppressLint("MissingPermission")
-    public static String getIMEI(Context context) {
-        try {
-            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (tm == null) {
-                return "";
-            }
-            return tm.getDeviceId();
-        } catch (Exception e) {
-            Log.e(TAG, "Get IMEI error");
-        }
-        return "";
-    }
-
     public static boolean checkPermission(Context context, String permission) {
         boolean ret = false;
         try {
@@ -303,23 +286,6 @@ public class DeviceUtil {
         return ret;
     }
 
-
-    public static String getDeviceId(Context context) {
-        try {
-            String strIMEI = getIMEI(context);
-            if (strIMEI == null || strIMEI.equals("")) {
-                strIMEI = getIMSI(context);
-                if (strIMEI == null || strIMEI.equals("")) {
-                    return "";
-                }
-            }
-            String strTemp = strIMEI + strIMEI + strIMEI;
-            String strMd5 = MiscUtil.getMD5(strTemp.getBytes());
-            return strMd5;
-        } catch (Exception exception1) {
-        }
-        return "";
-    }
 
     /**
      * 获取设备宽度（px）
@@ -407,27 +373,6 @@ public class DeviceUtil {
     }
 
     /**
-     * 获取设备的唯一标识，deviceId
-     *
-     * @param context
-     * @return
-     */
-    public static String getDeviceId2(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            //没有权限则返回""
-            return "";
-        } else {
-            String deviceId = tm.getDeviceId();
-            if (deviceId == null) {
-                return "";
-            } else {
-                return deviceId;
-            }
-        }
-    }
-
-    /**
      * 获取巴枪Wifi mac地址
      *
      * @param context
@@ -503,7 +448,184 @@ public class DeviceUtil {
         return deviceId.toString();
     }
 
+    public static String sfter = "jffinecontextsp";
+    public static String uniqueid = "uniqueid";
+
+    public static String getDeviceId(Context context) {
+        StringBuilder sbDeviceId = new StringBuilder();
+
+        //获得设备默认IMEI（>=6.0 需要ReadPhoneState权限）
+        String imei = getIMEI(context);
+        //获得AndroidId（无需权限）
+        String androidid = getAndroidId(context);
+        //获得设备序列号（无需权限）
+        String serial = getSERIAL();
+        //获得硬件uuid（根据硬件相关属性，生成uuid）（无需权限）
+        String uuid = getDeviceUUID().replace("-", "");
+
+        //追加imei
+        if (imei != null && imei.length() > 0) {
+            sbDeviceId.append(imei);
+            sbDeviceId.append("|");
+        }
+        //追加androidid
+        if (androidid != null && androidid.length() > 0) {
+            sbDeviceId.append(androidid);
+            sbDeviceId.append("|");
+        }
+        //追加serial
+        if (serial != null && serial.length() > 0) {
+            sbDeviceId.append(serial);
+            sbDeviceId.append("|");
+        }
+        //追加硬件uuid
+        if (uuid != null && uuid.length() > 0) {
+            sbDeviceId.append(uuid);
+        }
+
+        //生成SHA1，统一DeviceId长度
+        if (sbDeviceId.length() > 0) {
+            try {
+                byte[] hash = getHashByString(sbDeviceId.toString());
+                String sha1 = bytesToHex(hash);
+                if (sha1 != null && sha1.length() > 0) {
+                    //返回最终的DeviceId
+                    return sha1;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        //如果以上硬件标识数据均无法获得，
+        //则DeviceId默认使用系统随机数，这样保证DeviceId不为空
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    //需要获得READ_PHONE_STATE权限，>=6.0，默认返回null
+    @SuppressLint("MissingPermission")
+    public static String getIMEI(Context context) {
+        try {
+            TelephonyManager tm = (TelephonyManager)
+                    context.getSystemService(Context.TELEPHONY_SERVICE);
+            return tm.getDeviceId();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获得设备的AndroidId
+     *
+     * @param context 上下文
+     * @return 设备的AndroidId
+     */
+    private static String getAndroidId(Context context) {
+        try {
+            return Settings.Secure.getString(context.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获得设备序列号（如：WTK7N16923005607）, 个别设备无法获取
+     *
+     * @return 设备序列号
+     */
+    private static String getSERIAL() {
+        try {
+            return Build.SERIAL;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 获得设备硬件uuid
+     * 使用硬件信息，计算出一个随机数
+     *
+     * @return 设备硬件uuid
+     */
+    private static String getDeviceUUID() {
+        try {
+            String dev = "3883756" +
+                    Build.BOARD.length() % 10 +
+                    Build.BRAND.length() % 10 +
+                    Build.DEVICE.length() % 10 +
+                    Build.HARDWARE.length() % 10 +
+                    Build.ID.length() % 10 +
+                    Build.MODEL.length() % 10 +
+                    Build.PRODUCT.length() % 10 +
+                    Build.SERIAL.length() % 10;
+            return new UUID(dev.hashCode(),
+                    Build.SERIAL.hashCode()).toString();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * 取SHA1
+     *
+     * @param data 数据
+     * @return 对应的hash值
+     */
+    private static byte[] getHashByString(String data) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
+            messageDigest.reset();
+            messageDigest.update(data.getBytes("UTF-8"));
+            return messageDigest.digest();
+        } catch (Exception e) {
+            return "".getBytes();
+        }
+    }
+
+    /**
+     * 转16进制字符串
+     *
+     * @param data 数据
+     * @return 16进制字符串
+     */
+    private static String bytesToHex(byte[] data) {
+        StringBuilder sb = new StringBuilder();
+        String stmp;
+        for (int n = 0; n < data.length; n++) {
+            stmp = (Integer.toHexString(data[n] & 0xFF));
+            if (stmp.length() == 1)
+                sb.append("0");
+            sb.append(stmp);
+        }
+        return sb.toString().toUpperCase(Locale.CHINA);
+    }
+
+
     public static String getUniqueID(Context context) {
+        //1 从sp中拿
+        SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
+        String spUniqueID = mContextSp.getString(uniqueid, "");
+        if (!StringUtil.isEmpty(spUniqueID)) {
+            Log.e(TAG, "找到了spUniqueID:" + spUniqueID);
+            FileHelper.putSDunique(spUniqueID);
+            return spUniqueID;
+        }
+        //2 从sd卡中拿
+        spUniqueID = FileHelper.getSDunique();
+        if (!StringUtil.isEmpty(spUniqueID)) {
+            Log.e(TAG, "找到了找到了fileUniqueID:" + spUniqueID);
+            //保存sp
+            SharedPreferences.Editor editor = mContextSp.edit();
+            editor.putString(uniqueid, spUniqueID);
+            editor.commit();
+            return spUniqueID;
+        }
+
         String id = null;
         final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.e(TAG, "androidId:" + androidId);
@@ -523,7 +645,17 @@ public class DeviceUtil {
         }
 
         String uid = TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
-        Log.e(TAG, "ids3:" + id);
+
+        //保存sd卡
+        Log.e(TAG, "保存spUniqueID:" + uid);
+        FileHelper.putSDunique(uid);
+
+        //保存sp
+        SharedPreferences.Editor editor = mContextSp.edit();
+        editor.putString(uniqueid, uid);
+        editor.commit();
+
+
         return uid;
     }
 

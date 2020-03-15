@@ -1,12 +1,19 @@
 package com.sgs.businessmodule.downloadModel.dbcontrol;
 
+import android.os.Environment;
+import android.util.Log;
+
 import com.sgs.AppContext;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 /**
@@ -18,6 +25,7 @@ import java.util.List;
  * @email 470508081@qq.com
  */
 public class FileHelper {
+    private static final String TAG = FileHelper.class.getName();
     private static String userID = "luffy";
     /*  private static String baseFilePath = Environment.getExternalStorageDirectory().toString()+ "/filedownloader";*/
 
@@ -26,6 +34,9 @@ public class FileHelper {
     private static String baseFilePath = baseFilePathFile.getPath();
 
     private static String dowloadFilePath = baseFilePath + "/" + userID + "/resources";
+
+    private static String uniqueIDPath = Environment.getExternalStorageDirectory().toString() + "/uniqueid/";
+
     /**
      * 下载文件的临时路径
      */
@@ -140,6 +151,92 @@ public class FileHelper {
         return iscopy;
     }
 
+    public static String uniqueidf = "/uniqueidf";
+
+    public static String getSDunique() {
+        Log.e(TAG, "开始找getSDunique:");
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File sdcardDir = Environment.getExternalStorageDirectory();
+            FileInputStream fis = null;
+            BufferedReader br = null;
+            try {
+                fis = new FileInputStream(sdcardDir.getCanonicalPath() + uniqueidf);
+                //  getCanonicalPath()返回的是标准的绝对路径
+                br = new BufferedReader(new InputStreamReader(fis));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
+                }
+                br.close();
+                Log.e(TAG, "在sdk卡中找到了getSDunique:" + sb.toString());
+                return sb.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fis != null) {
+                        fis.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (br != null) {
+                        br.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return "";
+        }
+        return "";
+    }
+
+    public static void putSDunique(String content) {
+        Log.e(TAG, "putSD保存uniquecontent:" + content);
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            Log.e(TAG, "putSDunique保存filUniqueID:" + content);
+            File sdcarDir = Environment.getExternalStorageDirectory();
+            OutputStreamWriter osw = null;
+            FileOutputStream fos = null;
+            BufferedWriter bw = null;
+            try {
+                fos = new FileOutputStream(sdcarDir.getCanonicalPath() + uniqueidf);
+                osw = new OutputStreamWriter(fos);
+                bw = new BufferedWriter(osw);
+                bw.write(content); // content为你需要写入的字符串
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fos != null) {
+                        fos.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (osw != null) {
+                        osw.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (bw != null) {
+                        bw.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
     public static void setUserID(String newUserID) {
         userID = newUserID;
         dowloadFilePath = baseFilePath + "/" + userID + "/resources";
@@ -149,8 +246,6 @@ public class FileHelper {
     public static String getUserID() {
         return userID;
     }
-
-    ;
 
     /**
      * 过滤附件ID中某些不能存在在文件名中的字符
