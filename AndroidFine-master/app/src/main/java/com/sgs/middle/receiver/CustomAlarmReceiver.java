@@ -5,10 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
+import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.programModel.ProgramScheduledManager;
+import com.sgs.programModel.SendToServerUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CustomAlarmReceiver extends BroadcastReceiver {
     /**
@@ -112,6 +118,24 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
             ProgramScheduledManager.getInstance().initAllProgramTask();
 
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    //获取昨天的日期之后，删除昨天数据库
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DATE, -1);
+                    String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                    List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByDate(yesterday);
+                    if (scenceReports != null) {
+                        Log.e(TAG, "scenceReports:" + scenceReports);
+                        SendToServerUtil.sendScenctToServer(scenceReports);
+                        ScenceReportRequestManager.getInstance().delByDate(yesterday);
+                    } else {
+
+                        Log.e(TAG, "scenceReports:" + null);
+                    }
+                }
+            }).start();
         }
 
     }

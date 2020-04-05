@@ -7,6 +7,8 @@ package com.sgs.programModel.entity;
  */
 public class ProgarmPalySceneVo {
 
+    private int sceneId;
+
     /**
      * html 名称
      */
@@ -53,10 +55,19 @@ public class ProgarmPalySceneVo {
         this.playTime = playTime;
     }
 
+    public int getSceneId() {
+        return sceneId;
+    }
+
+    public void setSceneId(int sceneId) {
+        this.sceneId = sceneId;
+    }
+
     @Override
     public String toString() {
         return "ProgarmPalySceneVo{" +
-                "html='" + html + '\'' +
+                "sceneId=" + sceneId +
+                ", html='" + html + '\'' +
                 ", playTime=" + playTime +
                 ", palyMusic=" + palyMusic +
                 '}';

@@ -75,10 +75,12 @@
 	},
 	"resolution": "1376*800",
 	"sceneList": [{
+	    "sceneId":123123,
 		"palyMusic": true,
 		"playTime": 15,
 		"html": "6b7a2959a4a5565f711e0906a59fa7c2.html"
 	}, {
+	    "sceneId":1231223,
 		"palyMusic": true,
 		"playTime": 20,
 		"html": "e4cccedc659e1d6d2883755952a62144.html"

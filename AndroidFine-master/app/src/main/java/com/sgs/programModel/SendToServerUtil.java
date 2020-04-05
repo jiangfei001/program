@@ -9,6 +9,7 @@ import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
+import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.entity.ProListVo;
@@ -231,4 +232,27 @@ public class SendToServerUtil {
         long timeDifference = endTime.getTime() - beginTime.getTime();
         return timeDifference / 1000;
     }
+
+
+    //当天节目全量接口
+    public static void sendScenctToServer(List<ScenceReport> scenceReports) {
+
+        if (scenceReports != null) {
+            Log.e(TAG, "sendScenctToServer:" + scenceReports.size());
+        } else {
+            Log.e(TAG, "sendScenctToServer:null");
+        }
+
+        HttpClient.postResponseList(AppUrl.addDayProgramList, (ArrayList) scenceReports, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
+    }
+
 }

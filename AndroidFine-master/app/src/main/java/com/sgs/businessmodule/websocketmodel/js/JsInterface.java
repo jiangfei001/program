@@ -19,6 +19,7 @@ public class JsInterface {
     @JavascriptInterface
     public void updateClickEventFromJs(String eventName, String eventJson) {
         Log.e("aa", "eventJson" + eventJson + "eventName" + eventName);
+        //记录埋点信息 日期
         Toast.makeText(mContext, eventName, Toast.LENGTH_SHORT).show();
     }
 

@@ -7,6 +7,8 @@ import android.os.Message;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
+import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
@@ -18,6 +20,8 @@ import com.sgs.programModel.taskUtil.TimeHandler;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -101,6 +105,25 @@ public class ProgramTaskManager {
         public void handleMessage(final Message msg) {
             int time1 = sendPlayHtml(nowscene);
             Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene + "time1" + time1);
+            //按日期保存更新场景id
+
+            String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+            ScenceReport scenceReport = ScenceReportRequestManager.getInstance().queryByDateAndScenceId(nowProgarmPalySceneVos.get(nowscene).getSceneId(), nowDate);
+            Log.e(TAG, "sendPlayHtml:scenceReport:" + scenceReport);
+
+            if (scenceReport == null) {
+                scenceReport = new ScenceReport();
+                scenceReport.setDateStr(nowDate);
+                scenceReport.setNumber(time1);
+                scenceReport.setCount(1);
+            } else {
+                Log.e(TAG, "time" + scenceReport.getNumber() + time1);
+                scenceReport.setNumber(scenceReport.getNumber() + time1);
+                scenceReport.setCount(scenceReport.getCount() + 1);
+            }
+            ScenceReportRequestManager.getInstance().saveInstructionRequest(scenceReport);
+
             if (++nowscene < nowProgarmPalySceneVos.size()) {
                 Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene);
             } else {

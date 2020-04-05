@@ -270,6 +270,7 @@ public class AppContext extends Application {
 
         //AlarmReceiver.class为广播接受者
         Intent intent = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
+        intent.setAction(CustomAlarmReceiver.ACTION_PLAYGRAME_INIT);
         PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), 0, intent, 0);
         //得到AlarmManager实例
         AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(ALARM_SERVICE);
