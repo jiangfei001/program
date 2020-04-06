@@ -12,25 +12,30 @@ public class ScenceReport {
      */
     @DatabaseField(generatedId = true)
     private int id;
-    //日期、场景 维度 来 记录  每天的场景播放次数和时间
+    //播放日期
     @DatabaseField
-    private String dateStr;
+    private String palyDate;
+    //节目名称
     @DatabaseField
-    private int number;
+    private String programName;
+    //场景名称
     @DatabaseField
-    private long time;
+    private String sceneName;
+    //场景ID
     @DatabaseField
-    private int scenceid;
+    private Integer sceneId;
+    //播放次数
     @DatabaseField
-    private int count;
-
-    public int getScenceid() {
-        return scenceid;
-    }
-
-    public void setScenceid(int scenceid) {
-        this.scenceid = scenceid;
-    }
+    private Integer palyNum;
+    //播放时长秒
+    @DatabaseField
+    private Integer palySecond;
+    @DatabaseField
+    //设备身份编码
+    private String terminalIdentity;
+    //设备名称
+    @DatabaseField
+    private String terminalName;
 
     public int getId() {
         return id;
@@ -40,47 +45,82 @@ public class ScenceReport {
         this.id = id;
     }
 
-
-    public int getNumber() {
-        return number;
+    public String getPalyDate() {
+        return palyDate;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setPalyDate(String palyDate) {
+        this.palyDate = palyDate;
     }
 
-    public long getTime() {
-        return time;
+    public String getProgramName() {
+        return programName;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setProgramName(String programName) {
+        this.programName = programName;
     }
 
-    public String getDateStr() {
-        return dateStr;
+    public String getSceneName() {
+        return sceneName;
     }
 
-    public void setDateStr(String dateStr) {
-        this.dateStr = dateStr;
+    public void setSceneName(String sceneName) {
+        this.sceneName = sceneName;
     }
 
-    public int getCount() {
-        return count;
+    public Integer getSceneId() {
+        return sceneId;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setSceneId(Integer sceneId) {
+        this.sceneId = sceneId;
+    }
+
+    public Integer getPalyNum() {
+        return palyNum;
+    }
+
+    public void setPalyNum(Integer palyNum) {
+        this.palyNum = palyNum;
+    }
+
+    public Integer getPalySecond() {
+        return palySecond;
+    }
+
+    public void setPalySecond(Integer palySecond) {
+        this.palySecond = palySecond;
+    }
+
+    public String getTerminalIdentity() {
+        return terminalIdentity;
+    }
+
+    public void setTerminalIdentity(String terminalIdentity) {
+        this.terminalIdentity = terminalIdentity;
+    }
+
+    public String getTerminalName() {
+        return terminalName;
+    }
+
+    public void setTerminalName(String terminalName) {
+        this.terminalName = terminalName;
     }
 
     @Override
     public String toString() {
         return "ScenceReport{" +
                 "id=" + id +
-                ", datdatestre=" + dateStr +
-                ", number=" + number +
-                ", time=" + time +
-                ", scenceid=" + scenceid +
+                ", palyDate='" + palyDate + '\'' +
+                ", programName='" + programName + '\'' +
+                ", sceneName='" + sceneName + '\'' +
+                ", sceneId=" + sceneId +
+                ", palyNum=" + palyNum +
+                ", palySecond=" + palySecond +
+                ", terminalIdentity='" + terminalIdentity + '\'' +
+                ", terminalName='" + terminalName + '\'' +
                 '}';
     }
 }

@@ -85,6 +85,19 @@ public class LoginActivity extends Activity {
 
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
 
+        radioButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int id = radioButton.getCheckedRadioButtonId();
+                if (id == R.id.jia) {
+                    socketip.setText(AppUrl.socketIPTest);
+                    jiekouip.setText(AppUrl.jiekouIPTest);
+                } else {
+                    socketip.setText(AppUrl.socketIP);
+                    jiekouip.setText(AppUrl.jiekouIP);
+                }
+            }
+        });
 
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,14 +140,15 @@ public class LoginActivity extends Activity {
     }
 
     private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip, final EditText yonghuming, EditText shebeiName) {
-        String s_test = "_test";
+        boolean s_test = false;
         int id = radioButton.getCheckedRadioButtonId();
         if (id == R.id.jia) {
-            s_test = "_test";
+            s_test = true;
         } else {
-            s_test = "";
+            s_test = false;
         }
-        AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim(), s_test);
+        //socketip.getText().toString().trim(), jiekouip.getText().toString().trim(),
+        AppUrl.initip(s_test);
 
         final HashMap hashMap = new HashMap();
 

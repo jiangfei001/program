@@ -21,6 +21,8 @@ public class ProgarmPalySceneVo {
 
     private boolean palyMusic;
 
+    private String sceneName;
+
     public ProgarmPalySceneVo() {
         super();
     }
@@ -63,6 +65,14 @@ public class ProgarmPalySceneVo {
         this.sceneId = sceneId;
     }
 
+    public String getSceneName() {
+        return sceneName;
+    }
+
+    public void setSceneName(String sceneName) {
+        this.sceneName = sceneName;
+    }
+
     @Override
     public String toString() {
         return "ProgarmPalySceneVo{" +
@@ -70,6 +80,7 @@ public class ProgarmPalySceneVo {
                 ", html='" + html + '\'' +
                 ", playTime=" + playTime +
                 ", palyMusic=" + palyMusic +
+                ", sceneName='" + sceneName + '\'' +
                 '}';
     }
 }

@@ -11,12 +11,14 @@ import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportReque
 import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
+import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalySceneVo;
 import com.sgs.programModel.taskUtil.MyTask;
 import com.sgs.programModel.taskUtil.PRI;
 import com.sgs.programModel.taskUtil.PriorityTimeTask;
 import com.sgs.programModel.taskUtil.TimeHandler;
+import com.uiModel.activity.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -114,13 +116,20 @@ public class ProgramTaskManager {
 
             if (scenceReport == null) {
                 scenceReport = new ScenceReport();
-                scenceReport.setDateStr(nowDate);
-                scenceReport.setNumber(time1);
-                scenceReport.setCount(1);
+                scenceReport.setPalyDate(nowDate);
+                scenceReport.setPalySecond(time1);
+                scenceReport.setPalyNum(1);
+                scenceReport.setTerminalIdentity(DeviceUtil.getUniqueID(context));
+                scenceReport.setTerminalName(DeviceUtil.getUniqueID(context));
+                scenceReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
+                scenceReport.setSceneName(nowProgarmPalySceneVos.get(nowscene).getSceneName());
+                scenceReport.setSceneId(nowProgarmPalySceneVos.get(nowscene).getSceneId());
+                Log.e(TAG, "scenceReport:" + scenceReport.toString());
             } else {
-                Log.e(TAG, "time" + scenceReport.getNumber() + time1);
-                scenceReport.setNumber(scenceReport.getNumber() + time1);
-                scenceReport.setCount(scenceReport.getCount() + 1);
+                Log.e(TAG, "scenceReport:" + scenceReport.toString());
+                scenceReport.setPalySecond(scenceReport.getPalySecond() + time1);
+                scenceReport.setPalyNum(scenceReport.getPalyNum() + 1);
+                Log.e(TAG, "scenceReport:" + scenceReport.toString());
             }
             ScenceReportRequestManager.getInstance().saveInstructionRequest(scenceReport);
 
@@ -158,8 +167,11 @@ public class ProgramTaskManager {
     final String ACTION = "timeTask.action";
     private PriorityTimeTask<MyTask> myTaskTimeTask;
 
+    private Context context;
+
     ProgramTaskManager(Context context, LinkedList<ProgarmPalyInstructionVo> list, LinkedList<ProgarmPalyInstructionVo> priorslist, LinkedList<ProgarmPalyInstructionVo> dlist) {
         // TODO: 2017/11/8  创建一个任务处理器
+        this.context = context;
         myTaskTimeTask = new PriorityTimeTask<>(context, ACTION, handler);
 
         // TODO: 2017/11/8   添加时间回掉

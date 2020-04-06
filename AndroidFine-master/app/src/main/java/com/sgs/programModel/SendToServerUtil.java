@@ -242,8 +242,10 @@ public class SendToServerUtil {
         } else {
             Log.e(TAG, "sendScenctToServer:null");
         }
+        HashMap hashMap = new HashMap();
+        hashMap.put("repPalyProgramEntitys", scenceReports);
 
-        HttpClient.postResponseList(AppUrl.addDayProgramList, (ArrayList) scenceReports, new MyHttpResponseHandler() {
+        HttpClient.postHashMapEntity(AppUrl.addRepPalyProgramList, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
                 Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
