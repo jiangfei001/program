@@ -75,8 +75,8 @@ public class LoginActivity extends Activity {
         final EditText socketip = findViewById(R.id.socketip);
         final EditText jiekouip = findViewById(R.id.jiekouip);
 
-        socketip.setText(AppUrl.socketIP);
-        jiekouip.setText(AppUrl.jiekouIP);
+        socketip.setText(AppUrl.socketIPTest);
+        jiekouip.setText(AppUrl.jiekouIPTest);
         shebeiName.setText(DeviceUtil.getUniqueID(LoginActivity.this));
 
    /*     String dnsUtil = DnsUtil.getDns(this);
