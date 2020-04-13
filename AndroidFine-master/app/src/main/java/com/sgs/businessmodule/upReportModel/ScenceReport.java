@@ -18,6 +18,9 @@ public class ScenceReport {
     //节目名称
     @DatabaseField
     private String programName;
+
+    @DatabaseField
+    private String programId;
     //场景名称
     @DatabaseField
     private String sceneName;
@@ -109,12 +112,21 @@ public class ScenceReport {
         this.terminalName = terminalName;
     }
 
+    public String getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(String programId) {
+        this.programId = programId;
+    }
+
     @Override
     public String toString() {
         return "ScenceReport{" +
                 "id=" + id +
                 ", palyDate='" + palyDate + '\'' +
                 ", programName='" + programName + '\'' +
+                ", programId='" + programId + '\'' +
                 ", sceneName='" + sceneName + '\'' +
                 ", sceneId=" + sceneId +
                 ", palyNum=" + palyNum +

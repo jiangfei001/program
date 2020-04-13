@@ -25,9 +25,11 @@ import com.sgs.AppContext;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.businessmodule.taskModel.TaskQueue;
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
 import com.sgs.businessmodule.taskModel.taskFactory.TaskFactory;
 import com.sgs.businessmodule.taskUtil.cutMsg.MsgDbManager;
 import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
+import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.businessmodule.websocketmodel.js.JsInterface;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
@@ -35,6 +37,7 @@ import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.RootUtil;
 import com.sgs.middle.utils.StringUtils;
+import com.sgs.programModel.SendToServerUtil;
 import com.sgs.programModel.entity.ProgramResource;
 import com.umeng.analytics.MobclickAgent;
 import com.zhangke.websocket.SimpleListener;
@@ -42,7 +45,9 @@ import com.zhangke.websocket.SocketListener;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.response.ErrorResponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -132,6 +137,24 @@ public class WebSocketActivityRelease extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket1);
         initView();
+
+
+   /*     Calendar cal = Calendar.getInstance();
+    *//*    cal.add(Calendar.DATE, -1);*//*
+        String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+        Log.e(TAG, "scenceReports:" + yesterday);
+        List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByDate(yesterday);
+        if (scenceReports != null) {
+            Log.e(TAG, "scenceReports:" + scenceReports);
+            SendToServerUtil.sendScenctToServer(scenceReports);
+            //ScenceReportRequestManager.getInstance().delByDate(yesterday);
+        } else {
+
+            Log.e(TAG, "scenceReports:" + null);
+        }*/
+
+
+
     }
 
     Handler handler = new Handler();

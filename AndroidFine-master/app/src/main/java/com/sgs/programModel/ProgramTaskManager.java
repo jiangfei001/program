@@ -93,11 +93,12 @@ public class ProgramTaskManager {
     public void startRunScence() {
         Log.e(TAG, "startRunScence11");
         int time = sendPlayHtml(0);
-        nowscene = 1;
         if (nowProgarmPalySceneVos.size() > 1) {
+            nowscene = 1;
             Log.e(TAG, "startRunScence12:" + nowProgarmPalySceneVos.size() + "time:" + time);
             handler.sendEmptyMessageDelayed(1, time * 1000);
         } else {
+            saveScenceReport(time);
         }
     }
 
@@ -108,31 +109,7 @@ public class ProgramTaskManager {
             int time1 = sendPlayHtml(nowscene);
             Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene + "time1" + time1);
             //按日期保存更新场景id
-
-            String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-            ScenceReport scenceReport = ScenceReportRequestManager.getInstance().queryByDateAndScenceId(nowProgarmPalySceneVos.get(nowscene).getSceneId(), nowDate);
-            Log.e(TAG, "sendPlayHtml:scenceReport:" + scenceReport);
-
-            if (scenceReport == null) {
-                scenceReport = new ScenceReport();
-                scenceReport.setPalyDate(nowDate);
-                scenceReport.setPalySecond(time1);
-                scenceReport.setPalyNum(1);
-                scenceReport.setTerminalIdentity(DeviceUtil.getUniqueID(context));
-                scenceReport.setTerminalName(DeviceUtil.getUniqueID(context));
-                scenceReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
-                scenceReport.setSceneName(nowProgarmPalySceneVos.get(nowscene).getSceneName());
-                scenceReport.setSceneId(nowProgarmPalySceneVos.get(nowscene).getSceneId());
-                Log.e(TAG, "scenceReport:" + scenceReport.toString());
-            } else {
-                Log.e(TAG, "scenceReport:" + scenceReport.toString());
-                scenceReport.setPalySecond(scenceReport.getPalySecond() + time1);
-                scenceReport.setPalyNum(scenceReport.getPalyNum() + 1);
-                Log.e(TAG, "scenceReport:" + scenceReport.toString());
-            }
-            ScenceReportRequestManager.getInstance().saveInstructionRequest(scenceReport);
-
+            saveScenceReport(time1);
             if (++nowscene < nowProgarmPalySceneVos.size()) {
                 Log.e(TAG, "sendPlayHtml:nowscene:" + nowscene);
             } else {
@@ -141,6 +118,32 @@ public class ProgramTaskManager {
             handler.sendEmptyMessageDelayed(1, time1 * 1000);
         }
     };
+
+    private void saveScenceReport(int time1) {
+        String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        ScenceReport scenceReport = ScenceReportRequestManager.getInstance().queryByDateAndScenceId(nowProgarmPalySceneVos.get(nowscene).getSceneId(), nowDate);
+        Log.e(TAG, "sendPlayHtml:scenceReport:" + scenceReport);
+
+        if (scenceReport == null) {
+            scenceReport = new ScenceReport();
+            scenceReport.setPalyDate(nowDate);
+            scenceReport.setPalySecond(time1);
+            scenceReport.setPalyNum(1);
+            scenceReport.setProgramId(nowProgarmPalyInstructionVo.getId() + "");
+            scenceReport.setTerminalIdentity(DeviceUtil.getUniqueID(context));
+            scenceReport.setTerminalName(DeviceUtil.getUniqueID(context));
+            scenceReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
+            scenceReport.setSceneName(nowProgarmPalySceneVos.get(nowscene).getSceneName());
+            scenceReport.setSceneId(nowProgarmPalySceneVos.get(nowscene).getSceneId());
+            Log.e(TAG, "scenceReport:" + scenceReport.toString());
+        } else {
+            scenceReport.setPalySecond(scenceReport.getPalySecond() + time1);
+            scenceReport.setPalyNum(scenceReport.getPalyNum() + 1);
+            Log.e(TAG, "scenceReport:" + scenceReport.toString());
+        }
+        ScenceReportRequestManager.getInstance().saveInstructionRequest(scenceReport);
+    }
 
 
     private int sendPlayHtml(int index) {

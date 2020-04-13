@@ -9,7 +9,6 @@ import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.middle.dbModel.DatabaseHelper;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 public class ScenceReportDao {
@@ -48,10 +47,10 @@ public class ScenceReportDao {
         }
     }
 
-    public ScenceReport queryByDateAndScenceId(int scenceId, String dateStr) {
+    public ScenceReport queryByDateAndScenceId(int sceneId, String palyDate) {
         try {
             QueryBuilder<ScenceReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().eq("scenceid", scenceId).and().eq("dateStr", dateStr);
+            queryBuilder.where().eq("sceneId", sceneId).and().eq("palyDate", palyDate);
             return queryBuilder.queryForFirst();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,10 +59,10 @@ public class ScenceReportDao {
     }
 
 
-    public List<ScenceReport> queryByDate(String dateStr) {
+    public List<ScenceReport> queryByDate(String palyDate) {
         try {
             QueryBuilder<ScenceReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().eq("dateStr", dateStr);
+            queryBuilder.where().eq("palyDate", palyDate);
             return queryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,7 +101,7 @@ public class ScenceReportDao {
     public void delByDate(String yesterday) {
         try {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
-            deleteBuilder.where().eq("dateStr", yesterday);
+            deleteBuilder.where().eq("palyDate", yesterday);
             deleteBuilder.delete();
         } catch (SQLException e) {
             e.printStackTrace();

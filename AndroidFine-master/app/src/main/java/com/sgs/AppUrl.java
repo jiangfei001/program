@@ -21,11 +21,11 @@ public class AppUrl {
     //节目列表新增
     public static String addRepPalyProgramList;
 
-    public static String socketIP = "49.235.109.237:9090";
-    public static String jiekouIP = "49.235.109.237:9090";
+    public static String socketIP = "49.235.109.237:9080";
+    public static String jiekouIP = "xinlianchuangmei.com";
 
-    public static String socketIPTest = "49.235.109.237:9080";
-    public static String jiekouIPTest = "xinlianchuangmei.com";
+    public static String socketIPTest = "49.235.109.237:9090";
+    public static String jiekouIPTest = "49.235.109.237:9090";
 
     //  public static String jiekouIP = "http://xinlianchuangmei.com/";
 
@@ -53,8 +53,8 @@ public class AppUrl {
             socketIP = socketIPTest;
             jiekouIP = jiekouIPTest;
         } else {
-            socketIP = "49.235.109.237:9090";
-            jiekouIP = "49.235.109.237:9090";
+            socketIP = "49.235.109.237:9080";
+            jiekouIP = "xinlianchuangmei.com";
         }
 
         socketUrl = "ws://" + socketIP + "/multimedia" + (isTeststr ? "_test" : "") + "/api/websocket";
