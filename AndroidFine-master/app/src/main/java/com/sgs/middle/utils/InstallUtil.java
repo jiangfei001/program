@@ -14,7 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 public class InstallUtil {
-    public void installSilent(Context context, String filePath) {
+    public static void installSilent(Context context, String filePath) {
         if (filePath == null || filePath.length() == 0) {
             return;
         }
@@ -38,7 +38,7 @@ public class InstallUtil {
                 Object installObserver = constructor.newInstance();
                 Method method = pmClz.getDeclaredMethod("installPackage", Uri.class, aClass, int.class, String.class);
                 method.setAccessible(true);
-                method.invoke(packageManager, Uri.fromFile(new File(apkPath)), new MyPackageInstallObserver(), 2, null);
+                method.invoke(packageManager, Uri.fromFile(new File(apkPath)), installObserver, 2, null);
             } else {
                 Method method = pmClz.getDeclaredMethod("installPackage", Uri.class, Class.forName("android.content.pm.IPackageInstallObserver"), int.class, String.class);
                 method.setAccessible(true);
@@ -51,7 +51,7 @@ public class InstallUtil {
         return false;
     }
 
-    private static class MyPackageInstallObserver implements IPackageInstallObserver {
+ /*   private static class MyPackageInstallObserver implements IPackageInstallObserver {
         @Override
         public IBinder asBinder() {
             // TODO Auto-generated method stub
@@ -64,5 +64,5 @@ public class InstallUtil {
             Log.e("ee", "arg0" + arg0 + "arg1" + arg1);
             // TODO Auto-generated method stub
         }
-    }
+    }*/
 }
