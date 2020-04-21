@@ -7,14 +7,10 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-import com.j256.ormlite.field.DatabaseField;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
-import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
-import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.ProgramScheduledManager;
-import com.sgs.programModel.ProgramTaskManager;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalySceneVo;
 
@@ -37,12 +33,19 @@ public class JsInterface {
         String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         List<ProgarmPalySceneVo> progarmPalySceneVos = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalySceneVos;
+        if (progarmPalySceneVos == null) {
+            Log.e(TAG, "progarmPalySceneVos==null");
+            return;
+        }
         ProgarmPalyInstructionVo nowProgarmPalyInstructionVo = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalyInstructionVo;
+        if (nowProgarmPalyInstructionVo == null) {
+            Log.e(TAG, "nowProgarmPalyInstructionVo==null");
+            return;
+        }
         int nowscene = ProgramScheduledManager.getInstance().programTaskManager.nowscene;
 
         RepHotReport repHotReport = RedHotReportRequestManager.getInstance().queryByDateAndScenceId(progarmPalySceneVos.get(nowscene).getSceneId(), nowDate, eventArea);
         Log.e(TAG, "sendPlayHtml:repHotReport:" + repHotReport);
-
         if (repHotReport == null) {
             repHotReport = new RepHotReport();
             repHotReport.setStartTime(nowDate);
@@ -67,9 +70,8 @@ public class JsInterface {
     public void updateClickEventFromJs(String eventName, String eventJson) {
         Log.e("aa", "eventJson" + eventJson + "eventName" + eventName);
         //记录埋点信息 日期
-
-
         Toast.makeText(mContext, eventName, Toast.LENGTH_SHORT).show();
+        saveRepHotReport(eventName);
     }
 
     @JavascriptInterface
