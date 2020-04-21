@@ -9,6 +9,7 @@ import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
+import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.sgs.middle.utils.DeviceUtil;
@@ -16,7 +17,6 @@ import com.sgs.programModel.entity.ProListVo;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalyPlan;
 import com.sgs.programModel.entity.PublicationPlanVo;
-import com.uiModel.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -246,6 +246,30 @@ public class SendToServerUtil {
         hashMap.put("repPalyProgramEntitys", scenceReports);
 
         HttpClient.postHashMapEntity(AppUrl.addRepPalyProgramList, hashMap, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
+    }
+
+    //当天节目全量接口
+    public static void sendRepHotareaToServer(List<RepHotReport> repHotReports) {
+
+        if (repHotReports != null) {
+            Log.e(TAG, "sendScenctToServer:" + repHotReports.size());
+        } else {
+            Log.e(TAG, "sendScenctToServer:null");
+        }
+
+        HashMap hashMap = new HashMap();
+        hashMap.put("repPalyProgramEntitys", repHotReports);
+
+        HttpClient.postHashMapEntity(AppUrl.addRepHotareaClickList, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
                 Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);

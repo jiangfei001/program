@@ -32,13 +32,13 @@ public class ProgramTaskManager {
 
     public MyTask nowMyTask = new MyTask();
     public int nowscene = 0;
-    ProgarmPalyInstructionVo nowProgarmPalyInstructionVo;
+    public ProgarmPalyInstructionVo nowProgarmPalyInstructionVo;
 
     public ProgarmPalyInstructionVo getNowProgarmPalyInstructionVo() {
         return nowProgarmPalyInstructionVo;
     }
 
-    List<ProgarmPalySceneVo> nowProgarmPalySceneVos;
+    public List<ProgarmPalySceneVo> nowProgarmPalySceneVos;
 
     public String TAG = "ProgramTaskManager";
 

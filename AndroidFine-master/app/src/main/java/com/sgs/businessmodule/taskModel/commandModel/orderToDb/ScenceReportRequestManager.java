@@ -43,6 +43,10 @@ public class ScenceReportRequestManager {
         return new ScenceReportDao(context).queryByDate(reportDate);
     }
 
+    public List<ScenceReport> queryByNotToday(String reportDate) {
+        return new ScenceReportDao(context).queryByNotToday(reportDate);
+    }
+
     public ScenceReport queryByDateAndScenceId(int scenceId, String reportDate) {
         return new ScenceReportDao(context).queryByDateAndScenceId(scenceId, reportDate);
     }
@@ -50,4 +54,9 @@ public class ScenceReportRequestManager {
     public void delByDate(String yesterday) {
         new ScenceReportDao(context).delByDate(yesterday);
     }
+    public void delByNotToday(String yesterday) {
+        new ScenceReportDao(context).delByNotToday(yesterday);
+    }
+
+
 }

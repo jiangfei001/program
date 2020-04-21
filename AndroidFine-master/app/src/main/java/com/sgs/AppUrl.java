@@ -20,6 +20,8 @@ public class AppUrl {
     public static String addDayProgramList;
     //节目列表新增
     public static String addRepPalyProgramList;
+    //节目列表新增
+    public static String addRepHotareaClickList;
 
     public static String socketIP = "49.235.109.237:9080";
     public static String jiekouIP = "xinlianchuangmei.com";
@@ -39,6 +41,7 @@ public class AppUrl {
         addTerminalProgramListUrl = jiekouUrl + "/multimedia_test/api/terminal/addTerminalProgramList";
         addDayProgramList = jiekouUrl + "/multimedia_test/api/terminal/addDayProgramList";
         addRepPalyProgramList = jiekouUrl + "/multimedia_test/api/terminal/addRepPalyProgramList";
+        addRepHotareaClickList = jiekouUrl + "/multimedia_test/api/terminal/addRepHotareaClickList";
             /*socketUrl = "ws://49.235.109.237:9080/multimedia/api/websocket";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
@@ -64,6 +67,7 @@ public class AppUrl {
         addTerminalProgramListUrl = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addTerminalProgramList";
         addDayProgramList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addDayProgramList";
         addRepPalyProgramList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addRepPalyProgramList";
+        addRepHotareaClickList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addRepHotareaClickList";
 
         Log.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP);
         Log.e("socketUrl", "callbackUrl:" + callbackUrl);

@@ -1,6 +1,7 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
 
+import com.sgs.AppContext;
 import com.sgs.businessmodule.downloadModel.DownLoadListener;
 import com.sgs.businessmodule.downloadModel.DownLoadManager;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
@@ -8,6 +9,7 @@ import com.sgs.businessmodule.downloadModel.TaskInfo;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.businessmodule.taskModel.commandModel.command.CommandHelper;
+import com.sgs.middle.utils.InstallUtil;
 
 public class UPDATEFIRMWAREINFO extends TVTask {
 
@@ -18,9 +20,7 @@ public class UPDATEFIRMWAREINFO extends TVTask {
     public void runTv() {
         manager = DownLoadService.getDownLoadManager();
         /*设置用户ID，客户端切换用户时可以显示相应用户的下载任务*/
-        manager.changeUser("luffy");
         /*断点续传需要服务器的支持，设置该项时要先确保服务器支持断点续传功能*/
-        manager.setSupportBreakpoint(true);
 
         info.setFileName("programm.apk");
         /*服务器一般会有个区分不同文件的唯一ID，用以处理文件重名的情况*/
@@ -38,7 +38,6 @@ public class UPDATEFIRMWAREINFO extends TVTask {
 
         /*将任务添加到下载队列，下载器会自动开始下载*/
         manager.addTask(taskId, url, filename);
-
         manager.setSingleTaskListener(taskId, new DownloadManagerListener());
     }
 
@@ -72,7 +71,7 @@ public class UPDATEFIRMWAREINFO extends TVTask {
             //根据监听到的信息查找列表相对应的任务，删除对应的任务
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
                 //下载成功进行安装
-                boolean b = CommandHelper.install(sqlDownLoadInfo.getFilePath());
+                InstallUtil.installSilent(AppContext.getInstance(), sqlDownLoadInfo.getFilePath());
             }
         }
 

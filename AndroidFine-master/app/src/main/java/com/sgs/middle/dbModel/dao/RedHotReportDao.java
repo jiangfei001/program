@@ -5,22 +5,22 @@ import android.content.Context;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
-import com.sgs.businessmodule.upReportModel.ScenceReport;
+import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.middle.dbModel.DatabaseHelper;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ScenceReportDao {
+public class RedHotReportDao {
     private Context context;
-    private Dao<ScenceReport, Integer> OrderDaoOpe;
+    private Dao<RepHotReport, Integer> OrderDaoOpe;
     private DatabaseHelper helper;
 
-    public ScenceReportDao(Context context) {
+    public RedHotReportDao(Context context) {
         this.context = context;
         try {
             helper = DatabaseHelper.getHelper(context);
-            OrderDaoOpe = helper.getDao(ScenceReport.class);
+            OrderDaoOpe = helper.getDao(RepHotReport.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,7 +31,7 @@ public class ScenceReportDao {
      *
      * @throws SQLException
      */
-    public void add(ScenceReport instructionRequest) {
+    public void add(RepHotReport instructionRequest) {
         try {
             OrderDaoOpe.createOrUpdate(instructionRequest);
         } catch (SQLException e) {
@@ -39,7 +39,7 @@ public class ScenceReportDao {
         }
     }
 
-    public void update(ScenceReport instructionRequest) {
+    public void update(RepHotReport instructionRequest) {
         try {
             OrderDaoOpe.update(instructionRequest);
         } catch (SQLException e) {
@@ -47,10 +47,10 @@ public class ScenceReportDao {
         }
     }
 
-    public ScenceReport queryByDateAndScenceId(int sceneId, String palyDate) {
+    public RepHotReport queryByDateAndScenceId(int sceneId, String palyDate, String areaName) {
         try {
-            QueryBuilder<ScenceReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().eq("sceneId", sceneId).and().eq("palyDate", palyDate);
+            QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
+            queryBuilder.where().eq("sceneId", sceneId).and().eq("palyDate", palyDate).eq("areaName", areaName);
             return queryBuilder.queryForFirst();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,9 +59,9 @@ public class ScenceReportDao {
     }
 
 
-    public List<ScenceReport> queryByDate(String palyDate) {
+    public List<RepHotReport> queryByDate(String palyDate) {
         try {
-            QueryBuilder<ScenceReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
+            QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
             queryBuilder.where().eq("palyDate", palyDate);
             return queryBuilder.query();
         } catch (SQLException e) {
@@ -70,9 +70,9 @@ public class ScenceReportDao {
         return null;
     }
 
-    public List<ScenceReport> queryByNotToday(String palyDate) {
+    public List<RepHotReport> queryByNotToday(String palyDate) {
         try {
-            QueryBuilder<ScenceReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
+            QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
             queryBuilder.where().ne("palyDate", palyDate);
             return queryBuilder.query();
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class ScenceReportDao {
         return null;
     }
 
-    public ScenceReport get(int id) {
+    public RepHotReport get(int id) {
         try {
             return OrderDaoOpe.queryForId(id);
         } catch (SQLException e) {
@@ -90,7 +90,7 @@ public class ScenceReportDao {
         return null;
     }
 
-    public List<ScenceReport> getAllTask() {
+    public List<RepHotReport> getAllTask() {
         try {
             return OrderDaoOpe.queryForAll();
         } catch (SQLException e) {
@@ -99,7 +99,7 @@ public class ScenceReportDao {
         return null;
     }
 
-    public List<ScenceReport> byStatus() {
+    public List<RepHotReport> byStatus() {
         try {
             return OrderDaoOpe.queryBuilder().where().notIn("status", 1, 2).query();
         } catch (SQLException e) {
@@ -118,15 +118,14 @@ public class ScenceReportDao {
         }
     }
 
-    public void delByNotToday(String yesterday) {
+    public void delByNotToday(String today) {
         try {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
-            deleteBuilder.where().ne("palyDate", yesterday);
+            deleteBuilder.where().ne("palyDate", today);
             deleteBuilder.delete();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
 }

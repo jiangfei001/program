@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
+import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
+import com.sgs.middle.dbModel.dao.RedHotReportDao;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -61,6 +63,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, ProgarmPalyInstructionVo.class);
             TableUtils.createTable(connectionSource, MuTerminalMsg.class);
             TableUtils.createTable(connectionSource, ScenceReport.class);
+            TableUtils.createTable(connectionSource, RepHotReport.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,11 +76,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, InstructionRequest.class, true);
             TableUtils.dropTable(connectionSource, MuTerminalMsg.class, true);
             TableUtils.dropTable(connectionSource, ScenceReport.class, true);
+            TableUtils.dropTable(connectionSource, RepHotReport.class, true);
 
             TableUtils.createTable(connectionSource, ProgarmPalyInstructionVo.class);
             TableUtils.createTable(connectionSource, InstructionRequest.class);
             TableUtils.createTable(connectionSource, MuTerminalMsg.class);
             TableUtils.createTable(connectionSource, ScenceReport.class);
+            TableUtils.createTable(connectionSource, RepHotReport.class);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
+import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.programModel.ProgramScheduledManager;
 import com.sgs.programModel.SendToServerUtil;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -100,7 +101,6 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
     public static final String ACTION_PLAYGRAME_INIT = "com.sf.appstore.business.receiver.custom.ACTION_UPLOAD_DATA_ONCE_DAILY";
     public static final int REQUEST_CODE_PLAYGRAME_INIT = 3013;
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent == null) {
@@ -121,19 +121,29 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //获取昨天的日期之后，删除昨天数据库
+                    //获取除了今天的记录
                     Calendar cal = Calendar.getInstance();
-                    cal.add(Calendar.DATE, -1);
-                    String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-                    List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByDate(yesterday);
+                    String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+
+                    List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
+
                     if (scenceReports != null) {
                         Log.e(TAG, "scenceReports:" + scenceReports);
                         SendToServerUtil.sendScenctToServer(scenceReports);
-                        ScenceReportRequestManager.getInstance().delByDate(yesterday);
+                        ScenceReportRequestManager.getInstance().delByNotToday(today);
                     } else {
-
                         Log.e(TAG, "scenceReports:" + null);
                     }
+
+                    List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotToday(today);
+                    if (repHotReports != null) {
+                        Log.e(TAG, "repHotReports:" + repHotReports);
+                        SendToServerUtil.sendRepHotareaToServer(repHotReports);
+                        RedHotReportRequestManager.getInstance().delByNotToday(today);
+                    } else {
+                        Log.e(TAG, "repHotReports:" + null);
+                    }
+
                 }
             }).start();
         }
