@@ -132,7 +132,6 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 public void run() {
                     //获取除了今天的记录
                     Calendar cal = Calendar.getInstance();
-                    /*cal.set(Calendar.DATE, cal.get(Calendar.DATE) + 1);*/
                     String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
                     Log.e(TAG, "scenceReports:" + today);
                     List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
