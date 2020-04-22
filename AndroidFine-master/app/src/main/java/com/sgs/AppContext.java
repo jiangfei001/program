@@ -96,7 +96,7 @@ public class AppContext extends Application {
 
         //initFileService();
         if (isMainProcess) {
-            alarmUploadDataOnceDaily();
+            UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
             UsageStatsManagerUtil.getInstance().alarmSendAppReportUsage();
             initLocation();
         }
@@ -236,65 +236,7 @@ public class AppContext extends Application {
     }
 
 
-    public static void alarmUploadDataOnceDaily() {
-        Log.e("alarmUpload", "alarmUploadDataOnceDaily");
-        //获取当前毫秒值
-        long systemTime = System.currentTimeMillis();
-        long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
 
-        Calendar mCalendar = Calendar.getInstance();
-        //得到日历实例，主要是为了下面的获取时间
-        mCalendar = Calendar.getInstance();
-
-        //是设置日历的时间，主要是让日历的年月日和当前同步
-        mCalendar.setTimeInMillis(System.currentTimeMillis());
-        // 这里时区需要设置一下，不然可能个别手机会有8个小时的时间差
-        mCalendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-        //设置在几点提醒 设置的为0点
-        mCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        //设置在几分提醒 设置的为0分
-        mCalendar.set(Calendar.MINUTE, (int) (Math.random() * 59));
-        //下面这两个看字面意思也知道
-        mCalendar.set(Calendar.SECOND, 0);
-        mCalendar.set(Calendar.MILLISECOND, 0);
-
-        long selectTime = mCalendar.getTimeInMillis();
-        //选择的每天的定时时间即下班时间
-        //如果当前时间大于设置的时间，那么从第二天的设定时间开始
-        if (systemTime > selectTime) {
-            mCalendar.add(Calendar.DAY_OF_MONTH, 1);
-            selectTime = mCalendar.getTimeInMillis();
-        }
-
-        //计算现在时间到设置时间的时间差
-        long diffTime1 = selectTime - systemTime;
-        firstTime += diffTime1;
-
-        //AlarmReceiver.class为广播接受者
-        Intent intent = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
-        intent.setAction(CustomAlarmReceiver.ACTION_PLAYGRAME_INIT);
-        PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), 0, intent, 0);
-        //得到AlarmManager实例
-        AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(ALARM_SERVICE);
-
-        //**********注意！！下面的两个根据实际需求任选其一即可*********
-
-        /** * 单次提醒 * mCalendar.getTimeInMillis() 上面设置的13点25分的时间点毫秒值 */
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
-            } else {
-                alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
-            }
-        } catch (Exception e) {
-            Log.e("e", e.getMessage());
-        }
-
-        /** * 重复提醒 * 第一个参数是警报类型；下面有介绍 * 第二个参数网上说法不一，很多都是说的是延迟多少毫秒执行这个闹钟，但是我用的刷了MIUI的三星手机的实际效果是与单次提醒的参数一样，即设置的13点25分的时间点毫秒值 * 第三个参数是重复周期，也就是下次提醒的间隔 毫秒值 我这里是一天后提醒 */
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), pi);
-    }
 
 
 /*    public void initSchedule() {

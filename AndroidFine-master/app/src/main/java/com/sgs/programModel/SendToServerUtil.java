@@ -9,6 +9,7 @@ import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
+import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
@@ -16,8 +17,10 @@ import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.entity.ProListVo;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalyPlan;
+import com.sgs.programModel.entity.ProgarmPalySceneVo;
 import com.sgs.programModel.entity.PublicationPlanVo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -269,6 +272,7 @@ public class SendToServerUtil {
         HashMap hashMap = new HashMap();
         hashMap.put("repPalyProgramEntitys", repHotReports);
 
+
         HttpClient.postHashMapEntity(AppUrl.addRepHotareaClickList, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
@@ -279,6 +283,41 @@ public class SendToServerUtil {
             public void onFailure(Request request, Exception e) {
             }
         });
+    }
+
+
+    public void testsaveRepHotReport(String eventArea) {
+        String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        List<ProgarmPalySceneVo> progarmPalySceneVos = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalySceneVos;
+        if (progarmPalySceneVos == null) {
+            Log.e(TAG, "progarmPalySceneVos==null");
+            return;
+        }
+        ProgarmPalyInstructionVo nowProgarmPalyInstructionVo = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalyInstructionVo;
+        if (nowProgarmPalyInstructionVo == null) {
+            Log.e(TAG, "nowProgarmPalyInstructionVo==null");
+            return;
+        }
+        int nowscene = ProgramScheduledManager.getInstance().programTaskManager.nowscene;
+
+        RepHotReport repHotReport = RedHotReportRequestManager.getInstance().queryByDateAndScenceId(progarmPalySceneVos.get(nowscene).getSceneId(), nowDate, eventArea);
+        Log.e(TAG, "sendPlayHtml:repHotReport:" + repHotReport);
+        if (repHotReport == null) {
+            repHotReport = new RepHotReport();
+            repHotReport.setStartTime(nowDate);
+            repHotReport.setClickNum(1);
+            repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            repHotReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
+            repHotReport.setSceneName(progarmPalySceneVos.get(nowscene).getSceneName());
+            repHotReport.setSceneId(progarmPalySceneVos.get(nowscene).getSceneId());
+            Log.e(TAG, "repHotReport:" + repHotReport.toString());
+        } else {
+            repHotReport.setClickNum(repHotReport.getClickNum() + 1);
+            repHotReport.setEndTime(nowDate);
+            Log.e(TAG, "repHotReport:" + repHotReport.toString());
+        }
+        RedHotReportRequestManager.getInstance().saveInstructionRequest(repHotReport);
     }
 
 }

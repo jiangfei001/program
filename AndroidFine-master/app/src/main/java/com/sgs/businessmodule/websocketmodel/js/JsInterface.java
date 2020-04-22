@@ -7,6 +7,7 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import com.sgs.AppContext;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.middle.utils.DeviceUtil;
@@ -29,7 +30,7 @@ public class JsInterface {
     }
 
 
-    private void saveRepHotReport(String eventArea) {
+    public   void saveRepHotReport(String eventArea) {
         String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         List<ProgarmPalySceneVo> progarmPalySceneVos = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalySceneVos;
@@ -50,8 +51,8 @@ public class JsInterface {
             repHotReport = new RepHotReport();
             repHotReport.setStartTime(nowDate);
             repHotReport.setClickNum(1);
-            repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(this.mContext));
-            repHotReport.setTerminalName(DeviceUtil.getUniqueID(this.mContext));
+            repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
             repHotReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
             repHotReport.setSceneName(progarmPalySceneVos.get(nowscene).getSceneName());
             repHotReport.setSceneId(progarmPalySceneVos.get(nowscene).getSceneId());

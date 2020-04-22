@@ -9,6 +9,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
+import com.sgs.businessmodule.websocketmodel.js.JsInterface;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
@@ -121,7 +122,6 @@ public class ProgramTaskManager {
 
     private void saveScenceReport(int time1) {
         String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
         ScenceReport scenceReport = ScenceReportRequestManager.getInstance().queryByDateAndScenceId(nowProgarmPalySceneVos.get(nowscene).getSceneId(), nowDate);
         Log.e(TAG, "sendPlayHtml:scenceReport:" + scenceReport);
 

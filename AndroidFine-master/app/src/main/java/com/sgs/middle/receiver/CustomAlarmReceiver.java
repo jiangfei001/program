@@ -121,7 +121,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
             ProgramScheduledManager.getInstance().initAllProgramTask();
-            AppContext.alarmUploadDataOnceDaily();
+            UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
         }
 
         if (ACTION_SEND_APP_USAGE_COUNT.equals(action)) {
@@ -132,7 +132,9 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 public void run() {
                     //获取除了今天的记录
                     Calendar cal = Calendar.getInstance();
+                    /*cal.set(Calendar.DATE, cal.get(Calendar.DATE) + 1);*/
                     String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                    Log.e(TAG, "scenceReports:" + today);
                     List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
                     if (scenceReports != null) {
                         Log.e(TAG, "scenceReports:" + scenceReports);
