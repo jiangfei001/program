@@ -195,7 +195,8 @@ public class HttpClient {
 
     public static void postHashMapEntity(String url, HashMap responseEntity, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
-            Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
+            Log.e("postHashMapEntity", "网络不行");
+            //Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
             return;
         }
 

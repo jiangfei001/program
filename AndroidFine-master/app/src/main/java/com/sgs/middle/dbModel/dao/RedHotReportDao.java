@@ -62,7 +62,7 @@ public class RedHotReportDao {
     public List<RepHotReport> queryByDate(String palyDate) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().eq("palyDate", palyDate);
+            queryBuilder.where().eq("startTime", palyDate);
             return queryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,10 +70,10 @@ public class RedHotReportDao {
         return null;
     }
 
-    public List<RepHotReport> queryByNotToday(String palyDate) {
+    public List<RepHotReport> queryByNotToday(String startTime) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().ne("palyDate", palyDate);
+            queryBuilder.where().ne("startTime", startTime);
             return queryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,20 +108,20 @@ public class RedHotReportDao {
         return null;
     }
 
-    public void delByDate(String yesterday) {
+    public void delByDate(String startTime) {
         try {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
-            deleteBuilder.where().eq("palyDate", yesterday);
+            deleteBuilder.where().eq("startTime", startTime);
             deleteBuilder.delete();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delByNotToday(String today) {
+    public void delByNotToday(String startTime) {
         try {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
-            deleteBuilder.where().ne("palyDate", today);
+            deleteBuilder.where().ne("startTime", startTime);
             deleteBuilder.delete();
         } catch (SQLException e) {
             e.printStackTrace();

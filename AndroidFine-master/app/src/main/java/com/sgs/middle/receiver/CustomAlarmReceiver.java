@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.sgs.AppContext;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
+import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.sgs.programModel.ProgramScheduledManager;
 import com.sgs.programModel.SendToServerUtil;
 
@@ -101,6 +103,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
     public static final String ACTION_PLAYGRAME_INIT = "com.sf.appstore.business.receiver.custom.ACTION_UPLOAD_DATA_ONCE_DAILY";
     public static final int REQUEST_CODE_PLAYGRAME_INIT = 3013;
 
+    public static final String REPRORT = "com.sf.appstore.business.receiver.custom.ACTION_REPORT";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent == null) {
@@ -111,22 +115,25 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
 
         if (ACTION_PLAYGRAME_INIT.equals(action)) {
             long l = System.currentTimeMillis();
-//new日期对
+            //new日期对
             Date date = new Date(l);
-//转换提日期输出格式
+            //转换提日期输出格式
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
             ProgramScheduledManager.getInstance().initAllProgramTask();
+            AppContext.alarmUploadDataOnceDaily();
+        }
 
+        if (ACTION_SEND_APP_USAGE_COUNT.equals(action)) {
+            UsageStatsManagerUtil.getInstance().alarmSendAppReportUsage();
+            Log.e(TAG, "时间到,执行复原任务操作:REPRORT");
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     //获取除了今天的记录
                     Calendar cal = Calendar.getInstance();
                     String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-
                     List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
-
                     if (scenceReports != null) {
                         Log.e(TAG, "scenceReports:" + scenceReports);
                         SendToServerUtil.sendScenctToServer(scenceReports);
@@ -147,7 +154,6 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 }
             }).start();
         }
-
     }
 
     public static String TAG = CustomAlarmReceiver.class.getName();

@@ -203,19 +203,20 @@ public class LoginActivity extends Activity {
                             public void run() {
                                 if (response.code.equals("0")) {
                                     SharedPreferences.getInstance().putBoolean(SharedPreferences.KEY_ISREGISTER, true);
-                                    Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
                                             AppContext.getInstance().userName = yonghuming.getText().toString();
                                             doNavigation();
                                         }
                                     });
                                 } else {
-                                    Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                             AppContext.getInstance().userName = yonghuming.getText().toString();
                                             doNavigation();
                                         }

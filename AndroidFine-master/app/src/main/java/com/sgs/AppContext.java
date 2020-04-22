@@ -24,6 +24,7 @@ import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.websocketmodel.ActivityLifeManager;
 import com.sgs.businessmodule.websocketmodel.CrashHandler;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
+import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.umeng.commonsdk.UMConfigure;
 
 import java.util.Calendar;
@@ -96,6 +97,7 @@ public class AppContext extends Application {
         //initFileService();
         if (isMainProcess) {
             alarmUploadDataOnceDaily();
+            UsageStatsManagerUtil.getInstance().alarmSendAppReportUsage();
             initLocation();
         }
         ActivityLifeManager.getInstance().setAppStatusListener(new ActivityLifeManager.AppStatusListener() {
@@ -235,7 +237,7 @@ public class AppContext extends Application {
 
 
     public static void alarmUploadDataOnceDaily() {
-
+        Log.e("alarmUpload", "alarmUploadDataOnceDaily");
         //获取当前毫秒值
         long systemTime = System.currentTimeMillis();
         long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
@@ -293,6 +295,7 @@ public class AppContext extends Application {
         /** * 重复提醒 * 第一个参数是警报类型；下面有介绍 * 第二个参数网上说法不一，很多都是说的是延迟多少毫秒执行这个闹钟，但是我用的刷了MIUI的三星手机的实际效果是与单次提醒的参数一样，即设置的13点25分的时间点毫秒值 * 第三个参数是重复周期，也就是下次提醒的间隔 毫秒值 我这里是一天后提醒 */
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), pi);
     }
+
 
 /*    public void initSchedule() {
         ProgramScheduledManager programScheduledManager = new ProgramScheduledManager.getInstance();
