@@ -26,7 +26,7 @@ public enum InstructionTypeEnum {
     UPDATEDATA(121, "updateData", "更新数据信息"),
     UPDATEPLAYERINFO(122, "updatePlayerInfo", "更新播放端信息"),
     UPDATESERVERINFO(123, "updateServerInfo", "更新分发服务器信息"),
-    UPDATEFIRMWAREINFO(123, "updateFirmwareInfo", "更新分发服务器信息"),
+    UPDATEFIRMWAREINFO(124, "updateFirmwareInfo", "更新分发服务器信息"),
     UNINSTALL(125, "uninstall", "远程卸载APK"),
     SETOSTERMINAL(127, "setOsTerminal", "设置每天开关机时间"),
     GETALLPROGRAM(128, "sendGetProgramOrder", "获取终端节目列表"),
