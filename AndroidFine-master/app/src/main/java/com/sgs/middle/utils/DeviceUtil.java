@@ -450,6 +450,7 @@ public class DeviceUtil {
 
     public static String sfter = "jffinecontextsp";
     public static String uniqueid = "uniqueid";
+    public static String sbm = "sbm";
 
     public static String getDeviceId(Context context) {
         StringBuilder sbDeviceId = new StringBuilder();
@@ -603,6 +604,17 @@ public class DeviceUtil {
             sb.append(stmp);
         }
         return sb.toString().toUpperCase(Locale.CHINA);
+    }
+
+    public static String getSBM(Context context) {
+        //1 从sp中拿
+        SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
+        String sbmster = mContextSp.getString(sbm, "");
+        if (!StringUtil.isEmpty(sbmster)) {
+            return sbmster;
+        } else {
+            return getUniqueID(context);
+        }
     }
 
 

@@ -2,6 +2,7 @@ package com.uiModel.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -77,7 +78,8 @@ public class LoginActivity extends Activity {
 
         socketip.setText(AppUrl.socketIP);
         jiekouip.setText(AppUrl.jiekouIP);
-        shebeiName.setText(DeviceUtil.getUniqueID(LoginActivity.this));
+
+        shebeiName.setText(DeviceUtil.getSBM(this));
 
    /*     String dnsUtil = DnsUtil.getDns(this);
         Log.e("dnsUtil", "dnsUtil" + dnsUtil);
@@ -139,7 +141,7 @@ public class LoginActivity extends Activity {
         initPermission();
     }
 
-    private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip, final EditText yonghuming, EditText shebeiName) {
+    private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip, final EditText yonghuming, final EditText shebeiName) {
         boolean s_test = false;
         int id = radioButton.getCheckedRadioButtonId();
         if (id == R.id.jia) {
@@ -208,6 +210,13 @@ public class LoginActivity extends Activity {
                                         public void run() {
                                             Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
                                             AppContext.getInstance().userName = yonghuming.getText().toString();
+                                            //保存sp
+
+                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
+                                            editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
+                                            editor.commit();
+
                                             doNavigation();
                                         }
                                     });

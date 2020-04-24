@@ -10,11 +10,13 @@ import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportReque
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
+import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.sgs.programModel.ProgramScheduledManager;
 import com.sgs.programModel.SendToServerUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -135,23 +137,73 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                     String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
                     Log.e(TAG, "scenceReports:" + today);
                     List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
-                    if (scenceReports != null) {
+                    if (scenceReports != null && scenceReports.size() > 0) {
                         Log.e(TAG, "scenceReports:" + scenceReports);
                         SendToServerUtil.sendScenctToServer(scenceReports);
                         ScenceReportRequestManager.getInstance().delByNotToday(today);
-                    } else {
+                    }/* else {
                         Log.e(TAG, "scenceReports:" + null);
-                    }
+                        scenceReports = new ArrayList<>();
+                        ScenceReport scenceReport = new ScenceReport();
+                        scenceReport.setPalyDate("2020-12-12");
+                        scenceReport.setPalySecond(123);
+                        scenceReport.setPalyNum(1);
+                        scenceReport.setProgramId("123");
+                        scenceReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        scenceReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        scenceReport.setProgramName("ProgramName");
+                        scenceReport.setSceneName("ProgramName");
+                        scenceReport.setSceneId(12);
+                        scenceReports.add(scenceReport);
+                        ScenceReport scenceReport1 = new ScenceReport();
+                        scenceReport1.setPalyDate("2020-12-12");
+                        scenceReport1.setPalySecond(123);
+                        scenceReport1.setPalyNum(1);
+                        scenceReport1.setProgramId("123");
+                        scenceReport1.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        scenceReport1.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        scenceReport1.setProgramName("ProgramName");
+                        scenceReport1.setSceneName("ProgramName");
+                        scenceReport1.setSceneId(12);
+                        scenceReports.add(scenceReport1);
+                        Log.e(TAG, "scenceReports:" + scenceReports);
+                        SendToServerUtil.sendScenctToServer(scenceReports);
+                        ScenceReportRequestManager.getInstance().delByNotToday(today);
+
+                    }*/
 
                     List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotToday(today);
-                    if (repHotReports != null) {
+                    if (repHotReports != null && repHotReports.size() > 0) {
                         Log.e(TAG, "repHotReports:" + repHotReports);
                         SendToServerUtil.sendRepHotareaToServer(repHotReports);
                         RedHotReportRequestManager.getInstance().delByNotToday(today);
-                    } else {
+                    } /*else {
                         Log.e(TAG, "repHotReports:" + null);
-                    }
+                        repHotReports = new ArrayList<>();
+                        RepHotReport repHotReport = new RepHotReport();
+                        repHotReport.setStartTime("2020-12-12");
+                        repHotReport.setClickNum(1);
+                        repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        repHotReport.setProgramName("ProgramName");
+                        repHotReport.setSceneName("SceneName");
+                        repHotReport.setSceneId(12312);
+                        repHotReports.add(repHotReport);
 
+                        RepHotReport repHotReport1 = new RepHotReport();
+                        repHotReport1.setStartTime("2020-12-12");
+                        repHotReport1.setClickNum(1);
+                        repHotReport1.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        repHotReport1.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        repHotReport1.setProgramName("ProgramName");
+                        repHotReport1.setSceneName("SceneName");
+                        repHotReport1.setSceneId(12312);
+                        repHotReports.add(repHotReport1);
+
+                        Log.e(TAG, "repHotReports:" + repHotReports);
+                        SendToServerUtil.sendRepHotareaToServer(repHotReports);
+                        RedHotReportRequestManager.getInstance().delByNotToday(today);
+                    }*/
                 }
             }).start();
         }
