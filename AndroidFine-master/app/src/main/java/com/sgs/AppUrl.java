@@ -51,7 +51,6 @@ public class AppUrl {
 
 
     public static void initip(boolean isTeststr) {
-        isTest = false;
         if (isTeststr) {
             socketIP = socketIPTest;
             jiekouIP = jiekouIPTest;
@@ -69,7 +68,7 @@ public class AppUrl {
         addRepPalyProgramList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addRepPalyProgramList";
         addRepHotareaClickList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addRepHotareaClickList";
 
-        Log.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP);
+        Log.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
         Log.e("socketUrl", "callbackUrl:" + callbackUrl);
         Log.e("socketUrl", "addTerminalProgramListUrl:" + addTerminalProgramListUrl);
         Log.e("socketUrl", "addDayProgramList:" + addDayProgramList);

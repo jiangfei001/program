@@ -246,8 +246,7 @@ public class SendToServerUtil {
             Log.e(TAG, "sendScenctToServer:null");
         }
         HashMap hashMap = new HashMap();
-        hashMap.put("repPalyProgramEntitys", scenceReports);
-
+        hashMap.put("repPalyProgramEntitys", com.alibaba.fastjson.JSON.toJSONString(scenceReports));
         HttpClient.postHashMapEntity(AppUrl.addRepPalyProgramList, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
@@ -270,8 +269,7 @@ public class SendToServerUtil {
         }
 
         HashMap hashMap = new HashMap();
-        hashMap.put("repPalyProgramEntitys", repHotReports);
-
+        hashMap.put("repHotareaClickEntitys", com.alibaba.fastjson.JSON.toJSONString(repHotReports));
 
         HttpClient.postHashMapEntity(AppUrl.addRepHotareaClickList, hashMap, new MyHttpResponseHandler() {
             @Override
@@ -283,41 +281,6 @@ public class SendToServerUtil {
             public void onFailure(Request request, Exception e) {
             }
         });
-    }
-
-
-    public void testsaveRepHotReport(String eventArea) {
-        String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        List<ProgarmPalySceneVo> progarmPalySceneVos = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalySceneVos;
-        if (progarmPalySceneVos == null) {
-            Log.e(TAG, "progarmPalySceneVos==null");
-            return;
-        }
-        ProgarmPalyInstructionVo nowProgarmPalyInstructionVo = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalyInstructionVo;
-        if (nowProgarmPalyInstructionVo == null) {
-            Log.e(TAG, "nowProgarmPalyInstructionVo==null");
-            return;
-        }
-        int nowscene = ProgramScheduledManager.getInstance().programTaskManager.nowscene;
-
-        RepHotReport repHotReport = RedHotReportRequestManager.getInstance().queryByDateAndScenceId(progarmPalySceneVos.get(nowscene).getSceneId(), nowDate, eventArea);
-        Log.e(TAG, "sendPlayHtml:repHotReport:" + repHotReport);
-        if (repHotReport == null) {
-            repHotReport = new RepHotReport();
-            repHotReport.setStartTime(nowDate);
-            repHotReport.setClickNum(1);
-            repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-            repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
-            repHotReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
-            repHotReport.setSceneName(progarmPalySceneVos.get(nowscene).getSceneName());
-            repHotReport.setSceneId(progarmPalySceneVos.get(nowscene).getSceneId());
-            Log.e(TAG, "repHotReport:" + repHotReport.toString());
-        } else {
-            repHotReport.setClickNum(repHotReport.getClickNum() + 1);
-            repHotReport.setEndTime(nowDate);
-            Log.e(TAG, "repHotReport:" + repHotReport.toString());
-        }
-        RedHotReportRequestManager.getInstance().saveInstructionRequest(repHotReport);
     }
 
 }

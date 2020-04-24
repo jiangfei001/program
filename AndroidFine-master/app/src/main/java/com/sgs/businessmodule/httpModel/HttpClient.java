@@ -201,6 +201,7 @@ public class HttpClient {
         }
 
         Log.e("com.alibab:", "com.alibab:" + com.alibaba.fastjson.JSON.toJSONString(responseEntity));
+        Log.e("url:", "url" + url);
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
