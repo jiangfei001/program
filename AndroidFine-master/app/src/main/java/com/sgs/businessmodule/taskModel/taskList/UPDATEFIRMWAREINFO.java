@@ -77,6 +77,7 @@ public class UPDATEFIRMWAREINFO extends TVTask {
             PackageManager manager = AppContext.getInstance().getPackageManager();
             PackageInfo info = manager.getPackageInfo(AppContext.getInstance().getPackageName(), 0);
             version = info.versionCode;
+            Log.e(TAG, "url:" + version);
             return version;
         } catch (Exception e) {
             e.printStackTrace();
