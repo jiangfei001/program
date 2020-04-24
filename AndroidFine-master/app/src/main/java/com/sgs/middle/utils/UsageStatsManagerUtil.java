@@ -108,7 +108,7 @@ public class UsageStatsManagerUtil {
         }
 
         /** * 重复提醒 * 第一个参数是警报类型；下面有介绍 * 第二个参数网上说法不一，很多都是说的是延迟多少毫秒执行这个闹钟，但是我用的刷了MIUI的三星手机的实际效果是与单次提醒的参数一样，即设置的13点25分的时间点毫秒值 * 第三个参数是重复周期，也就是下次提醒的间隔 毫秒值 我这里是一天后提醒 */
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), pi);
+      /*  alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), pi);*/
     }
 
     /**
@@ -120,7 +120,7 @@ public class UsageStatsManagerUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(SystemClock.elapsedRealtime());
         // 1分钟上报一次打开次数
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 60 * 23);
 
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
