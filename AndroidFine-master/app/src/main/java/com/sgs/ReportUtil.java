@@ -69,14 +69,14 @@ public class ReportUtil {
                 ScenceReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
 
                 Log.e(TAG, "scenceReports:" + today);
-                List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
+                final List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
                 if (scenceReports != null && scenceReports.size() > 0) {
                     Log.e(TAG, "repHotReports:" + scenceReports);
                     SendToServerUtil.sendScenctToServer(scenceReports, new SendToServerUtil.MyYewuResponseHandle() {
                         @Override
                         public void onSuccess(MyApiResponse response) {
                             Log.e(TAG, "sendScenctToServer onSuccess:" + response.toString());
-                            RedHotReportRequestManager.getInstance().delByNotToday(today);
+                            ScenceReportRequestManager.getInstance().delList(scenceReports);
                         }
 
                         @Override

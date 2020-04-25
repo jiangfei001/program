@@ -141,4 +141,14 @@ public class ScenceReportDao {
             e.printStackTrace();
         }
     }
+
+    public int delList(List<ScenceReport> scenceReports) {
+        try {
+            return OrderDaoOpe.delete(scenceReports);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

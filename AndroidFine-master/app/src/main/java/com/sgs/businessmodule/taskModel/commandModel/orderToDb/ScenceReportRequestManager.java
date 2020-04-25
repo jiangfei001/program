@@ -62,4 +62,8 @@ public class ScenceReportRequestManager {
     public void delOneMouthAgo(String lastOneMouth) {
         new ScenceReportDao(context).delOneMouthAgo(lastOneMouth);
     }
+
+    public void delList(List<ScenceReport> scenceReports) {
+        new ScenceReportDao(context).delList(scenceReports);
+    }
 }
