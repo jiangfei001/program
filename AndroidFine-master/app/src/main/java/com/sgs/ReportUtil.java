@@ -22,12 +22,18 @@ public class ReportUtil {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //删除两个月之前的数据
-                //获取除了今天的记录
+                //获取今天的记录
                 Calendar cal = Calendar.getInstance();
-                final String nowMin = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(cal.getTime());
+                final String nowMin = new SimpleDateFormat("yyyyMMddhhmm").format(cal.getTime());
+
+                //删除一个月之前的数据
+                cal.add(Calendar.MONTH, -1);//得到前一个月
+                final String lastOneMouth = new SimpleDateFormat("yyyyMMddhhmm").format(cal.getTime());
+                RedHotReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
+
                 Log.e(TAG, "repHotReports nowMin:" + nowMin);
                 List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotMin(nowMin);
+
                 if (repHotReports != null && repHotReports.size() > 0) {
                     Log.e(TAG, "repHotReports:" + repHotReports);
                     SendToServerUtil.sendRepHotareaToServer(repHotReports, new SendToServerUtil.MyYewuResponseHandle() {
@@ -51,11 +57,17 @@ public class ReportUtil {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //删除三个月之前的数据
-
+                //删除一个月之前的数据
                 //获取除了今天的记录
                 Calendar cal = Calendar.getInstance();
-                final String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+                final String today = new SimpleDateFormat("yyyyMMdd").format(cal.getTime());
+
+                //删除一个月之前的数据
+                cal.add(Calendar.MONTH, -1);//得到前一个月
+                final String lastOneMouth = new SimpleDateFormat("yyyyMMdd").format(cal.getTime());
+
+                ScenceReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
+
                 Log.e(TAG, "scenceReports:" + today);
                 List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
                 if (scenceReports != null && scenceReports.size() > 0) {
@@ -177,5 +189,17 @@ public class ReportUtil {
                     }*/
             }
         }).start();
+    }
+
+
+    public static void main(String[] args) {
+        Calendar cal = Calendar.getInstance();
+        final String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+
+        //删除一个月之前的数据
+        cal.add(Calendar.MONTH, -1);//得到前一个月
+        final String lastOneMouth = new SimpleDateFormat("yyyyMMdd").format(cal.getTime());
+
+        System.out.println("" + today + "::" + lastOneMouth);
     }
 }

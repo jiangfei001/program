@@ -1,6 +1,7 @@
 package com.sgs.middle.dbModel.dao;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ScenceReportDao {
+    private static final String TAG = "ScenceReportDao";
     private Context context;
     private Dao<ScenceReport, Integer> OrderDaoOpe;
     private DatabaseHelper helper;
@@ -129,4 +131,14 @@ public class ScenceReportDao {
     }
 
 
+    public void delOneMouthAgo(String lastOneMouth) {
+        try {
+            DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
+            deleteBuilder.where().le("palyDate", lastOneMouth);
+            int num = deleteBuilder.delete();
+            Log.e(TAG, "num" + num);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

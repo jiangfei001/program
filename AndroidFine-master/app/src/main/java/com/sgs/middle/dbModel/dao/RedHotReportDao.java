@@ -1,6 +1,7 @@
 package com.sgs.middle.dbModel.dao;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class RedHotReportDao {
+    private static final String TAG = "RedHotReportDao";
     private Context context;
     private Dao<RepHotReport, Integer> OrderDaoOpe;
     private DatabaseHelper helper;
@@ -47,7 +49,7 @@ public class RedHotReportDao {
         }
     }
 
-    public RepHotReport queryByDateAndScenceId(int sceneId, String palyDate, String areaName,String pageName) {
+    public RepHotReport queryByDateAndScenceId(int sceneId, String palyDate, String areaName, String pageName) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
             queryBuilder.where().eq("sceneId", sceneId).and().eq("palyDate", palyDate).eq("areaName", areaName).eq("pageName", pageName);
@@ -112,7 +114,8 @@ public class RedHotReportDao {
         try {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
             deleteBuilder.where().eq("startTime", startTime);
-            deleteBuilder.delete();
+            int num = deleteBuilder.delete();
+            Log.e(TAG, "num" + num);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,4 +131,15 @@ public class RedHotReportDao {
         }
     }
 
+    public void delOneMouthAgo(String oneMouthAgo) {
+        try {
+            DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
+            deleteBuilder.where().le("createTime", oneMouthAgo);
+            deleteBuilder.delete();
+            int num = deleteBuilder.delete();
+            Log.e(TAG, "num" + num);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

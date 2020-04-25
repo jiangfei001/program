@@ -31,7 +31,7 @@ public class JsInterface {
 
 
     public void saveRepHotReport(String areaName, String pageName) {
-        String nowDate = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(new Date());
+        String nowDate = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
 
         List<ProgarmPalySceneVo> progarmPalySceneVos = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalySceneVos;
         if (progarmPalySceneVos == null) {

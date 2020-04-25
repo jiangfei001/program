@@ -59,4 +59,7 @@ public class ScenceReportRequestManager {
     }
 
 
+    public void delOneMouthAgo(String lastOneMouth) {
+        new ScenceReportDao(context).delOneMouthAgo(lastOneMouth);
+    }
 }
