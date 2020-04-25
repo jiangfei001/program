@@ -108,23 +108,23 @@ public class UsageStatsManagerUtil {
         }
 
         /** * 重复提醒 * 第一个参数是警报类型；下面有介绍 * 第二个参数网上说法不一，很多都是说的是延迟多少毫秒执行这个闹钟，但是我用的刷了MIUI的三星手机的实际效果是与单次提醒的参数一样，即设置的13点25分的时间点毫秒值 * 第三个参数是重复周期，也就是下次提醒的间隔 毫秒值 我这里是一天后提醒 */
-      /*  alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), pi);*/
+        /*  alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), (1000 * 60 * 60 * 24), pi);*/
     }
 
     /**
      * 每隔10分钟上报一次报表
      */
-    public void alarmSendAppReportUsage() {
+    public void alarmSendHotAreaReportUsage() {
         AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(SystemClock.elapsedRealtime());
-        // 1分钟上报一次打开次数
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 60 * 23);
+        // 10分钟上报一次打开次数
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 10);
 
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
-        it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_USAGE_COUNT);
+        it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_HOTAREA);
         it.putExtra("time", System.currentTimeMillis());
         PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_USAGE, it, PendingIntent.FLAG_UPDATE_CURRENT);
 

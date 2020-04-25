@@ -238,7 +238,7 @@ public class SendToServerUtil {
 
 
     //当天节目全量接口
-    public static void sendScenctToServer(List<ScenceReport> scenceReports) {
+    public static void sendScenctToServer(List<ScenceReport> scenceReports, MyYewuResponseHandle myYewuResponseHandle) {
 
         if (scenceReports != null) {
             Log.e(TAG, "sendScenctToServer:" + scenceReports.size());
@@ -260,7 +260,7 @@ public class SendToServerUtil {
     }
 
     //当天节目全量接口
-    public static void sendRepHotareaToServer(List<RepHotReport> repHotReports) {
+    public static void sendRepHotareaToServer(List<RepHotReport> repHotReports, MyYewuResponseHandle myYewuResponseHandle) {
 
         if (repHotReports != null) {
             Log.e(TAG, "sendScenctToServer:" + repHotReports.size());
@@ -281,6 +281,12 @@ public class SendToServerUtil {
             public void onFailure(Request request, Exception e) {
             }
         });
+    }
+
+    public interface MyYewuResponseHandle {
+        void onSuccess(MyApiResponse response);
+
+        void onFailure(Request request, Exception e);
     }
 
 }

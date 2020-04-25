@@ -5,21 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.sgs.AppContext;
-import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
-import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
-import com.sgs.businessmodule.upReportModel.RepHotReport;
-import com.sgs.businessmodule.upReportModel.ScenceReport;
-import com.sgs.middle.utils.DeviceUtil;
+import com.sgs.ReportUtil;
 import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.sgs.programModel.ProgramScheduledManager;
-import com.sgs.programModel.SendToServerUtil;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class CustomAlarmReceiver extends BroadcastReceiver {
     /**
@@ -40,9 +31,9 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
     public static final String ACTION_CHECK_UPDATE_SERVICE = "com.sf.appstore.business.receiver.custom.ACTION_CHECK_UPDATE_SERVICE";
     public static final int REQUEST_CODE_CHECK_UPDATE = 0;
     /**
-     * 定期执行App打开次数的数据上报
+     * 定期执行AppHotArea上报
      */
-    public static final String ACTION_SEND_APP_USAGE_COUNT = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_USAGE_COUNT";
+    public static final String ACTION_SEND_APP_HOTAREA = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_HOTAREA";
     public static final int REQUEST_CODE_SEND_APP_USAGE = 3000;
 
     /**
@@ -123,89 +114,16 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
             ProgramScheduledManager.getInstance().initAllProgramTask();
+            ReportUtil reportUtil = new ReportUtil();
+            reportUtil.reportScence();
             UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
         }
 
-        if (ACTION_SEND_APP_USAGE_COUNT.equals(action)) {
-            UsageStatsManagerUtil.getInstance().alarmSendAppReportUsage();
+        if (ACTION_SEND_APP_HOTAREA.equals(action)) {
+            UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
             Log.e(TAG, "时间到,执行复原任务操作:REPRORT");
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    //获取除了今天的记录
-                    Calendar cal = Calendar.getInstance();
-                    String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-                    Log.e(TAG, "scenceReports:" + today);
-                    List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
-                    if (scenceReports != null && scenceReports.size() > 0) {
-                        Log.e(TAG, "scenceReports:" + scenceReports);
-                        SendToServerUtil.sendScenctToServer(scenceReports);
-                        ScenceReportRequestManager.getInstance().delByNotToday(today);
-                    }/* else {
-                        Log.e(TAG, "scenceReports:" + null);
-                        scenceReports = new ArrayList<>();
-                        ScenceReport scenceReport = new ScenceReport();
-                        scenceReport.setPalyDate("2020-12-12");
-                        scenceReport.setPalySecond(123);
-                        scenceReport.setPalyNum(1);
-                        scenceReport.setProgramId("123");
-                        scenceReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        scenceReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        scenceReport.setProgramName("ProgramName");
-                        scenceReport.setSceneName("ProgramName");
-                        scenceReport.setSceneId(12);
-                        scenceReports.add(scenceReport);
-                        ScenceReport scenceReport1 = new ScenceReport();
-                        scenceReport1.setPalyDate("2020-12-12");
-                        scenceReport1.setPalySecond(123);
-                        scenceReport1.setPalyNum(1);
-                        scenceReport1.setProgramId("123");
-                        scenceReport1.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        scenceReport1.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        scenceReport1.setProgramName("ProgramName");
-                        scenceReport1.setSceneName("ProgramName");
-                        scenceReport1.setSceneId(12);
-                        scenceReports.add(scenceReport1);
-                        Log.e(TAG, "scenceReports:" + scenceReports);
-                        SendToServerUtil.sendScenctToServer(scenceReports);
-                        ScenceReportRequestManager.getInstance().delByNotToday(today);
-
-                    }*/
-
-                    List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotToday(today);
-                    if (repHotReports != null && repHotReports.size() > 0) {
-                        Log.e(TAG, "repHotReports:" + repHotReports);
-                        SendToServerUtil.sendRepHotareaToServer(repHotReports);
-                        RedHotReportRequestManager.getInstance().delByNotToday(today);
-                    } /*else {
-                        Log.e(TAG, "repHotReports:" + null);
-                        repHotReports = new ArrayList<>();
-                        RepHotReport repHotReport = new RepHotReport();
-                        repHotReport.setStartTime("2020-12-12");
-                        repHotReport.setClickNum(1);
-                        repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        repHotReport.setProgramName("ProgramName");
-                        repHotReport.setSceneName("SceneName");
-                        repHotReport.setSceneId(12312);
-                        repHotReports.add(repHotReport);
-
-                        RepHotReport repHotReport1 = new RepHotReport();
-                        repHotReport1.setStartTime("2020-12-12");
-                        repHotReport1.setClickNum(1);
-                        repHotReport1.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        repHotReport1.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        repHotReport1.setProgramName("ProgramName");
-                        repHotReport1.setSceneName("SceneName");
-                        repHotReport1.setSceneId(12312);
-                        repHotReports.add(repHotReport1);
-
-                        Log.e(TAG, "repHotReports:" + repHotReports);
-                        SendToServerUtil.sendRepHotareaToServer(repHotReports);
-                        RedHotReportRequestManager.getInstance().delByNotToday(today);
-                    }*/
-                }
-            }).start();
+            ReportUtil reportUtil = new ReportUtil();
+            reportUtil.reportEvent();
         }
     }
 

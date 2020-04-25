@@ -47,10 +47,10 @@ public class RedHotReportDao {
         }
     }
 
-    public RepHotReport queryByDateAndScenceId(int sceneId, String palyDate, String areaName) {
+    public RepHotReport queryByDateAndScenceId(int sceneId, String palyDate, String areaName,String pageName) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().eq("sceneId", sceneId).and().eq("palyDate", palyDate).eq("areaName", areaName);
+            queryBuilder.where().eq("sceneId", sceneId).and().eq("palyDate", palyDate).eq("areaName", areaName).eq("pageName", pageName);
             return queryBuilder.queryForFirst();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class RedHotReportDao {
         return null;
     }
 
-    public List<RepHotReport> queryByNotToday(String startTime) {
+    public List<RepHotReport> queryByNotMin(String startTime) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
             queryBuilder.where().ne("startTime", startTime);

@@ -43,12 +43,12 @@ public class RedHotReportRequestManager {
         return new RedHotReportDao(context).queryByDate(reportDate);
     }
 
-    public List<RepHotReport> queryByNotToday(String reportDate) {
-        return new RedHotReportDao(context).queryByNotToday(reportDate);
+    public List<RepHotReport> queryByNotMin(String reportDate) {
+        return new RedHotReportDao(context).queryByNotMin(reportDate);
     }
 
-    public RepHotReport queryByDateAndScenceId(int scenceId, String reportDate,String eventArea) {
-        return new RedHotReportDao(context).queryByDateAndScenceId(scenceId, reportDate,eventArea);
+    public RepHotReport queryByDateAndScenceId(int scenceId, String reportDate,String areaName, String pageName) {
+        return new RedHotReportDao(context).queryByDateAndScenceId(scenceId, reportDate,areaName,pageName);
     }
 
     public void delByDate(String yesterday) {

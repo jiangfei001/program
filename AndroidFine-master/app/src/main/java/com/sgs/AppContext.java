@@ -2,18 +2,14 @@ package com.sgs;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.AlarmManager;
 import android.app.Application;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -23,13 +19,9 @@ import com.baidu.location.LocationClientOption;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.websocketmodel.ActivityLifeManager;
 import com.sgs.businessmodule.websocketmodel.CrashHandler;
-import com.sgs.middle.receiver.CustomAlarmReceiver;
 import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.umeng.commonsdk.UMConfigure;
-
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 
 public class AppContext extends Application {
@@ -79,8 +71,6 @@ public class AppContext extends Application {
     private boolean isMainProcess;
     private ServiceConnection connection;
 
-    public String tag = "jiangfei";
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -97,7 +87,12 @@ public class AppContext extends Application {
         //initFileService();
         if (isMainProcess) {
             UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
-            UsageStatsManagerUtil.getInstance().alarmSendAppReportUsage();
+            UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
+
+            ReportUtil reportUtil = new ReportUtil();
+            reportUtil.reportEvent();
+            reportUtil.reportScence();
+
             initLocation();
         }
         ActivityLifeManager.getInstance().setAppStatusListener(new ActivityLifeManager.AppStatusListener() {
