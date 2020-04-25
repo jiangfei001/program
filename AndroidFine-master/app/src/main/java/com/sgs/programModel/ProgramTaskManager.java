@@ -121,7 +121,7 @@ public class ProgramTaskManager {
     };
 
     private void saveScenceReport(int time1) {
-        String nowDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
         ScenceReport scenceReport = ScenceReportRequestManager.getInstance().queryByDateAndScenceId(nowProgarmPalySceneVos.get(nowscene).getSceneId(), nowDate);
         Log.e(TAG, "sendPlayHtml:scenceReport:" + scenceReport);
 
