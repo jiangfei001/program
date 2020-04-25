@@ -72,17 +72,6 @@ public class RedHotReportDao {
         return null;
     }
 
-    public List<RepHotReport> queryByNotMin(String startTime) {
-        try {
-            QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().ne("startTime", startTime);
-            return queryBuilder.query();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public RepHotReport get(int id) {
         try {
             return OrderDaoOpe.queryForId(id);
@@ -100,6 +89,17 @@ public class RedHotReportDao {
         }
         return null;
     }
+
+
+    public int delList(List<RepHotReport> repHotReports) {
+        try {
+            return OrderDaoOpe.delete(repHotReports);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
     public List<RepHotReport> byStatus() {
         try {
@@ -141,5 +141,17 @@ public class RedHotReportDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public List<RepHotReport> queryByNotMin(String time) {
+        try {
+            QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
+            queryBuilder.where().ne("createTime", time);
+            return queryBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -62,4 +62,8 @@ public class RedHotReportRequestManager {
     public void delOneMouthAgo(String onMouthAgo) {
         new RedHotReportDao(context).delOneMouthAgo(onMouthAgo);
     }
+
+    public void delList(List<RepHotReport> repHotReports) {
+        new RedHotReportDao(context).delList(repHotReports);
+    }
 }

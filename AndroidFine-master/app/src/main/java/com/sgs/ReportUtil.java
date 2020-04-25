@@ -32,7 +32,7 @@ public class ReportUtil {
                 RedHotReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
 
                 Log.e(TAG, "repHotReports nowMin:" + nowMin);
-                List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotMin(nowMin);
+                final List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotMin(nowMin);
 
                 if (repHotReports != null && repHotReports.size() > 0) {
                     Log.e(TAG, "repHotReports:" + repHotReports);
@@ -40,7 +40,7 @@ public class ReportUtil {
                         @Override
                         public void onSuccess(MyApiResponse response) {
                             Log.e(TAG, "sendRepHotareaToServer onSucess:" + response.toString());
-                            RedHotReportRequestManager.getInstance().delByNotToday(nowMin);
+                            RedHotReportRequestManager.getInstance().delList(repHotReports);
                         }
 
                         @Override
