@@ -1,0 +1,16 @@
+
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(õÉí´ýÿÿÿÿ8ÿ¹é¡–.
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(åÃ°¿ùÿÿÿÿ8Ð“Ý¡–.
+tsquid:S1450"XRemove the "channelId" field and declare it as a local variable in the relevant methods.(Û”‰¹8ÿ¹é¡–.
+Csquid:S1068"'Remove this unused "sum" private field.(ú«ŒÆ8ŽºÝ¡–.
+^squid:S1192"IDefine a constant instead of duplicating this literal "popUpMsg" 4 times.(Žúü‹
+6squid:S1170"!Make this final field static too.(ò‡ÞŸ
+Esquid:S1172"+Remove this unused method parameter "view".(£ÍÉ‘þÿÿÿÿ
+`squid:S1192"LDefine a constant instead of duplicating this literal "nonPopUpMsg" 4 times.(À¢P
+;squid:S1170"!Make this final field static too.(áû£Üùÿÿÿÿ
+^squid:UnusedPrivateMethod"4Remove this unused private "sendNonPopUpMsg" method.(¦Ì¶¤8ŽºÝ¡–.
+fsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(À­ú8ŽºÝ¡–.
+`squid:UnusedPrivateMethod"1Remove this unused private "sendPopUpMsg" method.(£ÍÉ‘þÿÿÿÿ8Ð“Ý¡–.
+vsquid:S1450"ZRemove the "channelName" field and declare it as a local variable in the relevant methods.(° ‘8ÿ¹é¡–.
+@squid:S1172"+Remove this unused method parameter "view".(¦Ì¶¤
+Usquid:UselessImportCheck"4Remove this unused import 'android.graphics.Bitmap'.(¾ì

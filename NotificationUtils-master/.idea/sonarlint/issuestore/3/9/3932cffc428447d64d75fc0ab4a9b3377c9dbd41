@@ -1,0 +1,23 @@
+
+[squid:UselessImportCheck"9Remove this unused import 'android.annotation.TargetApi'.(¥Îì‘
+Ssquid:S00107"=Method has 13 parameters, which is greater than 7 authorized.(¼õÓ
+Ssquid:S00107"=Method has 12 parameters, which is greater than 7 authorized.(Îš¡
+ksquid:S1450"VRemove the "current" field and declare it as a local variable in the relevant methods.(ù—Óü
+Xsquid:S00107"=Method has 18 parameters, which is greater than 7 authorized.(ŠŞñÓùÿÿÿÿ
+Dsquid:S1066"/Merge this if statement with the enclosing one.(¦¯—™
+Xsquid:S00107"=Method has 11 parameters, which is greater than 7 authorized.(¹ç¬ıÿÿÿÿ
+Xsquid:S00107"=Method has 11 parameters, which is greater than 7 authorized.(Ôø±ıÿÿÿÿ
+Xsquid:S00107"=Method has 10 parameters, which is greater than 7 authorized.(©Úé£øÿÿÿÿ
+Rsquid:S00107"=Method has 12 parameters, which is greater than 7 authorized.(¯‘¸J
+Isquid:S1066"/Merge this if statement with the enclosing one.(˜øçÿÿÿÿÿ
+Vsquid:S1068"<Remove this unused "notificationChannelGroup" private field.(ªäÓÙÿÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+Ssquid:S00107"=Method has 12 parameters, which is greater than 7 authorized.(“šè§
+_squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(›²â
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(§ƒĞ¯ûÿÿÿÿ
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(…†ü¹
+qsquid:HiddenFieldCheck"LRename "notificationChannelGroup" which hides the field declared at line 47.(ãûŞøÿÿÿÿ
+squid:S1450"gRemove the "notificationChannelGroup" field and declare it as a local variable in the relevant methods.(ªäÓÙÿÿÿÿÿ
+Rsquid:S00107"=Method has 13 parameters, which is greater than 7 authorized.(Œ¼è 
+`squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ïøº´
