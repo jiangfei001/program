@@ -22,6 +22,7 @@ public class ReportUtil {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //删除两个月之前的数据
                 //获取除了今天的记录
                 Calendar cal = Calendar.getInstance();
                 final String nowMin = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(cal.getTime());
@@ -50,6 +51,8 @@ public class ReportUtil {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //删除三个月之前的数据
+
                 //获取除了今天的记录
                 Calendar cal = Calendar.getInstance();
                 final String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());

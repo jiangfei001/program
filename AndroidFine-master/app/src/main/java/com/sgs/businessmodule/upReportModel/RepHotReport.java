@@ -37,9 +37,19 @@ public class RepHotReport {
     // 开始时间 格式年月日时：2020022412
     @DatabaseField
     private String startTime;
+    @DatabaseField
+    private String createTime;
     //结束时间 格式年月日时：2020022412
     @DatabaseField
     private String endTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
     public int getId() {
         return id;

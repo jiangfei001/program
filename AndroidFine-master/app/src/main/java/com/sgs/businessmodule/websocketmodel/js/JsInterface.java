@@ -49,7 +49,7 @@ public class JsInterface {
         Log.e(TAG, "sendPlayHtml:repHotReport:" + repHotReport);
         if (repHotReport == null) {
             repHotReport = new RepHotReport();
-            repHotReport.setStartTime(nowDate);
+            repHotReport.setCreateTime(nowDate);
             repHotReport.setClickNum(1);
             repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
             repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
@@ -59,7 +59,7 @@ public class JsInterface {
             Log.e(TAG, "repHotReport:" + repHotReport.toString());
         } else {
             repHotReport.setClickNum(repHotReport.getClickNum() + 1);
-            repHotReport.setEndTime(nowDate);
+            /*repHotReport.setEndTime(nowDate);*/
             Log.e(TAG, "repHotReport:" + repHotReport.toString());
         }
         RedHotReportRequestManager.getInstance().saveInstructionRequest(repHotReport);
