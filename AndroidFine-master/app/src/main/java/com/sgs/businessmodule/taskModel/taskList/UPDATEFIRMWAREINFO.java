@@ -131,6 +131,7 @@ public class UPDATEFIRMWAREINFO extends TVTask {
             //根据监听到的信息查找列表相对应的任务，删除对应的任务
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
                 //下载成功进行安装
+                Log.e(TAG, "url:" + "sqlDownLoadInfo");
                 InstallUtil.installSilent(AppContext.getInstance(), sqlDownLoadInfo.getFilePath());
             }
         }
@@ -138,6 +139,7 @@ public class UPDATEFIRMWAREINFO extends TVTask {
         @Override
         public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
             //根据监听到的信息查找列表相对应的任务，停止该任务
+            Log.e(TAG, "url errro:" + "sqlDownLoadInfo");
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
 
             }
