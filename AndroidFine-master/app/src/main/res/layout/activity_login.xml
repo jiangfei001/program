@@ -245,10 +245,23 @@
             android:textSize="18.0sp" />
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/jihuo"
             android:layout_width="fill_parent"
             android:layout_height="40.0dip"
             android:layout_below="@+id/btnSure"
+            android:layout_marginLeft="18.0dip"
+            android:layout_marginTop="30.0dip"
+            android:layout_marginRight="18.0dip"
+            android:background="@drawable/btn_bg_gray"
+            android:text="激活"
+            android:textColor="#ffffffff"
+            android:textSize="18.0sp" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:layout_below="@+id/jihuo"
             android:layout_marginLeft="18.0dip"
             android:layout_marginTop="30.0dip"
             android:layout_marginRight="18.0dip"

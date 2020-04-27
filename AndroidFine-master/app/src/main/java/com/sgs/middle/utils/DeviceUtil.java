@@ -450,6 +450,7 @@ public class DeviceUtil {
 
     public static String sfter = "jffinecontextsp";
     public static String uniqueid = "uniqueid";
+    public static String uniqueid1 = "uniqueid1";
     public static String sbm = "sbm";
 
     public static String getDeviceId(Context context) {
@@ -618,17 +619,70 @@ public class DeviceUtil {
     }
 
 
+    public static String getsfUUID(Context context) {
+        //1 从sp中拿
+        SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
+        String spUniqueID = mContextSp.getString(uniqueid1, "");
+        if (!StringUtil.isEmpty(spUniqueID)) {
+            Log.e(TAG, "找到了spUniqueID1:" + spUniqueID);
+            FileHelper.putSDunique(spUniqueID, FileHelper.uniqueidf1);
+            return spUniqueID;
+        }
+        //2 从sd卡中拿
+        spUniqueID = FileHelper.getSDunique(FileHelper.uniqueidf1);
+        if (!StringUtil.isEmpty(spUniqueID)) {
+            Log.e(TAG, "找到了找到了fileUniqueID1:" + spUniqueID);
+            //保存sp
+            SharedPreferences.Editor editor = mContextSp.edit();
+            editor.putString(uniqueid1, spUniqueID);
+            editor.commit();
+            return spUniqueID;
+        }
+
+        String id = null;
+        final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.e(TAG, "androidId:" + androidId);
+        if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
+            try {
+                UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
+                id = uuid.toString();
+                Log.e(TAG, "id1:" + id);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (TextUtils.isEmpty(id)) {
+            id = getUUIDT();
+            Log.e(TAG, "id2:" + id);
+        }
+
+        String uid = TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
+
+        //保存sd卡
+        Log.e(TAG, "保存spUniqueID:" + uid);
+        FileHelper.putSDunique(uid,FileHelper.uniqueidf1);
+
+        //保存sp
+        SharedPreferences.Editor editor = mContextSp.edit();
+        editor.putString(uniqueid1, uid);
+        editor.commit();
+
+
+        return uid;
+    }
+
     public static String getUniqueID(Context context) {
         //1 从sp中拿
         SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
         String spUniqueID = mContextSp.getString(uniqueid, "");
         if (!StringUtil.isEmpty(spUniqueID)) {
             Log.e(TAG, "找到了spUniqueID:" + spUniqueID);
-            FileHelper.putSDunique(spUniqueID);
+            FileHelper.putSDunique(spUniqueID,FileHelper.uniqueidf);
             return spUniqueID;
         }
         //2 从sd卡中拿
-        spUniqueID = FileHelper.getSDunique();
+        spUniqueID = FileHelper.getSDunique(FileHelper.uniqueidf);
         if (!StringUtil.isEmpty(spUniqueID)) {
             Log.e(TAG, "找到了找到了fileUniqueID:" + spUniqueID);
             //保存sp
@@ -660,7 +714,7 @@ public class DeviceUtil {
 
         //保存sd卡
         Log.e(TAG, "保存spUniqueID:" + uid);
-        FileHelper.putSDunique(uid);
+        FileHelper.putSDunique(uid,FileHelper.uniqueidf);
 
         //保存sp
         SharedPreferences.Editor editor = mContextSp.edit();

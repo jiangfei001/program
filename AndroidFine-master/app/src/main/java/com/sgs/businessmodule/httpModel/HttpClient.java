@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -93,7 +94,13 @@ public class HttpClient {
         if (param != null && param.size() > 0) {
             url = url + "?" + mapToQueryString(param);
         }
-        Request request = new Request.Builder().url(url).build();
+
+
+        Request.Builder requestBuilder = new Request.Builder();
+        ComRequestManager.addRequestHeader(requestBuilder);
+        Request request = requestBuilder.header("Accept", "*/*")
+                .url(url).build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
@@ -130,10 +137,9 @@ public class HttpClient {
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
-
-        Request request = new Request.Builder().header("Accept", "*/*")
-                .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
-                .addHeader("Content-Type", "application/json;charset=UTF-8")
+        Request.Builder requestBuilder = new Request.Builder();
+        ComRequestManager.addRequestHeader(requestBuilder);
+        Request request = requestBuilder.header("Accept", "*/*")
                 .url(url)
                 .post(body).build();
 
@@ -166,11 +172,12 @@ public class HttpClient {
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntityList));
-        Request request = new Request.Builder().header("Accept", "*/*")
-                .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
-                .addHeader("Content-Type", "application/json;charset=UTF-8")
+        Request.Builder requestBuilder = new Request.Builder();
+        ComRequestManager.addRequestHeader(requestBuilder);
+        Request request = requestBuilder.header("Accept", "*/*")
                 .url(url)
                 .post(body).build();
+
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -192,6 +199,11 @@ public class HttpClient {
         });
     }
 
+    /**
+     * HTTP 请求信息头
+     */
+    private Map<String, String> mHeaders = new HashMap<>();
+
 
     public static void postHashMapEntity(String url, HashMap responseEntity, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
@@ -205,11 +217,13 @@ public class HttpClient {
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
-        Request request = new Request.Builder().header("Accept", "*/*")
-                .addHeader("Connection", "close").addHeader("MultipleDevicesAuth", "true")
-                .addHeader("Content-Type", "application/json;charset=UTF-8")
+
+        Request.Builder requestBuilder = new Request.Builder();
+        ComRequestManager.addRequestHeader(requestBuilder);
+        Request request = requestBuilder.header("Accept", "*/*")
                 .url(url)
                 .post(body).build();
+
 
         client.newCall(request).enqueue(new Callback() {
             @Override

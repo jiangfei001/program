@@ -69,6 +69,7 @@ public class LoginActivity extends Activity {
                 finish();
             }
         });
+
         editText.setText(DeviceUtil.getUniqueID(LoginActivity.this));
 
         final EditText yonghuming = findViewById(R.id.yonghuming);
@@ -138,7 +139,85 @@ public class LoginActivity extends Activity {
 
             }
         });
+        findViewById(R.id.jihuo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        jihuo(radioButton, socketip, jiekouip, yonghuming, shebeiName);
+                    }
+                }).start();
+
+            }
+        });
+
         initPermission();
+    }
+
+    private void jihuo(RadioGroup radioButton, EditText socketip, EditText jiekouip, final EditText yonghuming, final EditText shebeiName) {
+        boolean s_test = false;
+        int id = radioButton.getCheckedRadioButtonId();
+        if (id == R.id.jia) {
+            s_test = true;
+        } else {
+            s_test = false;
+        }
+        //socketip.getText().toString().trim(), jiekouip.getText().toString().trim(),
+        AppUrl.initip(s_test);
+
+        final HashMap hashMap = new HashMap();
+
+        hashMap.put("secretKey", DeviceUtil.getsfUUID(LoginActivity.this));
+
+        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
+
+        Log.e("HashMap", hashMap.toString());
+
+        HttpClient.postHashMapEntity(AppUrl.activation, hashMap, new
+                MyHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(final MyApiResponse response) {
+                        Log.e("tag", "response.msg ");
+                        final Handler handler1 = new Handler(Looper.getMainLooper());
+                        handler1.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (response.code.equals("0")) {
+                                    SharedPreferences.getInstance().putBoolean(SharedPreferences.KEY_ISREGISTER, true);
+                                    handler1.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(AppContext.getInstance(), "恭喜你激活成功了啊！！", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                } else {
+                                    handler1.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Log.e("tag", "response.msg ");
+                                            Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Request request, Exception e) {
+                        e.printStackTrace();
+                        Log.e("tag", "onFailure.msg ");
+                        Handler handler1 = new Handler(Looper.getMainLooper());
+                        handler1.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "对不起，激活失败", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                    }
+                });
     }
 
     private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip, final EditText yonghuming, final EditText shebeiName) {

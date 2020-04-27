@@ -152,15 +152,16 @@ public class FileHelper {
     }
 
     public static String uniqueidf = "/uniqueidf";
+    public static String uniqueidf1 = "/uniqueidf1";
 
-    public static String getSDunique() {
+    public static String getSDunique(String key) {
         Log.e(TAG, "开始找getSDunique:");
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sdcardDir = Environment.getExternalStorageDirectory();
             FileInputStream fis = null;
             BufferedReader br = null;
             try {
-                fis = new FileInputStream(sdcardDir.getCanonicalPath() + uniqueidf);
+                fis = new FileInputStream(sdcardDir.getCanonicalPath() + key);
                 //  getCanonicalPath()返回的是标准的绝对路径
                 br = new BufferedReader(new InputStreamReader(fis));
                 StringBuilder sb = new StringBuilder();
@@ -194,7 +195,7 @@ public class FileHelper {
         return "";
     }
 
-    public static void putSDunique(String content) {
+    public static void putSDunique(String content,String strPath) {
         Log.e(TAG, "putSD保存uniquecontent:" + content);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Log.e(TAG, "putSDunique保存filUniqueID:" + content);
@@ -203,7 +204,7 @@ public class FileHelper {
             FileOutputStream fos = null;
             BufferedWriter bw = null;
             try {
-                fos = new FileOutputStream(sdcarDir.getCanonicalPath() + uniqueidf);
+                fos = new FileOutputStream(sdcarDir.getCanonicalPath() + strPath);
                 osw = new OutputStreamWriter(fos);
                 bw = new BufferedWriter(osw);
                 bw.write(content); // content为你需要写入的字符串
