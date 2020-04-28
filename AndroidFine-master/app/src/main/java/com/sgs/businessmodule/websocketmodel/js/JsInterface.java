@@ -51,8 +51,8 @@ public class JsInterface {
             repHotReport = new RepHotReport();
             repHotReport.setCreateTime(nowDate);
             repHotReport.setClickNum(1);
-            repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-            repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            repHotReport.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            repHotReport.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             repHotReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
             repHotReport.setSceneName(progarmPalySceneVos.get(nowscene).getSceneName());
             repHotReport.setSceneId(progarmPalySceneVos.get(nowscene).getSceneId());

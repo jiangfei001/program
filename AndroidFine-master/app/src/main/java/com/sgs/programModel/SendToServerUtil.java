@@ -9,7 +9,6 @@ import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
-import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
@@ -17,10 +16,8 @@ import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.entity.ProListVo;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalyPlan;
-import com.sgs.programModel.entity.ProgarmPalySceneVo;
 import com.sgs.programModel.entity.PublicationPlanVo;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,7 +66,7 @@ public class SendToServerUtil {
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             StringBuilder sb = new StringBuilder();
             PublicationPlanVo publicationPlanVo = JSON.parseObject(progarmPalyInstructionVos.get(i).getPublicationPlan(), new TypeReference<PublicationPlanVo>() {
             });
@@ -108,7 +105,7 @@ public class SendToServerUtil {
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             StringBuilder sb = new StringBuilder();
             PublicationPlanVo publicationPlanVo = JSON.parseObject(progarmPalyInstructionVos.get(i).getPublicationPlan(), new TypeReference<PublicationPlanVo>() {
             });
@@ -122,7 +119,7 @@ public class SendToServerUtil {
         for (int i = 0; i < todays.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(todays.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             StringBuilder sb = new StringBuilder();
             List<ProgarmPalyPlan> okProgarms = todays.get(i).getPublicationPlanObject().getOkProgarms();
             for (int t = 0; t < okProgarms.size(); t++) {
@@ -141,7 +138,7 @@ public class SendToServerUtil {
         hashMap.put("terminalProgramEntity", com.alibaba.fastjson.JSON.toJSONString(terminalProgramEntity));
         hashMap.put("type", type);
         hashMap.put("daylist", com.alibaba.fastjson.JSON.toJSONString(daylist));
-        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(AppContext.getInstance()));
+        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
 
         HttpClient.postHashMapEntity(AppUrl.addTerminalProgramListUrl, hashMap, new MyHttpResponseHandler() {
             @Override
@@ -168,7 +165,7 @@ public class SendToServerUtil {
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             StringBuilder sb = new StringBuilder();
             List<ProgarmPalyPlan> okProgarms = progarmPalyInstructionVos.get(i).getPublicationPlanObject().getOkProgarms();
             for (int t = 0; t < okProgarms.size(); t++) {

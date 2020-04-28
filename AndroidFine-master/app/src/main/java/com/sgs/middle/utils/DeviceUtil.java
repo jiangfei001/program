@@ -25,7 +25,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -35,6 +34,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.sgs.AppContext;
+import com.sgs.AppUrl;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 
 import org.json.JSONException;
@@ -58,7 +58,6 @@ import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -99,7 +98,7 @@ public class DeviceUtil {
      */
     public static String getMobileSerial(Context context) {
         if (StringUtil.isEmpty(Build.SERIAL) || Build.SERIAL.equals("unknown")) {
-            return getUniqueID(context);
+            return getTerDeviceID(context);
         } else {
             return Build.SERIAL;
         }
@@ -616,12 +615,12 @@ public class DeviceUtil {
         if (!StringUtil.isEmpty(sbmster)) {
             return sbmster;
         } else {
-            return getUniqueID(context);
+            return getTerDeviceID(context);
         }
     }
 
 
-    public static String getsfUUID(Context context) {
+    public static String getSercetKey(Context context) {
         //1 从sp中拿
         SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
         String spUniqueID = mContextSp.getString(uniqueid1, "");
@@ -688,7 +687,11 @@ public class DeviceUtil {
         return "";
     }
 
-    public static String getUniqueID(Context context) {
+    public static String getTerDeviceID(Context context) {
+        if (true) {
+            return AppUrl.shebeiHao;
+        }
+
         //1 从sp中拿
         SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
         String spUniqueID = mContextSp.getString(uniqueid, "");

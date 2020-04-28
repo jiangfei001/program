@@ -13,7 +13,6 @@ import com.sgs.programModel.entity.ProgarmPalyPlan;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class GETDAYPROGRAM extends TVTask {
         for (int i = 0; i < todaylist.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(todaylist.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             StringBuilder sb = new StringBuilder();
             List<ProgarmPalyPlan> okProgarms = todaylist.get(i).getPublicationPlanObject().getOkProgarms();
             for (int t = 0; t < okProgarms.size(); t++) {

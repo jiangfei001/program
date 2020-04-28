@@ -28,7 +28,6 @@ import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
-import com.sgs.middle.utils.DnsUtil;
 import com.sgs.middle.utils.SharedPreferences;
 import com.sgs.middle.utils.StringUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -70,7 +69,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        editText.setText(DeviceUtil.getUniqueID(LoginActivity.this));
+        editText.setText(DeviceUtil.getTerDeviceID(LoginActivity.this));
 
         final EditText yonghuming = findViewById(R.id.yonghuming);
         final EditText shebeiName = findViewById(R.id.shebeiName);
@@ -81,10 +80,6 @@ public class LoginActivity extends Activity {
         jiekouip.setText(AppUrl.jiekouIP);
 
         shebeiName.setText(DeviceUtil.getSBM(this));
-
-   /*     String dnsUtil = DnsUtil.getDns(this);
-        Log.e("dnsUtil", "dnsUtil" + dnsUtil);
-*/
 
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
 
@@ -168,9 +163,9 @@ public class LoginActivity extends Activity {
 
         final HashMap hashMap = new HashMap();
 
-        hashMap.put("secretKey", DeviceUtil.getsfUUID(LoginActivity.this));
+        hashMap.put("secretKey", DeviceUtil.getSercetKey(LoginActivity.this));
 
-        hashMap.put("terminalIdentity", AppUrl.shebeiHao);
+        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(LoginActivity.this));
 
         Log.e("HashMap", hashMap.toString());
 
@@ -235,9 +230,9 @@ public class LoginActivity extends Activity {
 
         hashMap.put("userName", yonghuming.getText().toString());
 
-        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
+        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(LoginActivity.this));
 
-        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : DeviceUtil.getUniqueID(LoginActivity.this));
+        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : DeviceUtil.getTerDeviceID(LoginActivity.this));
         //应用版本号
         hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
         //局域网IP地址
@@ -255,7 +250,7 @@ public class LoginActivity extends Activity {
         //系统编号
         hashMap.put("systemNo", DeviceUtil.getBuildVersion());
         //设备身份编码
-        hashMap.put("equipmentNo", DeviceUtil.getUniqueID(LoginActivity.this));
+        hashMap.put("equipmentNo", DeviceUtil.getTerDeviceID(LoginActivity.this));
         //设备序列号
         hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial(LoginActivity.this));
         //磁盘物理路径

@@ -29,7 +29,7 @@ public class ReportUtil {
                 //删除一个月之前的数据
                 cal.add(Calendar.MONTH, -1);//得到前一个月
                 final String lastOneMouth = new SimpleDateFormat("yyyyMMddhhmm").format(cal.getTime());
-                RedHotReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
+                //RedHotReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
 
                 Log.e(TAG, "repHotReports nowMin:" + nowMin);
                 final List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotMin(nowMin);
@@ -66,7 +66,7 @@ public class ReportUtil {
                 cal.add(Calendar.MONTH, -1);//得到前一个月
                 final String lastOneMouth = new SimpleDateFormat("yyyyMMdd").format(cal.getTime());
 
-                ScenceReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
+                //ScenceReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
 
                 Log.e(TAG, "scenceReports:" + today);
                 final List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
@@ -122,8 +122,8 @@ public class ReportUtil {
                         scenceReport.setPalySecond(123);
                         scenceReport.setPalyNum(1);
                         scenceReport.setProgramId("123");
-                        scenceReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        scenceReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        scenceReport.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+                        scenceReport.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
                         scenceReport.setProgramName("ProgramName");
                         scenceReport.setSceneName("ProgramName");
                         scenceReport.setSceneId(12);
@@ -133,8 +133,8 @@ public class ReportUtil {
                         scenceReport1.setPalySecond(123);
                         scenceReport1.setPalyNum(1);
                         scenceReport1.setProgramId("123");
-                        scenceReport1.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        scenceReport1.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        scenceReport1.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+                        scenceReport1.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
                         scenceReport1.setProgramName("ProgramName");
                         scenceReport1.setSceneName("ProgramName");
                         scenceReport1.setSceneId(12);
@@ -166,8 +166,8 @@ public class ReportUtil {
                         RepHotReport repHotReport = new RepHotReport();
                         repHotReport.setStartTime("2020-12-12");
                         repHotReport.setClickNum(1);
-                        repHotReport.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        repHotReport.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        repHotReport.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+                        repHotReport.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
                         repHotReport.setProgramName("ProgramName");
                         repHotReport.setSceneName("SceneName");
                         repHotReport.setSceneId(12312);
@@ -176,8 +176,8 @@ public class ReportUtil {
                         RepHotReport repHotReport1 = new RepHotReport();
                         repHotReport1.setStartTime("2020-12-12");
                         repHotReport1.setClickNum(1);
-                        repHotReport1.setTerminalIdentity(DeviceUtil.getUniqueID(AppContext.getInstance()));
-                        repHotReport1.setTerminalName(DeviceUtil.getUniqueID(AppContext.getInstance()));
+                        repHotReport1.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+                        repHotReport1.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
                         repHotReport1.setProgramName("ProgramName");
                         repHotReport1.setSceneName("SceneName");
                         repHotReport1.setSceneId(12312);

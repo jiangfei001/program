@@ -23,8 +23,8 @@ public class WebSocketHelper {
 
         Log.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
 
-        Log.e("weiyima:", AppUrl.socketUrl + "/" + AppUrl.shebeiHao + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(AppUrl.shebeiHao, System.currentTimeMillis() + "", DeviceUtil.getsfUUID(AppContext.getInstance())));
-        setting.setConnectUrl(AppUrl.socketUrl + "/" + AppUrl.shebeiHao + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(AppUrl.shebeiHao, System.currentTimeMillis() + "", DeviceUtil.getsfUUID(AppContext.getInstance())));//必填
+        Log.e("weiyima:", AppUrl.socketUrl + "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), System.currentTimeMillis() + "", DeviceUtil.getSercetKey(AppContext.getInstance())));
+        setting.setConnectUrl(AppUrl.socketUrl + "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), System.currentTimeMillis() + "", DeviceUtil.getSercetKey(AppContext.getInstance())));//必填
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);
 

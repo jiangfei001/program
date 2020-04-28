@@ -9,7 +9,6 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.ScenceReportRequestManager;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
-import com.sgs.businessmodule.websocketmodel.js.JsInterface;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
@@ -19,7 +18,6 @@ import com.sgs.programModel.taskUtil.MyTask;
 import com.sgs.programModel.taskUtil.PRI;
 import com.sgs.programModel.taskUtil.PriorityTimeTask;
 import com.sgs.programModel.taskUtil.TimeHandler;
-import com.uiModel.activity.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -131,8 +129,8 @@ public class ProgramTaskManager {
             scenceReport.setPalySecond(time1);
             scenceReport.setPalyNum(1);
             scenceReport.setProgramId(nowProgarmPalyInstructionVo.getId() + "");
-            scenceReport.setTerminalIdentity(DeviceUtil.getUniqueID(context));
-            scenceReport.setTerminalName(DeviceUtil.getUniqueID(context));
+            scenceReport.setTerminalIdentity(DeviceUtil.getTerDeviceID(context));
+            scenceReport.setTerminalName(DeviceUtil.getTerDeviceID(context));
             scenceReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
             scenceReport.setSceneName(nowProgarmPalySceneVos.get(nowscene).getSceneName());
             scenceReport.setSceneId(nowProgarmPalySceneVos.get(nowscene).getSceneId());
