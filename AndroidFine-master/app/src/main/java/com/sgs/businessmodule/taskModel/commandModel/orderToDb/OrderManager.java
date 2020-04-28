@@ -20,11 +20,6 @@ import com.sgs.AppContext;
 import com.sgs.middle.dbModel.dao.OrderDao;
 import com.sgs.middle.dbModel.entity.Order;
 
-/**
- * 数据工具类
- *
- * @author Lemon
- */
 public class OrderManager {
     private final String TAG = "DataManager";
 

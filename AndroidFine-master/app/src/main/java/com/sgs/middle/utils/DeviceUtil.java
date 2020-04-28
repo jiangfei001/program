@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.Inet4Address;
@@ -547,6 +548,7 @@ public class DeviceUtil {
         return "";
     }
 
+
     /**
      * 获得设备硬件uuid
      * 使用硬件信息，计算出一个随机数
@@ -661,7 +663,7 @@ public class DeviceUtil {
 
         //保存sd卡
         Log.e(TAG, "保存spUniqueID:" + uid);
-        FileHelper.putSDunique(uid,FileHelper.uniqueidf1);
+        FileHelper.putSDunique(uid, FileHelper.uniqueidf1);
 
         //保存sp
         SharedPreferences.Editor editor = mContextSp.edit();
@@ -672,13 +674,27 @@ public class DeviceUtil {
         return uid;
     }
 
+
+    private static String getSerialno() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("get", String.class);
+            String serial = (String) get.invoke(c, "ro.serialno");
+            return serial;
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static String getUniqueID(Context context) {
         //1 从sp中拿
         SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
         String spUniqueID = mContextSp.getString(uniqueid, "");
         if (!StringUtil.isEmpty(spUniqueID)) {
             Log.e(TAG, "找到了spUniqueID:" + spUniqueID);
-            FileHelper.putSDunique(spUniqueID,FileHelper.uniqueidf);
+            FileHelper.putSDunique(spUniqueID, FileHelper.uniqueidf);
             return spUniqueID;
         }
         //2 从sd卡中拿
@@ -693,15 +709,20 @@ public class DeviceUtil {
         }
 
         String id = null;
-        final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Log.e(TAG, "androidId:" + androidId);
-        if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
-            try {
-                UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
-                id = uuid.toString();
-                Log.e(TAG, "id1:" + id);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+
+        id = getSerialno();
+
+        if (TextUtils.isEmpty(id)) {
+            final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            Log.e(TAG, "androidId:" + androidId);
+            if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
+                try {
+                    UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
+                    id = uuid.toString();
+                    Log.e(TAG, "id1:" + id);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -712,9 +733,10 @@ public class DeviceUtil {
 
         String uid = TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
 
+
         //保存sd卡
         Log.e(TAG, "保存spUniqueID:" + uid);
-        FileHelper.putSDunique(uid,FileHelper.uniqueidf);
+        FileHelper.putSDunique(uid, FileHelper.uniqueidf);
 
         //保存sp
         SharedPreferences.Editor editor = mContextSp.edit();

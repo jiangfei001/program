@@ -1,12 +1,5 @@
 package com.sgs.businessmodule.downloadModel.dbcontrol.bean;
-/**
- * 类功能描述：下载任务对象</br>
- *
- * @author zhuiji7
- * @email 470508081@qq.com
- * @version 1.0
- * </p>
- */
+
 public class SQLDownLoadInfo {
     private String userID;
     private String taskID;

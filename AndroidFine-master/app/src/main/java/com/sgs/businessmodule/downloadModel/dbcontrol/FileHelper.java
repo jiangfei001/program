@@ -16,14 +16,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-/**
- * 类功能描述：文件操作辅助类</br>
- *
- * @author zhuiji7
- * @version 1.0
- * </p>
- * @email 470508081@qq.com
- */
 public class FileHelper {
     private static final String TAG = FileHelper.class.getName();
     private static String userID = "luffy";

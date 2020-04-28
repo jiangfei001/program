@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.sgs.AppContext;
 import com.sgs.AppUrl;
+import com.sgs.middle.utils.DeviceUtil;
+import com.sgs.middle.utils.Sha256Hash;
 import com.zhangke.websocket.WebSocketHandler;
 import com.zhangke.websocket.WebSocketManager;
 import com.zhangke.websocket.WebSocketSetting;
@@ -20,7 +22,9 @@ public class WebSocketHelper {
         /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
 
         Log.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
-        setting.setConnectUrl(AppUrl.socketUrl + "/" + username);//必填
+
+        Log.e("weiyima:", AppUrl.socketUrl + "/" + AppUrl.shebeiHao + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(AppUrl.shebeiHao, System.currentTimeMillis() + "", DeviceUtil.getsfUUID(AppContext.getInstance())));
+        setting.setConnectUrl(AppUrl.socketUrl + "/" + AppUrl.shebeiHao + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(AppUrl.shebeiHao, System.currentTimeMillis() + "", DeviceUtil.getsfUUID(AppContext.getInstance())));//必填
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);
 

@@ -3,14 +3,7 @@ package com.sgs.businessmodule.downloadModel;
 
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 
-/**
- * 类功能描述：</br>
- *
- * @author zhuiji7
- * @email 470508081@qq.com
- * @version 1.0
- * </p>
- */
+
 public interface DownLoadListener {
     
     /**

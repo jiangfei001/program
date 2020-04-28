@@ -16,14 +16,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/**
- * 类功能描述：下载管理类</br>
- *
- * @author zhuiji7
- * @version 1.0
- * </p>
- * @email 470508081@qq.com
- */
 
 public class DownLoadManager {
     private Context mycontext;

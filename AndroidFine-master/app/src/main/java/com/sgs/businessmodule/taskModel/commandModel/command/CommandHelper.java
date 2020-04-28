@@ -20,13 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-/**
- * 设备信息的工具类
- * <p>
- * Created by Beluga_白鲸.
- */
-
 public class CommandHelper {
     //关机
     public static void openOrClose() {

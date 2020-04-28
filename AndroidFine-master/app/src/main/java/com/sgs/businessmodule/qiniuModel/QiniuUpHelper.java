@@ -19,11 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * 设备信息的工具类
- * <p>
- * Created by Beluga_白鲸.
- */
+
 
 public class QiniuUpHelper {
 

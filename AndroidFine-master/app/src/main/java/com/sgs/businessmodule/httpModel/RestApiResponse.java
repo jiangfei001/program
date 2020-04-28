@@ -1,9 +1,5 @@
 package com.sgs.businessmodule.httpModel;
 
-/**
- * Created by tiansj on 2016/11/30.
- */
-
 public class RestApiResponse {
 
     public static final int STATUS_SUCCESS = 200;

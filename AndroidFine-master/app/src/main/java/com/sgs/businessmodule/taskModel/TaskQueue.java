@@ -5,7 +5,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-// 某机构。
 public class TaskQueue {
     private AtomicInteger mAtomicInteger = new AtomicInteger();
     // 某机构排的队，队里面是办事的人。

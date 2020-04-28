@@ -170,7 +170,7 @@ public class LoginActivity extends Activity {
 
         hashMap.put("secretKey", DeviceUtil.getsfUUID(LoginActivity.this));
 
-        hashMap.put("terminalIdentity", DeviceUtil.getUniqueID(LoginActivity.this));
+        hashMap.put("terminalIdentity", AppUrl.shebeiHao);
 
         Log.e("HashMap", hashMap.toString());
 

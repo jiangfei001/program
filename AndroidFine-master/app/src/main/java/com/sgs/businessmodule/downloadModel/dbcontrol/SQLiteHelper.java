@@ -12,14 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * 类功能描述：</br>
- *
- * @author zhuiji7
- * @email 470508081@qq.com
- * @version 1.0
- * </p>
- */
 public class SQLiteHelper extends SQLiteOpenHelper {
 
 	private static final String mDatabasename = "filedownloader";

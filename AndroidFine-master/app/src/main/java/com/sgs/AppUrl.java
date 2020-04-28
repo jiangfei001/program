@@ -6,6 +6,8 @@ import android.util.Log;
 public class AppUrl {
 
 
+    public static String shebeiHao="cea18188037d6f3504902bf2cd6e01b3";
+
     public static boolean isTest = false;
 
     //注册

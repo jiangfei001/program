@@ -1,8 +1,10 @@
 package com.sgs.businessmodule.httpModel;
 
 import com.sgs.AppContext;
+import com.sgs.AppUrl;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.Sha256Hash;
+import com.uiModel.activity.LoginActivity;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,8 +25,8 @@ public class ComRequestManager {
 
     public static HashMap<String, String> buildHeader() {
         final HashMap<String, String> map = new HashMap<>();
-        map.put("token", Sha256Hash.getToken(DeviceUtil.getUniqueID(AppContext.getInstance()), System.currentTimeMillis() + "", ""));
-        map.put("terminalId", DeviceUtil.getUniqueID(AppContext.getInstance()));
+        map.put("token", Sha256Hash.getToken(AppUrl.shebeiHao, System.currentTimeMillis() + "", DeviceUtil.getsfUUID(AppContext.getInstance())));
+        map.put("terminalId", AppUrl.shebeiHao);
         map.put("timeStamp", System.currentTimeMillis() + "");
         map.put("Connection", "close");
         map.put("MultipleDevicesAuth", "true");
