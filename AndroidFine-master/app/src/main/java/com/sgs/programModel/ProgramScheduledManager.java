@@ -236,7 +236,7 @@ public class ProgramScheduledManager {
         PublicationPlanVo publicationPlanVo = JSON.parseObject(publicationPlanJson, new TypeReference<PublicationPlanVo>() {
         });
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date deadLineV = null;
         try {
             //过期的要删除
