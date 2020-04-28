@@ -688,9 +688,9 @@ public class DeviceUtil {
     }
 
     public static String getTerDeviceID(Context context) {
-        if (true) {
+        /*if (true) {
             return AppUrl.shebeiHao;
-        }
+        }*/
 
         //1 从sp中拿
         SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
