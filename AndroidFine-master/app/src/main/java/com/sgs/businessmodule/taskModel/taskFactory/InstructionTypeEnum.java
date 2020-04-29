@@ -35,8 +35,10 @@ public enum InstructionTypeEnum {
     CLEARCUTMSG(131, "clearCutMsg", "清空插播消息"),
     DELETECUTMSG(132, "deleteCutMsg", "删除插播消息"),
     GETDAYPROGRAM(133, "getDayProgram", "获取当天节目"),
+    INSTALL(134, "install", "获取当天节目"),
     ;
 
+    //InstructionRequest{id=2504, code=134, type='install', data='{"apkPath":"http://qiniu.xinlianchuangmei.com/admin/202002/08/38025e02884a4a5fb71290ffbada46cd.apk"}', expirationTime=null, priority=1, beginTime=null}
     InstructionTypeEnum(int code, String type, String name) {
         this.code = code;
         this.type = type;
