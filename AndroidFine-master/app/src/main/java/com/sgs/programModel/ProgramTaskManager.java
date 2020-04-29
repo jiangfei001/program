@@ -41,6 +41,15 @@ public class ProgramTaskManager {
 
     public String TAG = "ProgramTaskManager";
 
+
+    public void clearAll() {
+        stopLooper();
+        handler.removeMessages(1);
+        nowProgarmPalySceneVos = null;
+        nowscene = 0;
+        nowProgarmPalyInstructionVo = null;
+    }
+
     //接受task的返回
     TimeHandler<MyTask> timeHandler = new TimeHandler<MyTask>() {
         @Override
@@ -101,6 +110,8 @@ public class ProgramTaskManager {
         }
     }
 
+
+    public
 
     Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -187,6 +198,7 @@ public class ProgramTaskManager {
         myTaskTimeTask.startLooperTaskOrder();
 
     }
+
 
     public void stopLooper() {
         myTaskTimeTask.stopLooper();

@@ -114,7 +114,7 @@ public class ProgramScheduledManager {
         progarmPalyInstructionVosPri = null;
         prolistToday = null;
         ProgramDbManager.getInstance().delectAllProgarmPalyInstructionVoRequest();
-        programTaskManager.stopLooper();
+        programTaskManager.clearAll();
         manager.deleteAllTask();
         manager.removeAllDownLoadListener();
 
