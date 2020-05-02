@@ -3,10 +3,17 @@ package com.sgs;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.sgs.middle.utils.StringUtil;
+import com.umeng.commonsdk.debug.E;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class AppUrl {
 
 
-    public static String shebeiHao="cea18188037d6f3504902bf2cd6e01b3";
+    public static String shebeiHao = "cea18188037d6f3504902bf2cd6e01b3";
 
     public static boolean isTest = false;
 
@@ -38,6 +45,12 @@ public class AppUrl {
 
     public static String jiekouUrl = "";
 
+    public static ArrayList<String> socketIPList = new ArrayList();
+
+    //注册
+    public static String getServerList = "";
+    private static int index = 0;
+
     static {
         socketUrl = "ws://" + socketIP + "/multimedia_test/api/websocket";
         jiekouUrl = "http://" + jiekouIP;
@@ -48,6 +61,7 @@ public class AppUrl {
         addRepPalyProgramList = jiekouUrl + "/multimedia_test/api/terminal/addRepPalyProgramList";
         addRepHotareaClickList = jiekouUrl + "/multimedia_test/api/terminal/addRepHotareaClickList";
         activation = jiekouUrl + "/multimedia_test/api/terminal/activation";
+        getServerList = jiekouUrl + "/multimedia_test/api/terminal/getServerList";
             /*socketUrl = "ws://49.235.109.237:9080/multimedia/api/websocket";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
@@ -74,6 +88,7 @@ public class AppUrl {
         addRepPalyProgramList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addRepPalyProgramList";
         addRepHotareaClickList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addRepHotareaClickList";
         activation = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/activation";
+        getServerList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/getServerList";
 
         Log.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
         Log.e("socketUrl", "callbackUrl:" + callbackUrl);
@@ -81,6 +96,31 @@ public class AppUrl {
         Log.e("socketUrl", "addDayProgramList:" + addDayProgramList);
         Log.e("socketUrl", "addRepPalyProgramList:" + addRepPalyProgramList);
         Log.e("socketUrl", "activation:" + activation);
+        Log.e("socketUrl", "getServerList:" + getServerList);
     }
 
+    public static void setSerList(String jsonstr) {
+        Log.e("jsonstr", "jsonstr:" + jsonstr);
+        try {
+            if (!StringUtil.isEmpty(jsonstr)) {
+                socketIPList = (ArrayList) JSON.parseArray(jsonstr, String.class);
+                Log.e("jsonstr", "Linksize" + socketIPList.size());
+                if (socketIPList.size() > 0) {
+                    socketIP = (String) socketIPList.get(0);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("e", "e:" + e.getMessage());
+        }
+    }
+
+
+    public static void setNextIp() {
+        if (index < socketIPList.size() - 1) {
+            index++;
+        } else {
+            index = 0;
+        }
+        socketIP = socketIPList.get(index);
+    }
 }

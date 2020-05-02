@@ -164,7 +164,6 @@ public class LoginActivity extends Activity {
         final HashMap hashMap = new HashMap();
 
         hashMap.put("secretKey", DeviceUtil.getSercetKey(LoginActivity.this));
-
         hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(LoginActivity.this));
 
         Log.e("HashMap", hashMap.toString());
@@ -285,23 +284,20 @@ public class LoginActivity extends Activity {
                                             Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
                                             AppContext.getInstance().userName = yonghuming.getText().toString();
                                             //保存sp
-
                                             android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
                                             android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                             editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
                                             editor.commit();
-
-                                            doNavigation();
+                                            getIp();
                                         }
                                     });
                                 } else {
-
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                             AppContext.getInstance().userName = yonghuming.getText().toString();
-                                            doNavigation();
+                                            getIp();
                                         }
                                     });
                                 }
@@ -325,6 +321,31 @@ public class LoginActivity extends Activity {
                 });
     }
 
+    private void getIp() {
+        //获取ip
+        HttpClient.postHashMapEntity(AppUrl.getServerList, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                super.onSuccess(response);
+                Log.e("HashMap", response.toString());
+/*                {
+    "code": 0,
+    "data": [
+        "49.235.109.237:9080/multimedia",
+        "49.235.109.237:8081/multimedia_test"
+    ]
+                }*/
+                AppUrl.setSerList(response.getData());
+                doNavigation();
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+                super.onFailure(request, e);
+                Log.e("HashMap", "" + e.getMessage());
+            }
+        });
+    }
 
     private void doNavigation() {
         // Intent it = new Intent(this, WebSocketActivity.class);

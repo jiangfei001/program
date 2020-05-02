@@ -29,7 +29,7 @@ public class WebSocketHelper {
         setting.setConnectTimeout(15 * 1000);
 
         //设置心跳间隔时间
-        setting.setConnectionLostTimeout(45);
+        setting.setConnectionLostTimeout(60);
 
         //设置断开后的重连次数，可以设置的很大，不会有什么性能上的影响
         setting.setReconnectFrequency(60);

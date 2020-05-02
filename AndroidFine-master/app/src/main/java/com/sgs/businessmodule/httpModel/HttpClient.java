@@ -204,6 +204,9 @@ public class HttpClient {
      */
     private Map<String, String> mHeaders = new HashMap<>();
 
+    public static void postHashMapEntity(String url, final MyHttpResponseHandler handler) {
+        postHashMapEntity(url,null,handler);
+    }
 
     public static void postHashMapEntity(String url, HashMap responseEntity, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {

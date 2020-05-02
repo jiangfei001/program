@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.dalong.marqueeview.MarqueeView;
 import com.jf.fine.R;
 import com.sgs.AppContext;
+import com.sgs.AppUrl;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.businessmodule.taskModel.TaskQueue;
@@ -87,13 +88,14 @@ public class WebSocketActivityRelease extends EventActivity {
             };
 
             //scheduleAtFixedRate
-            connectionLostTimer.scheduleAtFixedRate(connectionLostTimerTask, 10, 1000L * 50);
+            connectionLostTimer.scheduleAtFixedRate(connectionLostTimerTask, 10, 1000L * 60);
 
 
         }
 
         @Override
         public void onConnectFailed(Throwable e) {
+            AppUrl.setNextIp();
             if (e != null) {
                 appendMsgDisplay("onConnectFailed:" + e.toString());
             } else {
@@ -133,8 +135,8 @@ public class WebSocketActivityRelease extends EventActivity {
         initView();
 
 
-   /*     Calendar cal = Calendar.getInstance();
-    *//*    cal.add(Calendar.DATE, -1);*//*
+        /*     Calendar cal = Calendar.getInstance();
+         *//*    cal.add(Calendar.DATE, -1);*//*
         String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
         Log.e(TAG, "scenceReports:" + yesterday);
         List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByDate(yesterday);
@@ -146,7 +148,6 @@ public class WebSocketActivityRelease extends EventActivity {
 
             Log.e(TAG, "scenceReports:" + null);
         }*/
-
 
 
     }
