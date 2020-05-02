@@ -16,10 +16,10 @@ import com.sgs.middle.eventControlModel.EventManager;
 import com.sgs.businessmodule.websocketmodel.EventActivity;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
 import com.jf.fine.R;
-import com.zhangke.websocket.SimpleListener;
-import com.zhangke.websocket.SocketListener;
-import com.zhangke.websocket.WebSocketHandler;
-import com.zhangke.websocket.response.ErrorResponse;
+import com.jf.websocket.SimpleListener;
+import com.jf.websocket.SocketListener;
+import com.jf.websocket.WebSocketHandler;
+import com.jf.websocket.response.ErrorResponse;
 
 import java.util.Date;
 import java.util.HashMap;

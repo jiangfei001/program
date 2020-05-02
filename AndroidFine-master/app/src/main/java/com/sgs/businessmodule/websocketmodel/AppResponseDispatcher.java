@@ -4,11 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.TypeReference;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
-import com.zhangke.websocket.SimpleDispatcher;
-import com.zhangke.websocket.dispatcher.ResponseDelivery;
-import com.zhangke.websocket.response.ErrorResponse;
-import com.zhangke.websocket.response.Response;
-import com.zhangke.websocket.response.ResponseFactory;
+import com.jf.websocket.SimpleDispatcher;
+import com.jf.websocket.dispatcher.ResponseDelivery;
+import com.jf.websocket.response.ErrorResponse;
+import com.jf.websocket.response.Response;
+import com.jf.websocket.response.ResponseFactory;
 
 public class AppResponseDispatcher extends SimpleDispatcher {
 

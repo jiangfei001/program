@@ -6,10 +6,10 @@ import com.sgs.businessmodule.taskModel.commandModel.orderToDb.InstructionReques
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.OrderManager;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.AppContext;
-import com.zhangke.websocket.SimpleListener;
-import com.zhangke.websocket.SocketListener;
-import com.zhangke.websocket.WebSocketHandler;
-import com.zhangke.websocket.response.ErrorResponse;
+import com.jf.websocket.SimpleListener;
+import com.jf.websocket.SocketListener;
+import com.jf.websocket.WebSocketHandler;
+import com.jf.websocket.response.ErrorResponse;
 
 public class WebSocketClientManger {
     private final String TAG = "DataManager";

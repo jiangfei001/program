@@ -6,9 +6,9 @@ import com.sgs.AppContext;
 import com.sgs.AppUrl;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.Sha256Hash;
-import com.zhangke.websocket.WebSocketHandler;
-import com.zhangke.websocket.WebSocketManager;
-import com.zhangke.websocket.WebSocketSetting;
+import com.jf.websocket.WebSocketHandler;
+import com.jf.websocket.WebSocketManager;
+import com.jf.websocket.WebSocketSetting;
 
 public class WebSocketHelper {
 
