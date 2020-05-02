@@ -92,8 +92,36 @@ public class DefaultReconnectManager implements ReconnectManager {
                 connected = false;
                 try {
                     int count = mWebSocketManager.getSetting().getReconnectFrequency();
+
                     for (int i = 0; i < count; i++) {
+                        /*if(i>5){
+                            mWebSocketManager.getSetting().setConnectUrl(Ap);
+                        }*/
+
+
                         LogUtil.i(TAG, String.format("第%s次重连", i + 1));
+                        mWebSocketManager.reconnectOnce();
+                        synchronized (BLOCK) {
+                            try {
+                                BLOCK.wait(mWebSocketManager.getSetting().getConnectTimeout());
+                                if (connected) {
+                                    LogUtil.i(TAG, "reconnectOnce success!");
+                                    mOnDisconnectListener.onConnected();
+                                    return;
+                                }
+                                if (needStopReconnect) {
+                                    break;
+                                }
+                            } catch (InterruptedException e) {
+                                break;
+                            }
+                        }
+                    }
+
+                    mWebSocketManager.getSetting().setNextIp();
+
+                    for (int i = 0; i < count; i++) {
+                        LogUtil.i(TAG, String.format("haha第%s次重连", i + 1));
                         mWebSocketManager.reconnectOnce();
                         synchronized (BLOCK) {
                             try {

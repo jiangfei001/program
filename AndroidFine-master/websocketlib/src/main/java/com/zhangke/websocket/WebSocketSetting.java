@@ -2,6 +2,7 @@ package com.zhangke.websocket;
 
 import android.Manifest;
 import android.content.Context;
+import android.util.Log;
 
 import com.zhangke.websocket.dispatcher.DefaultResponseDispatcher;
 import com.zhangke.websocket.dispatcher.IResponseDispatcher;
@@ -11,6 +12,7 @@ import com.zhangke.websocket.dispatcher.ResponseDelivery;
 import org.java_websocket.drafts.Draft;
 
 import java.net.Proxy;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -76,6 +78,45 @@ public class WebSocketSetting {
      */
     public void setConnectUrl(String connectUrl) {
         this.connectUrl = connectUrl;
+    }
+
+    ArrayList<String> ConnectUrls = new ArrayList();
+
+    private int index = 0;
+
+    public boolean isTeststr;
+    private String endstr = "";
+
+    public void setEnd(String endurl) {
+        endstr = endurl;
+    }
+
+    public void setNextIp() {
+        Log.e("jsonstr", "setNextIp:");
+        if (index < ConnectUrls.size() - 1) {
+            index++;
+        } else {
+            index = 0;
+        }
+        connectUrl = ConnectUrls.get(index);
+        connectUrl = "ws://" + connectUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/websocket" + endstr;
+        Log.e("jsonstr", "socketUrl:" + connectUrl);
+    }
+
+    public ArrayList<String> getConnectUrls() {
+        return ConnectUrls;
+    }
+
+    public void setConnectUrls(ArrayList connectUrls) {
+        ConnectUrls = connectUrls;
+    }
+
+    public boolean isTeststr() {
+        return isTeststr;
+    }
+
+    public void setTeststr(boolean teststr) {
+        isTeststr = teststr;
     }
 
     /**

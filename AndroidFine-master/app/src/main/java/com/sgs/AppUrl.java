@@ -69,8 +69,10 @@ public class AppUrl {
             addDayProgramList = prodIP + "/multimedia/api/terminal/addDayProgramList";*/
     }
 
+    public static boolean isTeststr;
 
-    public static void initip(boolean isTeststr) {
+    public static void initip(boolean isTeststr1) {
+        isTeststr = isTeststr1;
         if (isTeststr) {
             socketIP = socketIPTest;
             jiekouIP = jiekouIPTest;
@@ -105,8 +107,12 @@ public class AppUrl {
             if (!StringUtil.isEmpty(jsonstr)) {
                 socketIPList = (ArrayList) JSON.parseArray(jsonstr, String.class);
                 Log.e("jsonstr", "Linksize" + socketIPList.size());
+                socketIPList.add("49.235.109.237:9080");
                 if (socketIPList.size() > 0) {
-                    socketIP = (String) socketIPList.get(0);
+                    socketIP = socketIPList.get(index);
+                    Log.e("jsonstr", "socketIP:" + socketIP);
+                    socketUrl = "ws://" + socketIP + "/multimedia" + (isTeststr ? "_test" : "") + "/api/websocket";
+                    Log.e("jsonstr", "socketUrl:" + socketIP + "|" + socketUrl);
                 }
             }
         } catch (Exception e) {
@@ -122,5 +128,7 @@ public class AppUrl {
             index = 0;
         }
         socketIP = socketIPList.get(index);
+        socketUrl = "ws://" + socketIP + "/multimedia" + (isTeststr ? "_test" : "") + "/api/websocket";
+        Log.e("jsonstr", "socketUrl:" + socketIP + "|" + socketUrl);
     }
 }

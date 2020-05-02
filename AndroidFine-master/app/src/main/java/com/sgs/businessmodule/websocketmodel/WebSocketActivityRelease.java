@@ -72,7 +72,7 @@ public class WebSocketActivityRelease extends EventActivity {
         public void onConnected() {
             appendMsgDisplay("onConnected");
             DeviceUtil.setConnectionTime();
-
+            Log.e(TAG, "onConnected");
             final Timer connectionLostTimer = new Timer("WebSocketTimer");
 
             TimerTask connectionLostTimerTask = new TimerTask() {
@@ -95,8 +95,9 @@ public class WebSocketActivityRelease extends EventActivity {
 
         @Override
         public void onConnectFailed(Throwable e) {
-            AppUrl.setNextIp();
+            Log.e(TAG, "Throwable");
             if (e != null) {
+                Log.e(TAG, "连接onConnectFailed" + e.toString());
                 appendMsgDisplay("onConnectFailed:" + e.toString());
             } else {
                 appendMsgDisplay("onConnectFailed:null");
@@ -159,17 +160,27 @@ public class WebSocketActivityRelease extends EventActivity {
         super.onResume();
         AppContext.getInstance().initFileService();
         getWvBookPlay().loadUrl("file:///android_asset/index.html");
-        WebSocketHelper.initWebSocket(DeviceUtil.getTerDeviceID(WebSocketActivityRelease.this));
-        WebSocketHandler.getDefault().addListener(socketListener);
-        taskQueue = new TaskQueue(1);
-        taskQueue.start();
-        cutMsgList = MsgDbManager.getInstance().getAllMuTerminalMsg();
-        if (cutMsgList != null && cutMsgList.size() > 0) {
-            Log.e(TAG, "我是从数据库中获取的消息列表" + cutMsgList.size());
-            playNext();
-        } else {
-            cutMsgList = new LinkedList<>();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                WebSocketHelper.initWebSocket(DeviceUtil.getTerDeviceID(WebSocketActivityRelease.this));
+                WebSocketHandler.getDefault().addListener(socketListener);
+                taskQueue = new TaskQueue(1);
+                taskQueue.start();
+                cutMsgList = MsgDbManager.getInstance().getAllMuTerminalMsg();
+                if (cutMsgList != null && cutMsgList.size() > 0) {
+                    Log.e(TAG, "我是从数据库中获取的消息列表" + cutMsgList.size());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            playNext();
+                        }
+                    });
+                } else {
+                    cutMsgList = new LinkedList<>();
+                }
+            }
+        }).start();
     }
 
 

@@ -18,13 +18,15 @@ public class WebSocketHelper {
         //setting.setConnectUrl("ws://192.168.0.103:8081/multimedia/api/websocket/jf");//必填
         //setting.setConnectUrl("ws://192.168.0.97:8081/multimedia/api/websocket/jf");//必填
         //setting.setConnectUrl("ws://192.168.0.106:8082/multimedia/api/websocket/" + username);//必填
-
         /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
 
         Log.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
-
-        Log.e("weiyima:", AppUrl.socketUrl + "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), System.currentTimeMillis() + "", DeviceUtil.getSercetKey(AppContext.getInstance())));
-        setting.setConnectUrl(AppUrl.socketUrl + "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), System.currentTimeMillis() + "", DeviceUtil.getSercetKey(AppContext.getInstance())));//必填
+        String endstr = "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), System.currentTimeMillis() + "", DeviceUtil.getSercetKey(AppContext.getInstance()));
+        Log.e("weiyima:", "endstr" + endstr);
+        setting.setConnectUrl(AppUrl.socketUrl + endstr);//必填
+        setting.setEnd(endstr);
+        setting.setConnectUrls(AppUrl.socketIPList);
+        setting.setTeststr(AppUrl.isTeststr);
         //设置连接超时时间
         setting.setConnectTimeout(15 * 1000);
 

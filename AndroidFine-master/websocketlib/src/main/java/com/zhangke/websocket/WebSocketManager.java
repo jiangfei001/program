@@ -29,7 +29,7 @@ public class WebSocketManager {
 
     private WebSocketSetting mSetting;
 
-    private WebSocketWrapper mWebSocket;
+    public WebSocketWrapper mWebSocket;
 
     /**
      * 注册的监听器集合

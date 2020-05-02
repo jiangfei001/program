@@ -1,6 +1,7 @@
 package com.zhangke.websocket;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.zhangke.websocket.request.Request;
 import com.zhangke.websocket.response.ByteBufferResponse;
@@ -32,7 +33,7 @@ public class WebSocketWrapper {
 
     private static final String TAG = "WSWrapper";
 
-    private WebSocketSetting mSetting;
+    public WebSocketSetting mSetting;
     private SocketWrapperListener mSocketListener;
 
     private WebSocketClient mWebSocket;
@@ -58,6 +59,8 @@ public class WebSocketWrapper {
         this.mSocketListener = socketListener;
     }
 
+    String url1 = "";
+
     void connect() {
         if (destroyed) {
             return;
@@ -66,7 +69,11 @@ public class WebSocketWrapper {
         if (connectStatus == 0) {
             connectStatus = 1;
             try {
-                if (mWebSocket == null) {
+                String url = mSetting.getConnectUrl();
+                if (mWebSocket == null || !url1.equals(url)) {
+                    Log.e("url", "mWebSocket == null || !url1.equals(url)" + url);
+                    this.url1 = url;
+                    Log.e("url", "url1：" + url1);
                     if (TextUtils.isEmpty(mSetting.getConnectUrl())) {
                         throw new RuntimeException("WebSocket connect url is empty!");
                     }
