@@ -129,6 +129,7 @@ public class ProgramScheduledManager {
 
     public void clearLooperAndDBById(ArrayList<Integer> arrayList) {
         ArrayList arrayList1 = new ArrayList();
+        ArrayList<ProgarmPalyInstructionVo> ab = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
         for (int t = 0; t < arrayList.size(); t++) {
             ProgarmPalyInstructionVo getProgarmPalyInstructionVoRequestById = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(arrayList.get(t));
             if (getProgarmPalyInstructionVoRequestById != null) {
@@ -241,7 +242,7 @@ public class ProgramScheduledManager {
         try {
             //过期的要删除
             deadLineV = df.parse(publicationPlanVo.getDeadlineV());
-            Log.e("deadLineV","deadLineV"+deadLineV);
+            Log.e("deadLineV", "deadLineV" + deadLineV);
             if (deadLineV.getTime() < System.currentTimeMillis()) {
                 delToDB(response);
                 if (iterator != null) {

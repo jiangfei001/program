@@ -206,6 +206,12 @@ public class ProgramTaskManager {
 
 
     public void removeByid(int id) {
+        if (nowProgarmPalyInstructionVo.getId() == id) {
+            handler.removeMessages(1);
+            nowProgarmPalySceneVos = null;
+            nowscene = 0;
+            nowProgarmPalyInstructionVo = null;
+        }
         myTaskTimeTask.removeByid(id);
     }
 

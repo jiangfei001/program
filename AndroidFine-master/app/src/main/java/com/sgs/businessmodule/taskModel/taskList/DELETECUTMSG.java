@@ -33,6 +33,7 @@ public class DELETECUTMSG extends TVTask {
             for (int i = 0; i < arrayList.size(); i++) {
                 MuTerminalMsg muTerminalMsg = MsgDbManager.getInstance().getMuTerminalMsgById(arrayList.get(i));
                 if (muTerminalMsg != null) {
+                    MsgDbManager.getInstance().delByMuTerminalMsgID(muTerminalMsg.getId());
                     MuTerminalBack muTerminalBack = new MuTerminalBack();
                     muTerminalBack.setMsgStatus("2");
                     muTerminalBack.setMsgId(muTerminalMsg.getId());
