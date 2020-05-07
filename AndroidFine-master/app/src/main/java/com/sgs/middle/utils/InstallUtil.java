@@ -1,6 +1,7 @@
 package com.sgs.middle.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.IPackageInstallObserver;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,8 +25,21 @@ public class InstallUtil {
         }
         int installFlags = 0;
         Uri packageUri = Uri.fromFile(file);//file是要安装的apk文件
-        PackageManager pm = context.getPackageManager();
-        silentInstall(pm, filePath);
+        String product = Build.BRAND;
+        Log.e("pro", product);
+        if (product.startsWith("rock")) {
+            PackageManager pm = context.getPackageManager();
+            silentInstall(pm, filePath);
+        } else {
+/**
+ *android1.x-6.x
+ *@param path 文件的路径
+ */
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
+            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(install);
+        }
     }
 
     public static boolean silentInstall(PackageManager packageManager, String apkPath) {

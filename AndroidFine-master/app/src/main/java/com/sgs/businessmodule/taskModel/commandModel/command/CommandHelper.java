@@ -4,8 +4,11 @@ package com.sgs.businessmodule.taskModel.commandModel.command;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
+import android.os.Build;
 import android.util.Log;
+import android.view.SurfaceControl;
 
 import com.sgs.AppContext;
 import com.sgs.middle.utils.DeviceUtil;
@@ -123,49 +126,54 @@ public class CommandHelper {
      * @return 安装成功返回true，安装失败返回false。
      */
     public static boolean install(String apkPath) {
-        boolean result = false;
-        DataOutputStream dataOutputStream = null;
-        BufferedReader errorStream = null;
-        try {
-            // 申请su权限
-            Process process = Runtime.getRuntime().exec("su");
-            dataOutputStream = new DataOutputStream(process.getOutputStream());
-            // 执行pm install命令
-            String command = "pm install -r " + apkPath + "\n";
-            dataOutputStream.write(command.getBytes(Charset.forName("utf-8")));
-            dataOutputStream.flush();
-            dataOutputStream.writeBytes("exit\n");
-            dataOutputStream.flush();
-            process.waitFor();
-            errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            String msg = "";
-            String line;
-            // 读取命令的执行结果
-            while ((line = errorStream.readLine()) != null) {
-                msg += line;
-            }
-            Log.d("TAG", "install msg is " + msg);
-            // 如果执行结果中包含Failure字样就认为是安装失败，否则就认为安装成功
-            if (!msg.contains("Failure")) {
-                result = true;
-            }
-        } catch (Exception e) {
-            Log.e("TAG", e.getMessage(), e);
-        } finally {
+        String product = Build.PRODUCT;
+        if (false) {
+            return true;
+        } else {
+            boolean result = false;
+            DataOutputStream dataOutputStream = null;
+            BufferedReader errorStream = null;
             try {
-                if (dataOutputStream != null) {
-                    dataOutputStream.close();
+                // 申请su权限
+                Process process = Runtime.getRuntime().exec("su");
+                dataOutputStream = new DataOutputStream(process.getOutputStream());
+                // 执行pm install命令
+                String command = "pm install -r " + apkPath + "\n";
+                dataOutputStream.write(command.getBytes(Charset.forName("utf-8")));
+                dataOutputStream.flush();
+                dataOutputStream.writeBytes("exit\n");
+                dataOutputStream.flush();
+                process.waitFor();
+                errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                String msg = "";
+                String line;
+                // 读取命令的执行结果
+                while ((line = errorStream.readLine()) != null) {
+                    msg += line;
                 }
-                if (errorStream != null) {
-                    errorStream.close();
+                Log.d("TAG", "install msg is " + msg);
+                // 如果执行结果中包含Failure字样就认为是安装失败，否则就认为安装成功
+                if (!msg.contains("Failure")) {
+                    result = true;
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.e("TAG", e.getMessage(), e);
+            } finally {
+                try {
+                    if (dataOutputStream != null) {
+                        dataOutputStream.close();
+                    }
+                    if (errorStream != null) {
+                        errorStream.close();
+                    }
+                } catch (IOException e) {
+                    Log.e("TAG", e.getMessage(), e);
+                }
             }
+            return result;
         }
-        return result;
-
     }
+
 
     /**
      * 静默卸载App
@@ -249,7 +257,7 @@ public class CommandHelper {
     /**
      * type=11表示巴枪上报硬件相关数据：如,电池最大容量、系统总内存、系统剩余内存
      */
-    public static String  trackHardwareInfo() {
+    public static String trackHardwareInfo() {
         Map<String, String> properties = new HashMap<>();
         properties.put("totalRam", DeviceUtil.getDeviceTotalRam());
         properties.put("remainRam", DeviceUtil.getDeviceRemainRam());

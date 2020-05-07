@@ -29,6 +29,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceControl;
 import android.view.View;
 import android.view.WindowManager;
@@ -127,10 +128,12 @@ public class DeviceUtil {
      */
     public static Bitmap snapCurrentScreenShot(Activity activity, boolean hasStatusBar) {
         int deviceSize[] = getDeviceSize(activity);
-        String product = Build.PRODUCT;
+        String product = Build.BRAND;
+        Log.e(TAG, product);
+        //if (product.startsWith("rock")) {
         if (false) {
             try {
-                Bitmap mScreenBitmap = SurfaceControl.screenshot((int) deviceSize[0], (int) deviceSize[1]);
+                Bitmap mScreenBitmap = android.view.SurfaceControl.screenshot((int) deviceSize[0], (int) deviceSize[1]);
                 return mScreenBitmap;
             } catch (Exception e) {
                 e.printStackTrace();

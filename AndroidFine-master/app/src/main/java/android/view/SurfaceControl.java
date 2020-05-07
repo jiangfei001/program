@@ -2,6 +2,7 @@
 package android.view;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -13,6 +14,10 @@ import android.os.Parcelable;
 public class SurfaceControl implements Parcelable {
 
     protected SurfaceControl(Parcel in) {
+    }
+
+    public static Bitmap screenshot(Rect sourceCrop, int width, int height, int rotation) {
+        return null;
     }
 
     public static final Creator<SurfaceControl> CREATOR = new Creator<SurfaceControl>() {
