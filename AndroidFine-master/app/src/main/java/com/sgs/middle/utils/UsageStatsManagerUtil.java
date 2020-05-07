@@ -166,4 +166,98 @@ public class UsageStatsManagerUtil {
             LogUtil.e(e);
         }
     }*/
+
+    /**
+     * 定时调节音量
+     */
+    public static void alarmcv(String str, String vl) {
+
+        // 00:00:05
+        String a[] = str.split(":");
+        if (a.length != 3) {
+            return;
+        }
+
+        AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(SystemClock.elapsedRealtime());
+        // 10分钟上报一次打开次数
+        calendar.set(Calendar.HOUR, Integer.parseInt(a[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
+        calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
+        Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
+        it.setPackage(AppContext.getInstance().getPackageName());
+        it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_CVDS);
+        it.putExtra("vl", vl);
+        PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_CVDS, it, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        }
+    }
+
+    /**
+     * 定时关机
+     */
+    public static void alarmClose(String str) {
+        // 00:00:05
+        String a[] = str.split(":");
+        if (a.length != 3) {
+            return;
+        }
+
+        AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(SystemClock.elapsedRealtime());
+        // 10分钟上报一次打开次数
+        calendar.set(Calendar.HOUR, Integer.parseInt(a[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
+        calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
+        Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
+        it.setPackage(AppContext.getInstance().getPackageName());
+        it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_CLOSE);
+        PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_CLOSE, it, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        }
+    }
+
+    /**
+     * 定时开机
+     */
+    public static void alarmOpen(String str) {
+        // 00:00:05
+        String a[] = str.split(":");
+        if (a.length != 3) {
+            return;
+        }
+        AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(SystemClock.elapsedRealtime());
+        // 10分钟上报一次打开次数
+        calendar.set(Calendar.HOUR, Integer.parseInt(a[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
+        calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
+        Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
+        it.setPackage(AppContext.getInstance().getPackageName());
+        it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_OPEN);
+        PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_OPEN, it, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        }
+    }
 }

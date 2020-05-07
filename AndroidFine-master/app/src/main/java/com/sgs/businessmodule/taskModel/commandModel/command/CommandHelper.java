@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceControl;
+import android.widget.Toast;
 
 import com.sgs.AppContext;
 import com.sgs.middle.utils.DeviceUtil;
@@ -25,12 +26,17 @@ import java.util.Map;
 
 public class CommandHelper {
     //关机
-    public static void openOrClose() {
-        try {
-            //Runtime.getRuntime().exec(new String[]{"su","-c","reboot -p"});
-            Runtime.getRuntime().exec(new String[]{"su", "-c", "shutdown"});
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static void openOrClose(boolean b) {
+        if (b) {
+            Toast.makeText(AppContext.getInstance(), "执行开机", Toast.LENGTH_LONG);
+        } else {
+            Toast.makeText(AppContext.getInstance(), "执行关机", Toast.LENGTH_SHORT);
+            try {
+                //Runtime.getRuntime().exec(new String[]{"su","-c","reboot -p"});
+                Runtime.getRuntime().exec(new String[]{"su", "-c", "shutdown"});
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         // Runtime.getRuntime().exec(new String[]{"su","-c","shutdown"})
     }

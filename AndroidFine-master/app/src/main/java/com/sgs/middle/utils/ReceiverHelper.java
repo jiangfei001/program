@@ -49,6 +49,9 @@ public class ReceiverHelper {
         intentFilter.addAction(CustomAlarmReceiver.ACTION_UNINSTALLING);
         intentFilter.addAction(CustomAlarmReceiver.ACTION_INSTALL_FAIL);
         intentFilter.addAction(CustomAlarmReceiver.ACTION_INSTALLING);
+        intentFilter.addAction(CustomAlarmReceiver.ACTION_SEND_APP_HOTAREA);
+        intentFilter.addAction(CustomAlarmReceiver.ACTION_SEND_APP_CVDS);
+        intentFilter.addAction(CustomAlarmReceiver.ACTION_PLAYGRAME_INIT);
         intentFilter.addDataScheme("package");
         context.registerReceiver(receiver, intentFilter);
     }
