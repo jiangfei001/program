@@ -12,11 +12,14 @@ import com.sgs.businessmodule.downloadModel.DownLoadListener;
 import com.sgs.businessmodule.downloadModel.DownLoadManager;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.downloadModel.TaskInfo;
+import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.middle.UpdateApk;
 import com.sgs.middle.utils.InstallUtil;
 import com.sgs.middle.utils.StringUtil;
+
+import java.io.File;
 
 public class UPDATEFIRMWAREINFO extends TVTask {
 
@@ -59,7 +62,10 @@ public class UPDATEFIRMWAREINFO extends TVTask {
                 String filenamestr = url.substring(url.lastIndexOf("/") + 1, url.length());
                 filename = filenamestr;
             }
-
+            File file = new File(FileHelper.getFileDefaultPath() + "/" + filename);
+            if (file.exists()) {
+                file.delete();
+            }
             manager = DownLoadService.getDownLoadManager();
             String taskId = url;
             info.setFileName(filename);
@@ -94,11 +100,12 @@ public class UPDATEFIRMWAREINFO extends TVTask {
      * @return
      */
     public boolean compareVersion(int nowVersion, int serVersionStr) {
-        if (nowVersion >= serVersionStr) {
+       /* if (nowVersion >= serVersionStr) {
             return false;
         } else {
             return true;
-        }
+        }*/
+       return true;
     }
 
     private class DownloadManagerListener implements DownLoadListener {
