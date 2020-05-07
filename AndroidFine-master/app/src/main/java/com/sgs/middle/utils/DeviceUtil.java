@@ -29,6 +29,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.SurfaceControl;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -125,22 +126,33 @@ public class DeviceUtil {
      * @return
      */
     public static Bitmap snapCurrentScreenShot(Activity activity, boolean hasStatusBar) {
-        View decorView = activity.getWindow().getDecorView();
-        decorView.setDrawingCacheEnabled(true);
-        decorView.buildDrawingCache();
-        Bitmap bmp = decorView.getDrawingCache();
         int deviceSize[] = getDeviceSize(activity);
-        int coordinateY = 0;
-        int cutHeight = deviceSize[1];
-        if (!hasStatusBar) {
-            Rect frame = new Rect();
-            decorView.getWindowVisibleDisplayFrame(frame);
-            coordinateY += frame.top;
-            cutHeight -= frame.top;
+        String product = Build.PRODUCT;
+        if (false) {
+            try {
+                Bitmap mScreenBitmap = SurfaceControl.screenshot((int) deviceSize[0], (int) deviceSize[1]);
+                return mScreenBitmap;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            View decorView = activity.getWindow().getDecorView();
+            decorView.setDrawingCacheEnabled(true);
+            decorView.buildDrawingCache();
+            Bitmap bmp = decorView.getDrawingCache();
+            int coordinateY = 0;
+            int cutHeight = deviceSize[1];
+            if (!hasStatusBar) {
+                Rect frame = new Rect();
+                decorView.getWindowVisibleDisplayFrame(frame);
+                coordinateY += frame.top;
+                cutHeight -= frame.top;
+            }
+            Bitmap shot = Bitmap.createBitmap(bmp, 0, coordinateY, deviceSize[0], cutHeight);
+            decorView.destroyDrawingCache();
+            return shot;
         }
-        Bitmap shot = Bitmap.createBitmap(bmp, 0, coordinateY, deviceSize[0], cutHeight);
-        decorView.destroyDrawingCache();
-        return shot;
+        return null;
     }
 
 
