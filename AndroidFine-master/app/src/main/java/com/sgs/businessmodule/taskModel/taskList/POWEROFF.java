@@ -8,6 +8,6 @@ import com.sgs.businessmodule.taskModel.TVTask;
 public class POWEROFF extends TVTask {
     @Override
     public void runTv() {
-        CommandHelper.openOrClose();
+        CommandHelper.openOrClose(false);
     }
 }

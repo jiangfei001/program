@@ -162,6 +162,9 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
 
     public static void setco() {
         String prog = SharedPreferences.getInstance().getString(SETOSTERMINAL.SETOSTERMINAL, "");
+        if (StringUtil.isEmpty(prog)) {
+            return;
+        }
         JSONObject j2 = JSON.parseObject(prog);
         String openTime = null;
         if (j2.containsKey("openTime")) {
@@ -196,6 +199,9 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
 
     public static void cvds() {
         String prog = SharedPreferences.getInstance().getString(CONTROLVOLUME.dingshi, "");
+        if (StringUtil.isEmpty(prog)) {
+            return;
+        }
         JSONObject j2 = JSON.parseObject(prog);
         String volumenum = null;
         if (j2.containsKey("volumenum")) {
