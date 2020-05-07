@@ -16,10 +16,15 @@ import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.middle.UpdateApk;
+import com.sgs.middle.eventControlModel.Event;
+import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.InstallUtil;
 import com.sgs.middle.utils.StringUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
+import java.util.HashMap;
 
 public class UPDATEFIRMWAREINFO extends TVTask {
 
@@ -105,7 +110,7 @@ public class UPDATEFIRMWAREINFO extends TVTask {
         } else {
             return true;
         }*/
-       return true;
+        return true;
     }
 
     private class DownloadManagerListener implements DownLoadListener {
@@ -118,6 +123,7 @@ public class UPDATEFIRMWAREINFO extends TVTask {
         @Override
         public void onProgress(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
             //根据监听到的信息查找列表相对应的任务，更新相应任务的进度
+            Log.e(TAG, "sqlDownLoadInfo" + sqlDownLoadInfo.getDownloadSize());
            /* for(TaskInfo taskInfo : listdata){
                 if(taskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())){
                     taskInfo.setDownFileSize(sqlDownLoadInfo.getDownloadSize());
@@ -139,7 +145,15 @@ public class UPDATEFIRMWAREINFO extends TVTask {
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
                 //下载成功进行安装
                 Log.e(TAG, "url:" + "sqlDownLoadInfo");
-                InstallUtil.installSilent(AppContext.getInstance(), sqlDownLoadInfo.getFilePath());
+                Event event = new Event();
+                HashMap<EventEnum, Object> params = new HashMap();
+                params.put(EventEnum.EVENT_TEST_MSG1_KEY_PATH, sqlDownLoadInfo.getFilePath());
+                event.setParams(params);
+                event.setId(EventEnum.EVENT_TEST_INSTALL);
+                EventBus.getDefault().post(event);
+                System.out.println("getFilePath.toString()" + sqlDownLoadInfo.getFilePath());
+
+                //InstallUtil.installSilent(AppContext.getInstance(), sqlDownLoadInfo.getFilePath());
             }
         }
 

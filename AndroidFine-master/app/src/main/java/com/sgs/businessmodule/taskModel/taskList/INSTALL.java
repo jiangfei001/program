@@ -15,10 +15,15 @@ import com.sgs.businessmodule.downloadModel.TaskInfo;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
 import com.sgs.businessmodule.taskModel.TVTask;
+import com.sgs.middle.eventControlModel.Event;
+import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.InstallUtil;
 import com.sgs.middle.utils.StringUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
+import java.util.HashMap;
 
 public class INSTALL extends TVTask {
 
@@ -121,7 +126,15 @@ public class INSTALL extends TVTask {
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
                 //下载成功进行安装
                 Log.e(TAG, "url:" + "sqlDownLoadInfo");
-                InstallUtil.installSilent(AppContext.getInstance(), sqlDownLoadInfo.getFilePath());
+                Event event = new Event();
+                HashMap<EventEnum, Object> params = new HashMap();
+                params.put(EventEnum.EVENT_TEST_MSG1_KEY_PATH, sqlDownLoadInfo.getFilePath());
+                event.setParams(params);
+                event.setId(EventEnum.EVENT_TEST_INSTALL);
+                EventBus.getDefault().post(event);
+                System.out.println("getFilePath.toString()" + sqlDownLoadInfo.getFilePath());
+
+               //InstallUtil.installSilent(AppContext.getInstance(), sqlDownLoadInfo.getFilePath());
             }
         }
 

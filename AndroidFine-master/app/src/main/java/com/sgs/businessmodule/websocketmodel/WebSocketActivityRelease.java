@@ -1,5 +1,6 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.http.SslError;
@@ -33,6 +34,7 @@ import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
+import com.sgs.middle.utils.InstallUtil;
 import com.sgs.middle.utils.StringUtils;
 import com.sgs.programModel.entity.ProgramResource;
 import com.umeng.analytics.MobclickAgent;
@@ -374,7 +376,7 @@ public class WebSocketActivityRelease extends EventActivity {
     }
 
     @Override
-    public void onEvent(Event mEvent) {
+    public void onEvent(final Event mEvent) {
         switch (mEvent.getId()) {
             case EVENT_TEST_MSG1:
                 Log.d(this.getClass().getName(), "我收到播放消息啦1");
@@ -471,18 +473,9 @@ public class WebSocketActivityRelease extends EventActivity {
                         if (muTerminalMsg.getAppend() == 0 || cutMsgList.size() == 0) {
                             resetCutMsg();
                             cutMsgList.add(muTerminalMsg);
-                            /*Message msg1 = Message.obtain();
-                            msg1.obj = muTerminalMsg;
-                            msg1.what = 2;
-                            Log.e(TAG, "muTerminalMsg.getPlayTimes()" + muTerminalMsg.getPlayTimes());
-                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);*/
                             Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                             playNext();
                         } else {
-                           /* Message msg1 = Message.obtain();
-                            msg1.obj = muTerminalMsg;
-                            msg1.what = 2;
-                            mymHandler.sendMessageDelayed(msg1, muTerminalMsg.getPlayTimes() * 1000);*/
                             Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                             cutMsgList.add(muTerminalMsg);
                         }
@@ -523,6 +516,17 @@ public class WebSocketActivityRelease extends EventActivity {
                     public void run() {
                         clearMediaPlayer();
                         getWvBookPlay().loadUrl("file:///android_asset/index.html");
+                    }
+                });
+                break;
+            case EVENT_TEST_INSTALL:
+                mymHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Map eventDel = mEvent.getParams();
+                        String path = (String) eventDel.get(EventEnum.EVENT_TEST_MSG1_KEY_PATH);
+                        mInstallUtil = new InstallUtil(WebSocketActivityRelease.this, path);
+                        mInstallUtil.install();
                     }
                 });
                 break;
@@ -642,6 +646,7 @@ public class WebSocketActivityRelease extends EventActivity {
         }
     }
 
+    private InstallUtil mInstallUtil;
 
     private void setComp() {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -660,5 +665,13 @@ public class WebSocketActivityRelease extends EventActivity {
                 mediaPlayer.start();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == InstallUtil.UNKNOWN_CODE) {
+            mInstallUtil.install();//再次执行安装流程，包含权限判等
+        }
     }
 }
