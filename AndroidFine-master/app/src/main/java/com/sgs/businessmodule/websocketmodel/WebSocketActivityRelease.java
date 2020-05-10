@@ -72,9 +72,9 @@ public class WebSocketActivityRelease extends EventActivity {
             appendMsgDisplay("onConnected");
             DeviceUtil.setConnectionTime();
             Log.e(TAG, "onConnected");
-            final Timer connectionLostTimer = new Timer("WebSocketTimer");
+            /* final Timer connectionLostTimer = new Timer("WebSocketTimer");
 
-            TimerTask connectionLostTimerTask = new TimerTask() {
+               TimerTask connectionLostTimerTask = new TimerTask() {
                 @Override
                 public void run() {
                     if (WebSocketHandler.getDefault().isConnect()) {
@@ -87,8 +87,7 @@ public class WebSocketActivityRelease extends EventActivity {
             };
 
             //scheduleAtFixedRate
-            connectionLostTimer.scheduleAtFixedRate(connectionLostTimerTask, 10, 1000L * 60);
-
+            connectionLostTimer.scheduleAtFixedRate(connectionLostTimerTask, 10, 1000L * 60);*/
 
         }
 
