@@ -98,9 +98,11 @@ public class DefaultReconnectManager implements ReconnectManager {
                         for (int i = 0; i < count; i++) {
                             LogUtil.i(TAG, String.format("第%s次重连", i + 1));
                             mWebSocketManager.reconnectOnce();
+
                             synchronized (BLOCK) {
                                 try {
                                     BLOCK.wait(mWebSocketManager.getSetting().getConnectTimeout());
+                                    Thread.sleep(10000);
                                     if (connected) {
                                         LogUtil.i(TAG, "reconnectOnce success!");
                                         mOnDisconnectListener.onConnected();
