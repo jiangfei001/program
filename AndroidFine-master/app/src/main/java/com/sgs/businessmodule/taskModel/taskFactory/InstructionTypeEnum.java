@@ -38,6 +38,13 @@ public enum InstructionTypeEnum {
     INSTALL(134, "install", "获取当天节目"),
     ;
 
+    /* {id=2652, code=101, type='controlVolume', data='{"ids":["38"],"volumeValue":0,"taskCard":"volumeTab"
+             ,"taskVolumeTime":"00:02:04","volumenum":32,"weekList2":["星期二"],
+         "userEntity":{"createTime":1478833871000,"deptId":2,
+             "email":"root@axzq.com","mobile":"18888888888",
+             "password":"e1153123d7d180ceeb820d577ff119876678732a68eef4e6ffc0b1f06a01f91b",
+             "salt":"YzcmCZNvbXocrsz9dm8e","status":1,"userId":1,"username":"admin"}}',
+             expirationTime=null, priority=1, beginTime=null}*/
     //InstructionRequest{id=2504, code=134, type='install', data='{"apkPath":"http://qiniu.xinlianchuangmei.com/admin/202002/08/38025e02884a4a5fb71290ffbada46cd.apk"}', expirationTime=null, priority=1, beginTime=null}
     InstructionTypeEnum(int code, String type, String name) {
         this.code = code;

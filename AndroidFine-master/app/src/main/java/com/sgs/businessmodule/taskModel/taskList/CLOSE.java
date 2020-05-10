@@ -11,6 +11,6 @@ public class CLOSE extends TVTask {
     @Override
     public void runTv() {
         Log.e(TAG, "CLOSE:");
-        CommandHelper.openOrClose();
+        CommandHelper.openOrClose(false);
     }
 }

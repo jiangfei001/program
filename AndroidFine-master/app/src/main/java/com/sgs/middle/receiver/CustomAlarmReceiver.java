@@ -5,12 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sgs.AppContext;
 import com.sgs.ReportUtil;
+import com.sgs.businessmodule.taskModel.commandModel.command.CommandHelper;
+import com.sgs.businessmodule.taskModel.taskList.CONTROLVOLUME;
+import com.sgs.businessmodule.taskModel.taskList.SETOSTERMINAL;
+import com.sgs.middle.utils.SharedPreferences;
+import com.sgs.middle.utils.StringUtil;
 import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.sgs.programModel.ProgramScheduledManager;
+import com.sgs.programModel.ProgramUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class CustomAlarmReceiver extends BroadcastReceiver {
     /**
@@ -97,6 +107,14 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
     public static final int REQUEST_CODE_PLAYGRAME_INIT = 3013;
 
     public static final String REPRORT = "com.sf.appstore.business.receiver.custom.ACTION_REPORT";
+    public static final String ACTION_SEND_APP_CVDS = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_CVDS";
+    public static final int REQUEST_CODE_SEND_APP_CVDS = 3014;
+
+    public static final String ACTION_SEND_APP_CLOSE = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_CLOSE";
+    public static final int REQUEST_CODE_SEND_APP_CLOSE = 3015;
+
+    public static final String ACTION_SEND_APP_OPEN = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_OPEN";
+    public static final int REQUEST_CODE_SEND_APP_OPEN = 3016;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -117,13 +135,95 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             ReportUtil reportUtil = new ReportUtil();
             reportUtil.reportScence();
             UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
-        }
 
-        if (ACTION_SEND_APP_HOTAREA.equals(action)) {
+            if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(CONTROLVOLUME.dingshi, ""))) {
+                cvds();
+            }
+            if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(SETOSTERMINAL.SETOSTERMINAL, ""))) {
+                setco();
+            }
+        } else if (ACTION_SEND_APP_HOTAREA.equals(action)) {
             UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
             Log.e(TAG, "时间到,执行复原任务操作:REPRORT");
             ReportUtil reportUtil = new ReportUtil();
             reportUtil.reportEvent();
+        } else if (ACTION_SEND_APP_CVDS.equals(action)) {
+            Log.e(TAG, "时间到,执行定时音乐:ACTION_SEND_APP_CVDS");
+            String vl = intent.getExtras().getString("vl");
+            CommandHelper.setStreamVolume(Integer.parseInt(vl), AppContext.getInstance());
+        } else if (ACTION_SEND_APP_OPEN.equals(action)) {
+            Log.e(TAG, "时间到,执行定时音乐:ACTION_SEND_APP_CVDS");
+            CommandHelper.openOrClose(true);
+        } else if (ACTION_SEND_APP_CLOSE.equals(action)) {
+            Log.e(TAG, "时间到,执行定时音乐:ACTION_SEND_APP_CVDS");
+            CommandHelper.openOrClose(false);
+        }
+    }
+
+    public static void setco() {
+        String prog = SharedPreferences.getInstance().getString(SETOSTERMINAL.SETOSTERMINAL, "");
+        if (StringUtil.isEmpty(prog)) {
+            return;
+        }
+        JSONObject j2 = JSON.parseObject(prog);
+        String openTime = null;
+        if (j2.containsKey("openTime")) {
+            openTime = j2.getString("openTime");
+        }
+        String shuntDownTime = "";
+        if (j2.containsKey("shuntDownTime")) {
+            shuntDownTime = j2.getString("shuntDownTime");
+        }
+        List<String> list = null;
+        if (j2.containsKey("weekList")) {
+            String weekList = j2.getString("weekList");
+            list = JSONObject.parseArray(weekList, String.class);
+            Log.e("list", list.size() + "");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i));
+            }
+        }
+        //计算时间进行定时
+        Date date3 = new Date();
+        String xinqi = ProgramUtil.getWeekOfDate(date3);
+        if (j2.containsKey("weekList") && list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                if (xinqi.equals(list.get(i))) {
+                    //定时音量
+                    UsageStatsManagerUtil.alarmClose(shuntDownTime);
+                    UsageStatsManagerUtil.alarmClose(openTime);
+                }
+            }
+        }
+    }
+
+    public static void cvds() {
+        String prog = SharedPreferences.getInstance().getString(CONTROLVOLUME.dingshi, "");
+        if (StringUtil.isEmpty(prog)) {
+            return;
+        }
+        JSONObject j2 = JSON.parseObject(prog);
+        String volumenum = null;
+        if (j2.containsKey("volumenum")) {
+            volumenum = j2.getString("volumenum");
+        }
+        String taskVolumeTime = "";
+        if (j2.containsKey("taskVolumeTime")) {
+            taskVolumeTime = j2.getString("taskVolumeTime");
+        }
+        List<String> list;
+        if (j2.containsKey("weekList")) {
+            String weekListstr = j2.getString("weekList");
+            list = JSONObject.parseArray(weekListstr, String.class);
+            Log.e("list", list.size() + "");
+            Date date1 = new Date();
+            String xinqi = ProgramUtil.getWeekOfDate(date1);
+            for (int i = 0; i < list.size(); i++) {
+                if (xinqi.equals(list.get(i))) {
+                    //定时音量
+                    UsageStatsManagerUtil.alarmcv(taskVolumeTime, volumenum);
+                }
+            }
         }
     }
 
