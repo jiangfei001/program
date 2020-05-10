@@ -134,30 +134,6 @@ public class WebSocketActivityRelease extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket1);
         initView();
-
-
-        /*     Calendar cal = Calendar.getInstance();
-         *//*    cal.add(Calendar.DATE, -1);*//*
-        String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-        Log.e(TAG, "scenceReports:" + yesterday);
-        List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByDate(yesterday);
-        if (scenceReports != null) {
-            Log.e(TAG, "scenceReports:" + scenceReports);
-            SendToServerUtil.sendScenctToServer(scenceReports);
-            //ScenceReportRequestManager.getInstance().delByDate(yesterday);
-        } else {
-
-            Log.e(TAG, "scenceReports:" + null);
-        }*/
-
-
-    }
-
-    Handler handler = new Handler();
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         AppContext.getInstance().initFileService();
         getWvBookPlay().loadUrl("file:///android_asset/index.html");
         new Thread(new Runnable() {
@@ -181,6 +157,30 @@ public class WebSocketActivityRelease extends EventActivity {
                 }
             }
         }).start();
+
+        /*     Calendar cal = Calendar.getInstance();
+         *//*    cal.add(Calendar.DATE, -1);*//*
+        String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+        Log.e(TAG, "scenceReports:" + yesterday);
+        List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByDate(yesterday);
+        if (scenceReports != null) {
+            Log.e(TAG, "scenceReports:" + scenceReports);
+            SendToServerUtil.sendScenctToServer(scenceReports);
+            //ScenceReportRequestManager.getInstance().delByDate(yesterday);
+        } else {
+
+            Log.e(TAG, "scenceReports:" + null);
+        }*/
+
+
+    }
+
+    Handler handler = new Handler();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
 
