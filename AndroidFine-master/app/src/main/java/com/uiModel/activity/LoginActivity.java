@@ -76,8 +76,8 @@ public class LoginActivity extends Activity {
         final EditText socketip = findViewById(R.id.socketip);
         final EditText jiekouip = findViewById(R.id.jiekouip);
 
-        socketip.setText(AppUrl.socketIP);
-        jiekouip.setText(AppUrl.jiekouIP);
+        socketip.setText(AppUrl.socketIPTest);
+        jiekouip.setText(AppUrl.jiekouIPTest);
 
         shebeiName.setText(DeviceUtil.getSBM(this));
 
@@ -113,24 +113,39 @@ public class LoginActivity extends Activity {
         findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*String s_test = "_test";
+                boolean s_test = false;
                 int id = radioButton.getCheckedRadioButtonId();
                 if (id == R.id.jia) {
-                    s_test = "_test";
+                    s_test = true;
                 } else {
-                    s_test = "";
+                    s_test = false;
+                }
+                AppUrl.initip(s_test);
+
+                android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                boolean iszhuce = mContextSp.getBoolean(DeviceUtil.iszhuce, false);
+                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);
+
+
+                if (!isjihuo) {
+                    Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
+                    return;
                 }
 
-                AppUrl.initip(socketip.getText().toString().trim(), jiekouip.getText().toString().trim(), s_test);
+                if (!iszhuce) {
+                    Toast.makeText(LoginActivity.this, "请先注册！", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+
                 AppContext.getInstance().userName = yonghuming.getText().toString();
-                doNavigation();*/
-                new Thread(new Runnable() {
+                getIp();
+              /*  new Thread(new Runnable() {
                     @Override
                     public void run() {
                         zhuce(radioButton, socketip, jiekouip, yonghuming, shebeiName);
                     }
-                }).start();
+                }).start();*/
 
             }
         });
@@ -183,6 +198,10 @@ public class LoginActivity extends Activity {
                                         @Override
                                         public void run() {
                                             Toast.makeText(AppContext.getInstance(), "恭喜你激活成功了啊！！", Toast.LENGTH_LONG).show();
+                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
+                                            editor.putBoolean(DeviceUtil.isjihuo, true);
+                                            editor.commit();
                                         }
                                     });
                                 } else {
@@ -225,6 +244,13 @@ public class LoginActivity extends Activity {
         //socketip.getText().toString().trim(), jiekouip.getText().toString().trim(),
         AppUrl.initip(s_test);
 
+        android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+        boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);
+
+        if (!isjihuo) {
+            Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
+            return;
+        }
         final HashMap hashMap = new HashMap();
 
         hashMap.put("userName", yonghuming.getText().toString());
@@ -287,6 +313,7 @@ public class LoginActivity extends Activity {
                                             android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
                                             android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                             editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
+                                            editor.putBoolean(DeviceUtil.iszhuce, true);
                                             editor.commit();
                                             getIp();
                                         }
@@ -348,7 +375,6 @@ public class LoginActivity extends Activity {
     }
 
     private void doNavigation() {
-        // Intent it = new Intent(this, WebSocketActivity.class);
         Intent it = new Intent(this, WebSocketActivityRelease.class);
         startActivity(it);
         finish();

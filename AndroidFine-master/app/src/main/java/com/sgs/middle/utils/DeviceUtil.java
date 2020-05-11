@@ -467,7 +467,8 @@ public class DeviceUtil {
     public static String uniqueid = "uniqueid";
     public static String uniqueid1 = "uniqueid1";
     public static String sbm = "sbm";
-
+    public static String iszhuce = "iszhuce";
+    public static String isjihuo = "isjihuo";
     public static String getDeviceId(Context context) {
         StringBuilder sbDeviceId = new StringBuilder();
 

@@ -38,7 +38,7 @@ public class AppUrl {
     public static String jiekouIP = "xinlianchuangmei.com";
 
     public static String socketIPTest = "49.235.109.237:9090";
-    public static String jiekouIPTest = "49.235.109.237:9090";
+    public static String jiekouIPTest = "xinlianchuangmei.com";
 
 
     //  public static String jiekouIP = "http://xinlianchuangmei.com/";
@@ -107,7 +107,7 @@ public class AppUrl {
             if (!StringUtil.isEmpty(jsonstr)) {
                 socketIPList = (ArrayList) JSON.parseArray(jsonstr, String.class);
                 Log.e("jsonstr", "Linksize" + socketIPList.size());
-                socketIPList.add("49.235.109.237:9080");
+               // socketIPList.add("49.235.109.237:9080");
                 if (socketIPList.size() > 0) {
                     socketIP = socketIPList.get(index);
                     Log.e("jsonstr", "socketIP:" + socketIP);
