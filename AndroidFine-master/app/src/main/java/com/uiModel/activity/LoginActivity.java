@@ -208,6 +208,10 @@ public class LoginActivity extends Activity {
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
+                                            editor.putBoolean(DeviceUtil.isjihuo, true);
+                                            editor.commit();
                                             Log.e("tag", "response.msg ");
                                             Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                         }
@@ -324,6 +328,11 @@ public class LoginActivity extends Activity {
                                         public void run() {
                                             Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                             AppContext.getInstance().userName = yonghuming.getText().toString();
+                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
+                                            editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
+                                            editor.putBoolean(DeviceUtil.iszhuce, true);
+                                            editor.commit();
                                             getIp();
                                         }
                                     });
