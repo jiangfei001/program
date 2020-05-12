@@ -55,14 +55,15 @@ public class ProgramTaskManager {
         @Override
         public void exeTask(MyTask mTask) {
             handler.removeMessages(1);
+            Log.e(TAG, "我是现在真正执行exeTask");
             //通知webview进行播放 整个节目
-            Log.e(TAG, "我是现在真正执行" + mTask.name);
             nowMyTask = mTask;
             //控制html的播放时长
             nowProgarmPalyInstructionVo = mTask.getProgarmPalyInstructionVo();
             //获取所有的场景
             nowProgarmPalySceneVos = JSON.parseArray(nowProgarmPalyInstructionVo.getSceneList(), ProgarmPalySceneVo.class);
             if (nowProgarmPalySceneVos != null && nowProgarmPalySceneVos.size() > 0) {
+                Log.e(TAG, "我是现在真正执行" + nowProgarmPalyInstructionVo.getProgramName());
                 //通知播放 控制播放时间
                 //将音乐丢给前端进行循环播放
                 if (nowProgarmPalyInstructionVo.getProgramMusicListArray() != null && nowProgarmPalyInstructionVo.getProgramMusicListArray().size() > 0) {

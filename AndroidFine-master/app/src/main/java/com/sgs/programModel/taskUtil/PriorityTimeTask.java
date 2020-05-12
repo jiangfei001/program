@@ -121,6 +121,7 @@ public class PriorityTimeTask<T extends MyTask> {
             if (mTasks.get(i).progarmPalyInstructionVo.getId() == id) {
                 Log.e(TAG, "mTasks removeByid:" + id);
                 mTasks.remove(i);
+                order();
                 break;
             }
         }
@@ -128,6 +129,7 @@ public class PriorityTimeTask<T extends MyTask> {
             if (priorsTasks.get(i).progarmPalyInstructionVo.getId() == id) {
                 Log.e(TAG, "priorsTasks removeByid:" + id);
                 priorsTasks.remove(i);
+                order();
                 break;
             }
         }
@@ -135,10 +137,24 @@ public class PriorityTimeTask<T extends MyTask> {
             if (dTasks.get(i).progarmPalyInstructionVo.getId() == id) {
                 Log.e(TAG, "dTasks removeByid:" + id);
                 dTasks.remove(i);
+                order();
                 break;
             }
         }
     }
+
+    public void clearNull() {
+        if (mTasks.size() == 0 && priorsTasks.size() == 0 && dTasks.size() == 0) {
+            isRuning = false;
+            //需要清空WebSocketActivityRelease里面的内容
+            Event event = new Event();
+            event.setId(EventEnum.EVENT_TEST_CLEARPROG);
+            EventBus.getDefault().post(event);
+            //如果为空的话，1秒钟检查一次，是否有新的任务
+            mHandler.sendEmptyMessageDelayed(1, 1000);
+        }
+    }
+
 
     /**
      * 添加任务监听
@@ -271,6 +287,7 @@ public class PriorityTimeTask<T extends MyTask> {
 
     private void order() {
         Log.e(TAG, "priorsTasks order");
+        mHandler.removeMessages(1);
         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
             boolean idone = false;
             if (priorsTasks != null && priorsTasks.size() > 0) {
@@ -295,6 +312,7 @@ public class PriorityTimeTask<T extends MyTask> {
             } else {
                 Log.e(TAG, "队列里面没有符合要求的任务，1秒后再进行判断");
                 isRuning = false;
+                mHandler.removeMessages(1);
                 //需要清空WebSocketActivityRelease里面的内容
                 Event event = new Event();
                 event.setId(EventEnum.EVENT_TEST_CLEARPROG);
@@ -302,6 +320,15 @@ public class PriorityTimeTask<T extends MyTask> {
                 //如果为空的话，1秒钟检查一次，是否有新的任务
                 mHandler.sendEmptyMessageDelayed(1, 1000);
             }
+        } else {
+            Log.e(TAG, "队列里面没有符合要求的任务，1秒后再进行判断");
+            isRuning = false;
+            //需要清空WebSocketActivityRelease里面的内容
+            Event event = new Event();
+            event.setId(EventEnum.EVENT_TEST_CLEARPROG);
+            EventBus.getDefault().post(event);
+            //如果为空的话，1秒钟检查一次，是否有新的任务
+            mHandler.sendEmptyMessageDelayed(1, 1000);
         }
     }
 

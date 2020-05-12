@@ -378,49 +378,55 @@ public class WebSocketActivityRelease extends EventActivity {
     public void onEvent(final Event mEvent) {
         switch (mEvent.getId()) {
             case EVENT_TEST_MSG1:
-                Log.d(this.getClass().getName(), "我收到播放消息啦1");
-                wvBookPlay.getSettings().setJavaScriptEnabled(true);
-                HashMap<EventEnum, Object> hashMap = mEvent.getParams();
-                boolean isPlayMusic = (boolean) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC);
-                String path = (String) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH);
-                Log.e(TAG, "isPlayMusic:" + isPlayMusic);
-                if (isPlayMusic) {
-                    //需要播放，则开始播放
-                    Log.e(TAG, "这个场景需要播放音乐");
-                    try {
-                        if (mediaPlayer == null) {
-                            mediaPlayer = new MediaPlayer();
-                        }
-                        boolean isplay = false;
-                        try {
-                            isplay = mediaPlayer.isPlaying();
-                        } catch (IllegalStateException e) {
-                            e.printStackTrace();
-                        }
-                        if (!isplay && (musicList != null && musicList.size() > 0)) {
-                            Log.e(TAG, "音乐开始执行");
-                            mediaPlayer.start();
-                        }
-                    } catch (IllegalStateException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    //不需要播放，则要暂停播放
-                    Log.e(TAG, "这个场景不需要播放音乐");
-                    try {
-                        if (mediaPlayer != null) {
-                            Log.e(TAG, "isPlayMusic:pause2" + mediaPlayer.isPlaying());
-                            if (mediaPlayer.isPlaying()) {
-                                Log.e(TAG, "isPlayMusic:pause3");
-                                mediaPlayer.pause();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(this.getClass().getName(), "我收到播放消息啦1");
+                        /*wvBookPlay.getSettings().setJavaScriptEnabled(true);*/
+                        HashMap<EventEnum, Object> hashMap = mEvent.getParams();
+                        boolean isPlayMusic = (boolean) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC);
+                        String path = (String) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH);
+                        Log.e(TAG, "isPlayMusic:" + isPlayMusic);
+                        if (isPlayMusic) {
+                            //需要播放，则开始播放
+                            Log.e(TAG, "这个场景需要播放音乐");
+                            try {
+                                if (mediaPlayer == null) {
+                                    mediaPlayer = new MediaPlayer();
+                                }
+                                boolean isplay = false;
+                                try {
+                                    isplay = mediaPlayer.isPlaying();
+                                } catch (IllegalStateException e) {
+                                    e.printStackTrace();
+                                }
+                                if (!isplay && (musicList != null && musicList.size() > 0)) {
+                                    Log.e(TAG, "音乐开始执行");
+                                    mediaPlayer.start();
+                                }
+                            } catch (IllegalStateException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            //不需要播放，则要暂停播放
+                            Log.e(TAG, "这个场景不需要播放音乐");
+                            try {
+                                if (mediaPlayer != null) {
+                                    Log.e(TAG, "isPlayMusic:pause2" + mediaPlayer.isPlaying());
+                                    if (mediaPlayer.isPlaying()) {
+                                        Log.e(TAG, "isPlayMusic:pause3");
+                                        mediaPlayer.pause();
+                                    }
+                                }
+                            } catch (IllegalStateException e) {
+                                e.printStackTrace();
                             }
                         }
-                    } catch (IllegalStateException e) {
-                        e.printStackTrace();
+                        Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
+                        wvBookPlay.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
                     }
-                }
-                Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
-                wvBookPlay.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
+                });
+
                 break;
             case EVENT_TEST_MSG2:
                 Map event = mEvent.getParams();
