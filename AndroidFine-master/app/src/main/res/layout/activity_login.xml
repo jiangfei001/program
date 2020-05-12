@@ -212,7 +212,6 @@
                 android:layout_marginRight="20.0dip"
                 android:background="@drawable/btn_bg_gray"
                 android:text="multimedia_test"
-                android:checked="true"
                 android:textColor="#ffffffff"
                 android:textSize="18.0sp" />
 
@@ -224,6 +223,7 @@
                 android:layout_marginTop="30.0dip"
                 android:layout_marginRight="20.0dip"
                 android:background="@drawable/btn_bg_gray"
+                android:checked="true"
                 android:text="multimedia"
                 android:textColor="#ffffffff"
                 android:textSize="18.0sp" />

@@ -76,8 +76,8 @@ public class LoginActivity extends Activity {
         final EditText socketip = findViewById(R.id.socketip);
         final EditText jiekouip = findViewById(R.id.jiekouip);
 
-        socketip.setText(AppUrl.socketIPTest);
-        jiekouip.setText(AppUrl.jiekouIPTest);
+        socketip.setText(AppUrl.socketIP);
+        jiekouip.setText(AppUrl.jiekouIP);
 
         shebeiName.setText(DeviceUtil.getSBM(this));
 
@@ -100,6 +100,13 @@ public class LoginActivity extends Activity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);
+
+                if (!isjihuo) {
+                    Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 new Thread(new Runnable() {
                     @Override
@@ -248,13 +255,7 @@ public class LoginActivity extends Activity {
         //socketip.getText().toString().trim(), jiekouip.getText().toString().trim(),
         AppUrl.initip(s_test);
 
-        android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-        boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);
 
-        if (!isjihuo) {
-            Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
-            return;
-        }
         final HashMap hashMap = new HashMap();
 
         hashMap.put("userName", yonghuming.getText().toString());
