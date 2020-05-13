@@ -38,8 +38,8 @@ public class CONTROLVOLUME extends TVTask {
             taskVolumeTime = j2.getString("taskVolumeTime");
         }
         List<String> list = null;
-        if (j2.containsKey("weekList")) {
-            String weekList = j2.getString("weekList");
+        if (j2.containsKey("weekList2")) {
+            String weekList = j2.getString("weekList2");
             list = JSONObject.parseArray(weekList, String.class);
             Log.e("list", list.size() + "");
             for (int i = 0; i < list.size(); i++) {
@@ -56,7 +56,7 @@ public class CONTROLVOLUME extends TVTask {
             //计算时间进行定时
             Date date = new Date();
             String xinqi = ProgramUtil.getWeekOfDate(date);
-            if (j2.containsKey("weekList") && list != null) {
+            if (j2.containsKey("weekList2") && list != null) {
                 for (int i = 0; i < list.size(); i++) {
                     if (xinqi.equals(list.get(i))) {
                         //定时音量

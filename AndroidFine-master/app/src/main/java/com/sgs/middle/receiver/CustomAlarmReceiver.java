@@ -118,6 +118,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.e(TAG, "CustomAlarmReceiver intent");
         if (intent == null) {
             Log.e(TAG, "CustomAlarmReceiver intent is null");
             return;
@@ -148,14 +149,14 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             ReportUtil reportUtil = new ReportUtil();
             reportUtil.reportEvent();
         } else if (ACTION_SEND_APP_CVDS.equals(action)) {
-            Log.e(TAG, "时间到,执行定时音乐:ACTION_SEND_APP_CVDS");
             String vl = intent.getExtras().getString("vl");
+            Log.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS"+vl);
             CommandHelper.setStreamVolume(Integer.parseInt(vl), AppContext.getInstance());
         } else if (ACTION_SEND_APP_OPEN.equals(action)) {
-            Log.e(TAG, "时间到,执行定时音乐:ACTION_SEND_APP_CVDS");
+            Log.e(TAG, "时间到,执行定时开机:ACTION_SEND_APP_CVDS");
             CommandHelper.openOrClose(true);
         } else if (ACTION_SEND_APP_CLOSE.equals(action)) {
-            Log.e(TAG, "时间到,执行定时音乐:ACTION_SEND_APP_CVDS");
+            Log.e(TAG, "时间到,执行关机:ACTION_SEND_APP_CVDS");
             CommandHelper.openOrClose(false);
         }
     }
@@ -175,8 +176,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             shuntDownTime = j2.getString("shuntDownTime");
         }
         List<String> list = null;
-        if (j2.containsKey("weekList")) {
-            String weekList = j2.getString("weekList");
+        if (j2.containsKey("weekList2")) {
+            String weekList = j2.getString("weekList2");
             list = JSONObject.parseArray(weekList, String.class);
             Log.e("list", list.size() + "");
             for (int i = 0; i < list.size(); i++) {
@@ -186,12 +187,12 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
         //计算时间进行定时
         Date date3 = new Date();
         String xinqi = ProgramUtil.getWeekOfDate(date3);
-        if (j2.containsKey("weekList") && list != null) {
+        if (j2.containsKey("weekList2") && list != null) {
             for (int i = 0; i < list.size(); i++) {
                 if (xinqi.equals(list.get(i))) {
                     //定时音量
                     UsageStatsManagerUtil.alarmClose(shuntDownTime);
-                    UsageStatsManagerUtil.alarmClose(openTime);
+                    UsageStatsManagerUtil.alarmOpen(openTime);
                 }
             }
         }
@@ -212,8 +213,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             taskVolumeTime = j2.getString("taskVolumeTime");
         }
         List<String> list;
-        if (j2.containsKey("weekList")) {
-            String weekListstr = j2.getString("weekList");
+        if (j2.containsKey("weekList2")) {
+            String weekListstr = j2.getString("weekList2");
             list = JSONObject.parseArray(weekListstr, String.class);
             Log.e("list", list.size() + "");
             Date date1 = new Date();

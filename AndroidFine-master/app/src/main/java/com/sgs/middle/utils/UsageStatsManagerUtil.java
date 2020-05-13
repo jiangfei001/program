@@ -13,8 +13,10 @@ import android.util.Log;
 import com.sgs.AppContext;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -171,32 +173,52 @@ public class UsageStatsManagerUtil {
      * 定时调节音量
      */
     public static void alarmcv(String str, String vl) {
+        long systemTime = System.currentTimeMillis();
+        long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
 
         // 00:00:05
         String a[] = str.split(":");
         if (a.length != 3) {
             return;
         }
-
         AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(SystemClock.elapsedRealtime());
-        // 10分钟上报一次打开次数
-        calendar.set(Calendar.HOUR, Integer.parseInt(a[0]));
+        //得到日历实例，主要是为了下面的获取时间
+
+        calendar.setTime(new Date());
+        // 时
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(a[0]));
+        // 分
         calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
+        // 秒
         calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
+        String dateStr = df.format(calendar.getTime());
+        //System.out.println(dateStr);
+        Log.e("dateStr", "dateStr" + dateStr);
+
+        long selectTime = calendar.getTimeInMillis();
+        //计算现在时间到设置时间的时间差
+        long diffTime1 = selectTime - systemTime;
+        firstTime += diffTime1;
+
+        Log.e("TAG", firstTime + "firstTime");
+
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
         it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_CVDS);
+        it.putExtra("time", System.currentTimeMillis());
+
         it.putExtra("vl", vl);
         PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_CVDS, it, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         } else {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         }
     }
 
@@ -204,30 +226,50 @@ public class UsageStatsManagerUtil {
      * 定时关机
      */
     public static void alarmClose(String str) {
+        long systemTime = System.currentTimeMillis();
+        long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
+
         // 00:00:05
         String a[] = str.split(":");
         if (a.length != 3) {
             return;
         }
-
         AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(SystemClock.elapsedRealtime());
-        // 10分钟上报一次打开次数
-        calendar.set(Calendar.HOUR, Integer.parseInt(a[0]));
+        //得到日历实例，主要是为了下面的获取时间
+
+        calendar.setTime(new Date());
+        // 时
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(a[0]));
+        // 分
         calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
+        // 秒
         calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
+        String dateStr = df.format(calendar.getTime());
+        //System.out.println(dateStr);
+        Log.e("dateStr", "dateStr" + dateStr);
+
+        long selectTime = calendar.getTimeInMillis();
+        //计算现在时间到设置时间的时间差
+        long diffTime1 = selectTime - systemTime;
+        firstTime += diffTime1;
+
+        Log.e("TAG", firstTime + "firstTime");
+
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
+
         it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_CLOSE);
         PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_CLOSE, it, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         } else {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         }
     }
 
@@ -236,28 +278,50 @@ public class UsageStatsManagerUtil {
      */
     public static void alarmOpen(String str) {
         // 00:00:05
+        long systemTime = System.currentTimeMillis();
+        long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
+
+        // 00:00:05
         String a[] = str.split(":");
         if (a.length != 3) {
             return;
         }
         AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(SystemClock.elapsedRealtime());
-        // 10分钟上报一次打开次数
-        calendar.set(Calendar.HOUR, Integer.parseInt(a[0]));
+        //得到日历实例，主要是为了下面的获取时间
+
+        calendar.setTime(new Date());
+        // 时
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(a[0]));
+        // 分
         calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
+        // 秒
         calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
+        String dateStr = df.format(calendar.getTime());
+        //System.out.println(dateStr);
+        Log.e("dateStr", "dateStr" + dateStr);
+
+        long selectTime = calendar.getTimeInMillis();
+        //计算现在时间到设置时间的时间差
+        long diffTime1 = selectTime - systemTime;
+        firstTime += diffTime1;
+
+        Log.e("TAG", firstTime + "firstTime");
+
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
+
         it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_OPEN);
         PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_OPEN, it, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         } else {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
         }
     }
 }

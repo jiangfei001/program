@@ -107,6 +107,7 @@ public class AppContext extends Application {
             reportUtil.reportScence();
 
             initLocation();
+
         }
         ActivityLifeManager.getInstance().
 
