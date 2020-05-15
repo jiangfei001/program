@@ -358,7 +358,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 mediaPlayer.release();
             }
         } catch (IllegalStateException e) {
-            e.printStackTrace();
+            Log.e("IllegalStateException", e.getMessage() + "11");
         }
     }
 

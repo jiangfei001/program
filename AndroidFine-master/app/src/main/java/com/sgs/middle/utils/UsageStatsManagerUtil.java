@@ -85,6 +85,8 @@ public class UsageStatsManagerUtil {
 
         //计算现在时间到设置时间的时间差
         long diffTime1 = selectTime - systemTime;
+
+        Log.e("diffTime1", "多少分钟之后" + diffTime1 / 1000 / 60 / 60);
         firstTime += diffTime1;
 
         //AlarmReceiver.class为广播接受者
@@ -138,36 +140,6 @@ public class UsageStatsManagerUtil {
             alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
         }
     }
-    /* *//**
-     * 每隔一定时间执行一次ping命令
-     *//*
-    public static void alarmExecutePing() {
-        try {
-            long pingInterval = (long) SharedPreferencesUtil.getInstance().get(ConstantUtil.PING_INTERVAL, 0L);
-            if (pingInterval < ConstantUtil.NETWORK_MONITOR_MIN_INTERVAL) {
-                return;
-            }
-            AlarmManager alarmManager = (AlarmManager) ContextUtil.getAppContext().getSystemService(Context.ALARM_SERVICE);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(SystemClock.elapsedRealtime());
-            calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + (int) (pingInterval / 60L));
-
-            Intent it = new Intent(ContextUtil.getAppContext(), CustomAlarmReceiver.class);
-            it.setPackage(ContextUtil.getAppContext().getPackageName());
-            it.setAction(CustomAlarmReceiver.ACTION_EXECUTE_PING_AND_UPLOAD_RESULT);
-            it.putExtra("time", System.currentTimeMillis());
-            PendingIntent pi = PendingIntent.getBroadcast(ContextUtil.getAppContext(), CustomAlarmReceiver.REQUEST_CODE_PING_AND_UPLOAD_REQUEST, it, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_ONE_SHOT);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
-            } else {
-                alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
-            }
-        } catch (Exception e) {
-            LogUtil.e(e);
-        }
-    }*/
 
     /**
      * 定时调节音量
