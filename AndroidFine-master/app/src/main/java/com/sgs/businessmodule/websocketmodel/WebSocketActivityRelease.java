@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
@@ -207,7 +208,7 @@ public class WebSocketActivityRelease extends EventActivity {
     private void initweb(WebView mWebView) {
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
         mWebView.setWebViewClient(new InnerWebViewClient());
-        mWebView.getSettings().setUseWideViewPort(true);
+        /*mWebView.getSettings().setUseWideViewPort(true);*/
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
         // 这句解决本地跨域问题，如果你的 PDF 文件在站点里，是不需要的，但是，我们一般情况是加载站点外部 PDF 文件
@@ -221,6 +222,19 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.setScrollContainer(false);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int mDensity = metrics.densityDpi;
+
+
+        if (mDensity == 120) {
+            mWebView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.CLOSE);
+        } else if (mDensity == 160) {
+            mWebView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.MEDIUM);
+        } else if (mDensity == 240) {
+            mWebView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        }
+
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
