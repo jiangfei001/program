@@ -21,7 +21,8 @@ public class WebSocketHelper {
         /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
 
         Log.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
-        String endstr = "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + System.currentTimeMillis() + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), System.currentTimeMillis() + "", DeviceUtil.getSercetKey(AppContext.getInstance()));
+        String systemTime = System.currentTimeMillis() + "";
+        String endstr = "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + systemTime + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), systemTime, DeviceUtil.getSercetKey(AppContext.getInstance()));
         Log.e("weiyima:", "endstr" + endstr);
         setting.setConnectUrl(AppUrl.socketUrl + endstr);//必填
         setting.setEnd(endstr);
