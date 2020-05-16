@@ -77,16 +77,22 @@ public class LoginActivity extends Activity {
         final EditText socketip = findViewById(R.id.socketip);
         final EditText jiekouip = findViewById(R.id.jiekouip);
 
-        /*socketip.setText(AppUrl.socketIP);
-        jiekouip.setText(AppUrl.jiekouIP);*/
-
-        socketip.setText(AppUrl.socketIPTest);
-        jiekouip.setText(AppUrl.jiekouIPTest);
-
-        shebeiName.setText(DeviceUtil.getSBM(this));
 
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
 
+
+        if (false) {
+            radioButton.check(R.id.bujia);
+            socketip.setText(AppUrl.socketIP);
+            jiekouip.setText(AppUrl.jiekouIP);
+
+        } else {
+            radioButton.check(R.id.jia);
+            socketip.setText(AppUrl.socketIPTest);
+            jiekouip.setText(AppUrl.jiekouIPTest);
+        }
+
+        shebeiName.setText(DeviceUtil.getSBM(this));
         radioButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -194,7 +200,8 @@ public class LoginActivity extends Activity {
         initPermission();
     }
 
-    private void jihuo(RadioGroup radioButton, EditText socketip, EditText jiekouip, final EditText yonghuming, final EditText shebeiName) {
+    private void jihuo(RadioGroup radioButton, EditText socketip, EditText jiekouip,
+                       final EditText yonghuming, final EditText shebeiName) {
         boolean s_test = false;
         int id = radioButton.getCheckedRadioButtonId();
         if (id == R.id.jia) {
@@ -263,7 +270,8 @@ public class LoginActivity extends Activity {
                 });
     }
 
-    private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip, final EditText yonghuming, final EditText shebeiName) {
+    private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip,
+                       final EditText yonghuming, final EditText shebeiName) {
         boolean s_test = false;
         int id = radioButton.getCheckedRadioButtonId();
         if (id == R.id.jia) {
@@ -456,7 +464,8 @@ public class LoginActivity extends Activity {
      * 这里不管用户是否拒绝，都进入首页，不再重复申请权限
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSION_REQUEST:
