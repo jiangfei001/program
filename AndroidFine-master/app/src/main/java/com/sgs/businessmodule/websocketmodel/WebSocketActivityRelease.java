@@ -1,6 +1,8 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.http.SslError;
@@ -205,10 +207,25 @@ public class WebSocketActivityRelease extends EventActivity {
 
     }
 
+    /**
+     * 判断当前设备是手机还是平板，代码来自 Google I/O App for Android
+     *
+     * @param context
+     * @return 平板返回 True，手机返回 False
+     */
+    public static boolean isPad(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
     private void initweb(WebView mWebView) {
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
         mWebView.setWebViewClient(new InnerWebViewClient());
-        /*mWebView.getSettings().setUseWideViewPort(true);*/
+
+        if (!isPad(this)) {
+            mWebView.getSettings().setUseWideViewPort(true);
+        }
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
         // 这句解决本地跨域问题，如果你的 PDF 文件在站点里，是不需要的，但是，我们一般情况是加载站点外部 PDF 文件
