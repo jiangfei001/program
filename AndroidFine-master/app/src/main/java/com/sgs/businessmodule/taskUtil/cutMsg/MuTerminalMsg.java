@@ -3,6 +3,8 @@ package com.sgs.businessmodule.taskUtil.cutMsg;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Date;
+
 @DatabaseTable(tableName = "tb_muTerminalMsg")
 public class MuTerminalMsg {
     @DatabaseField(id = true, canBeNull = false, columnName = "id")
@@ -52,18 +54,62 @@ public class MuTerminalMsg {
     private Integer direction;
 
     @DatabaseField
-    private String status;
+    private String msgStatus;
+
+    /**
+     * 完成时间
+     */
+    //消息内容
+    @DatabaseField
+    private Date finishTime;
+    /**
+     * 完成时间
+     */
+    //消息内容
+    @DatabaseField
+    private Date beginTime;
+
+    //消息内容
+    @DatabaseField
+    private Date endDate;
+
+    //finishTime
+    //beginTime
+
+    public Date getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(Date finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public Date getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(Date beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getMsgStatus() {
+        return msgStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMsgStatus(String msgStatus) {
+        this.msgStatus = msgStatus;
     }
 
     public Long getHasplay() {
@@ -200,7 +246,7 @@ public class MuTerminalMsg {
                 "\t\"playTimes\": 60,\n" +
                 "\t\"position\": 1,\n" +
                 "\t\"speed\": 2,\n" +
-                "\t\"status\": 0,\n" +
+                "\t\"msgStatus\": 0,\n" +
                 "\t\"terminalIds\": \"16,18\"\n" +
                 "}";
 

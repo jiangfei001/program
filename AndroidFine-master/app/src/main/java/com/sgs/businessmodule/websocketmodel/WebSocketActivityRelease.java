@@ -41,6 +41,7 @@ import com.sgs.middle.eventControlModel.EventEnum;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.InstallUtil;
 import com.sgs.middle.utils.StringUtils;
+import com.sgs.programModel.SendToServerUtil;
 import com.sgs.programModel.entity.ProgramResource;
 import com.umeng.analytics.MobclickAgent;
 import com.jf.websocket.SimpleListener;
@@ -49,6 +50,7 @@ import com.jf.websocket.WebSocketHandler;
 import com.jf.websocket.response.ErrorResponse;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -367,7 +369,10 @@ public class WebSocketActivityRelease extends EventActivity {
                             if (cutMsgList != null && cutMsgList.size() > 0) {
                                 cutMsgList.remove(nowTerminalMsg);
                                 MsgDbManager.getInstance().delByMuTerminalMsgID(nowTerminalMsg.getId());
-                                nowTerminalMsg = null;
+
+                                SendToServerUtil.sendMsgDelToServer(nowTerminalMsg);
+
+                                //nowTerminalMsg = null;
                                 nowCutMsgIndex--;
                             }
                         }
@@ -513,6 +518,7 @@ public class WebSocketActivityRelease extends EventActivity {
                         if (muTerminalMsg.getAppend() == 0) {
                             MsgDbManager.getInstance().delAllMuTerminalMsg();
                         }
+                        muTerminalMsg.setEndDate(new Date());
                         MsgDbManager.getInstance().saveMuTermianlMsg(muTerminalMsg);
                         List<MuTerminalMsg> l = MsgDbManager.getInstance().getAllMuTerminalMsg();
                         Log.e("l", "lfff" + l.size());

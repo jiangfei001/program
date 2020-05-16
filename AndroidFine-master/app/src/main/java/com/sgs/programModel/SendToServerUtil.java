@@ -9,6 +9,7 @@ import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
+import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
@@ -255,6 +256,31 @@ public class SendToServerUtil {
             }
         });
     }
+
+    //删除{'id':11,'msgStatus':3}
+    public static void sendMsgDelToServer(MuTerminalMsg muTerminalMsg) {
+
+        HashMap hashMap = new HashMap();
+        //finishTime
+        muTerminalMsg.setFinishTime(new Date());
+        //beginTime
+        //endDate
+        muTerminalMsg.setMsgStatus("3");
+        muTerminalMsg.setEndDate(new Date());
+
+        hashMap.put("paramMap", com.alibaba.fastjson.JSON.toJSONString(muTerminalMsg));
+        HttpClient.postHashMapEntity(AppUrl.changeMsgStatus, hashMap, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
+    }
+
 
     //当天节目全量接口
     public static void sendRepHotareaToServer(List<RepHotReport> repHotReports, MyYewuResponseHandle myYewuResponseHandle) {

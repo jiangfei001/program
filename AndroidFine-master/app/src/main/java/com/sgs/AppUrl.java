@@ -33,7 +33,7 @@ public class AppUrl {
     public static String addRepHotareaClickList;
     //激活
     public static String activation;
-
+    public static String changeMsgStatus;
     public static String socketIP = "49.235.109.237:9080";
     public static String jiekouIP = "xinlianchuangmei.com";
 
@@ -62,6 +62,8 @@ public class AppUrl {
         addRepHotareaClickList = jiekouUrl + "/multimedia_test/api/terminal/addRepHotareaClickList";
         activation = jiekouUrl + "/multimedia_test/api/terminal/activation";
         getServerList = jiekouUrl + "/multimedia_test/api/terminal/getServerList";
+        changeMsgStatus = jiekouUrl + "/multimedia_test/api/terminal/changeMsgStatus";
+
             /*socketUrl = "ws://49.235.109.237:9080/multimedia/api/websocket";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
@@ -91,6 +93,7 @@ public class AppUrl {
         addRepHotareaClickList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/addRepHotareaClickList";
         activation = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/activation";
         getServerList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/getServerList";
+        changeMsgStatus = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/changeMsgStatus";
 
         Log.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
         Log.e("socketUrl", "callbackUrl:" + callbackUrl);
@@ -99,6 +102,7 @@ public class AppUrl {
         Log.e("socketUrl", "addRepPalyProgramList:" + addRepPalyProgramList);
         Log.e("socketUrl", "activation:" + activation);
         Log.e("socketUrl", "getServerList:" + getServerList);
+        Log.e("socketUrl", "changeMsgStatus:" + changeMsgStatus);
     }
 
     public static void setSerList(String jsonstr) {
@@ -107,7 +111,7 @@ public class AppUrl {
             if (!StringUtil.isEmpty(jsonstr)) {
                 socketIPList = (ArrayList) JSON.parseArray(jsonstr, String.class);
                 Log.e("jsonstr", "Linksize" + socketIPList.size());
-               // socketIPList.add("49.235.109.237:9080");
+                // socketIPList.add("49.235.109.237:9080");
                 if (socketIPList.size() > 0) {
                     socketIP = socketIPList.get(index);
                     Log.e("jsonstr", "socketIP:" + socketIP);
