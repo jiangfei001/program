@@ -13,6 +13,7 @@ import com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg;
 import com.sgs.businessmodule.upReportModel.RepHotReport;
 import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.businessmodule.websocketmodel.InstructionResponse;
+import com.sgs.middle.utils.DateUtil;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.programModel.entity.ProListVo;
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
@@ -261,11 +262,11 @@ public class SendToServerUtil {
     public static void sendMsgDelToServer(MuTerminalMsg muTerminalMsg) {
 
         //finishTime
-        muTerminalMsg.setFinishTime(new Date());
+        muTerminalMsg.setFinishTime(DateUtil.getNowDate());
         //beginTime
         //endDate
         muTerminalMsg.setMsgStatus("3");
-        muTerminalMsg.setEndDate(new Date());
+        muTerminalMsg.setEndDate(DateUtil.getNowDate());
 
         // hashMap.put("paramMap", com.alibaba.fastjson.JSON.toJSONString(muTerminalMsg));
 

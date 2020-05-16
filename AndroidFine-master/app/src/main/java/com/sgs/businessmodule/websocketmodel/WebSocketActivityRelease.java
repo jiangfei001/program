@@ -38,6 +38,7 @@ import com.sgs.businessmodule.websocketmodel.js.JsInterface;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
+import com.sgs.middle.utils.DateUtil;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.InstallUtil;
 import com.sgs.middle.utils.StringUtils;
@@ -518,7 +519,7 @@ public class WebSocketActivityRelease extends EventActivity {
                         if (muTerminalMsg.getAppend() == 0) {
                             MsgDbManager.getInstance().delAllMuTerminalMsg();
                         }
-                        muTerminalMsg.setEndDate(new Date());
+                        muTerminalMsg.setBeginTime(DateUtil.getNowDate());
                         MsgDbManager.getInstance().saveMuTermianlMsg(muTerminalMsg);
                         List<MuTerminalMsg> l = MsgDbManager.getInstance().getAllMuTerminalMsg();
                         Log.e("l", "lfff" + l.size());

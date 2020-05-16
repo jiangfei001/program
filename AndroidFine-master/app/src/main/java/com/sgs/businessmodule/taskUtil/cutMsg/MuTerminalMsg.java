@@ -61,42 +61,43 @@ public class MuTerminalMsg {
      */
     //消息内容
     @DatabaseField
-    private Date finishTime;
+    private String finishTime;
     /**
      * 完成时间
      */
     //消息内容
     @DatabaseField
-    private Date beginTime;
+    private String beginTime;
 
     //消息内容
     @DatabaseField
-    private Date endDate;
+    private String endDate;
 
     //finishTime
     //beginTime
 
-    public Date getFinishTime() {
+
+    public String getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
 
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
