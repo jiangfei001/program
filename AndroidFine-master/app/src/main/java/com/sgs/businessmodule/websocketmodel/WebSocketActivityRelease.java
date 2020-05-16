@@ -460,10 +460,6 @@ public class WebSocketActivityRelease extends EventActivity {
                         if (muTerminalMsg.getAppend() == 0) {
                             MsgDbManager.getInstance().delAllMuTerminalMsg();
                         }
-
-                        StringBuilder sb = new StringBuilder(muTerminalMsg.getMsgContent());
-                        muTerminalMsg.setMsgContent(sb.reverse().toString());
-
                         MsgDbManager.getInstance().saveMuTermianlMsg(muTerminalMsg);
                         List<MuTerminalMsg> l = MsgDbManager.getInstance().getAllMuTerminalMsg();
                         Log.e("l", "lfff" + l.size());
@@ -569,23 +565,29 @@ public class WebSocketActivityRelease extends EventActivity {
         Log.e(TAG, "playNext" + nowCutMsgIndex);
         MuTerminalMsg muTerminalMsg = cutMsgList.get(nowCutMsgIndex);
         nowTerminalMsg = muTerminalMsg;
+
+
+        /*StringBuilder sb = new StringBuilder(nowTerminalMsg.getMsgContent());
+        String content = sb.reverse().toString();
+        Log.e(TAG, "context" + content);*/
+
         if (muTerminalMsg.getPosition() == 1) {
             mMarqueeView1.setVisibility(View.VISIBLE);
             mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
-            mMarqueeView1.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView1.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView1.setSep(muTerminalMsg.getSpeed());
             Log.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
             mMarqueeView1.startScroll();
         } else if (muTerminalMsg.getPosition() == 0) {
             mMarqueeView3.setVisibility(View.VISIBLE);
             mMarqueeView3.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
-            mMarqueeView3.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView3.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView3.setSep(muTerminalMsg.getSpeed());
             mMarqueeView3.startScroll();
         } else if (muTerminalMsg.getPosition() == 2) {
             mMarqueeView2.setVisibility(View.VISIBLE);
             mMarqueeView2.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
-            mMarqueeView2.setText(muTerminalMsg.getMsgContent());
+            mMarqueeView2.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView2.setSep(muTerminalMsg.getSpeed());
             mMarqueeView2.startScroll();
         }

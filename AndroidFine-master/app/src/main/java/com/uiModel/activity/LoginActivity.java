@@ -470,7 +470,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.e("DMP", "DMP" + DeviceUtil.getDisplayMetricsPixels(this));
         MobclickAgent.onResume(this);
        /* if (SharedPreferences.getInstance().getBoolean(SharedPreferences.KEY_ISREGISTER, false)) {
             doNavigation();
