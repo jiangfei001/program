@@ -262,7 +262,7 @@ public class SendToServerUtil {
     public static void sendMsgDelToServer(MuTerminalMsg muTerminalMsg) {
 
         //finishTime
-        muTerminalMsg.setFinishTime(DateUtil.getNowDate());
+        muTerminalMsg.setFinishTime(muTerminalMsg.getHasplay()+"");
         //beginTime
         //endDate
         muTerminalMsg.setMsgStatus("3");
