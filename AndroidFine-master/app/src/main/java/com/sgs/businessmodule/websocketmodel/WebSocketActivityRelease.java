@@ -13,7 +13,9 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -219,11 +221,31 @@ public class WebSocketActivityRelease extends EventActivity {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
+    private boolean isPad() {
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        // 屏幕宽度
+        float screenWidth = display.getWidth();
+        // 屏幕高度
+        float screenHeight = display.getHeight();
+        DisplayMetrics dm = new DisplayMetrics();
+        display.getMetrics(dm);
+        double x = Math.pow(dm.widthPixels / dm.xdpi, 2);
+        double y = Math.pow(dm.heightPixels / dm.ydpi, 2);
+        // 屏幕尺寸
+        double screenInches = Math.sqrt(x + y);
+        // 大于6尺寸则为Pad
+        if (screenInches >= 6.0) {
+            return true;
+        }
+        return false;
+    }
+
     private void initweb(WebView mWebView) {
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
         mWebView.setWebViewClient(new InnerWebViewClient());
 
-        if (!isPad(this)) {
+        if (!isPad()) {
             mWebView.getSettings().setUseWideViewPort(true);
         }
         mWebView.getSettings().setLoadWithOverviewMode(true);
