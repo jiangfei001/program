@@ -2,6 +2,7 @@ package com.sgs.businessmodule.downloadModel;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -27,7 +28,15 @@ public class DownLoadService extends Service {
             downLoadManager = new DownLoadManager(DownLoadService.this);
         }
         ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
-        return null;
+        return mBinder;
+    }
+
+    IBinder mBinder = new LocalBinder();
+
+    public class LocalBinder extends Binder {
+        public DownLoadService getServerInstance() {
+            return DownLoadService.this;
+        }
     }
 
     public static DownLoadManager getDownLoadManager() {

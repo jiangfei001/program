@@ -30,7 +30,7 @@ public class AppContext extends Application {
 
     private static AppContext app;
 
-    public static boolean islogin=false;
+    public static boolean islogin = false;
 
     public static String TAG = "AppContext";
     public String userName = "123";
@@ -216,12 +216,6 @@ public class AppContext extends Application {
     public void initFileService() {
         if (apkDownService == null) {
             apkDownService = new Intent(this, DownLoadService.class);
-            /* startService(apkDownService);*/
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            this.startForegroundService(apkDownService);
-        } else {
-            this.startService(apkDownService);
-        }*/
             connection = new ServiceConnection() {
                 @Override
                 public void onServiceConnected(ComponentName name, IBinder service) {
@@ -233,6 +227,7 @@ public class AppContext extends Application {
                 @Override
                 public void onServiceDisconnected(ComponentName name) {
                     // service disconnected
+                    Log.e(TAG, "onServiceConnected");
                 }
             };
             bindService(apkDownService, connection, Context.BIND_ABOVE_CLIENT | Context.BIND_AUTO_CREATE);

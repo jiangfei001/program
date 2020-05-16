@@ -49,7 +49,7 @@ public class ProgramScheduledManager {
 
     DownLoadManager manager;
 
-    private ProgramScheduledManager(Context context) {
+    private  ProgramScheduledManager(Context context) {
         this.context = context;
         manager = DownLoadService.getDownLoadManager();
         /*设置用户ID，客户端切换用户时可以显示相应用户的下载任务*/

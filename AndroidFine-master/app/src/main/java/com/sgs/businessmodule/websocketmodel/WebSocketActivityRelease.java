@@ -134,13 +134,15 @@ public class WebSocketActivityRelease extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket1);
         initView();
-        AppContext.getInstance().islogin=true;
+        AppContext.getInstance().islogin = true;
 
-        AppContext.getInstance().initFileService();
         getWvBookPlay().loadUrl("file:///android_asset/index.html");
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                AppContext.getInstance().initFileService();
+
                 WebSocketHelper.initWebSocket(DeviceUtil.getTerDeviceID(WebSocketActivityRelease.this));
                 WebSocketHandler.getDefault().addListener(socketListener);
                 taskQueue = new TaskQueue(1);
@@ -159,21 +161,6 @@ public class WebSocketActivityRelease extends EventActivity {
                 }
             }
         }).start();
-
-        /*     Calendar cal = Calendar.getInstance();
-         *//*    cal.add(Calendar.DATE, -1);*//*
-        String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-        Log.e(TAG, "scenceReports:" + yesterday);
-        List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByDate(yesterday);
-        if (scenceReports != null) {
-            Log.e(TAG, "scenceReports:" + scenceReports);
-            SendToServerUtil.sendScenctToServer(scenceReports);
-            //ScenceReportRequestManager.getInstance().delByDate(yesterday);
-        } else {
-
-            Log.e(TAG, "scenceReports:" + null);
-        }*/
-
 
     }
 
