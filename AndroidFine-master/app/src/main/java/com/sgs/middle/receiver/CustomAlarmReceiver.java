@@ -118,49 +118,50 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e(TAG, "CustomAlarmReceiver intent");
-        if (intent == null) {
-            Log.e(TAG, "CustomAlarmReceiver intent is null");
-            return;
-        }
-        String action = intent.getAction();
-
-        if (ACTION_PLAYGRAME_INIT.equals(action)) {
-
-          /*  AppContext.getInstance().initFileService();*/
-
-          /*  long l = System.currentTimeMillis();
-            //new日期对
-            Date date = new Date(l);
-            //转换提日期输出格式
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
-            ProgramScheduledManager.getInstance().initAllProgramTask();
-            ReportUtil reportUtil = new ReportUtil();
-            reportUtil.reportScence();
-            UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
-
-            if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(CONTROLVOLUME.dingshi, ""))) {
-                cvds();
+        Log.e(TAG, "AppContext.getInstance().islogin:" + AppContext.getInstance().islogin);
+        if (AppContext.getInstance().islogin) {
+            Log.e(TAG, "CustomAlarmReceiver intent");
+            if (intent == null) {
+                Log.e(TAG, "CustomAlarmReceiver intent is null");
+                return;
             }
-            if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(SETOSTERMINAL.SETOSTERMINAL, ""))) {
-                setco();
-            }*/
-        } else if (ACTION_SEND_APP_HOTAREA.equals(action)) {
-            UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
-            Log.e(TAG, "时间到,执行复原任务操作:REPRORT");
-            ReportUtil reportUtil = new ReportUtil();
-            reportUtil.reportEvent();
-        } else if (ACTION_SEND_APP_CVDS.equals(action)) {
-            String vl = intent.getExtras().getString("vl");
-            Log.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS" + vl);
-            CommandHelper.setStreamVolume(Integer.parseInt(vl), AppContext.getInstance());
-        } else if (ACTION_SEND_APP_OPEN.equals(action)) {
-            Log.e(TAG, "时间到,执行定时开机:ACTION_SEND_APP_CVDS");
-            CommandHelper.openOrClose(true);
-        } else if (ACTION_SEND_APP_CLOSE.equals(action)) {
-            Log.e(TAG, "时间到,执行关机:ACTION_SEND_APP_CVDS");
-            CommandHelper.openOrClose(false);
+            String action = intent.getAction();
+
+            if (ACTION_PLAYGRAME_INIT.equals(action)) {
+
+                long l = System.currentTimeMillis();
+                //new日期对
+                Date date = new Date(l);
+                //转换提日期输出格式
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
+                ProgramScheduledManager.getInstance().initAllProgramTask();
+                ReportUtil reportUtil = new ReportUtil();
+                reportUtil.reportScence();
+                UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
+
+                if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(CONTROLVOLUME.dingshi, ""))) {
+                    cvds();
+                }
+                if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(SETOSTERMINAL.SETOSTERMINAL, ""))) {
+                    setco();
+                }
+            } else if (ACTION_SEND_APP_HOTAREA.equals(action)) {
+                UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
+                Log.e(TAG, "时间到,执行复原任务操作:REPRORT");
+                ReportUtil reportUtil = new ReportUtil();
+                reportUtil.reportEvent();
+            } else if (ACTION_SEND_APP_CVDS.equals(action)) {
+                String vl = intent.getExtras().getString("vl");
+                Log.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS" + vl);
+                CommandHelper.setStreamVolume(Integer.parseInt(vl), AppContext.getInstance());
+            } else if (ACTION_SEND_APP_OPEN.equals(action)) {
+                Log.e(TAG, "时间到,执行定时开机:ACTION_SEND_APP_CVDS");
+                CommandHelper.openOrClose(true);
+            } else if (ACTION_SEND_APP_CLOSE.equals(action)) {
+                Log.e(TAG, "时间到,执行关机:ACTION_SEND_APP_CVDS");
+                CommandHelper.openOrClose(false);
+            }
         }
     }
 

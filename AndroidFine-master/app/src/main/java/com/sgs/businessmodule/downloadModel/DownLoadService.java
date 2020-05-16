@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.sgs.AppContext;
 import com.sgs.programModel.ProgramScheduledManager;
 
 public class DownLoadService extends Service {
@@ -30,6 +31,9 @@ public class DownLoadService extends Service {
     }
 
     public static DownLoadManager getDownLoadManager() {
+        if (downLoadManager == null) {
+            downLoadManager = new DownLoadManager(AppContext.getInstance());
+        }
         return downLoadManager;
     }
 

@@ -12,31 +12,25 @@ import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.sgs.businessmodule.downloadModel.DownLoadService;
-import com.sgs.businessmodule.taskModel.taskList.CONTROLVOLUME;
-import com.sgs.businessmodule.taskModel.taskList.SETOSTERMINAL;
 import com.sgs.businessmodule.websocketmodel.ActivityLifeManager;
 import com.sgs.businessmodule.websocketmodel.CrashHandler;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
-import com.sgs.middle.utils.SharedPreferences;
-import com.sgs.middle.utils.StringUtil;
 import com.sgs.middle.utils.UsageStatsManagerUtil;
-import com.sgs.programModel.ProgramUtil;
 import com.umeng.commonsdk.UMConfigure;
 
-import java.util.Date;
 import java.util.List;
 
 
 public class AppContext extends Application {
 
     private static AppContext app;
+
+    public static boolean islogin=false;
 
     public static String TAG = "AppContext";
     public String userName = "123";

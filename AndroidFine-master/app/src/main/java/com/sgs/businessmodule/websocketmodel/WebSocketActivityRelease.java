@@ -134,6 +134,8 @@ public class WebSocketActivityRelease extends EventActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_socket1);
         initView();
+        AppContext.getInstance().islogin=true;
+
         AppContext.getInstance().initFileService();
         getWvBookPlay().loadUrl("file:///android_asset/index.html");
         new Thread(new Runnable() {
