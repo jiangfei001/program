@@ -29,7 +29,7 @@ public class CUTMSG extends TVTask {
         });
 
         MuTerminalBack muTerminalBack = new MuTerminalBack();
-        muTerminalBack.setMsgStatus("0");
+        muTerminalBack.setMsgStatus("3");
         muTerminalBack.setMsgId(muTerminalMsg.getId());
         muTerminalBack.setFinishTime(muTerminalMsg.getHasplay());
         muTerminalMsgs.add(muTerminalBack);
