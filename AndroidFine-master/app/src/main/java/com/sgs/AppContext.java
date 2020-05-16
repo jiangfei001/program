@@ -214,31 +214,35 @@ public class AppContext extends Application {
         }
     }
 
+    public static Intent apkDownService;
+
     /**
      * 绑定常驻后台
      */
     public void initFileService() {
-        Intent apkDownService = new Intent(this, DownLoadService.class);
-        /* startService(apkDownService);*/
+        if (apkDownService == null) {
+            apkDownService = new Intent(this, DownLoadService.class);
+            /* startService(apkDownService);*/
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             this.startForegroundService(apkDownService);
         } else {
             this.startService(apkDownService);
         }*/
-        connection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                // service connected
-                Log.e(TAG, "onServiceConnected");
-                //ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
-            }
+            connection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    // service connected
+                    Log.e(TAG, "onServiceConnected");
+                    //ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
+                }
 
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                // service disconnected
-            }
-        };
-        bindService(apkDownService, connection, Context.BIND_ABOVE_CLIENT | Context.BIND_AUTO_CREATE);
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    // service disconnected
+                }
+            };
+            bindService(apkDownService, connection, Context.BIND_ABOVE_CLIENT | Context.BIND_AUTO_CREATE);
+        }
     }
 
     // 注册App异常崩溃处理器

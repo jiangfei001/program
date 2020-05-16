@@ -23,9 +23,10 @@ public class ComRequestManager {
 
     public static HashMap<String, String> buildHeader() {
         final HashMap<String, String> map = new HashMap<>();
-        map.put("token", Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), System.currentTimeMillis() + "", DeviceUtil.getSercetKey(AppContext.getInstance())));
+        String timeSta = System.currentTimeMillis()+"";
+        map.put("token", Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), timeSta, DeviceUtil.getSercetKey(AppContext.getInstance())));
         map.put("terminalId", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
-        map.put("timeStamp", System.currentTimeMillis() + "");
+        map.put("timeStamp", timeSta);
         map.put("Connection", "close");
         map.put("MultipleDevicesAuth", "true");
         map.put("Content-Type", "application/json;charset=UTF-8");

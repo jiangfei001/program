@@ -468,10 +468,13 @@ public class WebSocketActivityRelease extends EventActivity {
                 mymHandler.post(new Runnable() {
                     @Override
                     public void run() {
-
                         if (muTerminalMsg.getAppend() == 0) {
                             MsgDbManager.getInstance().delAllMuTerminalMsg();
                         }
+
+                        StringBuilder sb = new StringBuilder(muTerminalMsg.getMsgContent());
+                        muTerminalMsg.setMsgContent(sb.reverse().toString());
+
                         MsgDbManager.getInstance().saveMuTermianlMsg(muTerminalMsg);
                         List<MuTerminalMsg> l = MsgDbManager.getInstance().getAllMuTerminalMsg();
                         Log.e("l", "lfff" + l.size());

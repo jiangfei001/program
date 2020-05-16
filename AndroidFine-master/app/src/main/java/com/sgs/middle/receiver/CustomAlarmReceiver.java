@@ -126,7 +126,10 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
         String action = intent.getAction();
 
         if (ACTION_PLAYGRAME_INIT.equals(action)) {
-            long l = System.currentTimeMillis();
+
+          /*  AppContext.getInstance().initFileService();*/
+
+          /*  long l = System.currentTimeMillis();
             //new日期对
             Date date = new Date(l);
             //转换提日期输出格式
@@ -142,7 +145,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             }
             if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(SETOSTERMINAL.SETOSTERMINAL, ""))) {
                 setco();
-            }
+            }*/
         } else if (ACTION_SEND_APP_HOTAREA.equals(action)) {
             UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
             Log.e(TAG, "时间到,执行复原任务操作:REPRORT");
@@ -150,7 +153,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             reportUtil.reportEvent();
         } else if (ACTION_SEND_APP_CVDS.equals(action)) {
             String vl = intent.getExtras().getString("vl");
-            Log.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS"+vl);
+            Log.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS" + vl);
             CommandHelper.setStreamVolume(Integer.parseInt(vl), AppContext.getInstance());
         } else if (ACTION_SEND_APP_OPEN.equals(action)) {
             Log.e(TAG, "时间到,执行定时开机:ACTION_SEND_APP_CVDS");

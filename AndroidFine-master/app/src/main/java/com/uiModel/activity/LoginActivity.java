@@ -76,8 +76,11 @@ public class LoginActivity extends Activity {
         final EditText socketip = findViewById(R.id.socketip);
         final EditText jiekouip = findViewById(R.id.jiekouip);
 
-        socketip.setText(AppUrl.socketIP);
-        jiekouip.setText(AppUrl.jiekouIP);
+        /*socketip.setText(AppUrl.socketIP);
+        jiekouip.setText(AppUrl.jiekouIP);*/
+
+        socketip.setText(AppUrl.socketIPTest);
+        jiekouip.setText(AppUrl.jiekouIPTest);
 
         shebeiName.setText(DeviceUtil.getSBM(this));
 
@@ -320,7 +323,7 @@ public class LoginActivity extends Activity {
                                             editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
                                             editor.putBoolean(DeviceUtil.iszhuce, true);
                                             editor.commit();
-                                            getIp();
+                                            //getIp();
                                         }
                                     });
                                 } else {
@@ -334,7 +337,7 @@ public class LoginActivity extends Activity {
                                             editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
                                             editor.putBoolean(DeviceUtil.iszhuce, true);
                                             editor.commit();
-                                            getIp();
+                                            //getIp();
                                         }
                                     });
                                 }
