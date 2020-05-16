@@ -81,7 +81,7 @@ public class LoginActivity extends Activity {
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
 
 
-        if (false) {
+        if (true) {
             radioButton.check(R.id.bujia);
             socketip.setText(AppUrl.socketIP);
             jiekouip.setText(AppUrl.jiekouIP);

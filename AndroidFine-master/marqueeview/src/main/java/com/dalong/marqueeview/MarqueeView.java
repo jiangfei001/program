@@ -236,7 +236,6 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
                     int centeYLine = paddingTop + contentHeight / 2;//中心线
 
-                    Log.e("contentHeight", "contentHeight" + contentHeight + "centeYLine" + centeYLine);
 
                     if (mDirection == 0) {//向左滚动
                         if (currentX <= -textWidth) {
@@ -262,7 +261,6 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
                         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);//绘制透明色
                         canvas.drawText(margueeString, currentX, centeYLine + dip2px(getContext(), textHeight) / 2, mTextPaint);
                         float ster = centeYLine + dip2px(getContext(), textHeight) / 2;
-                        Log.e("contentHeight", "contentHeight" + ster + "textHeight:" + textHeight);
                         holder.unlockCanvasAndPost(canvas);//结束锁定画图，并提交改变。
                     }
 
