@@ -265,7 +265,7 @@ public class SendToServerUtil {
         muTerminalMsg.setFinishTime(muTerminalMsg.getHasplay()+"");
         //beginTime
         //endDate
-        muTerminalMsg.setMsgStatus("3");
+        muTerminalMsg.setMsgStatus("0");
         muTerminalMsg.setEndDate(DateUtil.getNowDate());
 
         // hashMap.put("paramMap", com.alibaba.fastjson.JSON.toJSONString(muTerminalMsg));
