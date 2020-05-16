@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.sgs.AppContext;
 import com.sgs.AppUrl;
+import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
@@ -103,8 +104,12 @@ public class LoginActivity extends Activity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);
+                boolean isjihuo = false;
+
+                if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.isjihuo))) {
+                    Log.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
+                    isjihuo = true;
+                }
 
                 if (!isjihuo) {
                     Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
@@ -133,9 +138,23 @@ public class LoginActivity extends Activity {
                 AppUrl.initip(s_test);
 
                 android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                boolean iszhuce = mContextSp.getBoolean(DeviceUtil.iszhuce, false);
-                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);
+                /*boolean iszhuce = mContextSp.getBoolean(DeviceUtil.iszhuce, false);
+                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);*/
+                boolean iszhuce = false;
+                boolean isjihuo = false;
 
+                if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.iszhuce))) {
+                    Log.e("iszhuce", "is" + FileHelper.getSDunique(FileHelper.iszhuce));
+                    iszhuce = true;
+                }
+
+                if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.isjihuo))) {
+                    Log.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
+                    isjihuo = true;
+                }
+
+                /*boolean iszhuce = mContextSp.getBoolean(DeviceUtil.iszhuce, false);
+                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);*/
 
                 if (!isjihuo) {
                     Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
@@ -203,27 +222,24 @@ public class LoginActivity extends Activity {
                             @Override
                             public void run() {
                                 if (response.code.equals("0")) {
-                                    SharedPreferences.getInstance().putBoolean(SharedPreferences.KEY_ISREGISTER, true);
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             Toast.makeText(AppContext.getInstance(), "恭喜你激活成功了啊！！", Toast.LENGTH_LONG).show();
-                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
-                                            editor.putBoolean(DeviceUtil.isjihuo, true);
-                                            editor.commit();
+                                            FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
                                         }
                                     });
                                 } else {
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            /*android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
-                                            editor.putBoolean(DeviceUtil.isjihuo, true);
-                                            editor.commit();*/
-                                            Log.e("tag", "response.msg ");
-                                            Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                            if (response.code.equals("1")) {
+                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                                FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
+                                            } else {
+                                                Log.e("tag", "response.msg ");
+                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                            }
                                         }
                                     });
                                 }
@@ -257,7 +273,6 @@ public class LoginActivity extends Activity {
         }
         //socketip.getText().toString().trim(), jiekouip.getText().toString().trim(),
         AppUrl.initip(s_test);
-
 
         final HashMap hashMap = new HashMap();
 
@@ -311,7 +326,6 @@ public class LoginActivity extends Activity {
                             @Override
                             public void run() {
                                 if (response.code.equals("0")) {
-                                    SharedPreferences.getInstance().putBoolean(SharedPreferences.KEY_ISREGISTER, true);
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
@@ -321,8 +335,8 @@ public class LoginActivity extends Activity {
                                             android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
                                             android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                             editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
-                                            editor.putBoolean(DeviceUtil.iszhuce, true);
                                             editor.commit();
+                                            FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
                                             //getIp();
                                         }
                                     });
@@ -337,8 +351,8 @@ public class LoginActivity extends Activity {
                                                 android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
                                                 android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                                 editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
-                                                editor.putBoolean(DeviceUtil.iszhuce, true);
                                                 editor.commit();
+                                                FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
                                             } else {
                                                 Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                             }                                            //getIp();
@@ -369,9 +383,29 @@ public class LoginActivity extends Activity {
         //获取ip
         HttpClient.postHashMapEntity(AppUrl.getServerList, new MyHttpResponseHandler() {
             @Override
-            public void onSuccess(MyApiResponse response) {
+            public void onSuccess(final MyApiResponse response) {
                 super.onSuccess(response);
                 Log.e("HashMap", response.toString());
+                if (response.code.equals("0")) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            AppUrl.setSerList(response.getData());
+                            doNavigation();
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (response.code.equals("1")) {
+                                Toast.makeText(AppContext.getInstance(), "请先激活或者注册！", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(AppContext.getInstance(), "请先激活或者注册！", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
 /*                {
     "code": 0,
     "data": [
@@ -379,13 +413,13 @@ public class LoginActivity extends Activity {
         "49.235.109.237:8081/multimedia_test"
     ]
                 }*/
-                AppUrl.setSerList(response.getData());
-                doNavigation();
+
             }
 
             @Override
             public void onFailure(Request request, Exception e) {
                 super.onFailure(request, e);
+                Toast.makeText(AppContext.getInstance(), "获取ip失败激活！", Toast.LENGTH_LONG).show();
                 Log.e("HashMap", "" + e.getMessage());
             }
         });

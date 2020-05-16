@@ -146,8 +146,10 @@ public class FileHelper {
     public static String uniqueidf = "/uniqueidf";
     public static String uniqueidf1 = "/uniqueidf1";
 
+    public static String iszhuce = "/iszhuce";
+    public static String isjihuo = "/isjihuo";
     public static String getSDunique(String key) {
-        Log.e(TAG, "开始找getSDunique:");
+        Log.e(TAG, "开始找getSDunique:" + key);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sdcardDir = Environment.getExternalStorageDirectory();
             FileInputStream fis = null;
@@ -187,7 +189,7 @@ public class FileHelper {
         return "";
     }
 
-    public static void putSDunique(String content,String strPath) {
+    public static void putSDunique(String content, String strPath) {
         Log.e(TAG, "putSD保存uniquecontent:" + content);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Log.e(TAG, "putSDunique保存filUniqueID:" + content);

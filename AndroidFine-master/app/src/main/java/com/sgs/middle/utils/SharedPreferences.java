@@ -11,7 +11,6 @@ public class SharedPreferences {
     private static final String SP_NAME = "souyue";
     public static final String KEY_LOGIN_TOKEN = "login_token";
     public static final String KEY_LOGIN_TYPE = "login_type";
-    public static final String KEY_ISREGISTER ="is_registers";
 
     private static SharedPreferences instance = new SharedPreferences();
 
