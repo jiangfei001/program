@@ -218,10 +218,10 @@ public class LoginActivity extends Activity {
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                            /*android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
                                             android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                             editor.putBoolean(DeviceUtil.isjihuo, true);
-                                            editor.commit();
+                                            editor.commit();*/
                                             Log.e("tag", "response.msg ");
                                             Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                         }
@@ -330,14 +330,18 @@ public class LoginActivity extends Activity {
                                     handler1.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
-                                            AppContext.getInstance().userName = yonghuming.getText().toString();
-                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
-                                            editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
-                                            editor.putBoolean(DeviceUtil.iszhuce, true);
-                                            editor.commit();
-                                            //getIp();
+                                            //注册接口 1设备已经存在   2 用户不存在  3 参数不能为空
+                                            if (response.code.equals("1")) {
+                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                                AppContext.getInstance().userName = yonghuming.getText().toString();
+                                                android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                                android.content.SharedPreferences.Editor editor = mContextSp.edit();
+                                                editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
+                                                editor.putBoolean(DeviceUtil.iszhuce, true);
+                                                editor.commit();
+                                            } else {
+                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                            }                                            //getIp();
                                         }
                                     });
                                 }
