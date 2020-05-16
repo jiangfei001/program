@@ -146,6 +146,8 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         LayoutParams.height = textHeight * 4;
         this.setLayoutParams(LayoutParams);
 
+        this.invalidate();
+
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         if (mStartPoint == 0) {
@@ -229,9 +231,12 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
                     int paddingBottom = getPaddingBottom();
 
                     int contentWidth = getWidth() - paddingLeft - paddingRight;
+
                     int contentHeight = getHeight() - paddingTop - paddingBottom;
 
                     int centeYLine = paddingTop + contentHeight / 2;//中心线
+
+                    Log.e("contentHeight", "contentHeight" + contentHeight + "centeYLine" + centeYLine);
 
                     if (mDirection == 0) {//向左滚动
                         if (currentX <= -textWidth) {
@@ -255,7 +260,11 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
                     if (canvas != null) {
                         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);//绘制透明色
-                        canvas.drawText(margueeString, currentX, centeYLine + dip2px(getContext(), textHeight) / 2, mTextPaint);
+                        canvas.drawText(margueeString, currentX, centeYLine + dip2px(getContext(), textHeight*3) / 2, mTextPaint);
+                        float ster = centeYLine + dip2px(getContext(), textHeight) / 2;
+
+                        Log.e("contentHeight", "contentHeight" + ster);
+
                         holder.unlockCanvasAndPost(canvas);//结束锁定画图，并提交改变。
                     }
 
