@@ -14,6 +14,7 @@ import com.sgs.middle.eventControlModel.EventEnum;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class CUTMSG extends TVTask {
@@ -27,6 +28,7 @@ public class CUTMSG extends TVTask {
         Log.e(TAG, "progJson:" + prog);
         MuTerminalMsg muTerminalMsg = JSON.parseObject(prog, new TypeReference<MuTerminalMsg>() {
         });
+        muTerminalMsg.setBeginTime(new Date());
 
         MuTerminalBack muTerminalBack = new MuTerminalBack();
         muTerminalBack.setMsgStatus("3");
