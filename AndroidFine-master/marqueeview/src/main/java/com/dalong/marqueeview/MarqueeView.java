@@ -98,7 +98,7 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         mTextPaint.setTextAlign(Paint.Align.LEFT);
         setZOrderOnTop(true);//使surfaceview放到最顶层
         getHolder().setFormat(PixelFormat.TRANSLUCENT);//使窗口支持透明度
-
+        /*this.setBackgroundColor(Color.GRAY);*/
     }
 
     String func1(String string1) {//反向输出
