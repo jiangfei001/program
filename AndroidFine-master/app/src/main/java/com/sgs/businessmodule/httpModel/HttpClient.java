@@ -248,6 +248,46 @@ public class HttpClient {
         });
     }
 
+    public static void postObjectEntity(String url, Object objectEntity, final MyHttpResponseHandler handler) {
+        if (!isNetworkAvailable()) {
+            Log.e("postHashMapEntity", "网络不行");
+            //Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Log.e("com.alibab:", "com.alibab:" + com.alibaba.fastjson.JSON.toJSONString(objectEntity));
+        Log.e("url:", "url" + url);
+        //创建okhttp对象
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(objectEntity));
+
+        Request.Builder requestBuilder = new Request.Builder();
+        ComRequestManager.addRequestHeader(requestBuilder);
+        Request request = requestBuilder.header("Accept", "*/*")
+                .url(url)
+                .post(body).build();
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                try {
+                    String str = response.body().string();
+                    int code = response.code();
+                    Log.e("req", "|" + str + "|" + code + "|");
+                    handler.sendSuccessMessage(getMyRestApiResponse(str));
+                } catch (Exception e) {
+                    handler.sendFailureMessage(call.request(), e);
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendFailureMessage(call.request(), e);
+            }
+        });
+    }
+
     private static MyApiResponse getMyRestApiResponse(String responseBody) throws Exception {
         if (!isJsonString(responseBody)) {
             throw new Exception("server response not json string (response = " + responseBody + ")");

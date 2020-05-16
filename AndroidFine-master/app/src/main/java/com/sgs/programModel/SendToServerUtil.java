@@ -260,7 +260,6 @@ public class SendToServerUtil {
     //删除{'id':11,'msgStatus':3}
     public static void sendMsgDelToServer(MuTerminalMsg muTerminalMsg) {
 
-        HashMap hashMap = new HashMap();
         //finishTime
         muTerminalMsg.setFinishTime(new Date());
         //beginTime
@@ -268,8 +267,9 @@ public class SendToServerUtil {
         muTerminalMsg.setMsgStatus("3");
         muTerminalMsg.setEndDate(new Date());
 
-        hashMap.put("paramMap", com.alibaba.fastjson.JSON.toJSONString(muTerminalMsg));
-        HttpClient.postHashMapEntity(AppUrl.changeMsgStatus, hashMap, new MyHttpResponseHandler() {
+        // hashMap.put("paramMap", com.alibaba.fastjson.JSON.toJSONString(muTerminalMsg));
+
+        HttpClient.postObjectEntity(AppUrl.changeMsgStatus, muTerminalMsg, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
                 Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
