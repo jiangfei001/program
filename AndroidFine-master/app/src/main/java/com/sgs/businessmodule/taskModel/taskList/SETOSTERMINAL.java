@@ -25,7 +25,7 @@ public class SETOSTERMINAL extends TVTask {
         String prog = super.instructionRequest.getData();
         // "ids":["38"],"taskCard":"osTab","taskVolumeTime":"00:00:05","volumenum":56,"weekList2":["星期二"],"openTime":"00:04:04","shuntDownTime":"00:00:05","weekList":["星期二","星期三","星期四"]
         //存库，执行定时操作
-        if (StringUtil.isEmpty(prog)) {
+        if (!StringUtil.isEmpty(prog)) {
             SharedPreferences.getInstance().putString(SETOSTERMINAL, prog);
             CustomAlarmReceiver.setco();
         }
