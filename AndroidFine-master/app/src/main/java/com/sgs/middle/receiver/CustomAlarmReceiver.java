@@ -180,8 +180,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             shuntDownTime = j2.getString("shuntDownTime");
         }
         List<String> list = null;
-        if (j2.containsKey("weekList2")) {
-            String weekList = j2.getString("weekList2");
+        if (j2.containsKey("weekList")) {
+            String weekList = j2.getString("weekList");
             list = JSONObject.parseArray(weekList, String.class);
             Log.e("list", list.size() + "");
             for (int i = 0; i < list.size(); i++) {
@@ -191,7 +191,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
         //计算时间进行定时
         Date date3 = new Date();
         String xinqi = ProgramUtil.getWeekOfDate(date3);
-        if (j2.containsKey("weekList2") && list != null) {
+        if (j2.containsKey("weekList") && list != null) {
             for (int i = 0; i < list.size(); i++) {
                 if (xinqi.equals(list.get(i))) {
                     //定时音量

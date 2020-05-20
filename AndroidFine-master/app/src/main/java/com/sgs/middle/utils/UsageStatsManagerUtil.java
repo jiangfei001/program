@@ -232,8 +232,16 @@ public class UsageStatsManagerUtil {
         Log.e("dateStr", "dateStr" + dateStr);
 
         long selectTime = calendar.getTimeInMillis();
+        //选择的每天的定时时间即下班时间
+        //如果当前时间大于设置的时间，那么从第二天的设定时间开始
+        if (systemTime > selectTime) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            selectTime = calendar.getTimeInMillis();
+        }
+
         //计算现在时间到设置时间的时间差
         long diffTime1 = selectTime - systemTime;
+
         firstTime += diffTime1;
 
         Log.e("TAG", firstTime + "firstTime");
