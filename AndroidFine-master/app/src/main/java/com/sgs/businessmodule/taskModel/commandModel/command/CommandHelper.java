@@ -55,6 +55,7 @@ public class CommandHelper {
 
     //index 传入设置音量的值
     public static void setStreamVolume(int index, Context mContext) {
+        Toast.makeText(AppContext.getInstance(), "设置音量设置" + index, Toast.LENGTH_LONG).show();
         AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         int streamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);//获取设备最大音量
         int volm = index * streamMaxVolume / 100;
