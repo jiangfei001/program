@@ -38,6 +38,7 @@ import com.sgs.businessmodule.websocketmodel.js.JsInterface;
 import com.sgs.middle.dbModel.entity.InstructionRequest;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
+import com.sgs.middle.receiver.PackageReceiver;
 import com.sgs.middle.utils.DateUtil;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.InstallUtil;
@@ -150,6 +151,7 @@ public class WebSocketActivityRelease extends EventActivity {
             public void run() {
 
                 AppContext.getInstance().initFileService();
+                PackageReceiver.sendApps();
 
                 WebSocketHelper.initWebSocket(DeviceUtil.getTerDeviceID(WebSocketActivityRelease.this));
                 WebSocketHandler.getDefault().addListener(socketListener);
@@ -733,4 +735,6 @@ public class WebSocketActivityRelease extends EventActivity {
             mInstallUtil.install();//再次执行安装流程，包含权限判等
         }
     }
+
+
 }

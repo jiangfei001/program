@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import com.sgs.businessmodule.downloadModel.DownLoadService;
 import com.sgs.businessmodule.websocketmodel.ActivityLifeManager;
 import com.sgs.businessmodule.websocketmodel.CrashHandler;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
+import com.sgs.middle.receiver.PackageReceiver;
 import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -99,9 +101,14 @@ public class AppContext extends Application {
             ReportUtil reportUtil = new ReportUtil();
             reportUtil.reportEvent();
             reportUtil.reportScence();
-
             initLocation();
-
+            PackageReceiver packageReceiver = new PackageReceiver();
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction("android.intent.action.PACKAGE_ADDED");
+            intentFilter.addAction("android.intent.action.PACKAGE_REPLACED");
+            intentFilter.addAction("android.intent.action.PACKAGE_REMOVED");
+            intentFilter.addDataScheme("package"); //不添加则收不到广播**
+            registerReceiver(packageReceiver, intentFilter);
         }
         ActivityLifeManager.getInstance().
 

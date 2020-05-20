@@ -31,6 +31,7 @@ public class AppUrl {
     public static String addRepPalyProgramList;
     //节目列表新增
     public static String addRepHotareaClickList;
+    public static String updateApkJson;
     //激活
     public static String activation;
     public static String changeMsgStatus;
@@ -63,7 +64,7 @@ public class AppUrl {
         activation = jiekouUrl + "/multimedia_test/api/terminal/activation";
         getServerList = jiekouUrl + "/multimedia_test/api/terminal/getServerList";
         changeMsgStatus = jiekouUrl + "/multimedia_test/api/terminal/changeMsgStatus";
-
+        updateApkJson = jiekouUrl + "/multimedia_test/api/terminal/updateApkJson";
             /*socketUrl = "ws://49.235.109.237:9080/multimedia/api/websocket";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
@@ -94,6 +95,7 @@ public class AppUrl {
         activation = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/activation";
         getServerList = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/getServerList";
         changeMsgStatus = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/changeMsgStatus";
+        updateApkJson = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/updateApkJson";
 
         Log.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
         Log.e("socketUrl", "callbackUrl:" + callbackUrl);
@@ -103,6 +105,7 @@ public class AppUrl {
         Log.e("socketUrl", "activation:" + activation);
         Log.e("socketUrl", "getServerList:" + getServerList);
         Log.e("socketUrl", "changeMsgStatus:" + changeMsgStatus);
+        Log.e("socketUrl", "updateApkJson:" + updateApkJson);
     }
 
     public static void setSerList(String jsonstr) {

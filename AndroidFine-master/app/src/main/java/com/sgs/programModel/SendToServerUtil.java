@@ -262,7 +262,7 @@ public class SendToServerUtil {
     public static void sendMsgDelToServer(MuTerminalMsg muTerminalMsg) {
 
         //finishTime
-        muTerminalMsg.setFinishTime(muTerminalMsg.getHasplay()+"");
+        muTerminalMsg.setFinishTime(muTerminalMsg.getHasplay() + "");
         //beginTime
         //endDate
         muTerminalMsg.setMsgStatus("0");
@@ -306,6 +306,30 @@ public class SendToServerUtil {
             }
         });
     }
+
+    public static void UpdateApkJsonToServer(List<RepHotReport> repHotReports, MyYewuResponseHandle myYewuResponseHandle) {
+
+        if (repHotReports != null) {
+            Log.e(TAG, "sendScenctToServer:" + repHotReports.size());
+        } else {
+            Log.e(TAG, "sendScenctToServer:null");
+        }
+
+        HashMap hashMap = new HashMap();
+        hashMap.put("repHotareaClickEntitys", com.alibaba.fastjson.JSON.toJSONString(repHotReports));
+
+        HttpClient.postHashMapEntity(AppUrl.addRepHotareaClickList, hashMap, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
+    }
+
 
     public interface MyYewuResponseHandle {
         void onSuccess(MyApiResponse response);
