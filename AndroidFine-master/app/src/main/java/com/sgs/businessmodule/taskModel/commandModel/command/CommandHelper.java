@@ -28,9 +28,9 @@ public class CommandHelper {
     //关机
     public static void openOrClose(boolean b) {
         if (b) {
-            Toast.makeText(AppContext.getInstance(), "执行开机", Toast.LENGTH_LONG);
+            Toast.makeText(AppContext.getInstance(), "执行开机", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(AppContext.getInstance(), "执行关机", Toast.LENGTH_SHORT);
+            Toast.makeText(AppContext.getInstance(), "执行关机", Toast.LENGTH_SHORT).show();
             try {
                 //Runtime.getRuntime().exec(new String[]{"su","-c","reboot -p"});
                 Runtime.getRuntime().exec(new String[]{"su", "-c", "shutdown"});
