@@ -5,13 +5,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.sgs.AppContext;
 import com.sgs.businessmodule.downloadModel.DownLoader.DownLoadSuccess;
 import com.sgs.businessmodule.downloadModel.dbcontrol.DataKeeper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.bean.SQLDownLoadInfo;
+import com.sgs.middle.utils.DeviceUtil;
+import com.sgs.programModel.SendToServerUtil;
+import com.uiModel.activity.LoginActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +53,7 @@ public class DownLoadManager {
         init(context);
     }
 
-    private void init(Context context) {
+    private void init(final Context context) {
         pool = new ThreadPoolExecutor(
                 MAX_DOWNLOADING_TASK, MAX_DOWNLOADING_TASK, 30, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(2000));
@@ -61,6 +66,26 @@ public class DownLoadManager {
                     Log.e("downloadsuccessListener", "deletedownloader success");
                     DownLoader deletedownloader = taskList.get(i);
                     if (deletedownloader.getTaskID().equals(TaskID)) {
+                        String stringFileName = deletedownloader.getSQLDownLoadInfo().getFileName();
+                        Log.e("onTaskSeccess", "stringFileName success");
+                        String stringFileNames = stringFileName;
+                        if (stringFileName.contains(".")) {
+                            stringFileNames = stringFileName.substring(0, stringFileName.indexOf("."));
+                            Log.e("stringFileNames", "stringFileNames" + stringFileNames);
+                        }
+                        /*{
+                            "uuidList":["32e54e72d6b54af5b9c8a60c85014a6e","32e54e72d6b54af5b9c8a60c85014a61"],
+                            "terminalIdentity":"078a0551-b333-323c-a09d-4af272baa82a",
+                                "type":0
+                        }*/
+                        ArrayList arrayList = new ArrayList();
+                        arrayList.add(stringFileNames);
+                        HashMap hashMap = new HashMap();
+                        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+                        hashMap.put("type", 1);
+                        hashMap.put("uuidList", com.alibaba.fastjson.JSON.toJSONString(arrayList));
+                        SendToServerUtil.UpdateSysMaterialDataToServer(hashMap);
+
                         taskList.remove(deletedownloader);
                         return;
                     }
@@ -169,6 +194,13 @@ public class DownLoadManager {
         }
         int state = getAttachmentState(TaskID, fileName, filepath);
         if (state != 1) {
+            if (state == 0) {
+                DownLoader downLoader = getDownloader(TaskID);
+                if (!downLoader.isDownLoading()) {
+                    downLoader.start();
+                    downLoader.setDownLoadListener("public", alltasklistener);
+                }
+            }
             return state;
         }
 

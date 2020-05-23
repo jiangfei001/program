@@ -331,6 +331,28 @@ public class SendToServerUtil {
     }
 
 
+    public static void UpdateSysMaterialDataToServer(HashMap hashMap) {
+        /*
+        类型：0:全量   1：新增  2：删除
+        {
+            "uuidList":["32e54e72d6b54af5b9c8a60c85014a6e","32e54e72d6b54af5b9c8a60c85014a61"],
+            "terminalIdentity":"078a0551-b333-323c-a09d-4af272baa82a",
+                "type":0
+        }*/
+
+        HttpClient.postHashMapEntity(AppUrl.sysMaterialData, hashMap, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(MyApiResponse response) {
+                Log.e(TAG, "sysMaterialData onSuccess" + response.msg);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+            }
+        });
+    }
+
+
     public interface MyYewuResponseHandle {
         void onSuccess(MyApiResponse response);
 

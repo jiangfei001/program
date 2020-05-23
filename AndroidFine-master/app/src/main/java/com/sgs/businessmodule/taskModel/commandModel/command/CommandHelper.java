@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.SurfaceControl;
 import android.widget.Toast;
@@ -28,9 +30,23 @@ public class CommandHelper {
     //关机
     public static void openOrClose(boolean b) {
         if (b) {
-            Toast.makeText(AppContext.getInstance(), "执行开机", Toast.LENGTH_LONG).show();
+            Handler handler = new Handler(Looper.getMainLooper()) {
+            };
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AppContext.getInstance(), "执行开机", Toast.LENGTH_LONG).show();
+                }
+            });
         } else {
-            Toast.makeText(AppContext.getInstance(), "执行关机", Toast.LENGTH_SHORT).show();
+            Handler handler = new Handler(Looper.getMainLooper()) {
+            };
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AppContext.getInstance(), "执行关机", Toast.LENGTH_SHORT).show();
+                }
+            });
             try {
                 //Runtime.getRuntime().exec(new String[]{"su","-c","reboot -p"});
                 Runtime.getRuntime().exec(new String[]{"su", "-c", "shutdown"});
@@ -54,8 +70,15 @@ public class CommandHelper {
     }
 
     //index 传入设置音量的值
-    public static void setStreamVolume(int index, Context mContext) {
-        Toast.makeText(AppContext.getInstance(), "设置音量设置" + index, Toast.LENGTH_LONG).show();
+    public static void setStreamVolume(final int index, Context mContext) {
+        Handler handler = new Handler(Looper.getMainLooper()) {
+        };
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(AppContext.getInstance(), "设置音量设置" + index, Toast.LENGTH_LONG).show();
+            }
+        });
         AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         int streamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);//获取设备最大音量
         int volm = index * streamMaxVolume / 100;
