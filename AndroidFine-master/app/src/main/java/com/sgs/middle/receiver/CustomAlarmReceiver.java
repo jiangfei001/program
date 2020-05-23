@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -153,9 +154,11 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 reportUtil.reportEvent();
             } else if (ACTION_SEND_APP_CVDS.equals(action)) {
                 String vl = intent.getExtras().getString("vl");
+                Toast.makeText(AppContext.getInstance(), "时间到，执行声音定时任务", Toast.LENGTH_LONG).show();
                 Log.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS" + vl);
                 CommandHelper.setStreamVolume(Integer.parseInt(vl), AppContext.getInstance());
             } else if (ACTION_SEND_APP_OPEN.equals(action)) {
+                Toast.makeText(AppContext.getInstance(), "时间到，执行定时开机", Toast.LENGTH_LONG).show();
                 Log.e(TAG, "时间到,执行定时开机:ACTION_SEND_APP_CVDS");
                 CommandHelper.openOrClose(true);
             } else if (ACTION_SEND_APP_CLOSE.equals(action)) {

@@ -56,7 +56,7 @@ public class AppContext extends Application {
             String city = location.getCity();    //获取城市
             String district = location.getDistrict();    //获取区县
             String street = location.getStreet();    //获取街道信息
-            Log.e("add", addr);
+            Log.e("add", addr + "lo");
             AppContext.getInstance().addr = addr;
         }
     }
