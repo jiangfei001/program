@@ -207,7 +207,7 @@ public class ProgramTaskManager {
 
 
     public void removeByid(int id) {
-        if (nowProgarmPalyInstructionVo.getId() == id) {
+        if (nowProgarmPalyInstructionVo != null && nowProgarmPalyInstructionVo.getId() == id) {
             handler.removeMessages(1);
             nowProgarmPalySceneVos = null;
             nowscene = 0;
