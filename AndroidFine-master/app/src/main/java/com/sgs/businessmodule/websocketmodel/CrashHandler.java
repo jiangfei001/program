@@ -1,10 +1,16 @@
 package com.sgs.businessmodule.websocketmodel;
 
 import android.content.Context;
+
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.umeng.analytics.MobclickAgent;
+
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * Created by 01174599 on 2017/1/10.
@@ -94,8 +100,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             return false;
         }
 
-        MobclickAgent.reportError(mContext, "工号" + AppContext.getInstance().gonghao + "message:" + ex.getMessage());//errorContent是String格式
-        ZLog.e("handleException", "handleException");
+        MobclickAgent.reportError(mContext, "工号" + AppContext.getInstance().userName + "message:" + ex.getMessage());//errorContent是String格式
+        saveCrashInfoToFile(ex);
         //保存日志文件
        /* MainLogUtils.logWithCaller(ex,6,Long.toString(System.currentTimeMillis()));
         //uniteMain日志太多奇怪的日志了，新增一个专门保存crash的
@@ -106,4 +112,30 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return true;
     }
 
+    /**
+     * 保存错误信息到文件中
+     *
+     * @param ex
+     * @return
+     */
+    private String saveCrashInfoToFile(Throwable ex) {
+        Writer info = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(info);
+        // printStackTrace(PrintWriter s)
+        // 将此 throwable 及其追踪输出到指定的 PrintWriter
+        ex.printStackTrace(printWriter);
+
+        // getCause() 返回此 throwable 的 cause；如果 cause 不存在或未知，则返回 null。
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+
+        // toString() 以字符串的形式返回该缓冲区的当前值。
+        String result = info.toString();
+        printWriter.close();
+        ZLog.e("handleException", "" + result);
+        return null;
+    }
 }
