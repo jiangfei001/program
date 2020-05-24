@@ -178,6 +178,7 @@ public class ProgramTaskManager {
 
 
     final String ACTION = "timeTask.action";
+
     private PriorityTimeTask<MyTask> myTaskTimeTask;
 
     private Context context;
@@ -239,7 +240,10 @@ public class ProgramTaskManager {
         } else if (prilevel == PRI.TASK_PRI) {
             myTaskTimeTask.setPriTasks(mytasks);
         }
-
-
     }
+
+    public PriorityTimeTask<MyTask> getMyTaskTimeTask() {
+        return myTaskTimeTask;
+    }
+
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.middle.eventControlModel.Event;
@@ -30,6 +31,8 @@ public class PriorityTimeTask<T extends MyTask> {
     private static PendingIntent mPendingIntent;
 
     private List<T> dTasks = new ArrayList<T>();
+
+
     private List<T> mTasks = new ArrayList<T>();
     private List<T> priorsTasks = new ArrayList<T>();
     private List<T> mTempTasks;
@@ -341,6 +344,18 @@ public class PriorityTimeTask<T extends MyTask> {
         dTasks = null;
         ZLog.e(TAG, "被移除 stopLooper");
         mHandler.removeMessages(1);
+    }
+
+    public List<T> getdTasks() {
+        return dTasks;
+    }
+
+    public List<T> getmTasks() {
+        return mTasks;
+    }
+
+    public List<T> getPriorsTasks() {
+        return priorsTasks;
     }
 
 }
