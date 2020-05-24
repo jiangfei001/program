@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.sgs.AppUrl;
@@ -25,27 +25,27 @@ public class PackageReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String packageName = intent.getDataString();
-        Log.e("PRA1", "PackageReceiver");
+        ZLog.e("PRA1", "PackageReceiver");
         // 安装
         if (intent.getAction().equals("android.intent.action.PACKAGE_ADDED")) {
-            Log.e("PRA", "PackageReceiver");
+            ZLog.e("PRA", "PackageReceiver");
             sendApps();
         }
         // 覆盖安装
         if (intent.getAction().equals("android.intent.action.PACKAGE_REPLACED")) {
-            Log.e("PRA", "PackageReceiver");
+            ZLog.e("PRA", "PackageReceiver");
             sendApps();
         }
         // 移除
         if (intent.getAction().equals("android.intent.action.PACKAGE_REMOVED")) {
-            Log.e("PRA", "PackageReceiver");
+            ZLog.e("PRA", "PackageReceiver");
             sendApps();
         }
     }
 
     //查询已安装的APP
     public static void sendApps() {
-        Log.e("sendApps", "sendApps");
+        ZLog.e("sendApps", "sendApps");
         /*参数：  terminalIdentity设备唯一码
         apkListJson    String
 
@@ -59,7 +59,7 @@ public class PackageReceiver extends BroadcastReceiver {
             // 获取手机应用的集合
             List<PackageInfo> packs = AppContext.getInstance().getPackageManager()
                     .getInstalledPackages(0);
-            Log.e("PackageReceiver", "PackageReceiver" + packs.size());
+            ZLog.e("PackageReceiver", "PackageReceiver" + packs.size());
             for (int i = 0; i < packs.size(); i++) {
                 PackageInfo p = packs.get(i);
                 // 定义应用bean对象
@@ -80,17 +80,17 @@ public class PackageReceiver extends BroadcastReceiver {
 
             hashMap.put("apkListJson", com.alibaba.fastjson.JSON.toJSONString(res));
 
-            Log.e("HashMap", hashMap.toString());
+            ZLog.e("HashMap", hashMap.toString());
 
             HttpClient.postHashMapEntity(AppUrl.updateApkJson, hashMap, new MyHttpResponseHandler() {
                 @Override
                 public void onSuccess(MyApiResponse response) {
-                    Log.e(TAG, "sendEventupdateApkJson onSuccess" + response.msg);
+                    ZLog.e(TAG, "sendEventupdateApkJson onSuccess" + response.msg);
                 }
 
                 @Override
                 public void onFailure(Request request, Exception e) {
-                    Log.e(TAG, "sendEventupdateApkJson onSuccess");
+                    ZLog.e(TAG, "sendEventupdateApkJson onSuccess");
                 }
             });
         }

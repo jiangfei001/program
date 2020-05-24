@@ -1,7 +1,7 @@
 package com.sgs.programModel;
 
 import android.net.ParseException;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
 import com.sgs.programModel.entity.ProgarmPalyPlan;
@@ -36,20 +36,20 @@ public class ProgramUtil {
             if (progarmPalySchedules != null && progarmPalySchedules.size() > 0) {
                 Date date = new Date();
                 String week = getWeekOfDate(date);
-                Log.e(TAG, "week:" + week);
+                ZLog.e(TAG, "week:" + week);
                 for (int i = 0; i < progarmPalySchedules.size(); i++) {
                     ProgarmPalySchedule progarmPalySchedule = progarmPalySchedules.get(i);
                     if (week.equals(progarmPalySchedule.getDateStr())) {
                         isTodayPlay = true;
-                        Log.e(TAG, "weekProgarmPalySchedules:" + i);
+                        ZLog.e(TAG, "weekProgarmPalySchedules:" + i);
                         //"times": "08:00-10:00|12:00-16:00"
                         String timesD = progarmPalySchedule.getTimes();
-                        Log.e(TAG, "timesD" + timesD);
+                        ZLog.e(TAG, "timesD" + timesD);
                         String a[] = timesD.split("\\|");
                         //08:00-10:00
                         for (int t = 0; t < a.length; t++) {
                             String timetemp = a[t];
-                            Log.e(TAG, "timetemp" + timetemp);
+                            ZLog.e(TAG, "timetemp" + timetemp);
                             if (timetemp.indexOf("-") != -1) {
                                 String b[] = timetemp.split("-");
                                 ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
@@ -73,12 +73,12 @@ public class ProgramUtil {
                     if (isInTime(progarmPalySchedule.getStartDate(), progarmPalySchedule.getEndDate())) {
                         isTodayPlay = true;
                         String timesD = progarmPalySchedule.getTimes();
-                        Log.e(TAG, "timesD" + timesD);
+                        ZLog.e(TAG, "timesD" + timesD);
                         String a[] = timesD.split("\\|");
                         //08:00-10:00
                         for (int t = 0; t < a.length; t++) {
                             String timetemp = a[t];
-                            Log.e(TAG, "timetemp" + timetemp);
+                            ZLog.e(TAG, "timetemp" + timetemp);
                             if (timetemp.indexOf("-") != -1) {
                                 String b[] = timetemp.split("-");
                                 ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
@@ -142,7 +142,7 @@ public class ProgramUtil {
         String times = null;
         try {
             date = sdr.parse(time);
-            Log.e("TimeTask", "date" + date);
+            ZLog.e("TimeTask", "date" + date);
             long l = date.getTime();
             String stf = String.valueOf(l);
             times = stf.substring(0, 10);

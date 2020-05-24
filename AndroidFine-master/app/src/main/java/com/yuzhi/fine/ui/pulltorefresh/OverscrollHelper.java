@@ -16,7 +16,7 @@
 package com.yuzhi.fine.ui.pulltorefresh;
 
 import android.annotation.TargetApi;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.View;
 
 import com.yuzhi.fine.ui.pulltorefresh.PullToRefreshBase.Mode;
@@ -129,7 +129,7 @@ public final class OverscrollHelper {
                 final int newScrollValue = (deltaValue + scrollValue);
 
                 if (PullToRefreshBase.DEBUG) {
-                    Log.d(LOG_TAG, "OverScroll. DeltaX: " + deltaX + ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
+                    ZLog.d(LOG_TAG, "OverScroll. DeltaX: " + deltaX + ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
                             + ", ScrollY: " + scrollY + ", NewY: " + newScrollValue + ", ScrollRange: " + scrollRange
                             + ", CurrentScroll: " + currentScrollValue);
                 }

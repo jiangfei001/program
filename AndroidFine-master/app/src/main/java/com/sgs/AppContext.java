@@ -11,7 +11,7 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -24,6 +24,7 @@ import com.sgs.middle.receiver.CustomAlarmReceiver;
 import com.sgs.middle.receiver.PackageReceiver;
 import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.umeng.commonsdk.UMConfigure;
+import com.zhangke.zlog.ZLog;
 
 import java.util.List;
 
@@ -56,7 +57,8 @@ public class AppContext extends Application {
             String city = location.getCity();    //获取城市
             String district = location.getDistrict();    //获取区县
             String street = location.getStreet();    //获取街道信息
-            Log.e("add", addr + "lo");
+            //ZLog.e("add", addr + "lo");
+            ZLog.e(TAG,  addr + "lo");
             AppContext.getInstance().addr = addr;
         }
     }
@@ -80,7 +82,7 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        ZLog.Init(String.format("%s/ZLog/", getExternalFilesDir(null).getPath()));
         app = this;
         registerUncaughtExceptionHandler();
         isMainProcess = isMainProcess();
@@ -210,7 +212,7 @@ public class AppContext extends Application {
 
             return myProcess.processName.equals(mainProcess);
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "isMainProcess");
+            ZLog.e(TAG, "isMainProcess");
             return true;
         }
     }
@@ -227,14 +229,16 @@ public class AppContext extends Application {
                 @Override
                 public void onServiceConnected(ComponentName name, IBinder service) {
                     // service connected
-                    Log.e(TAG, "onServiceConnected");
+                  //  ZLog.e(TAG, "onServiceConnected");
+                    ZLog.e(TAG,  "onServiceConnected");
                     //ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();
                 }
 
                 @Override
                 public void onServiceDisconnected(ComponentName name) {
                     // service disconnected
-                    Log.e(TAG, "onServiceConnected");
+                    //ZLog.e(TAG, "onServiceConnected");
+                    ZLog.e(TAG,  "onServiceDisconnected");
                 }
             };
             bindService(apkDownService, connection, Context.BIND_ABOVE_CLIENT | Context.BIND_AUTO_CREATE);
@@ -267,12 +271,12 @@ public class AppContext extends Application {
      */
     public void exitApp() {
         try {
-            Log.e("ActivityLifeManager", "exit by application");
+            ZLog.e("ActivityLifeManager", "exit by application");
             android.app.ActivityManager activityMgr = (android.app.ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
             activityMgr.killBackgroundProcesses(this.getPackageName());
             activityMgr.killBackgroundProcesses(this.getPackageName() + ":remote");
         } catch (Exception e) {
-            Log.e("ActivityLifeManager", e.getMessage(), e);
+            ZLog.e("ActivityLifeManager", e.getMessage(), e);
         }
 
         System.exit(0);

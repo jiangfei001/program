@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -18,7 +18,7 @@ public class RELEASE extends TVTask {
     @Override
     public void runTv() {
         String prog = super.instructionRequest.getData();
-        Log.e(TAG, "progJson:" + prog);
+        ZLog.e(TAG, "progJson:" + prog);
         isNeedSend = false;
         response = JSON.parseObject(prog, new TypeReference<ProgarmPalyInstructionVo>() {
         });

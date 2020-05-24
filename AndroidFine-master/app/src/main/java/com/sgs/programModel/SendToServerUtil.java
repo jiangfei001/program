@@ -1,6 +1,6 @@
 package com.sgs.programModel;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -33,7 +33,7 @@ public class SendToServerUtil {
     public static String TAG = "SendToServerUtil";
 
     public static void sendEventToService(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
-        Log.e(TAG, "上报节目处理结果");
+        ZLog.e(TAG, "上报节目处理结果");
         InstructionResponse responseEntity = new InstructionResponse();
         responseEntity.setId(progarmPalyInstructionVo.getZlid());
         responseEntity.setReceiveTime(progarmPalyInstructionVo.getReceiveTime());
@@ -48,7 +48,7 @@ public class SendToServerUtil {
         HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToService" + response.msg);
+                ZLog.e(TAG, "sendEventToService" + response.msg);
             }
 
             @Override
@@ -60,9 +60,9 @@ public class SendToServerUtil {
     //节目列表全量  type 0 增加 1 删除
     public static void sendAddOrDelProList(ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos, int type) {
         if (progarmPalyInstructionVos != null) {
-            Log.e(TAG, "节目列表全量增加" + progarmPalyInstructionVos.size() + "type" + type);
+            ZLog.e(TAG, "节目列表全量增加" + progarmPalyInstructionVos.size() + "type" + type);
         } else {
-            Log.e(TAG, "节目列表全量增加null" + "type" + type);
+            ZLog.e(TAG, "节目列表全量增加null" + "type" + type);
         }
         ArrayList<ProListVo> responseEntity = new ArrayList<>();
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
@@ -81,7 +81,7 @@ public class SendToServerUtil {
         HttpClient.postResponseList(AppUrl.addTerminalProgramListUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToAllProList onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToAllProList onSuccess" + response.msg);
             }
 
             @Override
@@ -98,9 +98,9 @@ public class SendToServerUtil {
     public static void sendAddOrDelProListNew(ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos, int type, LinkedList<ProgarmPalyInstructionVo> todays) {
 
         if (progarmPalyInstructionVos != null) {
-            Log.e(TAG, "节目列表全量增加" + progarmPalyInstructionVos.size() + "type" + type);
+            ZLog.e(TAG, "节目列表全量增加" + progarmPalyInstructionVos.size() + "type" + type);
         } else {
-            Log.e(TAG, "节目列表全量增加null" + "type" + type);
+            ZLog.e(TAG, "节目列表全量增加null" + "type" + type);
         }
 
         ArrayList<ProListVo> terminalProgramEntity = new ArrayList<>();
@@ -145,7 +145,7 @@ public class SendToServerUtil {
         HttpClient.postHashMapEntity(AppUrl.addTerminalProgramListUrl, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToAllProList onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToAllProList onSuccess" + response.msg);
             }
 
             @Override
@@ -158,9 +158,9 @@ public class SendToServerUtil {
     //当天节目全量接口
     public static void sendEventToToDayAll(LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
         if (progarmPalyInstructionVos != null) {
-            Log.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
+            ZLog.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
         } else {
-            Log.e(TAG, "当天节目全量接口null");
+            ZLog.e(TAG, "当天节目全量接口null");
         }
         ArrayList<ProListVo> responseEntity = new ArrayList<>();
 
@@ -185,7 +185,7 @@ public class SendToServerUtil {
         HttpClient.postResponseList(AppUrl.addDayProgramList, responseEntity, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
             }
 
             @Override
@@ -197,9 +197,9 @@ public class SendToServerUtil {
     //当天节目全量接口
     public static void sendNowPro(InstructionResponse instructionResponse, ArrayList<ProgarmPalyInstructionVo> progarmPalyInstructionVos) {
         if (progarmPalyInstructionVos != null) {
-            Log.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
+            ZLog.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
         } else {
-            Log.e(TAG, "当天节目全量接口null");
+            ZLog.e(TAG, "当天节目全量接口null");
         }
         ArrayList<Integer> responseEntity = new ArrayList<>();
 
@@ -220,7 +220,7 @@ public class SendToServerUtil {
         HttpClient.postResponseEntity(AppUrl.addDayProgramList, instructionResponse, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
             }
 
             @Override
@@ -240,16 +240,16 @@ public class SendToServerUtil {
     public static void sendScenctToServer(List<ScenceReport> scenceReports, MyYewuResponseHandle myYewuResponseHandle) {
 
         if (scenceReports != null) {
-            Log.e(TAG, "sendScenctToServer:" + scenceReports.size());
+            ZLog.e(TAG, "sendScenctToServer:" + scenceReports.size());
         } else {
-            Log.e(TAG, "sendScenctToServer:null");
+            ZLog.e(TAG, "sendScenctToServer:null");
         }
         HashMap hashMap = new HashMap();
         hashMap.put("repPalyProgramEntitys", com.alibaba.fastjson.JSON.toJSONString(scenceReports));
         HttpClient.postHashMapEntity(AppUrl.addRepPalyProgramList, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
             }
 
             @Override
@@ -273,7 +273,7 @@ public class SendToServerUtil {
         HttpClient.postObjectEntity(AppUrl.changeMsgStatus, muTerminalMsg, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
             }
 
             @Override
@@ -287,9 +287,9 @@ public class SendToServerUtil {
     public static void sendRepHotareaToServer(List<RepHotReport> repHotReports, MyYewuResponseHandle myYewuResponseHandle) {
 
         if (repHotReports != null) {
-            Log.e(TAG, "sendScenctToServer:" + repHotReports.size());
+            ZLog.e(TAG, "sendScenctToServer:" + repHotReports.size());
         } else {
-            Log.e(TAG, "sendScenctToServer:null");
+            ZLog.e(TAG, "sendScenctToServer:null");
         }
 
         HashMap hashMap = new HashMap();
@@ -298,7 +298,7 @@ public class SendToServerUtil {
         HttpClient.postHashMapEntity(AppUrl.addRepHotareaClickList, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
             }
 
             @Override
@@ -310,9 +310,9 @@ public class SendToServerUtil {
     public static void UpdateApkJsonToServer(List<RepHotReport> repHotReports, MyYewuResponseHandle myYewuResponseHandle) {
 
         if (repHotReports != null) {
-            Log.e(TAG, "sendScenctToServer:" + repHotReports.size());
+            ZLog.e(TAG, "sendScenctToServer:" + repHotReports.size());
         } else {
-            Log.e(TAG, "sendScenctToServer:null");
+            ZLog.e(TAG, "sendScenctToServer:null");
         }
 
         HashMap hashMap = new HashMap();
@@ -321,7 +321,7 @@ public class SendToServerUtil {
         HttpClient.postHashMapEntity(AppUrl.addRepHotareaClickList, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
+                ZLog.e(TAG, "sendEventToToDayAll onSuccess" + response.msg);
             }
 
             @Override
@@ -343,7 +343,7 @@ public class SendToServerUtil {
         HttpClient.postHashMapEntity(AppUrl.sysMaterialData, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "sysMaterialData onSuccess" + response.msg);
+                ZLog.e(TAG, "sysMaterialData onSuccess" + response.msg);
             }
 
             @Override

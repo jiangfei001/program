@@ -1,7 +1,7 @@
 package com.sgs;
 
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.sgs.middle.utils.StringUtil;
@@ -99,34 +99,34 @@ public class AppUrl {
         changeMsgStatus = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/changeMsgStatus";
         updateApkJson = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/updateApkJson";
         sysMaterialData = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/sysMaterialData";
-        Log.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
-        Log.e("socketUrl", "callbackUrl:" + callbackUrl);
-        Log.e("socketUrl", "addTerminalProgramListUrl:" + addTerminalProgramListUrl);
-        Log.e("socketUrl", "addDayProgramList:" + addDayProgramList);
-        Log.e("socketUrl", "addRepPalyProgramList:" + addRepPalyProgramList);
-        Log.e("socketUrl", "activation:" + activation);
-        Log.e("socketUrl", "getServerList:" + getServerList);
-        Log.e("socketUrl", "changeMsgStatus:" + changeMsgStatus);
-        Log.e("socketUrl", "updateApkJson:" + updateApkJson);
-        Log.e("socketUrl", "updateApkJson:" + sysMaterialData);
+        ZLog.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
+        ZLog.e("socketUrl", "callbackUrl:" + callbackUrl);
+        ZLog.e("socketUrl", "addTerminalProgramListUrl:" + addTerminalProgramListUrl);
+        ZLog.e("socketUrl", "addDayProgramList:" + addDayProgramList);
+        ZLog.e("socketUrl", "addRepPalyProgramList:" + addRepPalyProgramList);
+        ZLog.e("socketUrl", "activation:" + activation);
+        ZLog.e("socketUrl", "getServerList:" + getServerList);
+        ZLog.e("socketUrl", "changeMsgStatus:" + changeMsgStatus);
+        ZLog.e("socketUrl", "updateApkJson:" + updateApkJson);
+        ZLog.e("socketUrl", "updateApkJson:" + sysMaterialData);
     }
 
     public static void setSerList(String jsonstr) {
-        Log.e("jsonstr", "jsonstr:" + jsonstr);
+        ZLog.e("jsonstr", "jsonstr:" + jsonstr);
         try {
             if (!StringUtil.isEmpty(jsonstr)) {
                 socketIPList = (ArrayList) JSON.parseArray(jsonstr, String.class);
-                Log.e("jsonstr", "Linksize" + socketIPList.size());
+                ZLog.e("jsonstr", "Linksize" + socketIPList.size());
                 // socketIPList.add("49.235.109.237:9080");
                 if (socketIPList.size() > 0) {
                     socketIP = socketIPList.get(index);
-                    Log.e("jsonstr", "socketIP:" + socketIP);
+                    ZLog.e("jsonstr", "socketIP:" + socketIP);
                     socketUrl = "ws://" + socketIP + "/multimedia" + (isTeststr ? "_test" : "") + "/api/websocket";
-                    Log.e("jsonstr", "socketUrl:" + socketIP + "|" + socketUrl);
+                    ZLog.e("jsonstr", "socketUrl:" + socketIP + "|" + socketUrl);
                 }
             }
         } catch (Exception e) {
-            Log.e("e", "e:" + e.getMessage());
+            ZLog.e("e", "e:" + e.getMessage());
         }
     }
 
@@ -139,6 +139,6 @@ public class AppUrl {
         }
         socketIP = socketIPList.get(index);
         socketUrl = "ws://" + socketIP + "/multimedia" + (isTeststr ? "_test" : "") + "/api/websocket";
-        Log.e("jsonstr", "socketUrl:" + socketIP + "|" + socketUrl);
+        ZLog.e("jsonstr", "socketUrl:" + socketIP + "|" + socketUrl);
     }
 }

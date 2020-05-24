@@ -6,7 +6,7 @@ import android.content.pm.IPackageInstallObserver;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.RemoteException;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 
 import java.io.File;
@@ -100,7 +100,7 @@ public class SFPkgManager {
             Class<?>[] delTypes = new Class[]{String.class, IPackageDeleteObserver.class, int.class};
             METHOD_DELETE = PackageManager.class.getMethod("deletePackage", delTypes);
         } catch (Exception e) {
-            Log.e("e", "Not support install silently");
+            ZLog.e("e", "Not support install silently");
         }
     }
 

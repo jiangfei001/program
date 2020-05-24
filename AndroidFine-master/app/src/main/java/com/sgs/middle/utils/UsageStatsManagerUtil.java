@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
@@ -54,7 +54,7 @@ public class UsageStatsManagerUtil {
     }
 
     public static void alarmUploadDataOnceDaily() {
-        Log.e("alarmUpload", "alarmUploadDataOnceDaily");
+        ZLog.e("alarmUpload", "alarmUploadDataOnceDaily");
         //获取当前毫秒值
         long systemTime = System.currentTimeMillis();
         long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
@@ -86,7 +86,7 @@ public class UsageStatsManagerUtil {
         //计算现在时间到设置时间的时间差
         long diffTime1 = selectTime - systemTime;
 
-        Log.e("diffTime1", "多少分钟之后" + diffTime1 / 1000 / 60 / 60);
+        ZLog.e("diffTime1", "多少分钟之后" + diffTime1 / 1000 / 60 / 60);
         firstTime += diffTime1;
 
         //AlarmReceiver.class为广播接受者
@@ -108,7 +108,7 @@ public class UsageStatsManagerUtil {
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
             }
         } catch (Exception e) {
-            Log.e("e", e.getMessage());
+            ZLog.e("e", e.getMessage());
         }
 
         /** * 重复提醒 * 第一个参数是警报类型；下面有介绍 * 第二个参数网上说法不一，很多都是说的是延迟多少毫秒执行这个闹钟，但是我用的刷了MIUI的三星手机的实际效果是与单次提醒的参数一样，即设置的13点25分的时间点毫秒值 * 第三个参数是重复周期，也就是下次提醒的间隔 毫秒值 我这里是一天后提醒 */
@@ -168,7 +168,7 @@ public class UsageStatsManagerUtil {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
         String dateStr = df.format(calendar.getTime());
         //System.out.println(dateStr);
-        Log.e("dateStr", "dateStr" + dateStr);
+        ZLog.e("dateStr", "dateStr" + dateStr);
 
         long selectTime = calendar.getTimeInMillis();
         //选择的每天的定时时间即下班时间
@@ -183,7 +183,7 @@ public class UsageStatsManagerUtil {
 
         firstTime += diffTime1;
 
-        Log.e("TAG", firstTime + "firstTime");
+        ZLog.e("TAG", firstTime + "firstTime");
 
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
@@ -229,7 +229,7 @@ public class UsageStatsManagerUtil {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
         String dateStr = df.format(calendar.getTime());
         //System.out.println(dateStr);
-        Log.e("dateStr", "dateStr" + dateStr);
+        ZLog.e("dateStr", "dateStr" + dateStr);
 
         long selectTime = calendar.getTimeInMillis();
         //选择的每天的定时时间即下班时间
@@ -244,7 +244,7 @@ public class UsageStatsManagerUtil {
 
         firstTime += diffTime1;
 
-        Log.e("TAG", firstTime + "firstTime");
+        ZLog.e("TAG", firstTime + "firstTime");
 
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
@@ -289,7 +289,7 @@ public class UsageStatsManagerUtil {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
         String dateStr = df.format(calendar.getTime());
         //System.out.println(dateStr);
-        Log.e("dateStr", "dateStr" + dateStr);
+        ZLog.e("dateStr", "dateStr" + dateStr);
 
         long selectTime = calendar.getTimeInMillis();
         //选择的每天的定时时间即下班时间
@@ -304,7 +304,7 @@ public class UsageStatsManagerUtil {
 
         firstTime += diffTime1;
 
-        Log.e("TAG", firstTime + "firstTime");
+        ZLog.e("TAG", firstTime + "firstTime");
 
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());

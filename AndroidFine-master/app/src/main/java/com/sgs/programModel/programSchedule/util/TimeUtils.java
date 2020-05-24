@@ -1,6 +1,6 @@
 package com.sgs.programModel.programSchedule.util;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +29,7 @@ public class TimeUtils{
     public static CustomTimeUnit calculateDayHourMinSeconds(int totalSeconds) {
         CustomTimeUnit timeUnit = new CustomTimeUnit();
         if(totalSeconds < 0){
-            Log.e("","calculateDayHourMinSeconds parameter is invalide totalSeconds =" + totalSeconds);
+            ZLog.e("","calculateDayHourMinSeconds parameter is invalide totalSeconds =" + totalSeconds);
         }else{
             long days = 0;
             long hours = 0;

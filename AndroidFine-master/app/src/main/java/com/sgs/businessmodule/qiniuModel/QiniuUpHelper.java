@@ -3,7 +3,7 @@ package com.sgs.businessmodule.qiniuModel;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -52,12 +52,12 @@ public class QiniuUpHelper {
         uploadManager.put(data, fileName, Token, new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject response) {
-                Log.i("qiniu 访问链接 = ", key);
+                ZLog.i("qiniu 访问链接 = ", key);
                 if (info != null) {
-                    Log.i("qiniu info = ", info.toString());
+                    ZLog.i("qiniu info = ", info.toString());
                 }
                 if (response != null) {
-                    Log.i("qiniu response = ", response.toString());
+                    ZLog.i("qiniu response = ", response.toString());
                 }
                 backUrl.getUrlandName(key, info, response);
             }

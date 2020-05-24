@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.qiniu.android.http.ResponseInfo;
@@ -61,12 +61,12 @@ public class TAKESCREEN extends TVTask {
                         HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
                             @Override
                             public void onSuccess(MyApiResponse response) {
-                                Log.e(TAG, "TAKESCREEN" + response.msg);
+                                ZLog.e(TAG, "TAKESCREEN" + response.msg);
                             }
 
                             @Override
                             public void onFailure(Request request, Exception e) {
-                                Log.e("onFailure", "onFailure");
+                                ZLog.e("onFailure", "onFailure");
                             }
                         });
                     }

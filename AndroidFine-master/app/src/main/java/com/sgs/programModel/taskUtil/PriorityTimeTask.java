@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventEnum;
@@ -79,20 +79,20 @@ public class PriorityTimeTask<T extends MyTask> {
                 priorsTasks = new LinkedList<>();
             }
             priorsTasks.add(bobTask);
-            Log.e(TAG, "我是临时插入进来的一个高优先级的节目priorsTasks");
+            ZLog.e(TAG, "我是临时插入进来的一个高优先级的节目priorsTasks");
 
         } else if (PRI.TASK_NOR == pRi) {
             if (mTasks == null) {
                 mTasks = new LinkedList<>();
             }
             mTasks.add(bobTask);
-            Log.e(TAG, "我是临时插入进来的一个普通优先级的节目mTasks");
+            ZLog.e(TAG, "我是临时插入进来的一个普通优先级的节目mTasks");
         } else {
             if (dTasks == null) {
                 dTasks = new LinkedList<>();
             }
             dTasks.add(bobTask);
-            Log.e(TAG, "我是临时插入进来的一个低级优先级的节目dTasks");
+            ZLog.e(TAG, "我是临时插入进来的一个低级优先级的节目dTasks");
         }
         insertStartLooperTask();
     }
@@ -116,10 +116,10 @@ public class PriorityTimeTask<T extends MyTask> {
 
 
     public void removeByid(int id) {
-        Log.e(TAG, "removeByid:" + id);
+        ZLog.e(TAG, "removeByid:" + id);
         for (int i = 0; i < mTasks.size(); i++) {
             if (mTasks.get(i).progarmPalyInstructionVo.getId() == id) {
-                Log.e(TAG, "mTasks removeByid:" + id);
+                ZLog.e(TAG, "mTasks removeByid:" + id);
                 mTasks.remove(i);
                 order();
                 break;
@@ -127,7 +127,7 @@ public class PriorityTimeTask<T extends MyTask> {
         }
         for (int i = 0; i < priorsTasks.size(); i++) {
             if (priorsTasks.get(i).progarmPalyInstructionVo.getId() == id) {
-                Log.e(TAG, "priorsTasks removeByid:" + id);
+                ZLog.e(TAG, "priorsTasks removeByid:" + id);
                 priorsTasks.remove(i);
                 order();
                 break;
@@ -135,7 +135,7 @@ public class PriorityTimeTask<T extends MyTask> {
         }
         for (int i = 0; i < dTasks.size(); i++) {
             if (dTasks.get(i).progarmPalyInstructionVo.getId() == id) {
-                Log.e(TAG, "dTasks removeByid:" + id);
+                ZLog.e(TAG, "dTasks removeByid:" + id);
                 dTasks.remove(i);
                 order();
                 break;
@@ -174,14 +174,14 @@ public class PriorityTimeTask<T extends MyTask> {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             //启动下一次任务
-            Log.e(TAG, "进入下一次开始执行startLooperTask");
+            ZLog.e(TAG, "进入下一次开始执行startLooperTask");
             startLooperTaskOrder();
             return;
         }
     };
 
     public synchronized boolean doneLooper(List<T> tasklist, PRI isPri) {
-        Log.e(TAG, "doneLooper tasklist：" + tasklist.size() + "isPri:" + isPri);
+        ZLog.e(TAG, "doneLooper tasklist：" + tasklist.size() + "isPri:" + isPri);
         checkCursor(tasklist, isPri);
         long mNowtime = System.currentTimeMillis();
         //循环开始为游标的位置，循环所有任务的大小，游标等于列表的大小时，游标记录为0
@@ -194,21 +194,21 @@ public class PriorityTimeTask<T extends MyTask> {
                 if (tasklist.size() < cursor) { //恢复普通任务
                     cursor = 0;
                 }
-                Log.e(TAG, "cursor" + cursor);
+                ZLog.e(TAG, "cursor" + cursor);
             } else if (isPri == PRI.TASK_PRI) {
                 mTask = tasklist.get(priorsCursor);
                 priorsCursor++;
                 if (tasklist.size() < priorsCursor) { //恢复普通任务
                     priorsCursor = 0;
                 }
-                Log.e(TAG, "priorsCursor" + priorsCursor + "tasklist.size()" + tasklist.size());
+                ZLog.e(TAG, "priorsCursor" + priorsCursor + "tasklist.size()" + tasklist.size());
             } else if (isPri == PRI.TASK_D) {
                 mTask = tasklist.get(dcursor);
                 dcursor++;
                 if (tasklist.size() < dcursor) { //恢复普通任务
                     dcursor = 0;
                 }
-                Log.e(TAG, "norCursor" + dcursor + "tasklist.size()" + tasklist.size());
+                ZLog.e(TAG, "norCursor" + dcursor + "tasklist.size()" + tasklist.size());
             }
             if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1) {
                 List<ProgarmPalyPlan> progarmPalyPlan = mTask.progarmPalyInstructionVo.getPublicationPlanObject().getOkProgarms();
@@ -221,19 +221,19 @@ public class PriorityTimeTask<T extends MyTask> {
                 try {
                     //如果此时的节目要跳过
                     deadLineV = df.parse(publicationPlanVo.getDeadlineV());
-                    Log.d(TAG, "播放过程中deadLineV。。。" + publicationPlanVo.getDeadlineV());
+                    ZLog.d(TAG, "播放过程中deadLineV。。。" + publicationPlanVo.getDeadlineV());
                     if (deadLineV.getTime() < System.currentTimeMillis()) {
-                        Log.d(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()" + deadLineV.getTime());
+                        ZLog.d(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()" + deadLineV.getTime());
                     } else {
                         for (int t = 0; t < progarmPalyPlan.size(); t++) {
                             ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
                             if (progarmPalyPlan1.getStartTime() < mNowtime && progarmPalyPlan1.getEndTime() > mNowtime) {
                                 //预设下一个节目播放
-                                Log.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
+                                ZLog.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
                                 mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
                                 //在当前区间内立即执行
                                 for (TimeHandler mTimeHandler : mTimeHandlers) {
-                                    Log.e(TAG, "开始播放节目拉" + mTask.progarmPalyInstructionVo.getPlayTime());
+                                    ZLog.e(TAG, "开始播放节目拉" + mTask.progarmPalyInstructionVo.getPlayTime());
                                     mTimeHandler.exeTask(mTask);
                                 }
                                 return true;
@@ -281,12 +281,12 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
     public void startLooperTaskOrder() {
-        Log.e(TAG, "startLooperTaskOrder");
+        ZLog.e(TAG, "startLooperTaskOrder");
         order();
     }
 
     private void order() {
-        Log.e(TAG, "priorsTasks order");
+        ZLog.e(TAG, "priorsTasks order");
         mHandler.removeMessages(1);
         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
             boolean idone = false;
@@ -308,27 +308,27 @@ public class PriorityTimeTask<T extends MyTask> {
 
             if (idone) {
                 isRuning = true;
-                Log.e(TAG, "isRuning = true 开跑");
+                ZLog.e(TAG, "isRuning = true 开跑");
             } else {
-                Log.e(TAG, "队列里面没有符合要求的任务，1秒后再进行判断");
+                ZLog.e(TAG, "队列里面没有符合要求的任务，1秒后再进行判断");
                 isRuning = false;
                 mHandler.removeMessages(1);
                 //需要清空WebSocketActivityRelease里面的内容
                 Event event = new Event();
                 event.setId(EventEnum.EVENT_TEST_CLEARPROG);
                 EventBus.getDefault().post(event);
-                //如果为空的话，1秒钟检查一次，是否有新的任务
-                mHandler.sendEmptyMessageDelayed(1, 1000);
+                //如果为空的话，5秒钟检查一次，是否有新的任务
+                mHandler.sendEmptyMessageDelayed(1, 5000);
             }
         } else {
-            Log.e(TAG, "队列里面没有符合要求的任务，1秒后再进行判断");
+            ZLog.e(TAG, "队列里面没有符合要求的任务，5秒后再进行判断");
             isRuning = false;
             //需要清空WebSocketActivityRelease里面的内容
             Event event = new Event();
             event.setId(EventEnum.EVENT_TEST_CLEARPROG);
             EventBus.getDefault().post(event);
-            //如果为空的话，1秒钟检查一次，是否有新的任务
-            mHandler.sendEmptyMessageDelayed(1, 1000);
+            //如果为空的话，5秒钟检查一次，是否有新的任务
+            mHandler.sendEmptyMessageDelayed(1, 5000);
         }
     }
 
@@ -339,7 +339,7 @@ public class PriorityTimeTask<T extends MyTask> {
         priorsTasks = null;
         mTasks = null;
         dTasks = null;
-        Log.e(TAG, "被移除 stopLooper");
+        ZLog.e(TAG, "被移除 stopLooper");
         mHandler.removeMessages(1);
     }
 

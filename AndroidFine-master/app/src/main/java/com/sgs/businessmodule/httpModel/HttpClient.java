@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -63,13 +63,13 @@ public class HttpClient {
             Request request = chain.request();
 
             long t1 = System.nanoTime();
-            Log.i(TAG, String.format("Sending request %s on %s%n%s",
+            ZLog.i(TAG, String.format("Sending request %s on %s%n%s",
                     request.url(), chain.connection(), request.headers()));
 
             Response response = chain.proceed(request);
 
             long t2 = System.nanoTime();
-            Log.i(TAG, String.format("Received response for %s in %.1fms%n%s",
+            ZLog.i(TAG, String.format("Received response for %s in %.1fms%n%s",
                     response.request().url(), (t2 - t1) / 1e6d, response.headers()));
             return response;
         }
@@ -81,7 +81,7 @@ public class HttpClient {
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             return networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
         } catch (Exception e) {
-            Log.v("ConnectivityManager", e.getMessage());
+            ZLog.e("ConnectivityManager", e.getMessage());
         }
         return false;
     }
@@ -104,7 +104,7 @@ public class HttpClient {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                Log.e("req", response.message() + "|" + response.body().toString() + "|" + response.code() + "|");
+                ZLog.e("req", response.message() + "|" + response.body().toString() + "|" + response.code() + "|");
                 try {
                     RestApiResponse apiResponse = getRestApiResponse(response.body().toString());
                     handler.sendSuccessMessage(apiResponse);
@@ -149,7 +149,7 @@ public class HttpClient {
                 try {
                     String str = response.body().string();
                     int code = response.code();
-                    Log.e("req", "|" + str + "|" + code + "|");
+                    ZLog.e("req", "|" + str + "|" + code + "|");
                     handler.sendSuccessMessage(getMyRestApiResponse(str));
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
@@ -185,7 +185,7 @@ public class HttpClient {
                 try {
                     String str = response.body().string();
                     int code = response.code();
-                    Log.e("req", "|" + str + "|" + code + "|");
+                    ZLog.e("req", "|" + str + "|" + code + "|");
                     handler.sendSuccessMessage(getMyRestApiResponse(str));
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
@@ -210,13 +210,13 @@ public class HttpClient {
 
     public static void postHashMapEntity(String url, HashMap responseEntity, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
-            Log.e("postHashMapEntity", "网络不行");
+            ZLog.e("postHashMapEntity", "网络不行");
             //Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Log.e("com.alibab:", "com.alibab:" + com.alibaba.fastjson.JSON.toJSONString(responseEntity));
-        Log.e("url:", "url" + url);
+        ZLog.e("com.alibab:", "com.alibab:" + com.alibaba.fastjson.JSON.toJSONString(responseEntity));
+        ZLog.e("url:", "url" + url);
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
@@ -234,7 +234,7 @@ public class HttpClient {
                 try {
                     String str = response.body().string();
                     int code = response.code();
-                    Log.e("req", "|" + str + "|" + code + "|");
+                    ZLog.e("req", "|" + str + "|" + code + "|");
                     handler.sendSuccessMessage(getMyRestApiResponse(str));
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
@@ -250,13 +250,13 @@ public class HttpClient {
 
     public static void postObjectEntity(String url, Object objectEntity, final MyHttpResponseHandler handler) {
         if (!isNetworkAvailable()) {
-            Log.e("postHashMapEntity", "网络不行");
+            ZLog.e("postHashMapEntity", "网络不行");
             //Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Log.e("com.alibab:", "com.alibab:" + com.alibaba.fastjson.JSON.toJSONString(objectEntity));
-        Log.e("url:", "url" + url);
+        ZLog.e("com.alibab:", "com.alibab:" + com.alibaba.fastjson.JSON.toJSONString(objectEntity));
+        ZLog.e("url:", "url" + url);
         //创建okhttp对象
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(objectEntity));
@@ -274,7 +274,7 @@ public class HttpClient {
                 try {
                     String str = response.body().string();
                     int code = response.code();
-                    Log.e("req", "|" + str + "|" + code + "|");
+                    ZLog.e("req", "|" + str + "|" + code + "|");
                     handler.sendSuccessMessage(getMyRestApiResponse(str));
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);

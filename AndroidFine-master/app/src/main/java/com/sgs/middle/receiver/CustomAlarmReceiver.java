@@ -3,7 +3,7 @@ package com.sgs.middle.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -119,11 +119,11 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e(TAG, "AppContext.getInstance().islogin:" + AppContext.getInstance().islogin);
+        ZLog.e(TAG, "AppContext.getInstance().islogin:" + AppContext.getInstance().islogin);
         if (AppContext.getInstance().islogin) {
-            Log.e(TAG, "CustomAlarmReceiver intent");
+            ZLog.e(TAG, "CustomAlarmReceiver intent");
             if (intent == null) {
-                Log.e(TAG, "CustomAlarmReceiver intent is null");
+                ZLog.e(TAG, "CustomAlarmReceiver intent is null");
                 return;
             }
             String action = intent.getAction();
@@ -135,7 +135,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 Date date = new Date(l);
                 //转换提日期输出格式
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Log.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
+                ZLog.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
                 ProgramScheduledManager.getInstance().initAllProgramTask();
                 ReportUtil reportUtil = new ReportUtil();
                 reportUtil.reportScence();
@@ -149,20 +149,20 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 }
             } else if (ACTION_SEND_APP_HOTAREA.equals(action)) {
                 UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
-                Log.e(TAG, "时间到,执行复原任务操作:REPRORT");
+                ZLog.e(TAG, "时间到,执行复原任务操作:REPRORT");
                 ReportUtil reportUtil = new ReportUtil();
                 reportUtil.reportEvent();
             } else if (ACTION_SEND_APP_CVDS.equals(action)) {
                 String vl = intent.getExtras().getString("vl");
                 Toast.makeText(AppContext.getInstance(), "时间到，执行声音定时任务", Toast.LENGTH_LONG).show();
-                Log.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS" + vl);
+                ZLog.e(TAG, "时间到,执行定时声音:ACTION_SEND_APP_CVDS" + vl);
                 CommandHelper.setStreamVolume(Integer.parseInt(vl), AppContext.getInstance());
             } else if (ACTION_SEND_APP_OPEN.equals(action)) {
                 Toast.makeText(AppContext.getInstance(), "时间到，执行定时开机", Toast.LENGTH_LONG).show();
-                Log.e(TAG, "时间到,执行定时开机:ACTION_SEND_APP_CVDS");
+                ZLog.e(TAG, "时间到,执行定时开机:ACTION_SEND_APP_CVDS");
                 CommandHelper.openOrClose(true);
             } else if (ACTION_SEND_APP_CLOSE.equals(action)) {
-                Log.e(TAG, "时间到,执行关机:ACTION_SEND_APP_CVDS");
+                ZLog.e(TAG, "时间到,执行关机:ACTION_SEND_APP_CVDS");
                 CommandHelper.openOrClose(false);
             }
         }
@@ -186,7 +186,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
         if (j2.containsKey("weekList")) {
             String weekList = j2.getString("weekList");
             list = JSONObject.parseArray(weekList, String.class);
-            Log.e("list", list.size() + "");
+            ZLog.e("list", list.size() + "");
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(list.get(i));
             }
@@ -223,7 +223,7 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
         if (j2.containsKey("weekList2")) {
             String weekListstr = j2.getString("weekList2");
             list = JSONObject.parseArray(weekListstr, String.class);
-            Log.e("list", list.size() + "");
+            ZLog.e("list", list.size() + "");
             Date date1 = new Date();
             String xinqi = ProgramUtil.getWeekOfDate(date1);
             for (int i = 0; i < list.size(); i++) {

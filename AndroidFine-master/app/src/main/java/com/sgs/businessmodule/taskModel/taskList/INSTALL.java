@@ -3,7 +3,7 @@ package com.sgs.businessmodule.taskModel.taskList;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -33,13 +33,13 @@ public class INSTALL extends TVTask {
     @Override
     public void runTv() {
         String prog = super.instructionRequest.getData();
-        Log.e(TAG, "progJson:" + prog);
+        ZLog.e(TAG, "progJson:" + prog);
         isNeedSend = false;
 
 
         JSONObject jsonObject = JSON.parseObject(prog);
         String url = (String) jsonObject.get("apkPath");
-        Log.e(TAG, "url:" + url);
+        ZLog.e(TAG, "url:" + url);
 
         /*设置用户ID，客户端切换用户时可以显示相应用户的下载任务*/
         /*断点续传需要服务器的支持，设置该项时要先确保服务器支持断点续传功能*/
@@ -70,11 +70,11 @@ public class INSTALL extends TVTask {
             PackageManager manager = AppContext.getInstance().getPackageManager();
             PackageInfo info = manager.getPackageInfo(AppContext.getInstance().getPackageName(), 0);
             version = info.versionCode;
-            Log.e(TAG, "url:" + version);
+            ZLog.e(TAG, "url:" + version);
             return version;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "Exception:" + e);
+            ZLog.e(TAG, "Exception:" + e);
             return version = 0;
         }
     }
@@ -103,7 +103,7 @@ public class INSTALL extends TVTask {
 
         @Override
         public void onProgress(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
-            Log.e(TAG, "sqlDownLoadInfo" + sqlDownLoadInfo.getDownloadSize());
+            ZLog.e(TAG, "sqlDownLoadInfo" + sqlDownLoadInfo.getDownloadSize());
             //根据监听到的信息查找列表相对应的任务，更新相应任务的进度
            /* for(TaskInfo taskInfo : listdata){
                 if(taskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())){
@@ -125,7 +125,7 @@ public class INSTALL extends TVTask {
             //根据监听到的信息查找列表相对应的任务，删除对应的任务
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
                 //下载成功进行安装
-                Log.e(TAG, "url:" + "sqlDownLoadInfo");
+                ZLog.e(TAG, "url:" + "sqlDownLoadInfo");
                 Event event = new Event();
                 HashMap<EventEnum, Object> params = new HashMap();
                 params.put(EventEnum.EVENT_TEST_MSG1_KEY_PATH, sqlDownLoadInfo.getFilePath());
@@ -141,7 +141,7 @@ public class INSTALL extends TVTask {
         @Override
         public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
             //根据监听到的信息查找列表相对应的任务，停止该任务
-            Log.e(TAG, "url errro:" + "sqlDownLoadInfo");
+            ZLog.e(TAG, "url errro:" + "sqlDownLoadInfo");
             if (info.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
 
             }

@@ -1,7 +1,7 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.businessmodule.taskUtil.cutMsg.MsgDbManager;
@@ -21,7 +21,7 @@ public class CLEARCUTMSG extends TVTask {
 
     @Override
     public void runTv() {
-        Log.e(TAG, "CLEARCUTMSG:");
+        ZLog.e(TAG, "CLEARCUTMSG:");
         ArrayList<com.sgs.businessmodule.taskUtil.cutMsg.MuTerminalMsg> muTerminalMsgs1 = (ArrayList<MuTerminalMsg>) MsgDbManager.getInstance().getAllMuTerminalMsg();
         for (int i = 0; i < muTerminalMsgs1.size(); i++) {
             MuTerminalBack muTerminalBack = new MuTerminalBack();

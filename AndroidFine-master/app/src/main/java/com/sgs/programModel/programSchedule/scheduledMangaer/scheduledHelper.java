@@ -3,7 +3,7 @@ package com.sgs.programModel.programSchedule.scheduledMangaer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.View;
 
 import com.sgs.programModel.programSchedule.util.AlarmUtil;
@@ -48,7 +48,7 @@ public class scheduledHelper {
     private Thread mThread;
 
     private void processTask() {
-        Log.e("processTask", "----execute task");
+        ZLog.e("processTask", "----execute task");
     }
 
     /* @Override

@@ -1,6 +1,6 @@
 package com.sgs.middle.utils;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -26,7 +26,7 @@ public class RootUtil {
             os.flush();
             process.waitFor();
         } catch (Exception e) {
-            Log.d("*** DEBUG ***", "ROOT REE" + e.getMessage());
+            ZLog.d("*** DEBUG ***", "ROOT REE" + e.getMessage());
             return false;
         } finally {
             try {
@@ -37,7 +37,7 @@ public class RootUtil {
             } catch (Exception e) {
             }
         }
-        Log.d("*** DEBUG ***", "Root SUC ");
+        ZLog.d("*** DEBUG ***", "Root SUC ");
         return true;
     }
 

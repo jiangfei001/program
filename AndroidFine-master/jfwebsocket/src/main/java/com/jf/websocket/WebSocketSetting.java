@@ -2,7 +2,7 @@ package com.jf.websocket;
 
 import android.Manifest;
 import android.content.Context;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.jf.websocket.dispatcher.DefaultResponseDispatcher;
 import com.jf.websocket.dispatcher.IResponseDispatcher;
@@ -87,7 +87,7 @@ public class WebSocketSetting {
     }
 
     public void setNextIp() {
-        Log.e("jsonstr", "setNextIp:");
+        ZLog.e("jsonstr", "setNextIp:");
         if (index < ConnectUrls.size() - 1) {
             index++;
         } else {
@@ -95,7 +95,7 @@ public class WebSocketSetting {
         }
         connectUrl = ConnectUrls.get(index);
         connectUrl = "ws://" + connectUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/websocket" + endstr;
-        Log.e("jsonstr", "socketUrl:" + connectUrl);
+        ZLog.e("jsonstr", "socketUrl:" + connectUrl);
     }
 
     public ArrayList<String> getConnectUrls() {

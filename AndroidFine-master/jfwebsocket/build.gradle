@@ -28,4 +28,5 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api 'org.java-websocket:Java-WebSocket:1.4.0'
+    compile project(path: ':ZLogLib')
 }

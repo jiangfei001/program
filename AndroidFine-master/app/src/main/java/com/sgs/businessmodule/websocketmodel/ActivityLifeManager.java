@@ -7,7 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class ActivityLifeManager implements Application.ActivityLifecycleCallbac
                 return activityLast;//队列尾部才是最新的activity
             }
         } catch (NoSuchElementException e) {
-            Log.e("ActivityLifeManager", " OverallDialog currentActivity error = " + e.getMessage());
+            ZLog.e("ActivityLifeManager", " OverallDialog currentActivity error = " + e.getMessage());
         }
         return null;
     }
@@ -119,7 +119,7 @@ public class ActivityLifeManager implements Application.ActivityLifecycleCallbac
                 }
             }
         } catch (Exception e) {
-            Log.e("ActivityLifeManager", " OverallDialog onActivityStopped error = " + e.getMessage());
+            ZLog.e("ActivityLifeManager", " OverallDialog onActivityStopped error = " + e.getMessage());
         }
     }
 
@@ -134,7 +134,7 @@ public class ActivityLifeManager implements Application.ActivityLifecycleCallbac
                 mCreateAndDesotryActivitys.remove(activity);
             }
         } catch (Exception e) {
-            Log.e("ActivityLifeManager", " OverallDialog onActivityDestroyed error = " + e.getMessage());
+            ZLog.e("ActivityLifeManager", " OverallDialog onActivityDestroyed error = " + e.getMessage());
         }
     }
 
@@ -155,7 +155,7 @@ public class ActivityLifeManager implements Application.ActivityLifecycleCallbac
      * 重启应用程序
      */
     public void restartAPP(Context context) {
-        Log.e("ActivityLifeManager", "restartAPP");
+        ZLog.e("ActivityLifeManager", "restartAPP");
         finishAllActivity();
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         PendingIntent restartIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -170,12 +170,12 @@ public class ActivityLifeManager implements Application.ActivityLifecycleCallbac
     public void exitApp(Context context) {
 
         try {
-            Log.e("ActivityLifeManager", "exit by application");
+            ZLog.e("ActivityLifeManager", "exit by application");
             android.app.ActivityManager activityMgr = (android.app.ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             activityMgr.killBackgroundProcesses(context.getPackageName());
             activityMgr.killBackgroundProcesses(context.getPackageName() + ":remote");
         } catch (Exception e) {
-            Log.e("ActivityLifeManager", e.getMessage(), e);
+            ZLog.e("ActivityLifeManager", e.getMessage(), e);
         }
 
         System.exit(0);

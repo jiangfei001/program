@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -23,11 +23,11 @@ public class DELETECUTMSG extends TVTask {
     @Override
     public void runTv() {
         String dataJson = this.instructionRequest.getData();
-        Log.e(TAG, "dataJson:" + dataJson);
+        ZLog.e(TAG, "dataJson:" + dataJson);
         try {
             JSONObject jsonObject = JSON.parseObject(dataJson);
             String arrayListJson1 = (String) jsonObject.get("ids");
-            Log.e(TAG, "dataJson:" + arrayListJson1);
+            ZLog.e(TAG, "dataJson:" + arrayListJson1);
             ArrayList<Integer> arrayList = (ArrayList<Integer>) JSONObject.parseArray(arrayListJson1, Integer.class);
 
             for (int i = 0; i < arrayList.size(); i++) {

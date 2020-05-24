@@ -1,7 +1,7 @@
 package com.sgs.middle.dbModel.dao;
 
 import android.content.Context;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -136,7 +136,7 @@ public class ScenceReportDao {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
             deleteBuilder.where().le("palyDate", lastOneMouth);
             int num = deleteBuilder.delete();
-            Log.e(TAG, "num" + num);
+            ZLog.e(TAG, "num" + num);
         } catch (SQLException e) {
             e.printStackTrace();
         }

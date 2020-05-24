@@ -3,7 +3,7 @@ package com.sgs.businessmodule.downloadModel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.sgs.businessmodule.downloadModel.DownLoader.DownLoadSuccess;
@@ -63,15 +63,15 @@ public class DownLoadManager {
             public void onTaskSeccess(String TaskID) {
                 int taskSize = taskList.size();
                 for (int i = 0; i < taskSize; i++) {
-                    Log.e("downloadsuccessListener", "deletedownloader success");
+                    ZLog.e("downloadsuccessListener", "deletedownloader success");
                     DownLoader deletedownloader = taskList.get(i);
                     if (deletedownloader.getTaskID().equals(TaskID)) {
                         String stringFileName = deletedownloader.getSQLDownLoadInfo().getFileName();
-                        Log.e("onTaskSeccess", "stringFileName success");
+                        ZLog.e("onTaskSeccess", "stringFileName success");
                         String stringFileNames = stringFileName;
                         if (stringFileName.contains(".")) {
                             stringFileNames = stringFileName.substring(0, stringFileName.indexOf("."));
-                            Log.e("stringFileNames", "stringFileNames" + stringFileNames);
+                            ZLog.e("stringFileNames", "stringFileNames" + stringFileNames);
                         }
                         /*{
                             "uuidList":["32e54e72d6b54af5b9c8a60c85014a6e","32e54e72d6b54af5b9c8a60c85014a61"],

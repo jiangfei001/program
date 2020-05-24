@@ -1,6 +1,6 @@
 package com.sgs.programModel.xmlToolModel;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,7 +27,7 @@ public class XMLTest {
 //            List<Person> persons = domService.getPersons(inputStream);
             List<Person> persons = pullService.getPersons(inputStream);
             for (Person person : persons) {
-                Log.e("TAG", person.toString());
+                ZLog.e("TAG", person.toString());
                 string += person.toString();
             }
         } catch (IOException e) {

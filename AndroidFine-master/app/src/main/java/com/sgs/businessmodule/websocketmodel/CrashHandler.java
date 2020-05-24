@@ -1,7 +1,7 @@
 package com.sgs.businessmodule.websocketmodel;
 
 import android.content.Context;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.umeng.analytics.MobclickAgent;
@@ -95,7 +95,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
 
         MobclickAgent.reportError(mContext, "工号" + AppContext.getInstance().gonghao + "message:" + ex.getMessage());//errorContent是String格式
-        Log.e("handleException", "handleException");
+        ZLog.e("handleException", "handleException");
         //保存日志文件
        /* MainLogUtils.logWithCaller(ex,6,Long.toString(System.currentTimeMillis()));
         //uniteMain日志太多奇怪的日志了，新增一个专门保存crash的

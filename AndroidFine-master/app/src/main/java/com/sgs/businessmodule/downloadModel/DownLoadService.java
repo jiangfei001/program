@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.sgs.programModel.ProgramScheduledManager;
@@ -23,7 +23,7 @@ public class DownLoadService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        Log.e(TAG, "DownLoadService" + "service Bind");
+        ZLog.e(TAG, "DownLoadService" + "service Bind");
         if (downLoadManager == null) {
             downLoadManager = new DownLoadManager(DownLoadService.this);
         }
@@ -49,7 +49,7 @@ public class DownLoadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(TAG, "DownLoadService" + "onCreate");
+        ZLog.e(TAG, "DownLoadService" + "onCreate");
         if (downLoadManager == null) {
             downLoadManager = new DownLoadManager(DownLoadService.this);
             ProgramScheduledManager programScheduledManager = ProgramScheduledManager.getInstance();

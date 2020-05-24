@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.businessmodule.downloadModel.dbcontrol.DataKeeper;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
@@ -205,7 +205,7 @@ public class DownLoader {
                         return;
                     }
                     url = new URL(sqlDownLoadInfo.getUrl());
-                    Log.e("url", "url:" + url);
+                    ZLog.e("url", "url:" + url);
                     urlConn = (HttpURLConnection) url.openConnection();
                     urlConn.setRequestProperty("Accept-Encoding", "identity");
                     urlConn.setRequestProperty("GData-Version", "3.0");
@@ -493,7 +493,7 @@ public class DownLoader {
         if (!file.exists()) {
             file.mkdirs();
         }
-        Log.e("newfile", "newfile" + newfile + "olefile" + olefile);
+        ZLog.e("newfile", "newfile" + newfile + "olefile" + olefile);
 
         return olefile.renameTo(newfile);
     }

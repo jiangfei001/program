@@ -1,7 +1,7 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -24,7 +24,7 @@ public class CONTROLVOLUME extends TVTask {
 
     @Override
     public void runTv() {
-        Log.e(TAG, "CONTROLVOLUME:");
+        ZLog.e(TAG, "CONTROLVOLUME:");
 
         String prog = super.instructionRequest.getData();
 
@@ -41,13 +41,13 @@ public class CONTROLVOLUME extends TVTask {
         if (j2.containsKey("weekList2")) {
             String weekList = j2.getString("weekList2");
             list = JSONObject.parseArray(weekList, String.class);
-            Log.e("list", list.size() + "");
+            ZLog.e("list", list.size() + "");
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(list.get(i));
             }
         }
 
-        Log.e(TAG, "progJson:" + prog);
+        ZLog.e(TAG, "progJson:" + prog);
 
         if (!StringUtil.isEmpty(volumenum) && StringUtil.isEmpty(taskVolumeTime)) {
             int index = Integer.parseInt(volumenum);

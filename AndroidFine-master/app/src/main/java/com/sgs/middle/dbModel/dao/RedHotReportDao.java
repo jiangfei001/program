@@ -1,7 +1,7 @@
 package com.sgs.middle.dbModel.dao;
 
 import android.content.Context;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -115,7 +115,7 @@ public class RedHotReportDao {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
             deleteBuilder.where().eq("startTime", startTime);
             int num = deleteBuilder.delete();
-            Log.e(TAG, "num" + num);
+            ZLog.e(TAG, "num" + num);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public class RedHotReportDao {
             deleteBuilder.where().le("createTime", oneMouthAgo);
             deleteBuilder.delete();
             int num = deleteBuilder.delete();
-            Log.e(TAG, "num" + num);
+            ZLog.e(TAG, "num" + num);
         } catch (SQLException e) {
             e.printStackTrace();
         }

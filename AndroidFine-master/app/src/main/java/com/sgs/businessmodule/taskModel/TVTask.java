@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.taskModel;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppUrl;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
@@ -49,7 +49,7 @@ public abstract class TVTask extends BasicTask {
         instructionRequest.setStatus(1);
         InstructionRequestManager.getInstance().saveInstructionRequest(instructionRequest);
         responseEntity.setExecuteTime(new Date());
-        Log.e(TAG, this.getClass().getName() + ":runTv:");
+        ZLog.e(TAG, this.getClass().getName() + ":runTv:");
         runTv();
         //告知服务器
         sendEventToService();
@@ -66,7 +66,7 @@ public abstract class TVTask extends BasicTask {
     }
 
     void sendEventToService() {
-        Log.e(TAG, "sendEventToService");
+        ZLog.e(TAG, "sendEventToService");
         if (isNeedSend()) {
             setResult();
             Date nowDate = new Date();
@@ -75,12 +75,12 @@ public abstract class TVTask extends BasicTask {
             long between = getTimeDifferenceAboutSecond(responseEntity.getReceiveTime(), nowDate);
             responseEntity.setTimes(between);
 
-            Log.e("ReSult", "url:" + AppUrl.callbackUrl + "Entity:" + responseEntity.toString()+"chabo:");
+            ZLog.e("ReSult", "url:" + AppUrl.callbackUrl + "Entity:" + responseEntity.toString()+"chabo:");
 
             HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
                 @Override
                 public void onSuccess(MyApiResponse response) {
-                    Log.e(TAG, "sendEventToService" + response.msg);
+                    ZLog.e(TAG, "sendEventToService" + response.msg);
                 }
 
                 @Override
@@ -100,7 +100,7 @@ public abstract class TVTask extends BasicTask {
         HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(MyApiResponse response) {
-                Log.e(TAG, "TAKESCREEN" + response.msg);
+                ZLog.e(TAG, "TAKESCREEN" + response.msg);
             }
 
             @Override

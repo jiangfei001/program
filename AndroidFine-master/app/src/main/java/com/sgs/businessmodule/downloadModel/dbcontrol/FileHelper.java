@@ -1,7 +1,7 @@
 package com.sgs.businessmodule.downloadModel.dbcontrol;
 
 import android.os.Environment;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 
@@ -149,7 +149,7 @@ public class FileHelper {
     public static String iszhuce = "/iszhuce";
     public static String isjihuo = "/isjihuo";
     public static String getSDunique(String key) {
-        Log.e(TAG, "开始找getSDunique:" + key);
+        ZLog.e(TAG, "开始找getSDunique:" + key);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sdcardDir = Environment.getExternalStorageDirectory();
             FileInputStream fis = null;
@@ -164,7 +164,7 @@ public class FileHelper {
                     sb.append(line);
                 }
                 br.close();
-                Log.e(TAG, "在sdk卡中找到了getSDunique:" + sb.toString());
+                ZLog.e(TAG, "在sdk卡中找到了getSDunique:" + sb.toString());
                 return sb.toString();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -190,9 +190,9 @@ public class FileHelper {
     }
 
     public static void putSDunique(String content, String strPath) {
-        Log.e(TAG, "putSD保存uniquecontent:" + content);
+        ZLog.e(TAG, "putSD保存uniquecontent:" + content);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            Log.e(TAG, "putSDunique保存filUniqueID:" + content);
+            ZLog.e(TAG, "putSDunique保存filUniqueID:" + content);
             File sdcarDir = Environment.getExternalStorageDirectory();
             OutputStreamWriter osw = null;
             FileOutputStream fos = null;

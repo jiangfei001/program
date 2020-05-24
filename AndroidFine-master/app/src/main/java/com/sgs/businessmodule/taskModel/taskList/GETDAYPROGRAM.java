@@ -1,7 +1,7 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.sgs.businessmodule.taskModel.TVTask;
@@ -22,7 +22,7 @@ public class GETDAYPROGRAM extends TVTask {
 
     @Override
     public void runTv() {
-        Log.e(TAG, "GETNEWPROGRAMMESSAGE:");
+        ZLog.e(TAG, "GETNEWPROGRAMMESSAGE:");
         todaylist = ProgramScheduledManager.getInstance().getProlistToday();
         // SendToServerUtil.sendNowPro(this.responseEntity, progarmPalyInstructionVos);
     }
@@ -30,7 +30,7 @@ public class GETDAYPROGRAM extends TVTask {
     @Override
     public void setResult() {
         /*if (todaylist != null) {
-            Log.e(TAG, "当天节目全量接口" + todaylist.size());
+            ZLog.e(TAG, "当天节目全量接口" + todaylist.size());
 
             StringBuilder nowproid = new StringBuilder();
 
@@ -43,10 +43,10 @@ public class GETDAYPROGRAM extends TVTask {
 
             HashMap hashMap = new HashMap();
             hashMap.put("todayproids", nowproid);
-            Log.e(TAG, "todayproids" + nowproid);
+            ZLog.e(TAG, "todayproids" + nowproid);
             responseEntity.setResult(com.alibaba.fastjson.JSON.toJSONString(hashMap));
         } else {
-            Log.e(TAG, "当天节目全量接口null");
+            ZLog.e(TAG, "当天节目全量接口null");
         }*/
 
         ArrayList<ProListVo> responseEntity1 = new ArrayList<>();
@@ -69,7 +69,7 @@ public class GETDAYPROGRAM extends TVTask {
         }
 
         String reEnti = com.alibaba.fastjson.JSON.toJSONString(responseEntity1);
-        Log.e(TAG, reEnti);
+        ZLog.e(TAG, reEnti);
         
         responseEntity.setResult(reEnti);
     }

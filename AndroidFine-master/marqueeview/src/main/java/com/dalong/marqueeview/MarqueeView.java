@@ -12,7 +12,7 @@ import android.os.Message;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
@@ -57,11 +57,11 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setSep(int speed) {
         if (speed == 0) {
-            sepX = 5;
+            sepX = 20;
         } else if (speed == 1) {
             sepX = 10;
         } else {
-            sepX = 20;
+            sepX = 5;
         }
     }
 
@@ -116,7 +116,7 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void setSizeAndColor(String mTextSize, String mTextColor) {
-        Log.e("mTextSize", mTextSize + "mTextSize" + mTextColor + "mTextSize");
+        ZLog.e("mTextSize", mTextSize + "mTextSize" + mTextColor + "mTextSize");
 
         if (!TextUtils.isEmpty(mTextSize)) {
             this.mTextSize = Float.parseFloat(mTextSize);

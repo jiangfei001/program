@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -24,9 +24,9 @@ public class CUTMSG extends TVTask {
 
     @Override
     public void runTv() {
-        Log.e(TAG, "CLOSE:");
+        ZLog.e(TAG, "CLOSE:");
         String prog = super.instructionRequest.getData();
-        Log.e(TAG, "progJson:" + prog);
+        ZLog.e(TAG, "progJson:" + prog);
         MuTerminalMsg muTerminalMsg = JSON.parseObject(prog, new TypeReference<MuTerminalMsg>() {
         });
         muTerminalMsg.setBeginTime(DateUtil.getNowDate());

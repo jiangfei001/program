@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -82,7 +82,7 @@ public class WebSocketActivityRelease extends EventActivity {
         public void onConnected() {
             appendMsgDisplay("onConnected");
             DeviceUtil.setConnectionTime();
-            Log.e(TAG, "onConnected");
+            ZLog.e(TAG, "onConnected");
             /* final Timer connectionLostTimer = new Timer("WebSocketTimer");
 
                TimerTask connectionLostTimerTask = new TimerTask() {
@@ -93,7 +93,7 @@ public class WebSocketActivityRelease extends EventActivity {
                     } else {
                         connectionLostTimer.cancel();
                     }
-                    Log.e(TAG, "我是心跳");
+                    ZLog.e(TAG, "我是心跳");
                 }
             };
 
@@ -104,9 +104,9 @@ public class WebSocketActivityRelease extends EventActivity {
 
         @Override
         public void onConnectFailed(Throwable e) {
-            Log.e(TAG, "Throwable");
+            ZLog.e(TAG, "Throwable");
             if (e != null) {
-                Log.e(TAG, "连接onConnectFailed" + e.toString());
+                ZLog.e(TAG, "连接onConnectFailed" + e.toString());
                 appendMsgDisplay("onConnectFailed:" + e.toString());
             } else {
                 appendMsgDisplay("onConnectFailed:null");
@@ -128,7 +128,7 @@ public class WebSocketActivityRelease extends EventActivity {
         public <T> void onMessage(String message, T data) {
             if (data instanceof InstructionRequest) {
                 appendMsgDisplay(data.toString());
-                Log.e(TAG, data.toString());
+                ZLog.e(TAG, data.toString());
                 final InstructionRequest requestEntity = (InstructionRequest) data;
                 TVTask tvTask = TaskFactory.createTask(requestEntity);
                 taskQueue.add(tvTask);
@@ -159,7 +159,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 taskQueue.start();
                 cutMsgList = MsgDbManager.getInstance().getAllMuTerminalMsg();
                 if (cutMsgList != null && cutMsgList.size() > 0) {
-                    Log.e(TAG, "我是从数据库中获取的消息列表" + cutMsgList.size());
+                    ZLog.e(TAG, "我是从数据库中获取的消息列表" + cutMsgList.size());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -347,14 +347,14 @@ public class WebSocketActivityRelease extends EventActivity {
         mMarqueeView1.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override
             public void onRollOver() {
-                Log.e(TAG, "mMarqueeView1 onRollOver");
+                ZLog.e(TAG, "mMarqueeView1 onRollOver");
                 gotoPlay();
             }
         });
         mMarqueeView2.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override
             public void onRollOver() {
-                Log.e(TAG, "mMarqueeView2 onRollOver");
+                ZLog.e(TAG, "mMarqueeView2 onRollOver");
                 gotoPlay();
             }
         });
@@ -362,7 +362,7 @@ public class WebSocketActivityRelease extends EventActivity {
         mMarqueeView3.setOnMargueeListener(new MarqueeView.OnMargueeListener() {
             @Override
             public void onRollOver() {
-                Log.e(TAG, "mMarqueeView3 onRollOver");
+                ZLog.e(TAG, "mMarqueeView3 onRollOver");
                 gotoPlay();
             }
         });
@@ -374,13 +374,13 @@ public class WebSocketActivityRelease extends EventActivity {
             public void run() {
                 if (nowPlayTime != 0) {
                     Long totleTime = (System.currentTimeMillis() - nowPlayTime) / 1000;
-                    Log.e("totleTime", "totleTime" + totleTime);
+                    ZLog.e("totleTime", "totleTime" + totleTime);
                     if (nowTerminalMsg != null) {
                         Long integer = nowTerminalMsg.getHasplay();
                         nowTerminalMsg.setHasplay(totleTime + integer);
-                        Log.e(TAG, "mMarqueeView3 getHasplay" + nowTerminalMsg.getHasplay() + "content" + nowTerminalMsg.getMsgContent());
+                        ZLog.e(TAG, "mMarqueeView3 getHasplay" + nowTerminalMsg.getHasplay() + "content" + nowTerminalMsg.getMsgContent());
                         if (nowTerminalMsg.getHasplay() >= nowTerminalMsg.getPlayTimes()) {
-                            Log.e(TAG, "mMarqueeView3 getHasplay" + nowTerminalMsg.getHasplay() + "getPlayTimes:" + nowTerminalMsg.getPlayTimes());
+                            ZLog.e(TAG, "mMarqueeView3 getHasplay" + nowTerminalMsg.getHasplay() + "getPlayTimes:" + nowTerminalMsg.getPlayTimes());
                             if (cutMsgList != null && cutMsgList.size() > 0) {
                                 cutMsgList.remove(nowTerminalMsg);
                                 MsgDbManager.getInstance().delByMuTerminalMsgID(nowTerminalMsg.getId());
@@ -420,7 +420,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 mediaPlayer.release();
             }
         } catch (IllegalStateException e) {
-            Log.e("IllegalStateException", e.getMessage() + "11");
+            ZLog.e("IllegalStateException", e.getMessage() + "11");
         }
     }
 
@@ -443,15 +443,15 @@ public class WebSocketActivityRelease extends EventActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d(this.getClass().getName(), "我收到播放消息啦1");
+                        ZLog.d(this.getClass().getName(), "我收到播放消息啦1");
                         /*wvBookPlay.getSettings().setJavaScriptEnabled(true);*/
                         HashMap<EventEnum, Object> hashMap = mEvent.getParams();
                         boolean isPlayMusic = (boolean) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC);
                         String path = (String) hashMap.get(EventEnum.EVENT_TEST_MSG2_KEY_HTML_PATH);
-                        Log.e(TAG, "isPlayMusic:" + isPlayMusic);
+                        ZLog.e(TAG, "isPlayMusic:" + isPlayMusic);
                         if (isPlayMusic) {
                             //需要播放，则开始播放
-                            Log.e(TAG, "这个场景需要播放音乐");
+                            ZLog.e(TAG, "这个场景需要播放音乐");
                             try {
                                 if (mediaPlayer == null) {
                                     mediaPlayer = new MediaPlayer();
@@ -463,7 +463,7 @@ public class WebSocketActivityRelease extends EventActivity {
                                     e.printStackTrace();
                                 }
                                 if (!isplay && (musicList != null && musicList.size() > 0)) {
-                                    Log.e(TAG, "音乐开始执行");
+                                    ZLog.e(TAG, "音乐开始执行");
                                     mediaPlayer.start();
                                 }
                             } catch (IllegalStateException e) {
@@ -471,12 +471,12 @@ public class WebSocketActivityRelease extends EventActivity {
                             }
                         } else {
                             //不需要播放，则要暂停播放
-                            Log.e(TAG, "这个场景不需要播放音乐");
+                            ZLog.e(TAG, "这个场景不需要播放音乐");
                             try {
                                 if (mediaPlayer != null) {
-                                    Log.e(TAG, "isPlayMusic:pause2" + mediaPlayer.isPlaying());
+                                    ZLog.e(TAG, "isPlayMusic:pause2" + mediaPlayer.isPlaying());
                                     if (mediaPlayer.isPlaying()) {
-                                        Log.e(TAG, "isPlayMusic:pause3");
+                                        ZLog.e(TAG, "isPlayMusic:pause3");
                                         mediaPlayer.pause();
                                     }
                                 }
@@ -484,7 +484,7 @@ public class WebSocketActivityRelease extends EventActivity {
                                 e.printStackTrace();
                             }
                         }
-                        Log.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
+                        ZLog.e(TAG, "file://" + FileHelper.getFileDefaultPath() + "/" + path);
                         wvBookPlay.loadUrl("file://" + FileHelper.getFileDefaultPath() + "/" + path);
                     }
                 });
@@ -496,7 +496,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 appendMsgDisplay(msg);
                 break;
             case EVENT_TEST_SETMUSIC:
-                Log.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
+                ZLog.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
                 Map event1 = mEvent.getParams();
                 musicList = (List<ProgramResource>) event1.get(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC);
                 //reset播放
@@ -508,19 +508,19 @@ public class WebSocketActivityRelease extends EventActivity {
                 } catch (IllegalStateException e) {
                     e.printStackTrace();
                 }
-                Log.d(TAG, "这个节目有音乐isPlay" + isPlay);
+                ZLog.d(TAG, "这个节目有音乐isPlay" + isPlay);
                 if (mediaPlayer != null && isPlay) {
                     mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = null;
                 }
                 if (musicList != null && musicList.size() > 0) {
-                    Log.d(TAG, "这个节目有音乐" + musicList.size());
+                    ZLog.d(TAG, "这个节目有音乐" + musicList.size());
                     mediaPlayer = new MediaPlayer();
                     initMediaPlayer();
                     setComp();
                 } else {
-                    Log.e(TAG, "这个节目没有音乐要播放的");
+                    ZLog.e(TAG, "这个节目没有音乐要播放的");
                 }
                 break;
             case EVENT_TEST_SETCUTMSG:
@@ -536,14 +536,14 @@ public class WebSocketActivityRelease extends EventActivity {
                         muTerminalMsg.setBeginTime(DateUtil.getNowDate());
                         MsgDbManager.getInstance().saveMuTermianlMsg(muTerminalMsg);
                         List<MuTerminalMsg> l = MsgDbManager.getInstance().getAllMuTerminalMsg();
-                        Log.e("l", "lfff" + l.size());
+                        ZLog.e("l", "lfff" + l.size());
                         if (muTerminalMsg.getAppend() == 0 || cutMsgList.size() == 0) {
                             resetCutMsg();
                             cutMsgList.add(muTerminalMsg);
-                            Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
+                            ZLog.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                             playNext();
                         } else {
-                            Log.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
+                            ZLog.d(this.getClass().getName(), "EVENT_TEST_SETCUTMSG");
                             cutMsgList.add(muTerminalMsg);
                         }
                     }
@@ -555,12 +555,12 @@ public class WebSocketActivityRelease extends EventActivity {
                     public void run() {
                         MsgDbManager.getInstance().delAllMuTerminalMsg();
                         resetCutMsg();
-                        Log.d(this.getClass().getName(), "EVENT_TEST_SETCLEARCUTMSG");
+                        ZLog.d(this.getClass().getName(), "EVENT_TEST_SETCLEARCUTMSG");
                     }
                 });
                 break;
             case EVENT_TEST_DELETECUTMSG:
-                Log.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
+                ZLog.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
                 Map eventDel = mEvent.getParams();
                 ArrayList<Integer> arrayList = (ArrayList<Integer>) eventDel.get(EventEnum.EVENT_TEST_MSG1_KEY_DELETECUTMSG);
                 if (arrayList != null && arrayList.size() > 0) {
@@ -571,7 +571,7 @@ public class WebSocketActivityRelease extends EventActivity {
                             MuTerminalMsg value = iterator.next();
                             if (value.getId() == index) {
                                 iterator.remove();
-                                Log.e("======", value + "已经移除");
+                                ZLog.e("======", value + "已经移除");
                             }
                         }
                     }
@@ -606,10 +606,10 @@ public class WebSocketActivityRelease extends EventActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 2) {
-                Log.e(TAG, "msg.what=2");
+                ZLog.e(TAG, "msg.what=2");
                 MuTerminalMsg muTerminalMsg = (MuTerminalMsg) msg.obj;
                 if (muTerminalMsg != null) {
-                    Log.e(TAG, "DelMuTerminalMsg:" + muTerminalMsg.getMsgContent());
+                    ZLog.e(TAG, "DelMuTerminalMsg:" + muTerminalMsg.getMsgContent());
                     cutMsgList.remove(muTerminalMsg);
                 }
             }
@@ -620,7 +620,7 @@ public class WebSocketActivityRelease extends EventActivity {
     public MuTerminalMsg nowTerminalMsg;
 
     public void playNext() {
-        Log.e(TAG, "playNext" + cutMsgList.size());
+        ZLog.e(TAG, "playNext" + cutMsgList.size());
         nowPlayTime = System.currentTimeMillis();
 
         if (cutMsgList.size() <= 0) {
@@ -636,21 +636,21 @@ public class WebSocketActivityRelease extends EventActivity {
             nowCutMsgIndex++;
         }
 
-        Log.e(TAG, "playNext" + nowCutMsgIndex);
+        ZLog.e(TAG, "playNext" + nowCutMsgIndex);
         MuTerminalMsg muTerminalMsg = cutMsgList.get(nowCutMsgIndex);
         nowTerminalMsg = muTerminalMsg;
 
 
         /*StringBuilder sb = new StringBuilder(nowTerminalMsg.getMsgContent());
         String content = sb.reverse().toString();
-        Log.e(TAG, "context" + content);*/
+        ZLog.e(TAG, "context" + content);*/
 
         if (muTerminalMsg.getPosition() == 1) {
             mMarqueeView1.setVisibility(View.VISIBLE);
             mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView1.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView1.setSep(muTerminalMsg.getSpeed());
-            Log.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
+            ZLog.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
             mMarqueeView1.startScroll();
         } else if (muTerminalMsg.getPosition() == 0) {
             mMarqueeView3.setVisibility(View.VISIBLE);
@@ -668,7 +668,7 @@ public class WebSocketActivityRelease extends EventActivity {
     }
 
     public void resetCutMsg() {
-        Log.e(TAG, "resetCutMsg");
+        ZLog.e(TAG, "resetCutMsg");
         nowCutMsgIndex = 0;
         cutMsgList.clear();
         mymHandler.removeMessages(2);
@@ -708,7 +708,7 @@ public class WebSocketActivityRelease extends EventActivity {
             ProgramResource programResource = musicList.get(musicindex);
             if (!StringUtils.isEmpty(programResource.getVirtualPath())) {
                 path = "file://" + FileHelper.getFileDefaultPath() + "/" + programResource.getVirtualPath();
-                Log.e(TAG, "path111" + path);
+                ZLog.e(TAG, "path111" + path);
             }//想要添加判断 是否找到music.map3
             mediaPlayer.setDataSource(path);
             mediaPlayer.prepare();
@@ -725,7 +725,7 @@ public class WebSocketActivityRelease extends EventActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                Log.e(TAG, "音乐播放完成");
+                ZLog.e(TAG, "音乐播放完成");
                 if (musicList == null || musicList.size() <= 0) {
                     return;
                 }
@@ -733,7 +733,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 if (musicindex >= musicList.size()) {
                     musicindex = 0;
                 }
-                Log.e(TAG, "开始播放音乐序号为" + musicindex + "总共的音乐数目为：" + musicList.size());
+                ZLog.e(TAG, "开始播放音乐序号为" + musicindex + "总共的音乐数目为：" + musicList.size());
                 initMediaPlayer();
                 mediaPlayer.start();
             }

@@ -9,7 +9,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.SurfaceControl;
 import android.widget.Toast;
 
@@ -181,13 +181,13 @@ public class CommandHelper {
                 while ((line = errorStream.readLine()) != null) {
                     msg += line;
                 }
-                Log.d("TAG", "install msg is " + msg);
+                ZLog.d("TAG", "install msg is " + msg);
                 // 如果执行结果中包含Failure字样就认为是安装失败，否则就认为安装成功
                 if (!msg.contains("Failure")) {
                     result = true;
                 }
             } catch (Exception e) {
-                Log.e("TAG", e.getMessage(), e);
+                ZLog.e("TAG", e.getMessage(), e);
             } finally {
                 try {
                     if (dataOutputStream != null) {
@@ -197,7 +197,7 @@ public class CommandHelper {
                         errorStream.close();
                     }
                 } catch (IOException e) {
-                    Log.e("TAG", e.getMessage(), e);
+                    ZLog.e("TAG", e.getMessage(), e);
                 }
             }
             return result;

@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.businessmodule.taskModel.TVTask;
 import com.sgs.programModel.ProgramScheduledManager;
@@ -15,11 +15,11 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
 
     @Override
     public void runTv() {
-        Log.e(TAG, "GETNEWPROGRAMMESSAGE:");
+        ZLog.e(TAG, "GETNEWPROGRAMMESSAGE:");
         progarmPalyInstructionVos = new ArrayList<>();
         ProgarmPalyInstructionVo progarmPalyInstructionVo1 = ProgramScheduledManager.getInstance().programTaskManager.getNowProgarmPalyInstructionVo();
         if (progarmPalyInstructionVo1 != null) {
-            Log.e(TAG, "GETNEWPROGRAMMESSAGE:我不为空");
+            ZLog.e(TAG, "GETNEWPROGRAMMESSAGE:我不为空");
             progarmPalyInstructionVos.add(progarmPalyInstructionVo1.getId());
         }
         // SendToServerUtil.sendNowPro(this.responseEntity, progarmPalyInstructionVos);
@@ -28,7 +28,7 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
     @Override
     public void setResult() {
         if (progarmPalyInstructionVos != null) {
-            Log.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
+            ZLog.e(TAG, "当天节目全量接口" + progarmPalyInstructionVos.size());
 
             StringBuilder nowproid = new StringBuilder();
 
@@ -41,10 +41,10 @@ public class GETNEWPROGRAMMESSAGE extends TVTask {
 
             HashMap hashMap = new HashMap();
             hashMap.put("nowproids", nowproid);
-            Log.e(TAG, "nowproids" + nowproid);
+            ZLog.e(TAG, "nowproids" + nowproid);
             responseEntity.setResult(com.alibaba.fastjson.JSON.toJSONString(hashMap));
         } else {
-            Log.e(TAG, "当天节目全量接口null");
+            ZLog.e(TAG, "当天节目全量接口null");
         }
     }
 }

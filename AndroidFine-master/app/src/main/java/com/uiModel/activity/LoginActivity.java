@@ -13,7 +13,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -115,7 +115,7 @@ public class LoginActivity extends Activity {
                 boolean isjihuo = false;
 
                 if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.isjihuo))) {
-                    Log.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
+                    ZLog.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
                     isjihuo = true;
                 }
 
@@ -152,12 +152,12 @@ public class LoginActivity extends Activity {
                 boolean isjihuo = false;
 
                 if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.iszhuce))) {
-                    Log.e("iszhuce", "is" + FileHelper.getSDunique(FileHelper.iszhuce));
+                    ZLog.e("iszhuce", "is" + FileHelper.getSDunique(FileHelper.iszhuce));
                     iszhuce = true;
                 }
 
                 if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.isjihuo))) {
-                    Log.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
+                    ZLog.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
                     isjihuo = true;
                 }
 
@@ -233,13 +233,13 @@ public class LoginActivity extends Activity {
         hashMap.put("secretKey", DeviceUtil.getSercetKey(LoginActivity.this));
         hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(LoginActivity.this));
 
-        Log.e("HashMap", hashMap.toString());
+        ZLog.e("HashMap", hashMap.toString());
 
         HttpClient.postHashMapEntity(AppUrl.activation, hashMap, new
                 MyHttpResponseHandler() {
                     @Override
                     public void onSuccess(final MyApiResponse response) {
-                        Log.e("tag", "response.msg ");
+                        ZLog.e("tag", "response.msg ");
                         final Handler handler1 = new Handler(Looper.getMainLooper());
                         handler1.post(new Runnable() {
                             @Override
@@ -260,7 +260,7 @@ public class LoginActivity extends Activity {
                                                 Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                                 FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
                                             } else {
-                                                Log.e("tag", "response.msg ");
+                                                ZLog.e("tag", "response.msg ");
                                                 Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                             }
                                         }
@@ -273,7 +273,7 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onFailure(Request request, Exception e) {
                         e.printStackTrace();
-                        Log.e("tag", "onFailure.msg ");
+                        ZLog.e("tag", "onFailure.msg ");
                         Handler handler1 = new Handler(Looper.getMainLooper());
                         handler1.post(new Runnable() {
                             @Override
@@ -338,13 +338,13 @@ public class LoginActivity extends Activity {
 
         hashMap.put("gatewayIp", DeviceUtil.getNetIp());
 
-        Log.e("HashMap", hashMap.toString());
+        ZLog.e("HashMap", hashMap.toString());
 
         HttpClient.postHashMapEntity(AppUrl.serverUrlAddMuTerminal, hashMap, new
                 MyHttpResponseHandler() {
                     @Override
                     public void onSuccess(final MyApiResponse response) {
-                        Log.e("tag", "response.msg ");
+                        ZLog.e("tag", "response.msg ");
                         final Handler handler1 = new Handler(Looper.getMainLooper());
                         handler1.post(new Runnable() {
                             @Override
@@ -390,7 +390,7 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onFailure(Request request, Exception e) {
                         e.printStackTrace();
-                        Log.e("tag", "onFailure.msg ");
+                        ZLog.e("tag", "onFailure.msg ");
                         Handler handler1 = new Handler(Looper.getMainLooper());
                         handler1.post(new Runnable() {
                             @Override
@@ -409,7 +409,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onSuccess(final MyApiResponse response) {
                 super.onSuccess(response);
-                Log.e("HashMap", response.toString());
+                ZLog.e("HashMap", response.toString());
                 if (response.code.equals("0")) {
                     handler.post(new Runnable() {
                         @Override
@@ -444,7 +444,7 @@ public class LoginActivity extends Activity {
             public void onFailure(Request request, Exception e) {
                 super.onFailure(request, e);
                 Toast.makeText(AppContext.getInstance(), "获取ip失败激活！"+e.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e("HashMap", "" + e.getMessage());
+                ZLog.e("HashMap", "" + e.getMessage());
             }
         });
     }
@@ -495,7 +495,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("DMP", "DMP" + DeviceUtil.getDisplayMetricsPixels(this));
+        ZLog.e("DMP", "DMP" + DeviceUtil.getDisplayMetricsPixels(this));
         MobclickAgent.onResume(this);
        /* if (SharedPreferences.getInstance().getBoolean(SharedPreferences.KEY_ISREGISTER, false)) {
             doNavigation();

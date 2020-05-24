@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -35,7 +35,7 @@ public class DELETEPROJECT extends TVTask {
 
         ArrayList<Integer> list = (ArrayList<Integer>) JSONObject.parseArray(arrayList.toJSONString(), Integer.class);
 
-        Log.e(TAG, "DELETEPROJECT:" + arrayList);
+        ZLog.e(TAG, "DELETEPROJECT:" + arrayList);
 
     }
 }

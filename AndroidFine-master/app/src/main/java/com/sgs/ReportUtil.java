@@ -1,6 +1,6 @@
 package com.sgs;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.taskModel.commandModel.orderToDb.RedHotReportRequestManager;
@@ -31,21 +31,21 @@ public class ReportUtil {
                 final String lastOneMouth = new SimpleDateFormat("yyyyMMddhhmm").format(cal.getTime());
                 //RedHotReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
 
-                Log.e(TAG, "repHotReports nowMin:" + nowMin);
+                ZLog.e(TAG, "repHotReports nowMin:" + nowMin);
                 final List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotMin(nowMin);
 
                 if (repHotReports != null && repHotReports.size() > 0) {
-                    Log.e(TAG, "repHotReports:" + repHotReports);
+                    ZLog.e(TAG, "repHotReports:" + repHotReports);
                     SendToServerUtil.sendRepHotareaToServer(repHotReports, new SendToServerUtil.MyYewuResponseHandle() {
                         @Override
                         public void onSuccess(MyApiResponse response) {
-                            Log.e(TAG, "sendRepHotareaToServer onSucess:" + response.toString());
+                            ZLog.e(TAG, "sendRepHotareaToServer onSucess:" + response.toString());
                             RedHotReportRequestManager.getInstance().delList(repHotReports);
                         }
 
                         @Override
                         public void onFailure(Request request, Exception e) {
-                            Log.e(TAG, "sendRepHotareaToServer failure:" + e.getMessage());
+                            ZLog.e(TAG, "sendRepHotareaToServer failure:" + e.getMessage());
                         }
                     });
                 }
@@ -68,20 +68,20 @@ public class ReportUtil {
 
                 //ScenceReportRequestManager.getInstance().delOneMouthAgo(lastOneMouth);
 
-                Log.e(TAG, "scenceReports:" + today);
+                ZLog.e(TAG, "scenceReports:" + today);
                 final List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
                 if (scenceReports != null && scenceReports.size() > 0) {
-                    Log.e(TAG, "repHotReports:" + scenceReports);
+                    ZLog.e(TAG, "repHotReports:" + scenceReports);
                     SendToServerUtil.sendScenctToServer(scenceReports, new SendToServerUtil.MyYewuResponseHandle() {
                         @Override
                         public void onSuccess(MyApiResponse response) {
-                            Log.e(TAG, "sendScenctToServer onSuccess:" + response.toString());
+                            ZLog.e(TAG, "sendScenctToServer onSuccess:" + response.toString());
                             ScenceReportRequestManager.getInstance().delList(scenceReports);
                         }
 
                         @Override
                         public void onFailure(Request request, Exception e) {
-                            Log.e(TAG, "sendScenctToServer onFailure:" + e.getMessage());
+                            ZLog.e(TAG, "sendScenctToServer onFailure:" + e.getMessage());
 
                         }
                     });
@@ -98,10 +98,10 @@ public class ReportUtil {
                 //获取除了今天的记录
                 Calendar cal = Calendar.getInstance();
                 String today = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
-                Log.e(TAG, "scenceReports:" + today);
+                ZLog.e(TAG, "scenceReports:" + today);
                 List<ScenceReport> scenceReports = ScenceReportRequestManager.getInstance().queryByNotToday(today);
                 if (scenceReports != null && scenceReports.size() > 0) {
-                    Log.e(TAG, "scenceReports:" + scenceReports);
+                    ZLog.e(TAG, "scenceReports:" + scenceReports);
                     SendToServerUtil.sendScenctToServer(scenceReports, new SendToServerUtil.MyYewuResponseHandle() {
                         @Override
                         public void onSuccess(MyApiResponse response) {
@@ -115,7 +115,7 @@ public class ReportUtil {
                     });
                     ScenceReportRequestManager.getInstance().delByNotToday(today);
                 }/* else {
-                        Log.e(TAG, "scenceReports:" + null);
+                        ZLog.e(TAG, "scenceReports:" + null);
                         scenceReports = new ArrayList<>();
                         ScenceReport scenceReport = new ScenceReport();
                         scenceReport.setPalyDate("2020-12-12");
@@ -139,7 +139,7 @@ public class ReportUtil {
                         scenceReport1.setSceneName("ProgramName");
                         scenceReport1.setSceneId(12);
                         scenceReports.add(scenceReport1);
-                        Log.e(TAG, "scenceReports:" + scenceReports);
+                        ZLog.e(TAG, "scenceReports:" + scenceReports);
                         SendToServerUtil.sendScenctToServer(scenceReports);
                         ScenceReportRequestManager.getInstance().delByNotToday(today);
 
@@ -147,7 +147,7 @@ public class ReportUtil {
 
                 List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotMin(today);
                 if (repHotReports != null && repHotReports.size() > 0) {
-                    Log.e(TAG, "repHotReports:" + repHotReports);
+                    ZLog.e(TAG, "repHotReports:" + repHotReports);
                     SendToServerUtil.sendRepHotareaToServer(repHotReports, new SendToServerUtil.MyYewuResponseHandle() {
                         @Override
                         public void onSuccess(MyApiResponse response) {
@@ -161,7 +161,7 @@ public class ReportUtil {
                     });
                     RedHotReportRequestManager.getInstance().delByNotToday(today);
                 } /*else {
-                        Log.e(TAG, "repHotReports:" + null);
+                        ZLog.e(TAG, "repHotReports:" + null);
                         repHotReports = new ArrayList<>();
                         RepHotReport repHotReport = new RepHotReport();
                         repHotReport.setStartTime("2020-12-12");
@@ -183,7 +183,7 @@ public class ReportUtil {
                         repHotReport1.setSceneId(12312);
                         repHotReports.add(repHotReport1);
 
-                        Log.e(TAG, "repHotReports:" + repHotReports);
+                        ZLog.e(TAG, "repHotReports:" + repHotReports);
                         SendToServerUtil.sendRepHotareaToServer(repHotReports);
                         RedHotReportRequestManager.getInstance().delByNotToday(today);
                     }*/

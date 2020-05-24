@@ -66,7 +66,7 @@ public class MiscUtil {
 		// 获得匹配子串的位置
 		startIndex = original.indexOf(regex);
 
-		// ece.tool.Tools.log("startIndex : " + startIndex);
+		// ece.tool.Tools.ZLog("startIndex : " + startIndex);
 		if (startIndex == -1) {
 			str[0] = original;
 			return str;

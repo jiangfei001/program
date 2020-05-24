@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.SystemClock;
 import android.util.AttributeSet;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
@@ -143,7 +143,7 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
      */
     @Override
     protected void smoothScrollToTop() {
-        Log.d(TAG, "smoothScrollToTop --> ");
+        ZLog.d(TAG, "smoothScrollToTop --> ");
         mScalingRunnable.startAnimation(200L);
     }
 
@@ -154,8 +154,8 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
      */
     @Override
     protected void pullHeaderToZoom(int newScrollValue) {
-        Log.d(TAG, "pullHeaderToZoom --> newScrollValue = " + newScrollValue);
-        Log.d(TAG, "pullHeaderToZoom --> mHeaderHeight = " + mHeaderHeight);
+        ZLog.d(TAG, "pullHeaderToZoom --> newScrollValue = " + newScrollValue);
+        ZLog.d(TAG, "pullHeaderToZoom --> mHeaderHeight = " + mHeaderHeight);
         if (mScalingRunnable != null && !mScalingRunnable.isFinished()) {
             mScalingRunnable.abortAnimation();
         }
@@ -236,7 +236,7 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
     protected void onLayout(boolean paramBoolean, int paramInt1, int paramInt2,
                             int paramInt3, int paramInt4) {
         super.onLayout(paramBoolean, paramInt1, paramInt2, paramInt3, paramInt4);
-        Log.d(TAG, "onLayout --> ");
+        ZLog.d(TAG, "onLayout --> ");
         if (mHeaderHeight == 0 && mHeaderContainer != null) {
             mHeaderHeight = mHeaderContainer.getHeight();
         }
@@ -244,14 +244,14 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        Log.d(TAG, "onScrollStateChanged --> ");
+        ZLog.d(TAG, "onScrollStateChanged --> ");
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         if (mZoomView != null && !isHideHeader() && isPullToZoomEnabled()) {
             float f = mHeaderHeight - mHeaderContainer.getBottom();
-            Log.d(TAG, "onScroll --> f = " + f);
+            ZLog.d(TAG, "onScroll --> f = " + f);
             if (isParallax()) {
                 if ((f > 0.0F) && (f < mHeaderHeight)) {
                     int i = (int) (0.65D * f);
@@ -289,7 +289,7 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
                     float f1 = ((float) SystemClock.currentThreadTimeMillis() - (float) mStartTime) / (float) mDuration;
                     f2 = mScale - (mScale - 1.0F) * PullToZoomListViewEx.sInterpolator.getInterpolation(f1);
                     localLayoutParams = mHeaderContainer.getLayoutParams();
-                    Log.d(TAG, "ScalingRunnable --> f2 = " + f2);
+                    ZLog.d(TAG, "ScalingRunnable --> f2 = " + f2);
                     if (f2 > 1.0F) {
                         localLayoutParams.height = ((int) (f2 * mHeaderHeight));
                         mHeaderContainer.setLayoutParams(localLayoutParams);

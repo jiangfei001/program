@@ -1,7 +1,7 @@
 package com.jf.websocket;
 
 import android.text.TextUtils;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.jf.websocket.request.Request;
 import com.jf.websocket.response.ErrorResponse;
@@ -63,9 +63,9 @@ public class WebSocketWrapper {
             try {
                 String url = mSetting.getConnectUrl();
                 if (mWebSocket == null || !url1.equals(url)) {
-                    Log.e("url", "mWebSocket == null || !url1.equals(url)" + url);
+                    ZLog.e("url", "mWebSocket == null || !url1.equals(url)" + url);
                     this.url1 = url;
-                    Log.e("url", "url1：" + url1);
+                    ZLog.e("url", "url1：" + url1);
                     if (TextUtils.isEmpty(mSetting.getConnectUrl())) {
                         throw new RuntimeException("WebSocket connect url is empty!");
                     }

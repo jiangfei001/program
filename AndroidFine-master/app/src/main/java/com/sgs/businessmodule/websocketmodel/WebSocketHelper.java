@@ -1,6 +1,6 @@
 package com.sgs.businessmodule.websocketmodel;
 
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
 import com.sgs.AppUrl;
@@ -20,10 +20,10 @@ public class WebSocketHelper {
         //setting.setConnectUrl("ws://192.168.0.106:8082/multimedia/api/websocket/" + username);//必填
         /* http:// 192.168.0.107:8082/multimedia/api/terminal/addMuTerminal*/
 
-        Log.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
+        ZLog.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
         String systemTime = System.currentTimeMillis() + "";
         String endstr = "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + systemTime + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), systemTime, DeviceUtil.getSercetKey(AppContext.getInstance()));
-        Log.e("weiyima:", "endstr" + endstr);
+        ZLog.e("weiyima:", "endstr" + endstr);
         setting.setConnectUrl(AppUrl.socketUrl + endstr);//必填
         setting.setEnd(endstr);
         setting.setConnectUrls(AppUrl.socketIPList);

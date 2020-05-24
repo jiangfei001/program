@@ -2,7 +2,7 @@ package com.sgs.programModel;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.sgs.programModel.taskUtil.MyTask;
 import com.sgs.programModel.taskUtil.PriorityTimeTask;
@@ -20,17 +20,17 @@ public class Test {
         @Override
         public void exeTask(MyTask mTask) {
             //通知webview进行播放
-            Log.d("TimeTask11", "我是现在真正执行" + mTask.name);
+            ZLog.d("TimeTask11", "我是现在真正执行" + mTask.name);
         }
 
         @Override
         public void overdueTask(MyTask mTask) {
-            Log.d("TimeTask11", "我的生命周期已经到了" + mTask.name);
+            ZLog.d("TimeTask11", "我的生命周期已经到了" + mTask.name);
         }
 
         @Override
         public void futureTask(MyTask mTask) {
-            Log.d("TimeTask11", "未来的会执行我" + mTask.name);
+            ZLog.d("TimeTask11", "未来的会执行我" + mTask.name);
         }
     };
     final String ACTION = "timeTask.action";
@@ -74,7 +74,7 @@ public class Test {
         String times = null;
         try {
             date = sdr.parse(time);
-            Log.e("TimeTask", "date" + date);
+            ZLog.e("TimeTask", "date" + date);
             long l = date.getTime();
             String stf = String.valueOf(l);
             times = stf.substring(0, 10);

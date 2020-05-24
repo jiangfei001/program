@@ -6,7 +6,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 
 import com.sgs.AppContext;
@@ -244,7 +244,7 @@ public final class StorageUtil {
                     info.free = nAvailBlock * nBlocSize;
                     return info;
                 } catch (IllegalArgumentException e) {
-                    Log.e("E", "StringUtil MD5 exception");
+                    ZLog.e("E", "StringUtil MD5 exception");
                 }
             }
         }
@@ -262,7 +262,7 @@ public final class StorageUtil {
             totalBlocks = stat.getBlockCount();
             availableBlocks = stat.getAvailableBlocks();
         } catch (Exception e) {
-            Log.e("E", "StringUtil MD5 exception");
+            ZLog.e("E", "StringUtil MD5 exception");
         }
 
         long totalSize = blockSize * totalBlocks;
@@ -284,7 +284,7 @@ public final class StorageUtil {
             totalBlocks = stat.getBlockCount();
             availableBlocks = stat.getAvailableBlocks();
         } catch (Exception e) {
-            Log.e("E", "StringUtil MD5 exception");
+            ZLog.e("E", "StringUtil MD5 exception");
         }
 
         long totalSize = blockSize * totalBlocks;
@@ -325,14 +325,14 @@ public final class StorageUtil {
                     }
                 }
             } catch (Exception e) {
-                Log.e("E", "StringUtil MD5 exception");
+                ZLog.e("E", "StringUtil MD5 exception");
             }
         } else {
             // 外置sd路径
             sdPath = System.getenv("SECONDARY_STORAGE");
         }
 
-        Log.w("StorageUtil", "StorageUtil: " + sdPath);
+        ZLog.i("StorageUtil", "StorageUtil: " + sdPath);
         return sdPath;
     }
 

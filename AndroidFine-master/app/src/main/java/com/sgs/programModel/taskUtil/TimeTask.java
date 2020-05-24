@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -107,16 +107,16 @@ public class TimeTask<T extends Task> {
                 for (TimeHandler mTimeHandler : mTimeHandlers) {
                     mTimeHandler.exeTask(mTask);
                 }
-                Log.d("TimeTask", "推送cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
+                ZLog.d("TimeTask", "推送cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
             }
             //还未到来的消息 加入到定时任务
             Date date = new Date();
-            Log.e("TimeTask", "mTask.getStarTime()" + mTask.getStarTime() + "mNowtime" + mNowtime + "Data" + date);
+            ZLog.e("TimeTask", "mTask.getStarTime()" + mTask.getStarTime() + "mNowtime" + mNowtime + "Data" + date);
             if (mTask.getStarTime() > mNowtime && mTask.getEndTime() > mNowtime) {
                 for (TimeHandler mTimeHandler : mTimeHandlers) {
                     mTimeHandler.futureTask(mTask);
                 }
-                Log.d("TimeTask", "预约cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
+                ZLog.d("TimeTask", "预约cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
                 configureAlarmManager(mTask.getStarTime());
                 return;
             }
@@ -125,7 +125,7 @@ public class TimeTask<T extends Task> {
                 for (TimeHandler mTimeHandler : mTimeHandlers) {
                     mTimeHandler.overdueTask(mTask);
                 }
-                Log.d("TimeTask", "过期cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
+                ZLog.d("TimeTask", "过期cursor:" + cursor + "时间：" + new Date(mTask.getStarTime()));
             }
             cursor++;
             if (isSpotsTaskIng && mTasks.size() == cursor) { //恢复普通任务
@@ -227,7 +227,7 @@ public class TimeTask<T extends Task> {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e("context", "context");
+            ZLog.e("context", "context");
 
             //判断比自己大的优先级 队列有没有需要执行的
 

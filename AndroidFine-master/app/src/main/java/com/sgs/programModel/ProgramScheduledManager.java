@@ -1,7 +1,7 @@
 package com.sgs.programModel;
 
 import android.content.Context;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -56,7 +56,7 @@ public class ProgramScheduledManager {
         manager.changeUser("luffy");
         /*断点续传需要服务器的支持，设置该项时要先确保服务器支持断点续传功能*/
         manager.setSupportBreakpoint(false);
-        Log.e(TAG, "initAllProgramTask");
+        ZLog.e(TAG, "initAllProgramTask");
         initAllProgramTask();
     }
 
@@ -65,7 +65,7 @@ public class ProgramScheduledManager {
         if (instance == null) {
             synchronized (ProgramDbManager.class) {
                 if (instance == null) {
-                    Log.e(TAG, "getInstance");
+                    ZLog.e(TAG, "getInstance");
                     instance = new ProgramScheduledManager(AppContext.getInstance());
                 }
             }
@@ -77,7 +77,7 @@ public class ProgramScheduledManager {
     public void initAllProgramTask() {
         //从数据库中获取所有的节目数据
         list = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
-        Log.e(TAG, "初始化数据initAllProgramTask");
+        ZLog.e(TAG, "初始化数据initAllProgramTask");
         if (list == null) {
             list = new ArrayList<>();
         }
@@ -86,14 +86,14 @@ public class ProgramScheduledManager {
         progarmPalyInstructionVosD = new LinkedList<>();
         prolistToday = new LinkedList<>();
         if (programTaskManager != null) {
-            Log.e(TAG, "programTaskManager.stopLooper");
+            ZLog.e(TAG, "programTaskManager.stopLooper");
             programTaskManager.stopLooper();
             programTaskManager = null;
         }
 
         //判断资源是否已经下载，并且是在今天的下载范围
         checkResouce(list);
-        Log.e(TAG, "checkResouceinitAllProgramTask");
+        ZLog.e(TAG, "checkResouceinitAllProgramTask");
         //设置下载监听机
         manager.setAllTaskListener(new DownloadManagerListener());
 
@@ -108,7 +108,7 @@ public class ProgramScheduledManager {
     private static ProgramScheduledManager instance;
 
     public void clearLooperAndDBAndResource() {
-        Log.e(TAG, "收到清楚命令 clearLooperAndDBAndResource");
+        ZLog.e(TAG, "收到清楚命令 clearLooperAndDBAndResource");
         list = null;
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
@@ -172,7 +172,7 @@ public class ProgramScheduledManager {
             }
         }
 
-        Log.e("clearLooperAndDBById", "sendAddOrDelProListNew");
+        ZLog.e("clearLooperAndDBById", "sendAddOrDelProListNew");
         SendToServerUtil.sendAddOrDelProListNew((ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo(), 0, prolistToday);
     }
 
@@ -182,7 +182,7 @@ public class ProgramScheduledManager {
     public void checkResouce(List<ProgarmPalyInstructionVo> list) {
         if (list != null && list.size() > 0) {
             Iterator iterator = list.iterator();
-            Log.e("iterator", "onSuccess");
+            ZLog.e("iterator", "onSuccess");
             while (iterator.hasNext()) {
                 ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
                 doProgarm(response1, false, iterator);
@@ -192,7 +192,7 @@ public class ProgramScheduledManager {
         /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
 
         ArrayList<ProgarmPalyInstructionVo> arlist = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
-        Log.e("checkResouce", "sendAddOrDelProListNew arlist:" + arlist.size());
+        ZLog.e("checkResouce", "sendAddOrDelProListNew arlist:" + arlist.size());
         SendToServerUtil.sendAddOrDelProListNew(arlist, 0, prolistToday);
     }
 
@@ -204,25 +204,25 @@ public class ProgramScheduledManager {
     LinkedList<ProgarmPalyInstructionVo> prolistToday = new LinkedList<>();
 
     public void saveToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
-        Log.e(TAG, "saveProgarmPalyInstructionVoRequest");
+        ZLog.e(TAG, "saveProgarmPalyInstructionVoRequest");
         //将数据保存到节目播放数据库，并通知节目播放，进行插入播放
         ProgramDbManager.getInstance().saveProgarmPalyInstructionVoRequest(progarmPalyInstructionVo);
     }
 
     public void delToDB(ProgarmPalyInstructionVo progarmPalyInstructionVo) {
-        Log.e(TAG, "delToDB");
+        ZLog.e(TAG, "delToDB");
         //将数据保存到节目播放数据库，并通知节目播放，进行插入播放
         ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(progarmPalyInstructionVo.getId());
     }
 
     public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert, Iterator iterator) {
-        Log.e(TAG, "doProgarm" + response.getId());
+        ZLog.e(TAG, "doProgarm" + response.getId());
         if (isInsert) {
-            Log.e(TAG, " isInsert response" + response.getId());
+            ZLog.e(TAG, " isInsert response" + response.getId());
             //保存到节目数据中
             ProgarmPalyInstructionVo v = ProgramDbManager.getInstance().getProgarmPalyInstructionVoRequestById(response.getId());
             if (v != null) {
-                Log.e(TAG, "我已经存在了：" + response.getId() + "");
+                ZLog.e(TAG, "我已经存在了：" + response.getId() + "");
                 ArrayList<Integer> arrayList = new ArrayList<>();
                 arrayList.add(v.getId());
                 clearLooperAndDBById(arrayList);
@@ -242,7 +242,7 @@ public class ProgramScheduledManager {
         try {
             //过期的要删除
             deadLineV = df.parse(publicationPlanVo.getDeadlineV());
-            Log.e("deadLineV", "deadLineV" + deadLineV);
+            ZLog.e("deadLineV", "deadLineV" + deadLineV);
             if (deadLineV.getTime() < System.currentTimeMillis()) {
                 delToDB(response);
                 if (iterator != null) {
@@ -258,7 +258,7 @@ public class ProgramScheduledManager {
 
         response.setPublicationPlanObject(publicationPlanVo);
 
-        Log.e(TAG, "response.getProgramResourceList:" + response.getProgramResourceList());
+        ZLog.e(TAG, "response.getProgramResourceList:" + response.getProgramResourceList());
 
         response.setProgramResourceListArray(JSON.parseArray(response.getProgramResourceList(), ProgramResource.class));
 
@@ -266,7 +266,7 @@ public class ProgramScheduledManager {
 
         List<ProgramResource> programMusicList = null;
         if (!StringUtils.isEmpty(response.getProgramMusicList())) {
-            Log.e(TAG, "response.getProgramMusicList:" + response.getProgramMusicList());
+            ZLog.e(TAG, "response.getProgramMusicList:" + response.getProgramMusicList());
             response.setProgramMusicListArray(JSON.parseArray(response.getProgramMusicList(), ProgramResource.class));
             programMusicList = response.getProgramMusicListArray();
         }
@@ -288,19 +288,19 @@ public class ProgramScheduledManager {
                     int download = manager.addTask(taskId, url, response.getProgramZipName());
                     if (download == 0) {
                         //下载成功则copy到预设目录
-                        Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在下载库里面了！");
+                        ZLog.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在下载库里面了！");
                     } else if (download == 1) {
-                        Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "需要下载！,正在监听");
+                        ZLog.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "需要下载！,正在监听");
                     } else {
-                        Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "数据库框架判断文件存在，但是实际不在！");
+                        ZLog.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "数据库框架判断文件存在，但是实际不在！");
                     }
                 } else {
                     response.setProgramZipStatus(1);
-                    Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在！");
+                    ZLog.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在！");
                 }
             } else {
                 response.setProgramZipStatus(1);
-                Log.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在！");
+                ZLog.e("sqlDownLoadInfo", "getProgramZipName:" + response.getProgramZipName() + "已经存在！");
             }
 
             //判断预设目录下 是否有对应 视频/图片文件
@@ -326,14 +326,14 @@ public class ProgramScheduledManager {
                             int resourcedownload = manager.addTask(taskResourceId, resourceurl, resourceurlFilename, newfile.getPath());
                             if (resourcedownload == 0) {
                                 //文件已经存在
-                                Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
+                                ZLog.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
                             } else if (resourcedownload == 1) {
-                                Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "需要下载！,正在监听");
+                                ZLog.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "需要下载！,正在监听");
                             } else {
-                                Log.e("sqlDownLoadInfo", "resourceurlFilename:" + resourceurlFilename + "数据库框架判断文件存在，但是实际不在！");
+                                ZLog.e("sqlDownLoadInfo", "resourceurlFilename:" + resourceurlFilename + "数据库框架判断文件存在，但是实际不在！");
                             }
                         } else {
-                            Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在！");
+                            ZLog.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在！");
                             programResourceList.get(i).setDownStatus(1);
                         }
                     }
@@ -356,14 +356,14 @@ public class ProgramScheduledManager {
                             int resourcedownload = manager.addTask(taskResourceId, resourceurl, resourceurlFilename, newfile.getPath());
                             if (resourcedownload == 0) {
                                 //文件已经存在
-                                Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
+                                ZLog.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在下载库里面！");
                             } else if (resourcedownload == 1) {
-                                Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "需要下载！,正在监听");
+                                ZLog.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "需要下载！,正在监听");
                             } else {
-                                Log.e("sqlDownLoadInfo", "resourceurlFilename:" + resourceurlFilename + "数据库框架判断文件存在，但是实际不在！");
+                                ZLog.e("sqlDownLoadInfo", "resourceurlFilename:" + resourceurlFilename + "数据库框架判断文件存在，但是实际不在！");
                             }
                         } else {
-                            Log.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在！");
+                            ZLog.e("sqlDownLoadInfo", "resourceurlFilename：" + resourceurlFilename + "已经存在！");
                             programMusicList.get(i).setDownStatus(1);
                         }
                     }
@@ -371,10 +371,10 @@ public class ProgramScheduledManager {
             }
 
             if (fileStatue == 1) {
-                Log.e(TAG, "fileStatue == 1：");
+                ZLog.e(TAG, "fileStatue == 1：");
                 //判断今天是否播放
                 addProgramToTask(response, isInsert);
-                Log.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
+                ZLog.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
                 if (iterator != null) {
@@ -384,8 +384,8 @@ public class ProgramScheduledManager {
                 }
             }
         }
-        Log.e(TAG, response.toString());
-        Log.e(TAG, publicationPlanVo.toString());
+        ZLog.e(TAG, response.toString());
+        ZLog.e(TAG, publicationPlanVo.toString());
     }
 
     private class DownloadManagerListener implements DownLoadListener {
@@ -417,23 +417,23 @@ public class ProgramScheduledManager {
         public void onSuccess(SQLDownLoadInfo sqlDownLoadInfo) {
 
             //根据监听到的信息查找列表相对应的任务，删除对应的任务
-            Log.e("sqlDownLoadInfo", "下载成功通知：" + sqlDownLoadInfo.getTaskID());
+            ZLog.e("sqlDownLoadInfo", "下载成功通知：" + sqlDownLoadInfo.getTaskID());
 
             int resourceTotle = 1;
 
             Iterator iterator = list.iterator();
-            Log.e("iterator", "onSuccess");
+            ZLog.e("iterator", "onSuccess");
             while (iterator.hasNext()) {
-                Log.e("iterator", "");
+                ZLog.e("iterator", "");
                 //如果是ProgramZip
                 ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
                 if (response1.getProgramZipStatus() != 1 && response1.getProgramZip().equals(sqlDownLoadInfo.getTaskID())) {
                     //无需copy到文件
                     response1.setProgramZipStatus(1);
-                    Log.e("sqlDownLoadInfo", "setProgramZipStatus下载成功：" + sqlDownLoadInfo.getTaskID());
+                    ZLog.e("sqlDownLoadInfo", "setProgramZipStatus下载成功：" + sqlDownLoadInfo.getTaskID());
                     File newfile = new File(FileHelper.getFileDefaultPath() + "/" + response1.getProgramZipName());
                     try {
-                        Log.e("sqlDownLoadInfo", "开始解压：" + FileHelper.getFileDefaultPath());
+                        ZLog.e("sqlDownLoadInfo", "开始解压：" + FileHelper.getFileDefaultPath());
                         ZipUtil.upZipFile(newfile, FileHelper.getFileDefaultPath());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -443,11 +443,11 @@ public class ProgramScheduledManager {
                 if (response1.getProgramResourceListArray() != null && response1.getProgramResourceListArray().size() > 0) {
                     for (int i = 0; i < response1.getProgramResourceListArray().size(); i++) {
                         if (response1.getProgramResourceListArray().get(i).getUrl().equals(sqlDownLoadInfo.getTaskID())) {
-                            Log.e("sqlDownLoadInfo", "programResourceList1下载成功：" + sqlDownLoadInfo.getTaskID());
+                            ZLog.e("sqlDownLoadInfo", "programResourceList1下载成功：" + sqlDownLoadInfo.getTaskID());
                             response1.getProgramResourceListArray().get(i).setDownStatus(1);
                         }
                         if (response1.getProgramResourceListArray().get(i).getDownStatus() != 1) {
-                            Log.e("sqlDownLoadInfo", "programResourceList1我还没有下载成功：" + response1.getProgramResourceListArray().get(i).getUrl());
+                            ZLog.e("sqlDownLoadInfo", "programResourceList1我还没有下载成功：" + response1.getProgramResourceListArray().get(i).getUrl());
                             resourceTotle = 0;
                         }
                     }
@@ -455,23 +455,23 @@ public class ProgramScheduledManager {
                 if (response1.getProgramMusicListArray() != null && response1.getProgramMusicListArray().size() > 0) {
                     for (int i = 0; i < response1.getProgramMusicListArray().size(); i++) {
                         if (response1.getProgramMusicListArray().get(i).getUrl().equals(sqlDownLoadInfo.getTaskID())) {
-                            Log.e("sqlDownLoadInfo", "programMusicLis1下载成功：" + sqlDownLoadInfo.getTaskID());
+                            ZLog.e("sqlDownLoadInfo", "programMusicLis1下载成功：" + sqlDownLoadInfo.getTaskID());
                             response1.getProgramMusicListArray().get(i).setDownStatus(1);
                         }
                         if (response1.getProgramMusicListArray().get(i).getDownStatus() != 1) {
-                            Log.e("sqlDownLoadInfo", "programMusicLis1我还没有下载成功：" + response1.getProgramMusicListArray().get(i).getUrl());
+                            ZLog.e("sqlDownLoadInfo", "programMusicLis1我还没有下载成功：" + response1.getProgramMusicListArray().get(i).getUrl());
                             resourceTotle = 0;
                         }
                     }
                 }
 
                 if (response1.getProgramZipStatus() != 1) {
-                    Log.e("DownloadManagerListener", "zip还没有下载成功：" + sqlDownLoadInfo.getTaskID());
+                    ZLog.e("DownloadManagerListener", "zip还没有下载成功：" + sqlDownLoadInfo.getTaskID());
                     resourceTotle = 0;
                 }
                 if (resourceTotle == 1) {
                     response1.setTotalStatus(1);
-                    Log.e("DownloadManagerListener", "onSuccess所有资源都存在：" + response1.getId());
+                    ZLog.e("DownloadManagerListener", "onSuccess所有资源都存在：" + response1.getId());
                     iterator.remove();
                     addProgramToTask(response1, true);
                 }
@@ -481,17 +481,17 @@ public class ProgramScheduledManager {
         @Override
         public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
             //根据监听到的信息查找列表相对应的任务，停止该任务
-            Log.e("sqlDownLoadInfo ", "sqlDownLoadInfo11 onError" + sqlDownLoadInfo.getTaskID());
+            ZLog.e("sqlDownLoadInfo ", "sqlDownLoadInfo11 onError" + sqlDownLoadInfo.getTaskID());
         }
     }
 
     private void addProgramToTask(ProgarmPalyInstructionVo response, boolean isInsert) {
-        Log.e(TAG, "addProgramToTaskLL:" + response.toString());
+        ZLog.e(TAG, "addProgramToTaskLL:" + response.toString());
         if (ProgramUtil.getWeekPalySchedule(response)) {
             prolistToday.add(response);
-            Log.e(TAG, "addProgramToTask getWeekPalySchedule：" + response.getProgramName());
+            ZLog.e(TAG, "addProgramToTask getWeekPalySchedule：" + response.getProgramName());
             if (isInsert) {
-                Log.e(TAG, "我是从命令加载进来的，" + response.getProgramName());
+                ZLog.e(TAG, "我是从命令加载进来的，" + response.getProgramName());
                 if (response.getPublicationPlanObject().isExclusive()) {
                     programTaskManager.insertTask(response, PRI.TASK_PRI);
                     progarmPalyInstructionVosPri.add(response);
@@ -505,12 +505,12 @@ public class ProgramScheduledManager {
                     }
                 }
                 SendToServerUtil.sendEventToService(response);
-                Log.e("checkResouce", "addProgramToTask");
+                ZLog.e("checkResouce", "addProgramToTask");
                 SendToServerUtil.sendAddOrDelProListNew((ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo(), 0, prolistToday);
 
                 //发送当前节目接口 和 增量接口
             } else {
-                Log.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());
+                ZLog.e(TAG, "我是从数据库中加载进来的，" + response.getProgramName());
                 if (response.getPublicationPlanObject().isExclusive()) {
                     progarmPalyInstructionVosPri.add(response);
                 } else {

@@ -12,7 +12,7 @@ import android.provider.SyncStateContract;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.widget.Toast;
 
 import com.sgs.AppContext;
@@ -100,7 +100,7 @@ public class InstallUtil {
             }
             return true;
         } catch (Exception e) {
-            Log.e("ee", e.getMessage());
+            ZLog.e("ee", e.getMessage());
         }
         return false;
     }
@@ -117,7 +117,7 @@ public class InstallUtil {
         int installFlags = 0;
         Uri packageUri = Uri.fromFile(file);//file是要安装的apk文件
         String product = Build.BRAND;
-        Log.e("pro", product);
+        ZLog.e("pro", product);
         if (product.startsWith("rock")) {
             PackageManager pm = context.getPackageManager();
             silentInstall(pm, filePath);

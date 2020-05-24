@@ -28,7 +28,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.Surface;
 import android.view.SurfaceControl;
 import android.view.View;
@@ -129,7 +129,7 @@ public class DeviceUtil {
     public static Bitmap snapCurrentScreenShot(Activity activity, boolean hasStatusBar) {
         int deviceSize[] = getDeviceSize(activity);
         String product = Build.BRAND;
-        Log.e(TAG, product);
+        ZLog.e(TAG, product);
         //if (product.startsWith("rock")) {
         if (false) {
             try {
@@ -281,10 +281,10 @@ public class DeviceUtil {
                 }
                 return tm.getSubscriberId();
             } else {
-                Log.e(TAG, NO_PERMISSION_TO_READ_PHONE_STATE);
+                ZLog.e(TAG, NO_PERMISSION_TO_READ_PHONE_STATE);
             }
         } catch (Exception e) {
-            Log.e("sdf", "Get IMSI error");
+            ZLog.e("sdf", "Get IMSI error");
         }
         return "";
     }
@@ -641,14 +641,14 @@ public class DeviceUtil {
         SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
         String spUniqueID = mContextSp.getString(uniqueid1, "");
         if (!StringUtil.isEmpty(spUniqueID)) {
-            Log.e(TAG, "找到了spUniqueID1:" + spUniqueID);
+            ZLog.e(TAG, "找到了spUniqueID1:" + spUniqueID);
             FileHelper.putSDunique(spUniqueID, FileHelper.uniqueidf1);
             return spUniqueID;
         }
         //2 从sd卡中拿
         spUniqueID = FileHelper.getSDunique(FileHelper.uniqueidf1);
         if (!StringUtil.isEmpty(spUniqueID)) {
-            Log.e(TAG, "找到了找到了fileUniqueID1:" + spUniqueID);
+            ZLog.e(TAG, "找到了找到了fileUniqueID1:" + spUniqueID);
             //保存sp
             SharedPreferences.Editor editor = mContextSp.edit();
             editor.putString(uniqueid1, spUniqueID);
@@ -658,12 +658,12 @@ public class DeviceUtil {
 
         String id = null;
         final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Log.e(TAG, "androidId:" + androidId);
+        ZLog.e(TAG, "androidId:" + androidId);
         if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
             try {
                 UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
                 id = uuid.toString();
-                Log.e(TAG, "id1:" + id);
+                ZLog.e(TAG, "id1:" + id);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -671,13 +671,13 @@ public class DeviceUtil {
 
         if (TextUtils.isEmpty(id)) {
             id = getUUIDT();
-            Log.e(TAG, "id2:" + id);
+            ZLog.e(TAG, "id2:" + id);
         }
 
         String uid = TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
 
         //保存sd卡
-        Log.e(TAG, "保存spUniqueID:" + uid);
+        ZLog.e(TAG, "保存spUniqueID:" + uid);
         FileHelper.putSDunique(uid, FileHelper.uniqueidf1);
 
         //保存sp
@@ -712,14 +712,14 @@ public class DeviceUtil {
         SharedPreferences mContextSp = context.getSharedPreferences(sfter, Context.MODE_PRIVATE);
         String spUniqueID = mContextSp.getString(uniqueid, "");
         if (!StringUtil.isEmpty(spUniqueID)) {
-            Log.e(TAG, "找到了spUniqueID:" + spUniqueID);
+            ZLog.e(TAG, "找到了spUniqueID:" + spUniqueID);
             FileHelper.putSDunique(spUniqueID, FileHelper.uniqueidf);
             return spUniqueID;
         }
         //2 从sd卡中拿
         spUniqueID = FileHelper.getSDunique(FileHelper.uniqueidf);
         if (!StringUtil.isEmpty(spUniqueID)) {
-            Log.e(TAG, "找到了找到了fileUniqueID:" + spUniqueID);
+            ZLog.e(TAG, "找到了找到了fileUniqueID:" + spUniqueID);
             //保存sp
             SharedPreferences.Editor editor = mContextSp.edit();
             editor.putString(uniqueid, spUniqueID);
@@ -733,12 +733,12 @@ public class DeviceUtil {
 
         if (TextUtils.isEmpty(id)) {
             final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-            Log.e(TAG, "androidId:" + androidId);
+            ZLog.e(TAG, "androidId:" + androidId);
             if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
                 try {
                     UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
                     id = uuid.toString();
-                    Log.e(TAG, "id1:" + id);
+                    ZLog.e(TAG, "id1:" + id);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -747,14 +747,14 @@ public class DeviceUtil {
 
         if (TextUtils.isEmpty(id)) {
             id = getUUIDT();
-            Log.e(TAG, "id2:" + id);
+            ZLog.e(TAG, "id2:" + id);
         }
 
         String uid = TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
 
 
         //保存sd卡
-        Log.e(TAG, "保存spUniqueID:" + uid);
+        ZLog.e(TAG, "保存spUniqueID:" + uid);
         FileHelper.putSDunique(uid, FileHelper.uniqueidf);
 
         //保存sp
@@ -874,7 +874,7 @@ public class DeviceUtil {
             Method get = c.getMethod("get", String.class, String.class);
             value = (String) (get.invoke(c, key, UNKNOWN));
         } catch (Exception e) {
-            Log.w("ACCESS_WIFI_STATEe", "");
+            ZLog.i("ACCESS_WIFI_STATEe", "");
         }
         return value;
     }
@@ -949,7 +949,7 @@ public class DeviceUtil {
                 }
             }
         } catch (SocketException ex) {
-            Log.e(TAG, "Get ip address fail");
+            ZLog.e(TAG, "Get ip address fail");
         }
         return null;
     }
@@ -986,7 +986,7 @@ public class DeviceUtil {
                     return processName;
                 }
             } catch (Exception e) {
-                Log.e(DeviceUtil.class.getName(), e.getMessage(), e);
+                ZLog.e(DeviceUtil.class.getName(), e.getMessage(), e);
             }
         }
         return processName;
@@ -1181,7 +1181,7 @@ public class DeviceUtil {
                     try {
                         JSONObject jsonObject = new JSONObject(json);
                         line = jsonObject.optString("cip");
-                        Log.e("11", "11" + line);
+                        ZLog.e("11", "11" + line);
                         return line;
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -1232,7 +1232,7 @@ public class DeviceUtil {
             DisplayMetrics dm = getDisplayMetrics(context);
             return dm.widthPixels + "*" + dm.heightPixels;
         } catch (Exception e) {
-            Log.e(TAG, "GetDisplayMetricsPixels error");
+            ZLog.e(TAG, "GetDisplayMetricsPixels error");
         }
         return "";
     }

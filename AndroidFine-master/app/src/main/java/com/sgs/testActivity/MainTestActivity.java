@@ -2,7 +2,7 @@ package com.sgs.testActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -147,7 +147,7 @@ public class MainTestActivity extends EventActivity {
     public void onEvent(Event mEvent) {
         switch (mEvent.getId()) {
             case EVENT_TEST_MSG1:
-                Log.d(this.getClass().getName(), "我收到消息啦");
+                ZLog.d(this.getClass().getName(), "我收到消息啦");
                 /* tv_msg.setText("我收到消息啦");*/
                 appendMsgDisplay(this.getClass().getName());
                 break;

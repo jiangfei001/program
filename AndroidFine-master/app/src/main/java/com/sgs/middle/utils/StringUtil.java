@@ -2,7 +2,7 @@ package com.sgs.middle.utils;
 
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.util.Log;
+import com.zhangke.zlog.ZLog;
 import android.util.Pair;
 
 import com.sgs.middle.model.StorageSize;
@@ -89,7 +89,7 @@ public final class StringUtil {
         try {
             date = dateFormat.parse(dateString);
         } catch (Exception e) {
-            Log.e("DateString", "" + e.getMessage());
+            ZLog.e("DateString", "" + e.getMessage());
         }
         return date.getTime();
     }
@@ -132,7 +132,7 @@ public final class StringUtil {
             }
             return new String(str);
         } catch (Exception e) {
-            Log.e("E", "StringUtil MD5 exception");
+            ZLog.e("E", "StringUtil MD5 exception");
             return "";
         }
     }
