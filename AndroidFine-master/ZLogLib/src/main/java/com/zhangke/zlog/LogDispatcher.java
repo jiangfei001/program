@@ -62,10 +62,10 @@ class LogDispatcher extends Thread {
         String returnFileName = "";
         try {
             switch (logType) {
-                case ERROR: {
+                case ERROR: /*{
                     returnFileName = getLastLogFileName(mLogDir, "errorLog");
                     break;
-                }
+                }*/
                 case INFO:
                 case WTF:
                 case DEBUG: {
