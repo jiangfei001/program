@@ -202,7 +202,7 @@ public class LoginActivity extends Activity {
         initPermission();
 
 
-        NotificationManager notificationManager =
+        /*NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
@@ -213,7 +213,7 @@ public class LoginActivity extends Activity {
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
 
             startActivity(intent);
-        }
+        }*/
     }
 
     private void jihuo(RadioGroup radioButton, EditText socketip, EditText jiekouip,
@@ -443,7 +443,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(Request request, Exception e) {
                 super.onFailure(request, e);
-                Toast.makeText(AppContext.getInstance(), "获取ip失败激活！", Toast.LENGTH_LONG).show();
+                Toast.makeText(AppContext.getInstance(), "获取ip失败激活！"+e.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("HashMap", "" + e.getMessage());
             }
         });
