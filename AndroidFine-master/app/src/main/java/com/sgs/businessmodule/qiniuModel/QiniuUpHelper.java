@@ -3,6 +3,9 @@ package com.sgs.businessmodule.qiniuModel;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+
+import com.sgs.AppContext;
+import com.sgs.businessmodule.taskModel.taskList.ESCALATIONLOG;
 import com.zhangke.zlog.ZLog;
 
 import com.qiniu.android.http.ResponseInfo;
@@ -18,7 +21,6 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 
 
 public class QiniuUpHelper {
@@ -49,7 +51,38 @@ public class QiniuUpHelper {
         //data = "hello".getBytes();
         /*fileName = "hello.txt";*/
 
+
         uploadManager.put(data, fileName, Token, new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, JSONObject response) {
+                ZLog.i("qiniu 访问链接 = ", key);
+                if (info != null) {
+                    ZLog.i("qiniu info = ", info.toString());
+                }
+                if (response != null) {
+                    ZLog.i("qiniu response = ", response.toString());
+                }
+                backUrl.getUrlandName(key, info, response);
+            }
+        }, null);
+    }
+
+    /**
+     * 上传数据到七牛云服务器
+     *
+     * @param activity View
+     */
+    public static void uploadLog(Activity activity, boolean hasStatusBar, String Token, final ESCALATIONLOG.BackUrl backUrl) {
+        UploadManager uploadManager = new UploadManager();
+
+        String strNow = new SimpleDateFormat("yyyyMMdd").format(new Date()).toString();
+
+        String fileName = "/log/" + strNow.toString() + "/" + System.currentTimeMillis() + ".log";
+        //data = "hello".getBytes();
+        /*fileName = "hello.txt";*/
+        String filePath = String.format("%s/ZLog/", AppContext.getInstance().getExternalFilesDir(null).getPath()) + ZLog.getLastLogFileName();
+
+        uploadManager.put(filePath, fileName, Token, new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject response) {
                 ZLog.i("qiniu 访问链接 = ", key);

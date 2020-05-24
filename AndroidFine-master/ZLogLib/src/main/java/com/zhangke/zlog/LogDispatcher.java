@@ -1,10 +1,12 @@
 package com.zhangke.zlog;
 
 import android.os.Process;
+
 import com.zhangke.zlog.ZLog;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,7 +60,7 @@ class LogDispatcher extends Thread {
      * @param logType 日志类型
      * @return 文件绝对路径
      */
-    private String getLogFilePath(LogType logType) {
+    public String getLogFilePath(LogType logType) {
         String returnFileName = "";
         try {
             switch (logType) {
@@ -79,6 +81,28 @@ class LogDispatcher extends Thread {
             }
         } catch (Exception e) {
             ZLog.e(TAG, "getLogFile: ", e);
+        }
+        return returnFileName;
+    }
+
+    public String getRealLastLogFileName(String dir, String logName) {
+        String returnFileName = String.format("%s/%s1.txt", dir, logName);
+        File file = new File(dir);
+        if (file.exists()) {
+            String[] fileArray = file.list();
+            if (fileArray != null && fileArray.length > 0) {
+                List<String> logList = new ArrayList<>();
+                for (String s : fileArray) {
+                    if (s.startsWith(logName) && s.length() == logName.length() + 5) {
+                        logList.add(s);
+                    }
+                }
+                if (!logList.isEmpty()) {
+                    Collections.sort(logList);
+                    String lastFileName = logList.get(logList.size() - 1);
+                    return lastFileName;
+                }
+            }
         }
         return returnFileName;
     }
@@ -120,7 +144,7 @@ class LogDispatcher extends Thread {
                                     ZLog.e(TAG, "getLastLogFileName: ", e);
                                 }
                                 returnFileName = String.format("%s/%s1.txt", dir, logName);
-                            }else{
+                            } else {
                                 LastLogCount++;
                                 returnFileName = String.format("%s/%s%s.txt", dir, logName, LastLogCount);
                             }
@@ -144,6 +168,7 @@ class LogDispatcher extends Thread {
      * @param text     需要保存的文本
      */
     private void saveTextToFile(String filePath, String text) {
+        FileWriter writer = null;
         try {
             File file = new File(filePath);
             if (!new File(file.getParent()).exists()) {
@@ -160,11 +185,17 @@ class LogDispatcher extends Thread {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            FileWriter writer = new FileWriter(file, true);
+            writer = new FileWriter(file, true);
             writer.write(text);
             writer.close();
         } catch (Exception e) {
             ZLog.e(TAG, "saveTextToFile: ", e);
+        } finally {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

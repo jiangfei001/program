@@ -40,7 +40,7 @@ public class ProgramScheduledManager {
     private Context context;
 
     //加载数据库中所有的List 包括接受命令获取的List,保存没有准备好的列表
-    ArrayList<ProgarmPalyInstructionVo> list;
+    public ArrayList<ProgarmPalyInstructionVo> alllist;
 
     //已经成功下载 和 今天需要进行下载的任务
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
@@ -76,10 +76,10 @@ public class ProgramScheduledManager {
 
     public void initAllProgramTask() {
         //从数据库中获取所有的节目数据
-        list = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        alllist = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
         ZLog.e(TAG, "初始化数据initAllProgramTask");
-        if (list == null) {
-            list = new ArrayList<>();
+        if (alllist == null) {
+            alllist = new ArrayList<>();
         }
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
@@ -92,7 +92,7 @@ public class ProgramScheduledManager {
         }
 
         //判断资源是否已经下载，并且是在今天的下载范围
-        checkResouce(list);
+        checkResouce(alllist);
         ZLog.e(TAG, "checkResouceinitAllProgramTask");
         //设置下载监听机
         manager.setAllTaskListener(new DownloadManagerListener());
@@ -109,7 +109,7 @@ public class ProgramScheduledManager {
 
     public void clearLooperAndDBAndResource() {
         ZLog.e(TAG, "收到清楚命令 clearLooperAndDBAndResource");
-        list = null;
+        alllist = null;
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
         prolistToday = null;
@@ -162,9 +162,9 @@ public class ProgramScheduledManager {
                     }
                 }
 
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {
-                        list.remove(i);
+                for (int i = 0; i < alllist.size(); i++) {
+                    if (alllist.get(i).getId() == getProgarmPalyInstructionVoRequestById.getId()) {
+                        alllist.remove(i);
                         break;
                     }
                 }
@@ -227,7 +227,7 @@ public class ProgramScheduledManager {
                 arrayList.add(v.getId());
                 clearLooperAndDBById(arrayList);
             }
-            list.add(response);
+            alllist.add(response);
             response.setProgramZipName(FileUtil.getFileNameByVirtualPath(response.getProgramZip()));
             saveToDB(response);
         }
@@ -248,7 +248,7 @@ public class ProgramScheduledManager {
                 if (iterator != null) {
                     iterator.remove();
                 } else {
-                    list.remove(response);
+                    alllist.remove(response);
                 }
                 return;
             }
@@ -380,7 +380,7 @@ public class ProgramScheduledManager {
                 if (iterator != null) {
                     iterator.remove();
                 } else {
-                    list.remove(response);
+                    alllist.remove(response);
                 }
             }
         }
@@ -421,7 +421,7 @@ public class ProgramScheduledManager {
 
             int resourceTotle = 1;
 
-            Iterator iterator = list.iterator();
+            Iterator iterator = alllist.iterator();
             ZLog.e("iterator", "onSuccess");
             while (iterator.hasNext()) {
                 ZLog.e("iterator", "");

@@ -36,6 +36,11 @@ public enum InstructionTypeEnum {
     DELETECUTMSG(132, "deleteCutMsg", "删除插播消息"),
     GETDAYPROGRAM(133, "getDayProgram", "获取当天节目"),
     INSTALL(134, "install", "应用安装"),
+
+    PROGRESS(135, "progress", "节目下载进度"),
+    RUNDATA(136, "runData", "终端运行数据"),
+    ESCALATIONLOG(137, "escalationLog", "上报日志"),
+
     ;
 
     /* {id=2652, code=101, type='controlVolume', data='{"ids":["38"],"volumeValue":0,"taskCard":"volumeTab"

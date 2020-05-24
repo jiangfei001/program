@@ -17,6 +17,11 @@ class LogQueue {
      * 存储日志的队列
      */
     private LinkedBlockingQueue<LogBean> mLogQueue = new LinkedBlockingQueue<>();
+
+    public LogDispatcher getmLogDispatcher() {
+        return mLogDispatcher;
+    }
+
     private LogDispatcher mLogDispatcher;
 
     LogQueue(String logDir){

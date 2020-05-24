@@ -33,6 +33,9 @@ public class AppUrl {
     public static String addRepHotareaClickList;
     public static String updateApkJson;
     public static String sysMaterialData;
+
+    public static String terminalRuningData;
+
     //激活
     public static String activation;
     public static String changeMsgStatus;
@@ -67,6 +70,7 @@ public class AppUrl {
         changeMsgStatus = jiekouUrl + "/multimedia_test/api/terminal/changeMsgStatus";
         updateApkJson = jiekouUrl + "/multimedia_test/api/terminal/updateApkJson";
         sysMaterialData = jiekouUrl + "/multimedia_test/api/terminal/sysMaterialData";
+        terminalRuningData = jiekouUrl + "/multimedia_test/api/terminal/terminalRuningData";
             /*socketUrl = "ws://49.235.109.237:9080/multimedia/api/websocket";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
@@ -99,6 +103,8 @@ public class AppUrl {
         changeMsgStatus = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/changeMsgStatus";
         updateApkJson = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/updateApkJson";
         sysMaterialData = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/sysMaterialData";
+        terminalRuningData = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/terminalRuningData";
+
         ZLog.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
         ZLog.e("socketUrl", "callbackUrl:" + callbackUrl);
         ZLog.e("socketUrl", "addTerminalProgramListUrl:" + addTerminalProgramListUrl);
@@ -108,15 +114,16 @@ public class AppUrl {
         ZLog.e("socketUrl", "getServerList:" + getServerList);
         ZLog.e("socketUrl", "changeMsgStatus:" + changeMsgStatus);
         ZLog.e("socketUrl", "updateApkJson:" + updateApkJson);
-        ZLog.e("socketUrl", "updateApkJson:" + sysMaterialData);
+        ZLog.e("socketUrl", "sysMaterialData:" + sysMaterialData);
+        ZLog.e("socketUrl", "terminalRuningData:" + terminalRuningData);
     }
 
     public static void setSerList(String jsonstr) {
-        ZLog.e("jsonstr", "jsonstr:" + jsonstr);
+        ZLog.e("setSerList", "setSerList:" + jsonstr);
         try {
             if (!StringUtil.isEmpty(jsonstr)) {
                 socketIPList = (ArrayList) JSON.parseArray(jsonstr, String.class);
-                ZLog.e("jsonstr", "Linksize" + socketIPList.size());
+                ZLog.e("socketIPList:", "socketIPList:" + socketIPList.size());
                 // socketIPList.add("49.235.109.237:9080");
                 if (socketIPList.size() > 0) {
                     socketIP = socketIPList.get(index);
