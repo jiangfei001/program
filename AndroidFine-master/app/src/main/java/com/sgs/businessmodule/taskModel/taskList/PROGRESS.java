@@ -42,43 +42,50 @@ public class PROGRESS extends TVTask {
 
         JSONObject jsonObject = JSON.parseObject(dataJson);
 
-        int programId = (int) jsonObject.get("programId");
+        try {
+            int programId = (int) jsonObject.get("programId");
 
-        String programName = (String) jsonObject.get("programName");
 
-        String instructionId = (String) jsonObject.get("instructionId");
+            String programName = (String) jsonObject.get("programName");
 
-        ZLog.e("PROGRESS", "programId:" + programId + "programName:" + programName + "instructionId:" + instructionId);
+            String instructionId = (String) jsonObject.get("instructionId");
 
-        Iterator iterator = ProgramScheduledManager.getInstance().alllist.iterator();
+            ZLog.e("PROGRESS", "programId:" + programId + "programName:" + programName + "instructionId:" + instructionId);
 
-        while (iterator.hasNext()) {
-            //如果是ProgramZip
-            ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
-            ZLog.e("PROGRESS", "response1:" + response1.getProgramName()+response1.getId());
+            Iterator iterator = ProgramScheduledManager.getInstance().alllist.iterator();
 
-            if (response1.getId() == programId) {
-                //获取zip是否下载完成
-                hashMap.put("zipStatus", response1.getProgramZipStatus() + "");
-                if (response1.getProgramResourceListArray() != null && response1.getProgramResourceListArray().size() > 0) {
-                    ArrayList arrayList = new ArrayList();
-                    for (int i = 0; i < response1.getProgramResourceListArray().size(); i++) {
-                        ProgramResource programResource = response1.getProgramResourceListArray().get(i);
-                        arrayList.add("fileName:" + programResource.getFileName() + "|url:" + programResource.getUrl() + "|downStaus:" + programResource.getDownStatus() + "|");
-                    }
-                    hashMap.put("ProgramResourceList", arrayList);
-                }
+            while (iterator.hasNext()) {
+                //如果是ProgramZip
+                ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
+                ZLog.e("PROGRESS", "response1:" + response1.getProgramName() + response1.getId());
 
-                if (response1.getProgramMusicListArray() != null && response1.getProgramMusicListArray().size() > 0) {
-                    for (int i = 0; i < response1.getProgramMusicListArray().size(); i++) {
+                if (response1.getId() == programId) {
+                    //获取zip是否下载完成
+                    hashMap.put("zipStatus", response1.getProgramZipStatus() + "");
+                    if (response1.getProgramResourceListArray() != null && response1.getProgramResourceListArray().size() > 0) {
                         ArrayList arrayList = new ArrayList();
-                        ProgramResource programResource = response1.getProgramMusicListArray().get(i);
-                        arrayList.add("fileName:" + programResource.getFileName() + "|url:" + programResource.getUrl() + "|downStaus:" + programResource.getDownStatus());
-                        hashMap.put("ProgramMusicList", arrayList);
+                        for (int i = 0; i < response1.getProgramResourceListArray().size(); i++) {
+                            ProgramResource programResource = response1.getProgramResourceListArray().get(i);
+                            arrayList.add("fileName:" + programResource.getFileName() + "|url:" + programResource.getUrl() + "|downStaus:" + programResource.getDownStatus() + "|");
+                        }
+                        hashMap.put("ProgramResourceList", arrayList);
                     }
+
+                    if (response1.getProgramMusicListArray() != null && response1.getProgramMusicListArray().size() > 0) {
+                        for (int i = 0; i < response1.getProgramMusicListArray().size(); i++) {
+                            ArrayList arrayList = new ArrayList();
+                            ProgramResource programResource = response1.getProgramMusicListArray().get(i);
+                            arrayList.add("fileName:" + programResource.getFileName() + "|url:" + programResource.getUrl() + "|downStaus:" + programResource.getDownStatus());
+                            hashMap.put("ProgramMusicList", arrayList);
+                        }
+                    }
+                    ZLog.e("PROGRESS", com.alibaba.fastjson.JSON.toJSONString(hashMap) + "");
                 }
-                ZLog.e("PROGRESS", com.alibaba.fastjson.JSON.toJSONString(hashMap) + "");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ZLog.e("PROGRESS",e.getMessage());
+            return;
         }
     }
 
