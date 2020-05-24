@@ -73,16 +73,25 @@ android {
         }
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-        }
-        debug {
-            minifyEnabled false
-            debuggable true
-            signingConfig signingConfigs.debug
+            android.applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def buildName = "guanggao"
+                    def type = variant.buildType.name
+                    def releaseApkName = buildName + '_' + type + "_" + versionName + '_' + releaseTime() + '.apk'
+                    outputFileName = releaseApkName
+                    variant.packageApplication.outputDirectory = new File(project.rootProject.buildDir.path)
+                }
+            }
         }
     }
     sourceSets {
@@ -113,15 +122,7 @@ android {
         exclude 'lib/x86/libRSSupport.so'
     }
 
-    android.applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def buildName = "guanggao"
-            def type = variant.buildType.name
-            def releaseApkName = buildName + '_' + type + "_" + versionName + '_' + releaseTime() + '.apk'
-            outputFileName = releaseApkName
-            variant.packageApplication.outputDirectory = new File(project.rootProject.buildDir.path)
-        }
-    }
+
 }
 dependencies {
     compile 'com.umeng.umsdk:analytics:7.5.4'
