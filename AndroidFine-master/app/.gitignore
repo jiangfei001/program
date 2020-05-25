@@ -1,1 +1,507 @@
-/build
+2020-04-12 15:53:13.458 1411-9488/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:53:13.479 2217-2217/? E/KeyguardFingerPrint: updateFingerprintListeningState#mFingerprintRunningState=0 shouldListenForFingerprint=false
+2020-04-12 15:53:13.462 1411-9488/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:53:13.480 1411-11224/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:53:13.484 1411-11224/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:53:13.615 1411-9488/? E/WindowManager: win=Window{4e43b0d u0 NavigationBar} destroySurfaces: appStopped=true win.mWindowRemovalAllowed=false win.mRemoveOnExit=false win.mViewVisibility=8 caller=com.android.server.wm.WindowManagerService.tryStartExitingAnimation:2752 com.android.server.wm.WindowManagerService.relayoutWindow:2450 com.android.server.wm.Session.relayoutForTranslate:302 android.view.IWindowSession$Stub.onTransact:518 com.android.server.wm.Session.onTransact:186 android.os.Binder.execTransact:739 <bottom of call stack>
+2020-04-12 15:53:13.676 2217-2217/? E/KeyguardFingerPrint: updateFingerprintListeningState#mFingerprintRunningState=0 shouldListenForFingerprint=false
+2020-04-12 15:53:25.508 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:53:25.510 1411-2115/? E/WifiVendorHal: getTxPktFates(l.2241) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:53:25.510 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:53:25.510 1411-2115/? E/WifiVendorHal: getRxPktFates(l.2283) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:53:27.916 1411-2313/? E/Watchdog: !@Sync 77 [2020-04-12 15:53:27.915] FD count : 529
+2020-04-12 15:53:33.580 1411-9488/? E/BartenderActivityManager: BarTender: pid : 23184 cached=true abnormal=false kill=false stay=false release=false
+2020-04-12 15:53:38.795 1411-9488/? E/BartenderActivityManager: BarTender: pid : 26691 cached=true abnormal=false kill=false stay=false release=false
+2020-04-12 15:53:39.502 1411-9488/? E/BartenderActivityManager: BarTender: pid : 4758 cached=true abnormal=false kill=false stay=false release=false
+2020-04-12 15:53:39.541 1411-9488/? E/BartenderActivityManager: BarTender: pid : 5095 cached=true abnormal=false kill=false stay=false release=false
+2020-04-12 15:53:39.706 2514-2514/? E/wpa_supplicant: nl80211: Failed to open /proc/sys/net/ipv4/conf/wlan0/drop_unicast_in_l2_multicast: No such file or directory
+2020-04-12 15:53:39.706 2514-2514/? E/wpa_supplicant: nl80211: Failed to set IPv4 unicast in multicast filter
+2020-04-12 15:53:39.707 2514-2514/? E/wpa_supplicant: nl80211: Failed to open /proc/sys/net/ipv4/conf/wlan0/drop_unicast_in_l2_multicast: No such file or directory
+2020-04-12 15:53:39.707 2514-2514/? E/wpa_supplicant: nl80211: Failed to set IPv4 unicast in multicast filter
+2020-04-12 15:53:39.735 2514-2514/? E/wpa_supplicant: nl80211: Failed to open /proc/sys/net/ipv4/conf/wlan0/drop_unicast_in_l2_multicast: No such file or directory
+2020-04-12 15:53:39.735 2514-2514/? E/wpa_supplicant: nl80211: Failed to set IPv4 unicast in multicast filter
+2020-04-12 15:53:39.743 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:53:39.746 1411-2115/? E/WifiVendorHal: getTxPktFates(l.2241) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:53:39.747 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:53:39.748 1411-2115/? E/WifiVendorHal: getRxPktFates(l.2283) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:53:39.750 1411-2115/? E/WifiVendorHal: stopRssiMonitoring(l.2426) failed {.code = ERROR_NOT_AVAILABLE, .description = }
+2020-04-12 15:53:39.751 1411-2115/? E/SupplicantStaIfaceHal: Can't call setCurrentNetworkBssid, SupplicantStaNetwork is null
+2020-04-12 15:53:39.823 945-945/? E/IptablesRestoreController: [iptables debug]iptables-restore execute *filter
+    -nvx -L tetherctrl_counters
+    COMMIT
+2020-04-12 15:53:39.825 945-945/? E/IptablesRestoreController: [iptables debug]iptables-restore execute done *filter
+    -nvx -L tetherctrl_counters
+    COMMIT
+    , res : 0
+2020-04-12 15:53:39.825 945-945/? E/IptablesRestoreController: [iptables debug]iptables-restore execute *filter
+    -nvx -L tetherctrl_counters
+    COMMIT
+2020-04-12 15:53:39.827 945-945/? E/IptablesRestoreController: [iptables debug]iptables-restore execute done *filter
+    -nvx -L tetherctrl_counters
+    COMMIT
+    , res : 0
+2020-04-12 15:53:39.852 1411-6323/? E/NetworkMonitor: IllegalArgumentException: java.lang.IllegalArgumentException: Receiver not registered: com.android.server.connectivity.NetworkMonitor$1@1ca0dfa
+2020-04-12 15:53:39.853 1411-6323/? E/NetworkMonitor: IllegalArgumentException: java.lang.IllegalArgumentException: Receiver not registered: com.android.server.connectivity.NetworkMonitor$2@8583608
+2020-04-12 15:53:39.853 1411-6323/? E/NetworkMonitor: Async - Client connection lost reason: 0
+2020-04-12 15:53:39.853 1411-2158/? E/WifiConnectivityMonitor: Async - Client connection lost reason: 0
+2020-04-12 15:53:39.862 1411-2115/? E/WifiVendorHal: stopRssiMonitoring(l.2426) failed {.code = ERROR_NOT_AVAILABLE, .description = }
+2020-04-12 15:53:39.863 1411-2115/? E/SupplicantStaIfaceHal: Can't call setCurrentNetworkBssid, SupplicantStaNetwork is null
+2020-04-12 15:53:53.338 979-1065/? E/storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
+2020-04-12 15:53:57.933 1411-2313/? E/Watchdog: !@Sync 78 [2020-04-12 15:53:57.933] FD count : 524
+2020-04-12 15:54:03.458 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:54:03.468 1411-2115/? E/WifiVendorHal: getTxPktFates(l.2241) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:54:03.469 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:54:03.470 1411-2115/? E/WifiVendorHal: getRxPktFates(l.2283) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:54:09.934 1411-9574/? E/BartenderActivityManager: BarTender: pid : 23184 cached=true abnormal=false kill=false stay=false release=false
+2020-04-12 15:54:14.366 945-1201/? E/IptablesRestoreController: [iptables debug]iptables-restore execute *filter
+    -A fw_freecess -m owner --uid-owner 10426 -j DROP
+    COMMIT
+2020-04-12 15:54:14.373 945-1201/? E/IptablesRestoreController: [iptables debug]iptables-restore execute done *filter
+    -A fw_freecess -m owner --uid-owner 10426 -j DROP
+    COMMIT
+    , res : 0
+2020-04-12 15:54:27.943 1411-2313/? E/Watchdog: !@Sync 79 [2020-04-12 15:54:27.942] FD count : 521
+2020-04-12 15:54:42.966 1411-1411/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:42.966 1411-1411/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:42.967 1411-3883/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:42.969 1411-9574/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:42.970 2217-2217/? E/KeyguardUpdateMonitor: handleStartedWakingUp start 1
+2020-04-12 15:54:42.970 2217-2217/? E/KeyguardFingerPrint: updateFingerprintListeningState#mFingerprintRunningState=0 shouldListenForFingerprint=false
+2020-04-12 15:54:42.970 945-1201/? E/IptablesRestoreController: [iptables debug]iptables-restore execute *filter
+    -D fw_freecess -m owner --uid-owner 10426 -j DROP
+    COMMIT
+2020-04-12 15:54:42.974 2217-2217/? E/KeyguardUpdateMonitor: handleStartedWakingUp end
+2020-04-12 15:54:42.975 945-1201/? E/IptablesRestoreController: [iptables debug]iptables-restore execute done *filter
+    -D fw_freecess -m owner --uid-owner 10426 -j DROP
+    COMMIT
+    , res : 0
+2020-04-12 15:54:42.988 659-1897/? E/qti_sensors_hal: Activities en 0, len 4
+2020-04-12 15:54:43.001 659-1897/? E/qti_sensors_hal: Activities en 0, len 4
+2020-04-12 15:54:43.009 1411-1411/? E/PocketModeEvent: ACTION_SCREEN_ON(by 1)
+2020-04-12 15:54:43.021 2217-2217/? E/LSO_LSOInterface: LSO Service is not yet ready!!!
+2020-04-12 15:54:43.053 3482-3482/? E/LibSecureUISvc: svc_sock_send_message(suisvc): invalid remote socket suilst
+2020-04-12 15:54:43.056 1411-1411/? E/PocketModeEvent: onSensorChanged : proxVal: 8.000183
+2020-04-12 15:54:43.058 2507-2892/? E/EPDG -- SIM0 [RILRECEIVER]: RX [NET_REGIST] -- RESPONSE -- not initialized
+2020-04-12 15:54:43.063 2507-2892/? E/EPDG -- SIM1 [RILRECEIVER]: RX [NET_REGIST] -- RESPONSE -- not initialized
+2020-04-12 15:54:43.064 2186-2197/? E/BtGatt.ContextMap: remove() - removed: 6
+2020-04-12 15:54:43.072 2507-2892/? E/EPDG -- SIM0 [RILRECEIVER]: RX [NET_REGIST] -- RESPONSE -- not initialized
+2020-04-12 15:54:43.088 2186-2683/? E/BtGatt.GattService: [GSIM ZLog]: gsimLogHandler, msg: MESSAGE_SCAN_STOP, appName: android.uid.bcmgr, scannerId: 6, reportDelayMillis=0
+2020-04-12 15:54:43.092 2507-2892/? E/EPDG -- SIM1 [RILRECEIVER]: RX [NET_REGIST] -- RESPONSE -- not initialized
+2020-04-12 15:54:43.175 2186-2683/? E/BtGatt.GattService: [GSIM ZLog]: gsimLogHandler, msg: MESSAGE_SCAN_START, appName: android.uid.bcmgr, scannerId: 6, reportDelayMillis=0
+2020-04-12 15:54:43.196 2186-2680/? E/BtGatt.ScanManager: default value of curScanSetting 0 is choosen
+2020-04-12 15:54:44.076 1411-9488/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.126 1411-9574/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.128 1411-9574/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.142 26691-7599/com.sgs.unite E/Camera_APM :: [APM]APM's Thread is started
+2020-04-12 15:54:44.143 26691-7599/com.sgs.unite E/Camera_APM :: [APM] This app is forground app
+2020-04-12 15:54:44.144 910-2072/? E/CameraService: checkTemperature (0)
+2020-04-12 15:54:44.145 910-2072/? E/CameraService: setCompanionDisableSysFs : cc.disable property set to 0
+2020-04-12 15:54:44.149 1411-3884/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.150 910-2072/? E/SecCameraCoreManager: initialize1
+2020-04-12 15:54:44.154 1411-1610/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.157 910-7604/? E/QCamera: <HAL><ERROR> setAntibanding: 14451: Invalid AntiBanding value:
+2020-04-12 15:54:44.160 647-3443/? E/msm8974_platform: platform_check_backends_match: Invalid snd_device =
+2020-04-12 15:54:44.164 647-3443/? E/voice: voice_is_in_call_rec_stream: input stream is NULL
+2020-04-12 15:54:44.165 647-3443/? E/voice: voice_is_in_call_rec_stream: input stream is NULL
+2020-04-12 15:54:44.165 647-3443/? E/voice: voice_is_in_call_rec_stream: input stream is NULL
+2020-04-12 15:54:44.166 647-3443/? E/ACDB-LOADER: Error: ACDB AudProc vol returned = -19
+2020-04-12 15:54:44.168 911-1149/? E/SEC_DRM_PLUGIN_Omafl: OmaPlugin::onOpenDecryptSession(fd)::Drm2IsDrmFileByExtFd::file is NOT DRM by extension
+2020-04-12 15:54:44.170 2217-2217/? E/KeyguardFingerPrint: updateFingerprintListeningState#mFingerprintRunningState=0 shouldListenForFingerprint=false
+2020-04-12 15:54:44.170 1411-3884/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.172 910-2072/? E/mm-camera: <SENSOR><ERROR> 2328: hwinfo_make_3a_name: 3a name (type : 0) F12QS_libTsAe.so
+2020-04-12 15:54:44.172 910-2072/? E/mm-camera: <SENSOR><ERROR> 2353: hwinfo_make_3a_bin_path: path=/data/camera/TsAeTuningData.bin
+2020-04-12 15:54:44.174 910-2072/? E/mm-camera: <SENSOR><ERROR> 2328: hwinfo_make_3a_name: 3a name (type : 2) F12QS_libTsAwb.so
+2020-04-12 15:54:44.174 910-2072/? E/mm-camera: <SENSOR><ERROR> 2353: hwinfo_make_3a_bin_path: path=/data/camera/TsAwbTuningData.bin
+2020-04-12 15:54:44.173 1411-3884/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.174 1411-1411/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.175 910-2072/? E/mm-camera: <SENSOR><ERROR> 2328: hwinfo_make_3a_name: 3a name (type : 3) F12QS_libTsAccm.so
+2020-04-12 15:54:44.175 910-2072/? E/mm-camera: <SENSOR><ERROR> 2353: hwinfo_make_3a_bin_path: path=/data/camera/TsAccmTuningData.bin
+2020-04-12 15:54:44.176 910-2072/? E/mm-camera: <SENSOR><ERROR> 2328: hwinfo_make_3a_name: 3a name (type : 1) F12QS_libTsAf.so
+2020-04-12 15:54:44.176 910-2072/? E/mm-camera: <SENSOR><ERROR> 2353: hwinfo_make_3a_bin_path: path=/data/camera/TsAfTuningData.bin
+2020-04-12 15:54:44.175 1411-1411/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.182 21504-21504/? E/MtpService: In MTPAPP onReceive:android.intent.action.USER_PRESENT
+2020-04-12 15:54:44.182 21504-21504/? E/MtpService: Inside ACTION_USER_PRESENT:android.intent.action.USER_PRESENT
+2020-04-12 15:54:44.184 1411-1411/? E/MotionRecognitionService:   mReceiver.onReceive : ACTION_USER_PRESENT  :: UNLOCK SCREEN
+2020-04-12 15:54:44.186 3482-3482/? E/LibSecureUISvc: svc_sock_send_message(suisvc): invalid remote socket suilst
+2020-04-12 15:54:44.193 910-2072/? E/mm-camera: <STATS ><ERROR> 2996: stats_port_check_caps_reserve: Invalid Port capability type!
+2020-04-12 15:54:44.193 910-2072/? E/mm-camera: <STATS ><ERROR> 2996: stats_port_check_caps_reserve: Invalid Port capability type!
+2020-04-12 15:54:44.218 1411-3885/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.223 911-1149/? E/SEC_DRM_PLUGIN_Omafl: OmaPlugin::onOpenDecryptSession(fd)::Drm2IsDrmFileByExtFd::file is NOT DRM by extension
+2020-04-12 15:54:44.233 1411-9488/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.252 1411-2129/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.255 1411-2129/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.262 1411-3885/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.263 910-7609/? E/mm-camera: <SENSOR><ERROR> 1737: sensor_write_init_settings: Imx333 Sensor rev 0x12
+2020-04-12 15:54:44.264 1411-3885/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:54:44.268 1411-1411/? E/PocketModeEvent: unregi sensor L : 445 P : 0
+2020-04-12 15:54:44.268 911-1149/? E/SEC_DRM_PLUGIN_Omafl: OmaPlugin::onOpenDecryptSession(fd)::Drm2IsDrmFileByExtFd::file is NOT DRM by extension
+2020-04-12 15:54:44.281 910-7609/? E/mm-camera: <SENSOR><ERROR> 497: module_sensor_offload_init_config: Success
+2020-04-12 15:54:44.281 910-2072/? E/SecCameraCoreManager: initialize2
+2020-04-12 15:54:44.322 910-7603/? E/QCamera: <HAL><ERROR> setFocusLensPos: 25202: setFocusLensPos: Failed to setFocusLensPos
+2020-04-12 15:54:44.323 910-7607/? E/mm-camera: <STATS_AF ><ERROR> 237: af_port_ext_save_common_set_parm_custom: Save CAM_INTF_PARM_FACTORY_MODE: 21
+2020-04-12 15:54:44.323 910-7607/? E/mm-camera: <STATS_AF ><ERROR> 237: af_port_ext_save_common_set_parm_custom: Save CAM_INTF_PARM_FACTORY_MODE: 21
+2020-04-12 15:54:44.359 910-2072/? E/SecCameraCoreManager: checkTemperature (0)
+2020-04-12 15:54:44.372 910-7607/? E/mm-camera: <MCT   ><ERROR> 376: mct_stream_link_module_array: stream_type_mod[0][0] name : (null)
+2020-04-12 15:54:44.407 910-7607/? E/mm-camera: <SENSOR><ERROR> 4385: sensor_set_shot_mode: test: 0
+2020-04-12 15:54:44.408 910-7607/? E/mm-camera: <STATS_AF ><ERROR> 3333: af_port_handle_sensor_update: Depth_Err: actuator sensitivity: 0.000000 is invalid
+2020-04-12 15:54:44.408 910-7620/? E/mm-3a-external: [CMG_EFL] void AfLib_AlgorithmInit(uint8_t) (line 340) mode = 0
+2020-04-12 15:54:44.408 910-7620/? E/mm-camera: <STATS_AF ><ERROR> 1534: TsAf_move_lens_direct: move_lens_cb = null
+2020-04-12 15:54:44.408 910-7620/? E/mm-3a-external: [CMG_AF_ERR] int8_t CalculateSingleAfApRoi() (line 1444) : Sensor/Crop size is invalid!! sensor(0, 0) crop(0, 0)
+2020-04-12 15:54:44.408 910-7620/? E/mm-3a-external: [CMG_AF_ERR] void SingleAfInit() (line 2710) : Single AP ROI Calculation Error!!
+2020-04-12 15:54:44.409 910-7620/? E/mm-3a-external: [CMG_EFL] uint8_t AfLib_BootingInit(uint8_t) (line 72) : 171
+2020-04-12 15:54:44.409 910-7620/? E/mm-3a-external: [CMG_EFL] uint8_t AfLib_BootingInit(uint8_t) (line 196) : af cal data far: 130, middle: 65535, near: 356, plus_offset: 0, minus_offset: 0
+2020-04-12 15:54:44.409 910-7620/? E/mm-3a-external: [CMG_EFL] uint8_t AfLib_BootingInit(uint8_t) (line 204) : paf_stats_valid : 1, caf_stats_valid : 1
+2020-04-12 15:54:44.409 910-7620/? E/mm-3a-external: [CMG_EFL] uint8_t AfLib_BootingInit(uint8_t) (line 214) : paf_cal_data_info = 20160929 paf_cal_errcheck 0
+2020-04-12 15:54:44.411 910-7607/? E/mm-camera: <ISP   ><ERROR> 66: gtm46_configure_from_chromatix_bit: submod_enable=0
+2020-04-12 15:54:44.411 910-7607/? E/mm-camera: <ISP   ><ERROR> 1969: isp_sub_module_util_configure_from_chromatix_bit: LTM disable
+2020-04-12 15:54:44.411 910-7607/? E/mm-camera: <STATS_ASD ><ERROR> 4423: parse_ASD_chromatix: Tuning Error: ASD uses only bayer stats
+2020-04-12 15:54:44.411 910-7607/? E/mm-camera: <STATS ><ERROR> 4520: parse_chromatix_iot: error: chromatix_ptr is NULL
+2020-04-12 15:54:44.418 910-7620/? E/mm-3a-external: [CMG_EFL] void AfLib_AlgorithmInit(uint8_t) (line 340) mode = 3
+2020-04-12 15:54:44.423 910-7607/? E/mm-camera: <SENSOR><ERROR> 224: module_sensor_companion_stream_on: companion_mode_param.cur_res = 10
+2020-04-12 15:54:44.426 910-7611/? E/mm-3a-core: aswoogi new_res = 10,
+2020-04-12 15:54:44.426 910-7607/? E/mm-camera: <IFACE ><ERROR> 647: iface_ispif_proc_open: ispif->open_count 1, fd 153
+
+2020-04-12 15:54:44.432 910-7607/? E/mm-camera: <STATS_AWB ><ERROR> 672: awb_port_ext_handle_control_event: AWB streamOn E
+2020-04-12 15:54:44.433 910-7607/? E/mm-camera: <SENSOR><ERROR> 2966: companion_set_awb_update: No companion data
+2020-04-12 15:54:44.433 910-7607/? E/mm-camera: <SENSOR><ERROR> 1683: port_sensor_handle_upstream_module_event: failed
+2020-04-12 15:54:44.433 910-7607/? E/mm-camera: <SENSOR><ERROR> 2168: port_sensor_port_process_event: failed: port_sensor_handle_upstream_module_event
+2020-04-12 15:54:44.434 910-7607/? E/mm-camera: <ISP   ><ERROR> 401: color_xform46_config: color_xform46_config: color xform: 0 burstmode =0
+2020-04-12 15:54:44.434 910-7607/? E/mm-camera: <ISP   ><ERROR> 401: color_xform46_config: color_xform46_config: color xform: 0 burstmode =0
+2020-04-12 15:54:44.445 910-7607/? E/mm-camera: <SENSOR><ERROR> 3185: sensor_set_start_stream: Sensor stream ON for imx333
+2020-04-12 15:54:44.518 910-7607/? E/mm-camera: <IFACE ><ERROR> 596: iface_ispif_proc_close: 153 closed
+2020-04-12 15:54:44.518 910-7607/? E/mm-camera: <IFACE ><ERROR> 604: iface_ispif_proc_close: ispif->open_count 0
+2020-04-12 15:54:44.520 910-7607/? E/mm-camera: <SENSOR><ERROR> 4766: module_sensor_stream_on: s_module = 0xdecaffc0, session_id = 262146 ide 40002 stream type 1
+2020-04-12 15:54:44.520 910-7607/? E/mm-camera: <SENSOR><ERROR> 4866: module_sensor_stream_on: module_sensor_companion_stream_off
+2020-04-12 15:54:44.521 910-7607/? E/mm-camera: <SENSOR><ERROR> 4385: sensor_set_shot_mode: test: 0
+2020-04-12 15:54:44.521 910-7607/? E/mm-camera: <STATS_AF ><ERROR> 3333: af_port_handle_sensor_update: Depth_Err: actuator sensitivity: 0.000000 is invalid
+2020-04-12 15:54:44.522 910-7620/? E/mm-3a-external: [CMG_EFL] void AfLib_AlgorithmInit(uint8_t) (line 340) mode = 3
+2020-04-12 15:54:44.523 910-7607/? E/mm-camera: <ISP   ><ERROR> 66: gtm46_configure_from_chromatix_bit: submod_enable=0
+2020-04-12 15:54:44.523 910-7607/? E/mm-camera: <ISP   ><ERROR> 1969: isp_sub_module_util_configure_from_chromatix_bit: LTM disable
+2020-04-12 15:54:44.523 910-7607/? E/mm-camera: <STATS_ASD ><ERROR> 4423: parse_ASD_chromatix: Tuning Error: ASD uses only bayer stats
+2020-04-12 15:54:44.523 910-7607/? E/mm-camera: <STATS ><ERROR> 4520: parse_chromatix_iot: error: chromatix_ptr is NULL
+2020-04-12 15:54:44.523 910-7607/? E/mm-camera: <SENSOR><ERROR> 5847: module_sensor_set_start_companion_stream_on: E
+2020-04-12 15:54:44.524 910-7607/? E/mm-camera: <CPP   ><ERROR> 1462: cpp_module_handle_stream_crop_event: Crop param invalid 1920, reset to 1008
+2020-04-12 15:54:44.524 910-7607/? E/mm-camera: <CPP   ><ERROR> 1464: cpp_module_handle_stream_crop_event: Crop param invalid 1080, reset to 756
+2020-04-12 15:54:44.526 910-7607/? E/mm-camera: <IFACE ><ERROR> 647: iface_ispif_proc_open: ispif->open_count 1, fd 91
+
+2020-04-12 15:54:44.532 910-7607/? E/mm-camera: <STATS_AWB ><ERROR> 672: awb_port_ext_handle_control_event: AWB streamOn E
+2020-04-12 15:54:44.532 910-7607/? E/mm-camera: <SENSOR><ERROR> 2966: companion_set_awb_update: No companion data
+2020-04-12 15:54:44.532 910-7607/? E/mm-camera: <SENSOR><ERROR> 1683: port_sensor_handle_upstream_module_event: failed
+2020-04-12 15:54:44.532 910-7607/? E/mm-camera: <SENSOR><ERROR> 2168: port_sensor_port_process_event: failed: port_sensor_handle_upstream_module_event
+2020-04-12 15:54:44.535 910-7607/? E/mm-camera: <SENSOR><ERROR> 4766: module_sensor_stream_on: s_module = 0xdecaffc0, session_id = 262147 ide 40003 stream type 11
+2020-04-12 15:54:44.535 910-7607/? E/mm-camera: <SENSOR><ERROR> 4866: module_sensor_stream_on: module_sensor_companion_stream_off
+2020-04-12 15:54:44.535 910-7607/? E/mm-camera: <SENSOR><ERROR> 4385: sensor_set_shot_mode: test: 0
+2020-04-12 15:54:44.535 910-7607/? E/mm-camera: <STATS_AF ><ERROR> 3333: af_port_handle_sensor_update: Depth_Err: actuator sensitivity: 0.000000 is invalid
+2020-04-12 15:54:44.535 910-7607/? E/mm-camera: <SENSOR><ERROR> 5847: module_sensor_set_start_companion_stream_on: E
+2020-04-12 15:54:44.540 910-7607/? E/mm-camera: <SENSOR><ERROR> 224: module_sensor_companion_stream_on: companion_mode_param.cur_res = 2
+2020-04-12 15:54:44.540 910-7611/? E/mm-3a-core: aswoogi new_res = 2,
+2020-04-12 15:54:44.546 910-7607/? E/mm-camera: <STATS_AWB ><ERROR> 672: awb_port_ext_handle_control_event: AWB streamOn E
+2020-04-12 15:54:44.546 910-7607/? E/mm-camera: <SENSOR><ERROR> 2966: companion_set_awb_update: No companion data
+2020-04-12 15:54:44.546 910-7607/? E/mm-camera: <SENSOR><ERROR> 1683: port_sensor_handle_upstream_module_event: failed
+2020-04-12 15:54:44.546 910-7607/? E/mm-camera: <SENSOR><ERROR> 2168: port_sensor_port_process_event: failed: port_sensor_handle_upstream_module_event
+2020-04-12 15:54:44.547 910-7607/? E/mm-camera: <ISP   ><ERROR> 401: color_xform46_config: color_xform46_config: color xform: 0 burstmode =0
+2020-04-12 15:54:44.547 910-7607/? E/mm-camera: <ISP   ><ERROR> 401: color_xform46_config: color_xform46_config: color xform: 0 burstmode =0
+2020-04-12 15:54:44.559 910-7607/? E/mm-camera: <SENSOR><ERROR> 5793: module_sensor_set_start_stream_on: ide 40003 SENSOR_START_STREAM
+2020-04-12 15:54:44.560 910-7607/? E/mm-camera: <SENSOR><ERROR> 3185: sensor_set_start_stream: Sensor stream ON for imx333
+2020-04-12 15:54:44.560 910-7607/? E/mm-camera: <MCT   ><ERROR> 160: start_sof_check_thread: Did not start SOF thread as it is already initialized.
+2020-04-12 15:54:44.585 910-7604/? E/mm-still: omx_component_set_callbacks: Bad Parameter
+2020-04-12 15:54:44.586 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x1 0x0
+2020-04-12 15:54:44.619 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x1
+2020-04-12 15:54:44.758 1411-1891/? E/WindowManager: win=Window{81de926 u0 SnapshotStartingWindow for taskId=112 EXITING} destroySurfaces: appStopped=false win.mWindowRemovalAllowed=true win.mRemoveOnExit=true win.mViewVisibility=0 caller=com.android.server.wm.AppWindowToken.destroySurfaces:870 com.android.server.wm.AppWindowToken.destroySurfaces:851 com.android.server.wm.WindowState.onExitAnimationDone:5406 com.android.server.wm.WindowStateAnimator.onAnimationFinished:319 com.android.server.wm.WindowState.onAnimationFinished:5828 com.android.server.wm.-$$Lambda$yVRF8YoeNdTa8GR1wDStVsHu8xM.run:2 com.android.server.wm.SurfaceAnimator.lambda$getFinishedCallback$0:97
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay with value 40000
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 0]
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load with value 95
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 4]
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq with value 806400
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 5]
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads with value 90
+2020-04-12 15:54:44.812 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 8]
+2020-04-12 15:54:44.813 877-877/? E/audit: type=1400 audit(1586678084.799:979): avc:  denied  { dac_override } for  pid=667 comm="perf@1.0-servic" capability=1  scontext=u:r:hal_perf_default:s0 tcontext=u:r:hal_perf_default:s0 tclass=capability permissive=0 SEPF_SM-G9500_9_0014 audit_filtered
+2020-04-12 15:54:44.813 877-877/? E/audit: type=1400 audit(1586678084.799:982): avc:  denied  { dac_override } for  pid=667 comm="perf@1.0-servic" capability=1  scontext=u:r:hal_perf_default:s0 tcontext=u:r:hal_perf_default:s0 tclass=capability permissive=0 SEPF_SM-G9500_9_0014 audit_filtered
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay with value 40000
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 0]
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load with value 95
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 4]
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq with value 595200
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 5]
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads with value 90
+2020-04-12 15:54:44.813 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 8]
+2020-04-12 15:54:44.814 877-877/? E/audit: type=1400 audit(1586678084.799:983): avc:  denied  { dac_override } for  pid=667 comm="perf@1.0-servic" capability=1  scontext=u:r:hal_perf_default:s0 tcontext=u:r:hal_perf_default:s0 tclass=capability permissive=0 SEPF_SM-G9500_9_0014 audit_filtered
+2020-04-12 15:54:44.814 877-877/? E/audit: type=1400 audit(1586678084.799:986): avc:  denied  { dac_override } for  pid=667 comm="perf@1.0-servic" capability=1  scontext=u:r:hal_perf_default:s0 tcontext=u:r:hal_perf_default:s0 tclass=capability permissive=0 SEPF_SM-G9500_9_0014 audit_filtered
+2020-04-12 15:54:44.815 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu0/cpufreq/interactive/ignore_hispeed_on_notif with value 0
+2020-04-12 15:54:44.815 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 14]
+2020-04-12 15:54:44.815 877-877/? E/audit: type=1400 audit(1586678084.799:987): avc:  denied  { dac_override } for  pid=667 comm="perf@1.0-servic" capability=1  scontext=u:r:hal_perf_default:s0 tcontext=u:r:hal_perf_default:s0 tclass=capability permissive=0 SEPF_SM-G9500_9_0014 audit_filtered
+2020-04-12 15:54:44.815 667-690/? E/ANDR-PERF-UTIL: Failed to update node /sys/devices/system/cpu/cpu4/cpufreq/interactive/ignore_hispeed_on_notif with value 0
+2020-04-12 15:54:44.815 877-877/? E/audit: type=1400 audit(1586678084.799:988): avc:  denied  { dac_override } for  pid=667 comm="perf@1.0-servic" capability=1  scontext=u:r:hal_perf_default:s0 tcontext=u:r:hal_perf_default:s0 tclass=capability permissive=0 SEPF_SM-G9500_9_0014 audit_filtered
+2020-04-12 15:54:44.815 667-690/? E/ANDR-PERF-RESOURCEQS: Failed to apply optimization [5, 14]
+2020-04-12 15:54:44.985 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 4, total_frame_count = 12). Change AF Method to CONTRAST!!
+2020-04-12 15:54:45.720 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 2, total_frame_count = 20). Change AF Method to CONTRAST!!
+2020-04-12 15:54:47.039 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:47.754 910-7620/? E/mm-3a-external: [CMG_AF_ERR] int8_t MaintenancePreviewCafMethod() (line 3575) Exceed MAX_TOTAL_FRAME_COUNT(60)!! (err_pos = 0)
+2020-04-12 15:54:47.819 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x4 0x2
+2020-04-12 15:54:47.820 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 130, bv 1451
+2020-04-12 15:54:47.885 910-7620/? E/mm-3a-external: [FA_EXIF] : 130	137522408981528694	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2020-04-12 15:54:47.885 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x4
+2020-04-12 15:54:48.051 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x3 0x2
+2020-04-12 15:54:48.051 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 511, bv 1382
+2020-04-12 15:54:48.086 910-7620/? E/mm-3a-external: [FA_EXIF] : 130	137522408981528694	249	143996333445873782	368	143996333445873782	511	144013925631918198	511	144013925631918198	511	144084294376095862	511	144044776382005366	0	0	0	0	0	0
+2020-04-12 15:54:48.184 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x3
+2020-04-12 15:54:48.619 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x3 0x2
+2020-04-12 15:54:48.619 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 511, bv 1355
+2020-04-12 15:54:48.658 910-7620/? E/mm-3a-external: [FA_EXIF] : 511	71654854954582057	426	71654876429418537	341	143996333445873782	397	75597914105184298	453	75597914105184298	392	74472014198341674	331	143996333445873782	391	143996333445873782	451	143996333445873782	511	144013925631918198
+2020-04-12 15:54:49.511 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:49.668 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:50.883 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x3
+2020-04-12 15:54:51.053 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x3 0x2
+2020-04-12 15:54:51.053 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 511, bv 1378
+2020-04-12 15:54:51.084 910-7620/? E/mm-3a-external: [FA_EXIF] : 511	143996333445873782	511	143996333445873782	511	144013925631918198	511	144084294376095862	511	144049110004007030	0	0	0	0	0	0	0	0	0	0
+2020-04-12 15:54:51.254 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x3
+2020-04-12 15:54:51.336 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:51.585 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 4, total_frame_count = 11). Change AF Method to CONTRAST!!
+2020-04-12 15:54:51.918 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x3 0x2
+2020-04-12 15:54:51.918 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 511, bv 1356
+2020-04-12 15:54:51.951 910-7620/? E/mm-3a-external: [FA_EXIF] : 511	74188417507786807	429	71937064370700343	347	143996333445873782	401	143996333445873782	455	143996333445873782	511	144013925631918198	511	144013925631918198	511	144084294376095862	511	144049110004007030	0	0
+2020-04-12 15:54:52.104 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:52.267 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:53.339 979-1065/? E/storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
+2020-04-12 15:54:54.317 910-7645/? E/SecCameraCoreManager: checkTemperature (0)
+2020-04-12 15:54:54.716 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x3
+2020-04-12 15:54:54.882 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x3 0x2
+2020-04-12 15:54:54.882 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 251, bv 982
+2020-04-12 15:54:54.917 910-7620/? E/mm-3a-external: [FA_EXIF] : 511	67151147953029238	420	80101513732554870	329	70531364524392566	250	70830431687147638	251	70548956710436982	251	69774900524482678	251	69739716152393846	0	0	0	0	0	0
+2020-04-12 15:54:56.533 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:57.281 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x3
+2020-04-12 15:54:57.415 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 4, total_frame_count = 7). Change AF Method to CONTRAST!!
+2020-04-12 15:54:57.882 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 4, total_frame_count = 12). Change AF Method to CONTRAST!!
+2020-04-12 15:54:57.903 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:57.949 1411-2313/? E/Watchdog: !@Sync 80 [2020-04-12 15:54:57.949] FD count : 530
+2020-04-12 15:54:58.233 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:58.407 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:58.668 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:59.197 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:54:59.913 910-7620/? E/mm-3a-external: [CMG_AF_ERR] int8_t MaintenancePreviewCafMethod() (line 3575) Exceed MAX_TOTAL_FRAME_COUNT(60)!! (err_pos = 0)
+2020-04-12 15:54:59.980 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x4 0x2
+2020-04-12 15:54:59.980 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 130, bv 1218
+2020-04-12 15:55:00.016 1411-11224/? E/LockSettingsStorage: Cannot read file java.io.FileNotFoundException: /data/system/fmmpassword.key: open failed: ENOENT (No such file or directory)
+2020-04-12 15:55:00.047 910-7620/? E/mm-3a-external: [FA_EXIF] : 130	138646363268186158	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2020-04-12 15:55:00.047 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x4
+2020-04-12 15:55:00.097 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:55:00.413 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 4, total_frame_count = 12). Change AF Method to CONTRAST!!
+2020-04-12 15:55:00.982 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 4, total_frame_count = 15). Change AF Method to CONTRAST!!
+2020-04-12 15:55:02.597 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:55:02.971 910-7652/? E/CameraClient: lockIfMessageWanted(0x10): enter sleep
+2020-04-12 15:55:02.979 910-7620/? E/mm-3a-external: [CMG_AF_ERR] void PreviewCafContrastCoarseScan() (line 622) Exceed MAX_DIRECTION_CHANGE!! (err_pos = 0)
+2020-04-12 15:55:03.050 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x4 0x2
+2020-04-12 15:55:03.050 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 130, bv 1234
+2020-04-12 15:55:03.112 910-7620/? E/mm-3a-external: [FA_EXIF] : 130	139771971117252680	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+2020-04-12 15:55:03.113 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x2 0x4
+2020-04-12 15:55:03.347 910-7620/? E/mm-3a-external: [CMG_AF_NOTI] int8_t MaintenancePreviewCafMethod() (line 3468) Exceed THRESHOLD_COUNT(fail_count_paf = 4, total_frame_count = 8). Change AF Method to CONTRAST!!
+2020-04-12 15:55:03.747 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateAfStatus(AfState) (line 251) : AF msgStatus 0x3 0x2
+2020-04-12 15:55:03.747 910-7620/? E/mm-3a-external: [CMG_EFL] void UpdateExifInfo(uint32_t) (line 2832) : cur_position 511, bv 1183
+2020-04-12 15:55:03.779 910-7620/? E/mm-3a-external: [FA_EXIF] : 420	98115912242036764	384	98115912242036764	348	141478542012579883	425	135832360825389099	453	143996333445873758	511	144013925631918161	511	246290604621824	511	211106232532992	0	0	0	0
+2020-04-12 15:55:03.961 910-7608/? E/mm-camera: <SENSOR><ERROR> 778: port_sensor_handle_aec_update: ext_aec_update failed
+2020-04-12 15:55:04.144 26691-27077/com.sgs.unite A/libc: Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x5214 in tid 27077 (Studio:InputCon), pid 26691 (com.sgs.unite)
+2020-04-12 15:55:04.257 26691-8498/com.sgs.unite E/StudioProfiler: JVMTI error: 15(JVMTI_ERROR_THREAD_NOT_ALIVE)
+2020-04-12 15:55:04.294 8493-8493/? A/DEBUG: *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+2020-04-12 15:55:04.294 8493-8493/? A/DEBUG: Build fingerprint: 'samsung/dreamqltezc/dreamqltechn:9/PPR1.180610.011/G9500ZCU5DSK2:user/release-keys'
+2020-04-12 15:55:04.294 8493-8493/? A/DEBUG: Revision: '12'
+2020-04-12 15:55:04.295 8493-8493/? A/DEBUG: ABI: 'arm'
+2020-04-12 15:55:04.295 8493-8493/? A/DEBUG: pid: 26691, tid: 27077, name: Studio:InputCon  >>> com.sgs.unite <<<
+2020-04-12 15:55:04.295 8493-8493/? A/DEBUG: signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x5214
+2020-04-12 15:55:04.295 8493-8493/? A/DEBUG:     r0  000000a0  r1  ecd313e4  r2  000000f4  r3  00000000
+2020-04-12 15:55:04.295 8493-8493/? A/DEBUG:     r4  d08879c8  r5  ecd313e4  r6  0000006e  r7  e3d61c8c
+2020-04-12 15:55:04.295 8493-8493/? A/DEBUG:     r8  00000000  r9  000000f4  r10 ed82cc24  r11 0000464c
+2020-04-12 15:55:04.295 8493-8493/? A/DEBUG:     ip  ed7d7dac  sp  ed82cbf0  lr  ed7cf0e3  pc  00005214
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG: backtrace:
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #00 pc 00005214  <unknown>
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #01 pc 000070df  /system/lib/libbase.so (android::base::LogMessage::LogMessage(char const*, unsigned int, android::base::LogId, android::base::LogSeverity, char const*, int)+14)
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #02 pc 00140325  /system/lib/libart.so (art::FaultManager::HandleFault(int, siginfo*, void*)+496)
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #03 pc 00009b1f  /system/bin/app_process32 (art::SignalChain::Handler(int, siginfo*, void*)+382)
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #04 pc 00019c14  /system/lib/libc.so
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #05 pc 000084b6  /system/lib/libbase.so (android::base::StringPrintf(char const*, ...)+18)
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #06 pc 001027e7  /system/lib/libart.so (art::ThrowArrayIndexOutOfBoundsException(int, int)+26)
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #07 pc 001fe441  /system/lib/libart.so (void art::interpreter::ExecuteSwitchImplCpp<false, false>(art::interpreter::SwitchImplContext*)+15008)
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #08 pc 00414455  /system/lib/libart.so (ExecuteSwitchImplAsm+4)
+2020-04-12 15:55:04.316 8493-8493/? A/DEBUG:     #09 pc 0000bc7c  /dev/ashmem/dalvik-classes.dex extracted in memory from /data/data/com.sgs.unite/code_cache/perfa.jar_26691_26691 (deleted)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #10 pc 001c5a6d  /system/lib/libart.so (_ZN3art11interpreterL7ExecuteEPNS_6ThreadERKNS_20CodeItemDataAccessorERNS_11ShadowFrameENS_6JValueEb.llvm.524455986+420)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #11 pc 001ca129  /system/lib/libart.so (art::interpreter::ArtInterpreterToInterpreterBridge(art::Thread*, art::CodeItemDataAccessor const&, art::ShadowFrame*, art::JValue*)+152)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #12 pc 001e12af  /system/lib/libart.so (bool art::interpreter::DoCall<false, false>(art::ArtMethod*, art::Thread*, art::ShadowFrame&, art::Instruction const*, unsigned short, art::JValue*)+790)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #13 pc 003e435b  /system/lib/libart.so (MterpInvokeInterface+1010)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #14 pc 00402494  /system/lib/libart.so (ExecuteMterpImpl+14740)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #15 pc 000ca97a  /system/framework/boot.vdex (java.lang.Thread.run+12)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #16 pc 001c5a43  /system/lib/libart.so (_ZN3art11interpreterL7ExecuteEPNS_6ThreadERKNS_20CodeItemDataAccessorERNS_11ShadowFrameENS_6JValueEb.llvm.524455986+378)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #17 pc 001ca06f  /system/lib/libart.so (art::interpreter::EnterInterpreterFromEntryPoint(art::Thread*, art::CodeItemDataAccessor const&, art::ShadowFrame*)+82)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #18 pc 003d7271  /system/lib/libart.so (artQuickToInterpreterBridge+880)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #19 pc 00413aff  /system/lib/libart.so (art_quick_to_interpreter_bridge+30)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #20 pc 0040f575  /system/lib/libart.so (art_quick_invoke_stub_internal+68)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #21 pc 003e8b31  /system/lib/libart.so (art_quick_invoke_stub+224)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #22 pc 000a1415  /system/lib/libart.so (art::ArtMethod::Invoke(art::Thread*, unsigned int*, unsigned int, art::JValue*, char const*)+136)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #23 pc 00348ed5  /system/lib/libart.so (art::(anonymous namespace)::InvokeWithArgArray(art::ScopedObjectAccessAlreadyRunnable const&, art::ArtMethod*, art::(anonymous namespace)::ArgArray*, art::JValue*, char const*)+52)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #24 pc 00349c2d  /system/lib/libart.so (art::InvokeVirtualOrInterfaceWithJValues(art::ScopedObjectAccessAlreadyRunnable const&, _jobject*, _jmethodID*, jvalue*)+320)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #25 pc 0036b013  /system/lib/libart.so (art::Thread::CreateCallback(void*)+866)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #26 pc 00073611  /system/lib/libc.so (__pthread_start(void*)+22)
+2020-04-12 15:55:04.317 8493-8493/? A/DEBUG:     #27 pc 0001e47d  /system/lib/libc.so (__start_thread+24)
+2020-04-12 15:55:04.369 910-7645/? E/SecCameraCoreManager: checkTemperature (0)
+2020-04-12 15:55:04.430 910-7651/? E/CameraClient: lockIfMessageWanted(0x400): enter sleep
+2020-04-12 15:55:04.809 1112-1112/? E//system/bin/tombstoned: Tombstone written to: /data/tombstones/tombstone_00
+2020-04-12 15:55:04.863 697-697/? E/lmkd: Error writing /proc/26691/oom_score_adj; errno=22
+2020-04-12 15:55:04.888 1411-2085/? E/InputDispatcher: channel 'a41334e com.sgs.unite/com.sgs.scan.b.test.MainActivity (server)' ~ Channel is unrecoverably broken and will be disposed!
+2020-04-12 15:55:04.890 910-10610/? E/CameraService: notifyError(CAMERA_MSG_ERROR, CAMERA_ERROR_RELEASED)
+2020-04-12 15:55:04.895 1411-1642/? E/WindowManager: RemoteException occurs on reporting focusChanged, w=Window{a41334e u0 com.sgs.unite/com.sgs.scan.b.test.MainActivity EXITING}
+    android.os.DeadObjectException
+        at android.os.BinderProxy.transactNative(Native Method)
+        at android.os.BinderProxy.transact(Binder.java:1145)
+        at android.view.IWindow$Stub$Proxy.windowFocusChanged(IWindow.java:500)
+        at com.android.server.wm.WindowState.reportFocusChangedSerialized(WindowState.java:3920)
+        at com.android.server.wm.WindowManagerService$H.handleMessage(WindowManagerService.java:5456)
+        at android.os.Handler.dispatchMessage(Handler.java:106)
+        at android.os.Looper.loop(Looper.java:214)
+        at android.os.HandlerThread.run(HandlerThread.java:65)
+        at com.android.server.ServiceThread.run(ServiceThread.java:44)
+2020-04-12 15:55:04.895 1411-3881/? E/WindowManager: win=Window{a41334e u0 com.sgs.unite/com.sgs.scan.b.test.MainActivity EXITING} destroySurfaces: appStopped=false win.mWindowRemovalAllowed=true win.mRemoveOnExit=true win.mViewVisibility=0 caller=com.android.server.wm.AppWindowToken.destroySurfaces:870 com.android.server.wm.AppWindowToken.destroySurfaces:851 com.android.server.wm.WindowState.onExitAnimationDone:5406 com.android.server.wm.-$$Lambda$01bPtngJg5AqEoOWfW3rWfV7MH4.accept:2 java.util.ArrayList.forEach:1262 com.android.server.wm.AppWindowToken.onAnimationFinished:2403 com.android.server.wm.AppWindowToken.setVisibility:551
+2020-04-12 15:55:04.903 699-758/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] queueBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:04.903 910-7652/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -19
+2020-04-12 15:55:04.903 910-7652/? E/QCamera: <HAL><ERROR> enqueueBuffer: 2353: enqueue_buffer failed, err = -38
+2020-04-12 15:55:04.903 910-7652/? E/QCamera: <HAL><ERROR> preview_stream_cb_routine: 1987: preview_stream_cb_routine: Enqueue Buffer failed
+2020-04-12 15:55:04.936 699-2427/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] queueBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:04.936 910-7652/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -19
+2020-04-12 15:55:04.936 910-7652/? E/QCamera: <HAL><ERROR> enqueueBuffer: 2353: enqueue_buffer failed, err = -38
+2020-04-12 15:55:04.936 910-7652/? E/QCamera: <HAL><ERROR> preview_stream_cb_routine: 1987: preview_stream_cb_routine: Enqueue Buffer failed
+2020-04-12 15:55:04.969 699-2427/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] queueBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:04.970 910-7652/? E/Surface: queueBuffer: error queuing buffer to SurfaceTexture, -19
+2020-04-12 15:55:04.970 910-7652/? E/QCamera: <HAL><ERROR> enqueueBuffer: 2353: enqueue_buffer failed, err = -38
+2020-04-12 15:55:04.970 910-7652/? E/QCamera: <HAL><ERROR> preview_stream_cb_routine: 1987: preview_stream_cb_routine: Enqueue Buffer failed
+2020-04-12 15:55:04.985 910-7607/? E/mm-camera: <IFACE ><ERROR> 596: iface_ispif_proc_close: 91 closed
+2020-04-12 15:55:04.985 910-7607/? E/mm-camera: <IFACE ><ERROR> 604: iface_ispif_proc_close: ispif->open_count 0
+2020-04-12 15:55:04.990 910-7607/? E/mm-camera: <SENSOR><ERROR> 7908: module_sensor_stream_off: DBGC3 check CC PreFrame 0, CurFrame 0
+2020-04-12 15:55:04.990 910-7607/? E/mm-camera: <SENSOR><ERROR> 7912: module_sensor_stream_off: DBGC3 check CC First=0, FirstInfo=1111, Last=0, LastInfo=1111, Cntr=0, rc=1
+2020-04-12 15:55:04.991 910-7607/? E/mm-camera: <SENSOR><ERROR> 7921: module_sensor_stream_off: DBGC3 check CC dbg0 =6565, 1=265, 2=265,7=426e 15=f1 16=0 rc=1
+2020-04-12 15:55:04.993 910-7607/? E/mm-camera: <MCT   ><ERROR> 193: stop_sof_check_thread: Returning as SOF timer thread not yet initialized
+2020-04-12 15:55:04.994 699-2427/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] cancelBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:04.995 699-764/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] cancelBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:04.997 699-764/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] cancelBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:04.998 699-2427/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] cancelBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:04.999 699-2427/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] cancelBuffer: BufferQueue has been abandoned
+2020-04-12 15:55:05.000 699-758/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] connect: BufferQueue has been abandoned
+2020-04-12 15:55:05.000 699-758/? E/BufferQueueProducer: [SurfaceView - com.sgs.unite/com.sgs.scan.b.test.MainActivity@5ee7173@1[26691]#0] setMaxDequeuedBufferCount: BufferQueue has been abandoned
+2020-04-12 15:55:05.000 910-7603/? E/Surface: IGraphicBufferProducer::setBufferCount(0) returned No such device
+2020-04-12 15:55:05.087 910-10610/? E/mm-camera: <MCT   ><ERROR> 5611: mct_pipeline_stop_session: Stop session successful for session 4
+2020-04-12 15:55:05.087 910-10610/? E/mm-camera: <MCT   ><ERROR> 193: stop_sof_check_thread: Returning as SOF timer thread not yet initialized
+2020-04-12 15:55:05.096 910-10610/? E/CameraService: binderDied: Java client's binder died, removing it from the list of active clients
+2020-04-12 15:55:06.976 3243-7738/? E/SQLiteCastStore: Skip saving CastDeviceInfo: "附近的设备" (__cast_nearby___V_fceaa26a-989a-4952-81ec-8832dcfed6e7)
+2020-04-12 15:55:13.087 1411-3860/? E/BartenderActivityManager: BarTender: pid : 4758 cached=true abnormal=false kill=false stay=false release=false
+2020-04-12 15:55:13.103 1411-3852/? E/BartenderActivityManager: BarTender: pid : 5095 cached=true abnormal=false kill=false stay=false release=false
+2020-04-12 15:55:27.963 1411-2313/? E/Watchdog: !@Sync 81 [2020-04-12 15:55:27.963] FD count : 524
+2020-04-12 15:55:53.342 979-1065/? E/storaged: getDiskStats failed with result NOT_SUPPORTED and size 0
+2020-04-12 15:55:57.984 1411-2313/? E/Watchdog: !@Sync 82 [2020-04-12 15:55:57.984] FD count : 525
+2020-04-12 15:56:01.594 1411-2165/? E/IWCMonitor.File: Connecting event, timestamp =1586678161594: , new AP:24:f6:77:08:85:be
+2020-04-12 15:56:05.455 3534-3534/? E/ProActiveLaunch: Sending Broadcast
+2020-04-12 15:56:05.457 1411-2182/? E/ActivityManager: Checking for the Active launch isDataCleared :false, isAutoRunBlocked : true
+2020-04-12 15:56:05.582 1411-3816/? E/ANDR-PERF-JNI: com_qualcomm_qtiperformance_native_perf_io_prefetch_start
+2020-04-12 15:56:05.640 8567-8567/? E/Zygote: isWhitelistProcess - Process is Whitelisted
+2020-04-12 15:56:05.642 8567-8567/? E/Zygote: accessInfo : 1
+2020-04-12 15:56:05.754 945-1201/? E/IptablesRestoreController: [iptables debug]iptables-restore execute *filter
+    -D fw_standby -m owner --uid-owner 10372 -j DROP
+    COMMIT
+2020-04-12 15:56:05.757 945-1201/? E/IptablesRestoreController: [iptables debug]iptables-restore execute done *filter
+    -D fw_standby -m owner --uid-owner 10372 -j DROP
+    COMMIT
+    , res : 0
+2020-04-12 15:56:05.860 8567-8567/com.sgs.conveniencestore E/Tag.SfGatherstore_app: 下一次：hasErrors=0; delay=30; 是否开启下一次flag=true
+2020-04-12 15:56:05.873 8567-8597/com.sgs.conveniencestore E/ClearOlderFileRunner: removeOldDebugLogFiles 耗时：5
+2020-04-12 15:56:05.911 8567-8604/com.sgs.conveniencestore E/BluetoothAdapter: Application does not have bluetooth permission, registering is failed
+2020-04-12 15:56:05.912 8567-8604/com.sgs.conveniencestore E/BluetoothAdapter: java.lang.SecurityException: Need BLUETOOTH permission: Neither user 10372 nor current process has android.permission.BLUETOOTH.
+        at android.os.Parcel.createException(Parcel.java:1966)
+        at android.os.Parcel.readException(Parcel.java:1934)
+        at android.os.Parcel.readException(Parcel.java:1884)
+        at android.bluetooth.IBluetoothManager$Stub$Proxy.registerStateChangeCallback(IBluetoothManager.java:478)
+        at android.bluetooth.BluetoothAdapter.<init>(BluetoothAdapter.java:789)
+        at android.bluetooth.BluetoothAdapter.getDefaultAdapter(BluetoothAdapter.java:770)
+        at com.umeng.commonsdk.internal.utils.a.n(ApplicationLayerUtil.java:607)
+        at com.umeng.commonsdk.UMConfigureImpl$2.run(UMConfigureImpl.java:196)
+        at java.lang.Thread.run(Thread.java:764)
+     Caused by: android.os.RemoteException: Remote stack trace:
+        at android.app.ContextImpl.enforce(ContextImpl.java:1924)
+        at android.app.ContextImpl.enforceCallingOrSelfPermission(ContextImpl.java:1952)
+        at com.android.server.BluetoothManagerService.registerStateChangeCallback(BluetoothManagerService.java:892)
+        at android.bluetooth.IBluetoothManager$Stub.onTransact(IBluetoothManager.java:75)
+        at android.os.Binder.execTransact(Binder.java:739)
+2020-04-12 15:56:06.037 1411-3816/? E/WindowManager: win=Window{872869e u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity} destroySurfaces: appStopped=false win.mWindowRemovalAllowed=false win.mRemoveOnExit=false win.mViewVisibility=8 caller=com.android.server.wm.WindowManagerService.tryStartExitingAnimation:2752 com.android.server.wm.WindowManagerService.relayoutWindow:2450 com.android.server.wm.Session.relayoutForTranslate:302 android.view.IWindowSession$Stub.onTransact:518 com.android.server.wm.Session.onTransact:186 android.os.Binder.execTransact:739 <bottom of call stack>
+2020-04-12 15:56:06.501 8630-8630/? E/Zygote: isWhitelistProcess - Process is Whitelisted
+2020-04-12 15:56:06.502 8630-8630/? E/Zygote: accessInfo : 1
+2020-04-12 15:56:06.677 8630-8630/? E/Tag.SfGatherstore_app: 下一次：hasErrors=0; delay=30; 是否开启下一次flag=true
+2020-04-12 15:56:06.682 8630-8664/? E/ClearOlderFileRunner: removeOldDebugLogFiles 耗时：1
+2020-04-12 15:56:06.704 8567-8567/com.sgs.conveniencestore E/ViewRootImpl: sendUserActionEvent() returned.
+2020-04-12 15:56:06.783 1411-1891/? E/WindowManager: win=Window{a63c5df u0 Splash Screen com.sgs.conveniencestore EXITING} destroySurfaces: appStopped=false win.mWindowRemovalAllowed=true win.mRemoveOnExit=true win.mViewVisibility=0 caller=com.android.server.wm.AppWindowToken.destroySurfaces:870 com.android.server.wm.AppWindowToken.destroySurfaces:851 com.android.server.wm.WindowState.onExitAnimationDone:5406 com.android.server.wm.WindowStateAnimator.onAnimationFinished:319 com.android.server.wm.WindowState.onAnimationFinished:5828 com.android.server.wm.-$$Lambda$yVRF8YoeNdTa8GR1wDStVsHu8xM.run:2 com.android.server.wm.SurfaceAnimator.lambda$getFinishedCallback$0:97
+2020-04-12 15:56:06.859 2357-2417/? E/RequestManager_FLP: [LocationManagerService] Location request a0d1ad9(Listener) passive interval=9000 from com.sgs.conveniencestore(10372)
+2020-04-12 15:56:06.940 2357-2417/? E/RequestManager_FLP: [LocationManagerService] Location request d216be4(Listener) gps interval=1000 from com.sgs.conveniencestore(10372)
+2020-04-12 15:56:06.966 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:06.966 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:06.969 659-1085/? E/qti_sensors_hal: Activities REPORT index 0 number 0 total 0
+2020-04-12 15:56:06.970 1411-2048/? E/SensorHubManager: onSensorChanged : wrong data 0 ,0 ,-1
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: Activities REPORT index 1 number 1 total 10
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 1
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 1
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 26
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 2
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 1
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 179
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 229
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 236
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 1
+2020-04-12 15:56:07.034 659-1085/? E/qti_sensors_hal: 1
+2020-04-12 15:56:07.495 982-982/? E/wificond: NL80211_CMD_TRIGGER_SCAN failed: Device or resource busy
+2020-04-12 15:56:07.496 1411-2118/? E/WificondScannerImpl: Failed to start scan, freqs=null
+2020-04-12 15:56:07.496 1411-2115/? E/WifiScanRequestProxy: Scan failure received. reason: -1,description: Scan failed
+2020-04-12 15:56:07.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:07.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:08.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:08.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:09.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:09.965 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:10.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:10.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:11.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:11.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:12.258 2514-2514/? E/wpa_supplicant: nl80211: Failed to open /proc/sys/net/ipv4/conf/wlan0/drop_unicast_in_l2_multicast: No such file or directory
+2020-04-12 15:56:12.258 2514-2514/? E/wpa_supplicant: nl80211: Failed to set IPv4 unicast in multicast filter
+2020-04-12 15:56:12.259 2514-2514/? E/wpa_supplicant: nl80211: Failed to open /proc/sys/net/ipv4/conf/wlan0/drop_unicast_in_l2_multicast: No such file or directory
+2020-04-12 15:56:12.259 2514-2514/? E/wpa_supplicant: nl80211: Failed to set IPv4 unicast in multicast filter
+2020-04-12 15:56:12.481 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:56:12.481 1411-2115/? E/WifiVendorHal: getTxPktFates(l.2241) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:56:12.482 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:56:12.482 1411-2115/? E/WifiVendorHal: getRxPktFates(l.2283) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:56:12.680 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:56:12.680 1411-2115/? E/WifiVendorHal: getTxPktFates(l.2241) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:56:12.680 663-663/? E/WifiHAL: Failed to register get pkt fate response; result = -3
+2020-04-12 15:56:12.680 1411-2115/? E/WifiVendorHal: getRxPktFates(l.2283) failed {.code = ERROR_NOT_SUPPORTED, .description = }
+2020-04-12 15:56:12.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:12.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:13.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:13.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:14.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:14.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:15.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:15.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:16.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:16.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:17.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:17.965 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:18.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:18.965 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:19.966 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:19.966 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:20.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:20.963 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:21.966 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:21.967 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:22.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:22.965 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:23.966 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:23.966 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:24.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:24.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:25.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:25.965 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:26.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
+2020-04-12 15:56:26.964 666-2369/? E/LocSvc_HIDL_DebugReportService: Invalid count: 0
