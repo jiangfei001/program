@@ -22,7 +22,7 @@ packer {
     buildNumberTypeMatcher = ['release', 'debug']
 }
 
-def releaseTime() { return new Date().format("yyyy-MM-dd-HH-mm-ss") }
+def releaseTime() { return new Date().format("yyyyMMdd-HHmmss") }
 
 android {
     compileSdkVersion 28
@@ -79,17 +79,16 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            //shrinkResources true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    def buildName = "guanggao"
-                    def type = variant.buildType.name
-                    def releaseApkName = buildName + '_' + type + "_" + versionName + '_' + releaseTime() + '.apk'
-                    outputFileName = releaseApkName
-                    variant.packageApplication.outputDirectory = new File(project.rootProject.buildDir.path)
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        outputFileName = defaultConfig.applicationId.subSequence(defaultConfig.applicationId.lastIndexOf(".") + 1, defaultConfig.applicationId.length()) + "-v" + defaultConfig.versionCode + "-" + releaseTime() + "-" + output.baseName + ".apk"
+                    }
                 }
             }
         }
