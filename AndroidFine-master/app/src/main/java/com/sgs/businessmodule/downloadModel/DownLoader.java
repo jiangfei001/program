@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.businessmodule.downloadModel.dbcontrol.DataKeeper;
@@ -207,8 +208,8 @@ public class DownLoader {
                     url = new URL(sqlDownLoadInfo.getUrl());
                     ZLog.e("url", "url:" + url);
                     urlConn = (HttpURLConnection) url.openConnection();
-                    urlConn.setRequestProperty("Accept-Encoding", "identity");
-                    urlConn.setRequestProperty("GData-Version", "3.0");
+                  /*  urlConn.setRequestProperty("Accept-Encoding", "identity");
+                    urlConn.setRequestProperty("GData-Version", "3.0");*/
                     urlConn.setDoOutput(true);
                     urlConn.connect();
                     urlConn.setConnectTimeout(20000);
@@ -217,6 +218,7 @@ public class DownLoader {
                         openConnention();
                     } else {
                         if (new File(TEMP_FILEPATH + "/" + sqlDownLoadInfo.getFileName()).exists()) {
+                            ZLog.e("url", "exists:" + TEMP_FILEPATH);
                             localFile = new RandomAccessFile(TEMP_FILEPATH + "/" + sqlDownLoadInfo.getFileName(), "rwd");
                             localFile.seek(downFileSize);
                             urlConn.setRequestProperty("Range", "bytes=" + downFileSize + "-");
@@ -255,6 +257,7 @@ public class DownLoader {
                     }
                     downloadtimes = maxdownloadtimes;
                 } catch (Exception e) {
+                    ZLog.e("DownLoader", e.getMessage() + "");
                     if (isdownloading) {
                         if (isSupportBreakpoint) {
                             downloadtimes++;

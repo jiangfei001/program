@@ -33,13 +33,15 @@ public class ESCALATIONLOG extends TVTask {
 
         String path = "";
 
-        if (maps2.get("token") != null) {
-            uptoken = (String) maps2.get("token");
-        }
-        if (maps2.get("path") != null) {
-            path = (String) maps2.get("path");
+        ZLog.e("url", "maps2:" + maps2);
 
+        if (maps2 != null && maps2.get("token") != null && maps2.get("path") != null) {
+            uptoken = (String) maps2.get("token");
+            path = (String) maps2.get("path");
+        } else {
+            return;
         }
+
         final String finalPath = path;
         QiniuUpHelper.uploadLog(AppContext.getInstance().getNowActivity(), false, uptoken, new ESCALATIONLOG.BackUrl() {
             @Override

@@ -12,6 +12,7 @@ import com.zhangke.zlog.ZLog;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class RUNDATA extends TVTask {
     @Override
@@ -41,11 +42,11 @@ public class RUNDATA extends TVTask {
         String dataJson = this.instructionRequest.getData();
 
 
-        ArrayList<MyTask> lunxuntask = (ArrayList<MyTask>) ProgramScheduledManager.getInstance().programTaskManager.getMyTaskTimeTask().getdTasks();
+        LinkedList<MyTask> lunxuntask = (LinkedList<MyTask>) ProgramScheduledManager.getInstance().programTaskManager.getMyTaskTimeTask().getdTasks();
 
-        ArrayList<MyTask> zhouqitask = (ArrayList<MyTask>) ProgramScheduledManager.getInstance().programTaskManager.getMyTaskTimeTask().getmTasks();
+        LinkedList<MyTask> zhouqitask = (LinkedList<MyTask>) ProgramScheduledManager.getInstance().programTaskManager.getMyTaskTimeTask().getmTasks();
 
-        ArrayList<MyTask> duzhantask = (ArrayList<MyTask>) ProgramScheduledManager.getInstance().programTaskManager.getMyTaskTimeTask().getPriorsTasks();
+        LinkedList<MyTask> duzhantask = (LinkedList<MyTask>) ProgramScheduledManager.getInstance().programTaskManager.getMyTaskTimeTask().getPriorsTasks();
 
         hashMap.put("lunxuntask", com.alibaba.fastjson.JSON.toJSONString(lunxuntask));
         hashMap.put("zhouqitask", com.alibaba.fastjson.JSON.toJSONString(zhouqitask));
