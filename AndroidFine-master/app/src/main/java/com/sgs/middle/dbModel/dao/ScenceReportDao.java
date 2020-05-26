@@ -75,7 +75,7 @@ public class ScenceReportDao {
     public List<ScenceReport> queryByNotToday(String palyDate) {
         try {
             QueryBuilder<ScenceReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().ne("palyDate", palyDate);
+          /*  queryBuilder.where().ne("palyDate", palyDate);*/
             return queryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();

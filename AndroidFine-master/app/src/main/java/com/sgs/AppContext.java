@@ -94,7 +94,7 @@ public class AppContext extends Application {
 
         //initFileService();
         if (isMainProcess) {
-            UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
+            /*UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
             UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
 
             CustomAlarmReceiver.cvds();
@@ -102,7 +102,7 @@ public class AppContext extends Application {
 
             ReportUtil reportUtil = new ReportUtil();
             reportUtil.reportEvent();
-            reportUtil.reportScence();
+            reportUtil.reportScence();*/
             initLocation();
             PackageReceiver packageReceiver = new PackageReceiver();
             IntentFilter intentFilter = new IntentFilter();

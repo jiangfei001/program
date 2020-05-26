@@ -8,9 +8,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.sgs.AppContext;
+import com.sgs.ReportUtil;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.eventControlModel.EventManager;
 import com.jf.fine.R;
+import com.sgs.middle.receiver.CustomAlarmReceiver;
+import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +45,20 @@ public abstract class EventActivity extends AppCompatActivity {
         initView();
         super.onCreate(savedInstanceState);
         AppContext.getInstance().setNowActivity(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
+                UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
+
+                CustomAlarmReceiver.cvds();
+                CustomAlarmReceiver.setco();
+
+                ReportUtil reportUtil = new ReportUtil();
+                reportUtil.reportEvent();
+                reportUtil.reportScence();
+            }
+        });
     }
 
     protected void webViewInit(WebView webView1) {
