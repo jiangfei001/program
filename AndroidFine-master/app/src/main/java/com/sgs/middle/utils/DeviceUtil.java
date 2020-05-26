@@ -28,15 +28,15 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+
+import com.sgs.middle.jiepin.ScreentShotUtil;
 import com.zhangke.zlog.ZLog;
-import android.view.Surface;
-import android.view.SurfaceControl;
+
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.sgs.AppContext;
-import com.sgs.AppUrl;
 import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 
 import org.json.JSONException;
@@ -60,6 +60,8 @@ import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -119,6 +121,7 @@ public class DeviceUtil {
         return StringUtil.convertRamWithUnit(memoryInfo.availMem);
     }
 
+
     /**
      * 截取当前屏幕画面为bitmap图片
      *
@@ -131,13 +134,21 @@ public class DeviceUtil {
         String product = Build.BRAND;
         ZLog.e(TAG, product);
         //if (product.startsWith("rock")) {
-        if (false) {
-            try {
-                Bitmap mScreenBitmap = android.view.SurfaceControl.screenshot((int) deviceSize[0], (int) deviceSize[1]);
-                return mScreenBitmap;
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (product.startsWith("rock")) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+            String fileName = format.format(new Date(System.currentTimeMillis())) + ".png";
+            String fileFullPath = baseFilePathFile.getPath() + fileName;
+            ScreentShotUtil.getInstance().takeScreenshot(activity, fileFullPath);
+            File file = new File(fileFullPath);
+            if (file.exists() && file.length() > 1) {
+                try {
+                    Bitmap bitmap = ScreentShotUtil.decodeFile(fileFullPath);
+                    return bitmap;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            return null;
         } else {
             View decorView = activity.getWindow().getDecorView();
             decorView.setDrawingCacheEnabled(true);
@@ -155,9 +166,9 @@ public class DeviceUtil {
             decorView.destroyDrawingCache();
             return shot;
         }
-        return null;
     }
 
+    public static final File baseFilePathFile = new File(AppContext.getInstance().getCacheDir(), "/ggshotScreen/");
 
     /**
      * 截取当前屏幕画面为bitmap图片
@@ -467,8 +478,9 @@ public class DeviceUtil {
     public static String uniqueid = "uniqueid";
     public static String uniqueid1 = "uniqueid1";
     public static String sbm = "sbm";
-/*    public static String iszhuce = "iszhuce";
-    public static String isjihuo = "isjihuo";*/
+
+    /*    public static String iszhuce = "iszhuce";
+        public static String isjihuo = "isjihuo";*/
     public static String getDeviceId(Context context) {
         StringBuilder sbDeviceId = new StringBuilder();
 

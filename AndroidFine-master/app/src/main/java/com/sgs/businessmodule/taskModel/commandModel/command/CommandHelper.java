@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import com.zhangke.zlog.ZLog;
-import android.view.SurfaceControl;
 import android.widget.Toast;
 
 import com.sgs.AppContext;

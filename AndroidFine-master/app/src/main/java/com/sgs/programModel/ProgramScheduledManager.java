@@ -419,11 +419,10 @@ public class ProgramScheduledManager {
             //根据监听到的信息查找列表相对应的任务，删除对应的任务
             ZLog.e("sqlDownLoadInfo", "下载成功通知：" + sqlDownLoadInfo.getTaskID());
 
-            int resourceTotle = 1;
-
             Iterator iterator = alllist.iterator();
             ZLog.e("iterator", "onSuccess");
             while (iterator.hasNext()) {
+                int resourceTotle = 1;
                 ZLog.e("iterator", "");
                 //如果是ProgramZip
                 ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
