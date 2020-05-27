@@ -45,20 +45,17 @@ public abstract class EventActivity extends AppCompatActivity {
         initView();
         super.onCreate(savedInstanceState);
         AppContext.getInstance().setNowActivity(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
-                UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
 
-                CustomAlarmReceiver.cvds();
-                CustomAlarmReceiver.setco();
+        UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
+        UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
 
-                ReportUtil reportUtil = new ReportUtil();
-                reportUtil.reportEvent();
-                reportUtil.reportScence();
-            }
-        });
+        CustomAlarmReceiver.cvds();
+        CustomAlarmReceiver.setco();
+
+        ReportUtil reportUtil = new ReportUtil();
+        reportUtil.reportEvent();
+        reportUtil.reportScence();
+
     }
 
     protected void webViewInit(WebView webView1) {

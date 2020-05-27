@@ -33,7 +33,7 @@ public class ReportUtil {
 
                 ZLog.e(TAG, "repHotReports nowMin:" + nowMin);
                 final List<RepHotReport> repHotReports = RedHotReportRequestManager.getInstance().queryByNotMin(nowMin);
-
+                ZLog.e(TAG, "repHotReports repHotReports:" + repHotReports);
                 if (repHotReports != null && repHotReports.size() > 0) {
                     ZLog.e(TAG, "repHotReports:" + repHotReports);
                     SendToServerUtil.sendRepHotareaToServer(repHotReports, new SendToServerUtil.MyYewuResponseHandle() {
