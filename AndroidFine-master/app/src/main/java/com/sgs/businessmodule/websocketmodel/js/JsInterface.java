@@ -76,13 +76,13 @@ public class JsInterface {
     public void updateClickEventFromJs(final String eventName, final String pageName) {
         ZLog.e("aa", "pageName" + pageName + "eventName" + eventName);
         //记录埋点信息 日期
-        Handler handler = new Handler(Looper.getMainLooper());
+       /* Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(mContext, "eventname" + eventName, Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
         new Thread(new Runnable() {
             @Override
             public void run() {
