@@ -42,6 +42,9 @@ public class RepHotReport {
     //结束时间 格式年月日时：2020022412
     @DatabaseField
     private String endTime;
+    //播放日期
+    @DatabaseField
+    private String palyDate;
 
     public String getCreateTime() {
         return createTime;
@@ -137,6 +140,14 @@ public class RepHotReport {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getPalyDate() {
+        return palyDate;
+    }
+
+    public void setPalyDate(String palyDate) {
+        this.palyDate = palyDate;
     }
 
     @Override

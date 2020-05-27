@@ -49,10 +49,10 @@ public class RedHotReportDao {
         }
     }
 
-    public RepHotReport queryByDateAndScenceId(int sceneId, String palyDate, String areaName, String pageName) {
+    public RepHotReport queryByDateAndScenceId(int sceneId, String createTime, String areaName, String pageName) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().eq("sceneId", sceneId).and().eq("palyDate", palyDate).eq("areaName", areaName).eq("pageName", pageName);
+            queryBuilder.where().eq("sceneId", sceneId).and().eq("createTime", createTime).and().eq("areaName", areaName).and().eq("pageName", pageName);
             return queryBuilder.queryForFirst();
         } catch (SQLException e) {
             e.printStackTrace();
