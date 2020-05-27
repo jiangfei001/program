@@ -94,11 +94,15 @@ public class JsInterface {
     @JavascriptInterface
     public void openApp(String action, String packagename) {
         ZLog.e("aa", "action" + action + "packagename" + packagename);
-        Intent intent = new Intent();
+        /*Intent intent = new Intent();
         intent.setAction(action);
         intent.addCategory("android.intent.category.DEFAULT");
         intent.setPackage(packagename);
-        this.mContext.startActivity(intent);
+        this.mContext.startActivity(intent);*/
+
+        Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(packagename);
+        if (intent != null)
+            mContext.startActivity(intent);
     }
 
     @JavascriptInterface
