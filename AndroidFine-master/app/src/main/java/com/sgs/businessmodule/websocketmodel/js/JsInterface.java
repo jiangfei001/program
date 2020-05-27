@@ -3,7 +3,11 @@ package com.sgs.businessmodule.websocketmodel.js;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+
 import com.zhangke.zlog.ZLog;
+
+import android.os.Handler;
+import android.os.Looper;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
@@ -29,8 +33,9 @@ public class JsInterface {
         this.mContext = context;
     }
 
-
     public void saveRepHotReport(String areaName, String pageName) {
+
+
         String nowDate = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
 
         List<ProgarmPalySceneVo> progarmPalySceneVos = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalySceneVos;
@@ -68,11 +73,22 @@ public class JsInterface {
 
     //在js中调用window.test.showInfoFromJs(name)，便会触发此方法。
     @JavascriptInterface
-    public void updateClickEventFromJs(String eventName, String pageName) {
+    public void updateClickEventFromJs(final String eventName, final String pageName) {
         ZLog.e("aa", "pageName" + pageName + "eventName" + eventName);
         //记录埋点信息 日期
-        Toast.makeText(mContext, eventName, Toast.LENGTH_SHORT).show();
-        saveRepHotReport(eventName, pageName);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(mContext, "eventname" + eventName, Toast.LENGTH_LONG).show();
+            }
+        });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                saveRepHotReport(eventName, pageName);
+            }
+        }).start();
     }
 
     @JavascriptInterface
