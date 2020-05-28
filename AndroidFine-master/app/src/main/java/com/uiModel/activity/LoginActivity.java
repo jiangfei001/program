@@ -13,7 +13,10 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+
 import com.zhangke.zlog.ZLog;
+
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,7 +34,6 @@ import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
 import com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease;
 import com.sgs.middle.utils.DeviceUtil;
 import com.jf.fine.R;
-import com.sgs.middle.utils.SharedPreferences;
 import com.sgs.middle.utils.StringUtil;
 import com.umeng.analytics.MobclickAgent;
 
@@ -41,7 +43,7 @@ import java.util.List;
 
 import okhttp3.Request;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
 
     Handler handler = new Handler();
 
@@ -51,6 +53,7 @@ public class LoginActivity extends Activity {
 
     private static final int PERMISSION_REQUEST = 1;
 
+    private AlertDialog alertDialog;
 
     @Override
     protected void onPause() {
@@ -112,6 +115,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoginActivity.this.showLoadingDialog();
                 boolean isjihuo = false;
 
                 if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.isjihuo))) {
@@ -120,6 +124,7 @@ public class LoginActivity extends Activity {
                 }
 
                 if (!isjihuo) {
+                    LoginActivity.this.dismissLoadingDialog();
                     Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -136,6 +141,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoginActivity.this.showLoadingDialog();
                 boolean s_test = false;
                 int id = radioButton.getCheckedRadioButtonId();
                 if (id == R.id.jia) {
@@ -165,11 +171,13 @@ public class LoginActivity extends Activity {
                 boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);*/
 
                 if (!isjihuo) {
+                    LoginActivity.this.dismissLoadingDialog();
                     Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 if (!iszhuce) {
+                    LoginActivity.this.dismissLoadingDialog();
                     Toast.makeText(LoginActivity.this, "请先注册！", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -189,6 +197,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.jihuo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoginActivity.this.showLoadingDialog();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -244,27 +253,18 @@ public class LoginActivity extends Activity {
                         handler1.post(new Runnable() {
                             @Override
                             public void run() {
+                                LoginActivity.this.dismissLoadingDialog();
                                 if (response.code.equals("0")) {
-                                    handler1.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(AppContext.getInstance(), "恭喜你激活成功了啊！！", Toast.LENGTH_LONG).show();
-                                            FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
-                                        }
-                                    });
+                                    Toast.makeText(AppContext.getInstance(), "恭喜你激活成功了啊！！", Toast.LENGTH_LONG).show();
+                                    FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
                                 } else {
-                                    handler1.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if (response.code.equals("1")) {
-                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
-                                                FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
-                                            } else {
-                                                ZLog.e("tag", "response.msg ");
-                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    });
+                                    if (response.code.equals("1")) {
+                                        Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                        FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
+                                    } else {
+                                        ZLog.e("tag", "response.msg ");
+                                        Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
                         });
@@ -278,8 +278,8 @@ public class LoginActivity extends Activity {
                         handler1.post(new Runnable() {
                             @Override
                             public void run() {
+                                LoginActivity.this.dismissLoadingDialog();
                                 Toast.makeText(LoginActivity.this, "对不起，激活失败", Toast.LENGTH_LONG).show();
-
                             }
                         });
                     }
@@ -349,39 +349,30 @@ public class LoginActivity extends Activity {
                         handler1.post(new Runnable() {
                             @Override
                             public void run() {
+                                LoginActivity.this.dismissLoadingDialog();
                                 if (response.code.equals("0")) {
-                                    handler1.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
-                                            AppContext.getInstance().userName = yonghuming.getText().toString();
-                                            //保存sp
-                                            android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                                            android.content.SharedPreferences.Editor editor = mContextSp.edit();
-                                            editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
-                                            editor.commit();
-                                            FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
-                                            //getIp();
-                                        }
-                                    });
+                                    Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
+                                    AppContext.getInstance().userName = yonghuming.getText().toString();
+                                    //保存sp
+                                    android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                    android.content.SharedPreferences.Editor editor = mContextSp.edit();
+                                    editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
+                                    editor.commit();
+                                    FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
+                                    //getIp();
                                 } else {
-                                    handler1.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            //注册接口 1设备已经存在   2 用户不存在  3 参数不能为空
-                                            if (response.code.equals("1")) {
-                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
-                                                AppContext.getInstance().userName = yonghuming.getText().toString();
-                                                android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                                                android.content.SharedPreferences.Editor editor = mContextSp.edit();
-                                                editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
-                                                editor.commit();
-                                                FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
-                                            } else {
-                                                Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
-                                            }                                            //getIp();
-                                        }
-                                    });
+                                    //注册接口 1设备已经存在   2 用户不存在  3 参数不能为空
+                                    if (response.code.equals("1")) {
+                                        Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                        AppContext.getInstance().userName = yonghuming.getText().toString();
+                                        android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
+                                        android.content.SharedPreferences.Editor editor = mContextSp.edit();
+                                        editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
+                                        editor.commit();
+                                        FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
+                                    } else {
+                                        Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
                         });
@@ -395,8 +386,8 @@ public class LoginActivity extends Activity {
                         handler1.post(new Runnable() {
                             @Override
                             public void run() {
+                                LoginActivity.this.dismissLoadingDialog();
                                 Toast.makeText(LoginActivity.this, "对不起，注册失败", Toast.LENGTH_LONG).show();
-
                             }
                         });
                     }
@@ -414,6 +405,7 @@ public class LoginActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            LoginActivity.this.dismissLoadingDialog();
                             AppUrl.setSerList(response.getData());
                             doNavigation();
                         }
@@ -422,6 +414,7 @@ public class LoginActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            LoginActivity.this.dismissLoadingDialog();
                             if (response.code.equals("1")) {
                                 Toast.makeText(AppContext.getInstance(), "请先激活或者注册！", Toast.LENGTH_LONG).show();
                             } else {
@@ -443,7 +436,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(Request request, Exception e) {
                 super.onFailure(request, e);
-                Toast.makeText(AppContext.getInstance(), "获取ip失败激活！"+e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(AppContext.getInstance(), "获取ip失败激活！" + e.getMessage(), Toast.LENGTH_LONG).show();
                 ZLog.e("HashMap", "" + e.getMessage());
             }
         });

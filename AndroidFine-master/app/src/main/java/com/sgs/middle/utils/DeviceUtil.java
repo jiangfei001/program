@@ -135,20 +135,24 @@ public class DeviceUtil {
         ZLog.e(TAG, product);
         //if (product.startsWith("rock")) {
         if (product.startsWith("rock")) {
+            ZLog.e(TAG, "startsWith:rock");
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
             String fileName = format.format(new Date(System.currentTimeMillis())) + ".png";
             String fileFullPath = baseFilePathFile.getPath() + fileName;
-            ScreentShotUtil.getInstance().takeScreenshot(activity, fileFullPath);
-            File file = new File(fileFullPath);
+            ZLog.e(TAG, "startsWith:fileFullPath" + fileFullPath);
+            Bitmap bitmap = ScreentShotUtil.getInstance().takeScreenshot(activity, fileFullPath);
+            /*File file = new File(fileFullPath);
             if (file.exists() && file.length() > 1) {
                 try {
                     Bitmap bitmap = ScreentShotUtil.decodeFile(fileFullPath);
+                    ZLog.e(TAG, "startsWith:rock bitmap1:"+bitmap.getAllocationByteCount());
                     return bitmap;
                 } catch (IOException e) {
+                    ZLog.e(TAG, "startsWith:rock bitmap2:"+e.getMessage());
                     e.printStackTrace();
                 }
-            }
-            return null;
+            }*/
+            return bitmap;
         } else {
             View decorView = activity.getWindow().getDecorView();
             decorView.setDrawingCacheEnabled(true);

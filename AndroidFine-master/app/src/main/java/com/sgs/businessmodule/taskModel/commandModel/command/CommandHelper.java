@@ -9,7 +9,9 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+
 import com.zhangke.zlog.ZLog;
+
 import android.widget.Toast;
 
 import com.sgs.AppContext;
@@ -78,14 +80,18 @@ public class CommandHelper {
                 Toast.makeText(AppContext.getInstance(), "设置音量设置" + index, Toast.LENGTH_LONG).show();
             }
         });
-        AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-        int streamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);//获取设备最大音量
-        int volm = index * streamMaxVolume / 100;
-        //第一个参数为设置音量的类型（通话，铃声，音乐等）
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+        try {
+            AudioManager audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+            int streamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);//获取设备最大音量
+            int volm = index * streamMaxVolume / 100;
+            //第一个参数为设置音量的类型（通话，铃声，音乐等）
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
             /*修改第二个参数为一个固定的值，就是设置成功。
             下面的方法：获取音乐类型的音频流的最大值*/
-                volm, AudioManager.FLAG_PLAY_SOUND);
+                    volm, AudioManager.FLAG_PLAY_SOUND);
+        } catch (Exception e) {
+            ZLog.e("setStreamVolume", "setStreamVolume:" + e.getMessage());
+        }
     }
 
     //获取硬件信息
