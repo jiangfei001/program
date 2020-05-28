@@ -40,7 +40,7 @@ public class ReportUtil {
                         @Override
                         public void onSuccess(MyApiResponse response) {
                             ZLog.e(TAG, "sendRepHotareaToServer onSucess:" + response.toString());
-                            //RedHotReportRequestManager.getInstance().delList(repHotReports);
+                            RedHotReportRequestManager.getInstance().delList(repHotReports);
                         }
 
                         @Override
@@ -76,13 +76,12 @@ public class ReportUtil {
                         @Override
                         public void onSuccess(MyApiResponse response) {
                             ZLog.e(TAG, "sendScenctToServer onSuccess:" + response.toString());
-                            //ScenceReportRequestManager.getInstance().delList(scenceReports);
+                            ScenceReportRequestManager.getInstance().delList(scenceReports);
                         }
 
                         @Override
                         public void onFailure(Request request, Exception e) {
                             ZLog.e(TAG, "sendScenctToServer onFailure:" + e.getMessage());
-
                         }
                     });
                 }
