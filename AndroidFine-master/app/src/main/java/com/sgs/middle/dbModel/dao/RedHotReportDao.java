@@ -147,7 +147,7 @@ public class RedHotReportDao {
     public List<RepHotReport> queryByNotMin(String time) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().ne("createTime", time);
+           /* queryBuilder.where().ne("createTime", time);*/
             return queryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();

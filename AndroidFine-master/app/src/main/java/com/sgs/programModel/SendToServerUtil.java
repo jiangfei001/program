@@ -254,6 +254,7 @@ public class SendToServerUtil {
 
             @Override
             public void onFailure(Request request, Exception e) {
+                ZLog.e(TAG, "sendEventToToDayAll onSuccess" + e.getMessage());
             }
         });
     }
