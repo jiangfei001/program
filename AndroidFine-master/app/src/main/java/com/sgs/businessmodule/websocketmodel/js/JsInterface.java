@@ -60,6 +60,8 @@ public class JsInterface {
             repHotReport.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             repHotReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
             repHotReport.setSceneName(progarmPalySceneVos.get(nowscene).getSceneName());
+            repHotReport.setAreaName(areaName);
+            repHotReport.setPageName(pageName);
             repHotReport.setSceneId(progarmPalySceneVos.get(nowscene).getSceneId());
             ZLog.e(TAG, "repHotReport:" + repHotReport.toString());
         } else {
