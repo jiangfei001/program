@@ -47,8 +47,8 @@ public class RedHotReportRequestManager {
         return new RedHotReportDao(context).queryByNotMin(reportDate);
     }
 
-    public RepHotReport queryByDateAndScenceId(int scenceId, String reportDate, String areaName, String pageName) {
-        return new RedHotReportDao(context).queryByDateAndScenceId(scenceId, reportDate, areaName, pageName);
+    public RepHotReport queryByDateAndScenceId(int scenceId, String startTime, String areaName, String pageName) {
+        return new RedHotReportDao(context).queryByDateAndScenceId(scenceId, startTime, areaName, pageName);
     }
 
     public void delByDate(String yesterday) {

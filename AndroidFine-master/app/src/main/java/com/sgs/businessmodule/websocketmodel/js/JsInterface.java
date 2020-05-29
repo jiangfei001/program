@@ -36,7 +36,7 @@ public class JsInterface {
     public void saveRepHotReport(String areaName, String pageName) {
 
 
-        String nowDate = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
+        String startTime = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
 
         List<ProgarmPalySceneVo> progarmPalySceneVos = ProgramScheduledManager.getInstance().programTaskManager.nowProgarmPalySceneVos;
         if (progarmPalySceneVos == null) {
@@ -50,11 +50,10 @@ public class JsInterface {
         }
         int nowscene = ProgramScheduledManager.getInstance().programTaskManager.nowscene;
 
-        RepHotReport repHotReport = RedHotReportRequestManager.getInstance().queryByDateAndScenceId(progarmPalySceneVos.get(nowscene).getSceneId(), nowDate, areaName, pageName);
+        RepHotReport repHotReport = RedHotReportRequestManager.getInstance().queryByDateAndScenceId(progarmPalySceneVos.get(nowscene).getSceneId(), startTime, areaName, pageName);
         ZLog.e(TAG, "sendPlayHtml:repHotReport:" + repHotReport);
         if (repHotReport == null) {
             repHotReport = new RepHotReport();
-            repHotReport.setCreateTime(nowDate);
             repHotReport.setClickNum(1);
             repHotReport.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
             repHotReport.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
@@ -62,6 +61,7 @@ public class JsInterface {
             repHotReport.setSceneName(progarmPalySceneVos.get(nowscene).getSceneName());
             repHotReport.setAreaName(areaName);
             repHotReport.setPageName(pageName);
+            repHotReport.setStartTime(startTime);
             repHotReport.setSceneId(progarmPalySceneVos.get(nowscene).getSceneId());
             ZLog.e(TAG, "repHotReport:" + repHotReport.toString());
         } else {

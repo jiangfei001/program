@@ -49,10 +49,10 @@ public class RedHotReportDao {
         }
     }
 
-    public RepHotReport queryByDateAndScenceId(int sceneId, String createTime, String areaName, String pageName) {
+    public RepHotReport queryByDateAndScenceId(int sceneId, String startTime, String areaName, String pageName) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-            queryBuilder.where().eq("sceneId", sceneId).and().eq("createTime", createTime).and().eq("areaName", areaName).and().eq("pageName", pageName);
+            queryBuilder.where().eq("sceneId", sceneId).and().eq("startTime", startTime).and().eq("areaName", areaName).and().eq("pageName", pageName);
             return queryBuilder.queryForFirst();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,10 +131,10 @@ public class RedHotReportDao {
         }
     }
 
-    public void delOneMouthAgo(String oneMouthAgo) {
+    public void delOneMouthAgo(String startTime) {
         try {
             DeleteBuilder deleteBuilder = OrderDaoOpe.deleteBuilder();
-            deleteBuilder.where().le("createTime", oneMouthAgo);
+            deleteBuilder.where().le("startTime", startTime);
             deleteBuilder.delete();
             int num = deleteBuilder.delete();
             ZLog.e(TAG, "num" + num);
@@ -147,7 +147,7 @@ public class RedHotReportDao {
     public List<RepHotReport> queryByNotMin(String time) {
         try {
             QueryBuilder<RepHotReport, Integer> queryBuilder = OrderDaoOpe.queryBuilder();
-           /* queryBuilder.where().ne("createTime", time);*/
+           /* queryBuilder.where().ne("startTime", time);*/
             return queryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();
