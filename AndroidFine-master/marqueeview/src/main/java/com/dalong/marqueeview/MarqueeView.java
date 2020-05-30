@@ -57,14 +57,15 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setSep(int speed) {
         if (speed == 0) {
-            sepX = 5;
+            sepX = 4;
         } else if (speed == 1) {
-            sepX = 15;
+            sepX = 8;
         } else if (speed == 2) {
-            sepX = 20;
+            sepX = 16;
         } else if (speed == 3) {
             sepX = 25;
         }
+
     }
 
     public MarqueeView(Context context) {

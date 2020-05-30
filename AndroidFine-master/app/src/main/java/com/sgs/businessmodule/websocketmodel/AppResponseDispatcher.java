@@ -26,7 +26,7 @@ public class AppResponseDispatcher extends SimpleDispatcher {
         try {
             InstructionRequest response = JSON.parseObject(message, new TypeReference<InstructionRequest>() {
             });
-            if (response.getCode() >= 100 && response.getCode() < 200) {
+            if (response.getCode() >= 100 && response.getCode() < 800) {
                 delivery.onMessage(message, response);
             } else {
                 ErrorResponse errorResponse = ResponseFactory.createErrorResponse();
