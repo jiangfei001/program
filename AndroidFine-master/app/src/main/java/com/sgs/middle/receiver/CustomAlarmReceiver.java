@@ -147,8 +147,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 ZLog.e(TAG, "时间到,执行复原任务操作:" + dateFormat.format(date));
                 ProgramScheduledManager.getInstance().initAllProgramTask();
-                ReportUtil reportUtil = new ReportUtil();
-                reportUtil.reportScence();
+               /* ReportUtil reportUtil = new ReportUtil();
+                reportUtil.reportScence();*/
                 UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
 
                 if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(CONTROLVOLUME.dingshi, ""))) {
