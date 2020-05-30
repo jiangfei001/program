@@ -12,7 +12,9 @@ import android.os.Message;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
 import com.zhangke.zlog.ZLog;
+
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
@@ -57,13 +59,13 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setSep(int speed) {
         if (speed == 0) {
-            sepX = 4;
+            sepX = 2;
         } else if (speed == 1) {
-            sepX = 8;
+            sepX = 4;
         } else if (speed == 2) {
-            sepX = 16;
+            sepX = 8;
         } else if (speed == 3) {
-            sepX = 25;
+            sepX = 16;
         }
 
     }
@@ -223,9 +225,18 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         public void onDraw() {
             try {
                 synchronized (holder) {
-                    if (TextUtils.isEmpty(margueeString)) {
+                   /* if (TextUtils.isEmpty(margueeString)) {
                         Thread.sleep(1000);//睡眠时间为1秒
                         return;
+                    }*/
+                    try {
+                        if (TextUtils.isEmpty(margueeString)) {
+                            Thread.sleep(1000);//睡眠时间为1秒
+                            return;
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                     Canvas canvas = holder.lockCanvas();
                     int paddingLeft = getPaddingLeft();
@@ -271,7 +282,13 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
                     int b = a / sepX;
                     int c = mSpeed / b == 0 ? 1 : mSpeed / b;
 
-                    Thread.sleep(c);//睡眠时间为移动的频率
+                    /*Thread.sleep(c);//睡眠时间为移动的频率*/
+                    try {
+                        Thread.sleep(c);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
