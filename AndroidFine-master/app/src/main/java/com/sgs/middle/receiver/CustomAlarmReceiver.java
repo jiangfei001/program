@@ -192,14 +192,18 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
         String openTime = null;
         if (j2.containsKey("openTime")) {
             openTime = j2.getString("openTime");
+            ZLog.e(TAG, "openTime" + openTime);
         }
+
         String shuntDownTime = "";
         if (j2.containsKey("shuntDownTime")) {
             shuntDownTime = j2.getString("shuntDownTime");
+            ZLog.e(TAG, "shuntDownTime" + shuntDownTime);
         }
         List<String> list = null;
         if (j2.containsKey("weekList")) {
             String weekList = j2.getString("weekList");
+            ZLog.e(TAG, "weekList" + weekList);
             list = JSONObject.parseArray(weekList, String.class);
             ZLog.e("list", list.size() + "");
             for (int i = 0; i < list.size(); i++) {

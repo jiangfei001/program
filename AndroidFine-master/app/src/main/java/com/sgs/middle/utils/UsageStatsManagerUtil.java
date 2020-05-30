@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
+
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
@@ -175,57 +176,62 @@ public class UsageStatsManagerUtil {
         long systemTime = System.currentTimeMillis();
         long firstTime = SystemClock.elapsedRealtime();//开机之后到现在的运行时间
 
-        // 00:00:05
-        String a[] = str.split(":");
-        if (a.length != 3) {
-            return;
-        }
-        AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
-        Calendar calendar = Calendar.getInstance();
-        //得到日历实例，主要是为了下面的获取时间
+        try {
+            // 00:00:05
+            String a[] = str.split(":");
+            if (a.length != 3) {
+                return;
+            }
+            Calendar calendar = Calendar.getInstance();
+            //得到日历实例，主要是为了下面的获取时间
 
-        calendar.setTime(new Date());
-        // 时
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(a[0]));
-        // 分
-        calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
-        // 秒
-        calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
+            calendar.setTime(new Date());
+            // 时
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(a[0]));
+            // 分
+            calendar.set(Calendar.MINUTE, Integer.parseInt(a[1]));
+            // 秒
+            calendar.set(Calendar.SECOND, Integer.parseInt(a[2]));
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
-        String dateStr = df.format(calendar.getTime());
-        //System.out.println(dateStr);
-        ZLog.e("dateStr", "dateStr" + dateStr);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
+            String dateStr = df.format(calendar.getTime());
+            //System.out.println(dateStr);
+            ZLog.e("dateStr", "dateStr" + dateStr);
 
-        long selectTime = calendar.getTimeInMillis();
-        //选择的每天的定时时间即下班时间
-        //如果当前时间大于设置的时间，那么从第二天的设定时间开始
-        if (systemTime > selectTime) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            selectTime = calendar.getTimeInMillis();
-        }
+            long selectTime = calendar.getTimeInMillis();
+            //选择的每天的定时时间即下班时间
+            //如果当前时间大于设置的时间，那么从第二天的设定时间开始
+            if (systemTime > selectTime) {
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                selectTime = calendar.getTimeInMillis();
+            }
+            //计算现在时间到设置时间的时间差
+            long diffTime1 = selectTime - systemTime;
 
-        //计算现在时间到设置时间的时间差
-        long diffTime1 = selectTime - systemTime;
+            firstTime += diffTime1;
 
-        firstTime += diffTime1;
+            ZLog.e("TAG", firstTime + "firstTime");
 
-        ZLog.e("TAG", firstTime + "firstTime");
+            Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
+            it.setPackage(AppContext.getInstance().getPackageName());
+            it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_CVDS);
+            it.putExtra("time", System.currentTimeMillis());
 
-        Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
-        it.setPackage(AppContext.getInstance().getPackageName());
-        it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_CVDS);
-        it.putExtra("time", System.currentTimeMillis());
+            it.putExtra("vl", vl);
+            PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_CVDS, it, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        it.putExtra("vl", vl);
-        PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_CVDS, it, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
-        } else {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
+            AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
+            } else {
+                alarmManager.set(AlarmManager.ELAPSED_REALTIME, firstTime, pi);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ZLog.e("TAG", e.getMessage() + ":Message");
         }
     }
 

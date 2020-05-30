@@ -2,7 +2,9 @@ package com.sgs.testActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+
 import com.zhangke.zlog.ZLog;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -71,7 +73,11 @@ public class MainTestActivity extends EventActivity {
                 InstructionRequestManager.getInstance().saveInstructionRequest((InstructionRequest) data);
                 //启动任务
                 ITask t = TaskFactory.createTask(requestEntity);
-                taskQueue.add(t);
+                if (t != null) {
+                    taskQueue.add(t);
+                } else {
+                    ZLog.e("ITask", "ITask=null");
+                }
             }
         }
     };
