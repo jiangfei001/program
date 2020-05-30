@@ -150,7 +150,7 @@ public class UsageStatsManagerUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(SystemClock.elapsedRealtime());
         // 10分钟上报一次打开次数
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 10);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 60);
 
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
