@@ -436,6 +436,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onFailure(Request request, Exception e) {
                 super.onFailure(request, e);
+                LoginActivity.this.dismissLoadingDialog();
                 Toast.makeText(AppContext.getInstance(), "获取ip失败激活！" + e.getMessage(), Toast.LENGTH_LONG).show();
                 ZLog.e("HashMap", "" + e.getMessage());
             }
