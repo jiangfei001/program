@@ -3,7 +3,9 @@ package com.sgs.middle.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
 import com.zhangke.zlog.ZLog;
+
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -46,6 +48,8 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
      */
     public static final String ACTION_SEND_APP_HOTAREA = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_HOTAREA";
     public static final int REQUEST_CODE_SEND_APP_USAGE = 3000;
+
+
 
     /**
      * 每天上报一次数据：电量、流量、设备信息
@@ -117,6 +121,12 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
     public static final String ACTION_SEND_APP_OPEN = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_OPEN";
     public static final int REQUEST_CODE_SEND_APP_OPEN = 3016;
 
+
+    /**
+     * 定期执行AppHotArea上报
+     */
+    public static final String ACTION_SEND_APP_SCENCE = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_SCENCE";
+    public static final int REQUEST_CODE_SEND_APP_SCENCE = 3017;
     @Override
     public void onReceive(Context context, Intent intent) {
         ZLog.e(TAG, "AppContext.getInstance().islogin:" + AppContext.getInstance().islogin);
@@ -147,6 +157,11 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
                 if (!StringUtil.isEmpty(SharedPreferences.getInstance().getString(SETOSTERMINAL.SETOSTERMINAL, ""))) {
                     setco();
                 }
+            } else if (ACTION_SEND_APP_SCENCE.equals(action)) {
+                UsageStatsManagerUtil.getInstance().alarmSendScence();
+                ZLog.e(TAG, "时间到,执行复原任务操作:REPRORT");
+                ReportUtil reportUtil = new ReportUtil();
+                reportUtil.reportScence();
             } else if (ACTION_SEND_APP_HOTAREA.equals(action)) {
                 UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
                 ZLog.e(TAG, "时间到,执行复原任务操作:REPRORT");

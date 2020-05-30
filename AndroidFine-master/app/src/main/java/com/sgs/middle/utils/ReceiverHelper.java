@@ -54,6 +54,7 @@ public class ReceiverHelper {
         intentFilter.addAction(CustomAlarmReceiver.ACTION_PLAYGRAME_INIT);
         intentFilter.addAction(CustomAlarmReceiver.ACTION_SEND_APP_OPEN);
         intentFilter.addAction(CustomAlarmReceiver.ACTION_SEND_APP_CLOSE);
+        intentFilter.addAction(CustomAlarmReceiver.ACTION_SEND_APP_SCENCE);
         intentFilter.addDataScheme("package");
         context.registerReceiver(receiver, intentFilter);
     }

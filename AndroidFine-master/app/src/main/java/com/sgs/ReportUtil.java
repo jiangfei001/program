@@ -10,6 +10,7 @@ import com.sgs.businessmodule.upReportModel.ScenceReport;
 import com.sgs.programModel.SendToServerUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,7 +41,9 @@ public class ReportUtil {
                         @Override
                         public void onSuccess(MyApiResponse response) {
                             ZLog.e(TAG, "sendRepHotareaToServer onSucess:" + response.toString());
-                            RedHotReportRequestManager.getInstance().delList(repHotReports);
+                            if (response.code.equals("0")) {
+                                RedHotReportRequestManager.getInstance().delList(repHotReports);
+                            }
                         }
 
                         @Override
@@ -76,7 +79,19 @@ public class ReportUtil {
                         @Override
                         public void onSuccess(MyApiResponse response) {
                             ZLog.e(TAG, "sendScenctToServer onSuccess:" + response.toString());
-                            ScenceReportRequestManager.getInstance().delList(scenceReports);
+                            if (response.code.equals("0")) {
+
+                                List<ScenceReport> scenceReports1 = new ArrayList<>();
+
+                                for (int i = 0; i < scenceReports.size(); i++) {
+                                    if (!scenceReports.get(i).getPalyDate().equals(today)) {
+                                          scenceReports1.add(scenceReports.get(i));
+                                    }
+                                }
+
+                                ScenceReportRequestManager.getInstance().delList(scenceReports1);
+
+                            }
                         }
 
                         @Override

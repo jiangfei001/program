@@ -142,6 +142,33 @@ public class UsageStatsManagerUtil {
     }
 
     /**
+     * 每隔10分钟上报一次报表
+     */
+    public void alarmSendScence() {
+        AlarmManager alarmManager = (AlarmManager) AppContext.getInstance().getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(SystemClock.elapsedRealtime());
+        // 10分钟上报一次打开次数
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 10);
+
+        Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
+        it.setPackage(AppContext.getInstance().getPackageName());
+        it.setAction(CustomAlarmReceiver.ACTION_SEND_APP_SCENCE);
+        it.putExtra("time", System.currentTimeMillis());
+        PendingIntent pi = PendingIntent.getBroadcast(AppContext.getInstance(), CustomAlarmReceiver.REQUEST_CODE_SEND_APP_SCENCE, it, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        } else {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), pi);
+        }
+    }
+
+
+    /**
      * 定时调节音量
      */
     public static void alarmcv(String str, String vl) {

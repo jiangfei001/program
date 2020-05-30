@@ -48,6 +48,7 @@ public abstract class EventActivity extends AppCompatActivity {
 
         UsageStatsManagerUtil.getInstance().alarmUploadDataOnceDaily();
         UsageStatsManagerUtil.getInstance().alarmSendHotAreaReportUsage();
+        UsageStatsManagerUtil.getInstance().alarmSendScence();
 
         CustomAlarmReceiver.cvds();
         CustomAlarmReceiver.setco();
