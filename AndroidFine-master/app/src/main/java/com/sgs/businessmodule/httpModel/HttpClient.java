@@ -234,7 +234,6 @@ public class HttpClient {
                 .url(url)
                 .post(body).build();
 
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {

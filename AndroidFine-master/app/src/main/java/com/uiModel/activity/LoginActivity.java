@@ -1,12 +1,9 @@
 package com.uiModel.activity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,8 +12,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.alibaba.fastjson.JSON;
+import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.utils.Sha256Hash;
-import com.sgs.middle.utils.SharedPreferences;
 import com.uiModel.Jihuo;
 import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
@@ -33,7 +30,6 @@ import android.widget.Toast;
 
 import com.sgs.AppContext;
 import com.sgs.AppUrl;
-import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.businessmodule.httpModel.HttpClient;
 import com.sgs.businessmodule.httpModel.MyApiResponse;
 import com.sgs.businessmodule.httpModel.MyHttpResponseHandler;
@@ -46,6 +42,7 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Request;
 
@@ -88,15 +85,12 @@ public class LoginActivity extends BaseActivity {
         final EditText socketip = findViewById(R.id.socketip);
         final EditText jiekouip = findViewById(R.id.jiekouip);
 
-
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
-
 
         if (true) {
             radioButton.check(R.id.bujia);
             socketip.setText(AppUrl.socketIP);
             jiekouip.setText(AppUrl.jiekouIP);
-
         } else {
             radioButton.check(R.id.jia);
             socketip.setText(AppUrl.socketIPTest);
@@ -121,35 +115,24 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity.this.showLoadingDialog();
-                boolean isjihuo = false;
-
-                isjihuo = LoginUtil.isjihuo();
-
+                LoginActivity.this.showLoadingDialog("注册中..");
+                boolean isjihuo = LoginUtil.isjihuo();
                 if (!StringUtil.isEmpty(LoginUtil.getTerminalIdentity())) {
                     ZLog.e("isjihuo", "isjihuo");
                     isjihuo = true;
                 }
-
                 if (!isjihuo) {
                     LoginActivity.this.dismissLoadingDialog();
                     Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
                     return;
                 }
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        zhuce(radioButton, socketip, jiekouip, yonghuming, shebeiName);
-                    }
-                }).start();
+                zhuce(radioButton, yonghuming, shebeiName);
             }
         });
 
         findViewById(R.id.btnSure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity.this.showLoadingDialog();
                 boolean s_test = false;
                 int id = radioButton.getCheckedRadioButtonId();
                 if (id == R.id.jia) {
@@ -159,11 +142,8 @@ public class LoginActivity extends BaseActivity {
                 }
                 AppUrl.initip(s_test);
 
-                boolean iszhuce = false;
-                boolean isjihuo = false;
-
-                iszhuce = LoginUtil.getIsZhuche();
-                isjihuo = LoginUtil.isjihuo();
+                boolean iszhuce = LoginUtil.getIsZhuche();
+                boolean isjihuo = LoginUtil.isjihuo();
 
                 if (!isjihuo) {
                     LoginActivity.this.dismissLoadingDialog();
@@ -176,23 +156,14 @@ public class LoginActivity extends BaseActivity {
                     Toast.makeText(LoginActivity.this, "请先注册！", Toast.LENGTH_LONG).show();
                     return;
                 }
-
-
                 AppContext.getInstance().userName = yonghuming.getText().toString();
-                getIp();
+                checkRegisterBinding();
             }
         });
         findViewById(R.id.jihuo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity.this.showLoadingDialog();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        jihuo(radioButton, socketip, jiekouip, yonghuming, shebeiName);
-                    }
-                }).start();
-
+                jihuo(radioButton);
             }
         });
 
@@ -213,8 +184,7 @@ public class LoginActivity extends BaseActivity {
         }*/
     }
 
-    private void jihuo(RadioGroup radioButton, EditText socketip, EditText jiekouip,
-                       final EditText yonghuming, final EditText shebeiName) {
+    private void jihuo(RadioGroup radioButton) {
         boolean s_test = false;
         int id = radioButton.getCheckedRadioButtonId();
         if (id == R.id.jia) {
@@ -222,18 +192,14 @@ public class LoginActivity extends BaseActivity {
         } else {
             s_test = false;
         }
-        //socketip.getText().toString().trim(), jiekouip.getText().toString().trim(),
         AppUrl.initip(s_test);
-
         final HashMap hashMap = new HashMap();
-
-        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(LoginActivity.this));
+        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
         String timeStamp = String.valueOf(System.currentTimeMillis());
         hashMap.put("token ", Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), timeStamp, Sha256Hash.key));
         hashMap.put("timeStamp", timeStamp);
-
         ZLog.e("HashMap", hashMap.toString());
-
+        LoginActivity.this.showLoadingDialog("激活中..");
         HttpClient.postHashMapEntity(AppUrl.activation, hashMap, new
                 MyHttpResponseHandler() {
                     @Override
@@ -284,8 +250,7 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    private void zhuce(RadioGroup radioButton, final EditText socketip, final EditText jiekouip,
-                       final EditText yonghuming, final EditText shebeiName) {
+    private void zhuce(RadioGroup radioButton, final EditText yonghuming, final EditText shebeiName) {
         boolean s_test = false;
         int id = radioButton.getCheckedRadioButtonId();
         if (id == R.id.jia) {
@@ -293,51 +258,11 @@ public class LoginActivity extends BaseActivity {
         } else {
             s_test = false;
         }
-        //socketip.getText().toString().trim(), jiekouip.getText().toString().trim(),
         AppUrl.initip(s_test);
-
         final HashMap hashMap = new HashMap();
-
-        hashMap.put("userName", yonghuming.getText().toString());
-
-        hashMap.put("terminalIdentity", LoginUtil.getTerminalIdentity());
-
-        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : LoginUtil.getTerminalIdentity());
-        //应用版本号
-        hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
-        //局域网IP地址
-        hashMap.put("lanIp", DeviceUtil.getIPAddress(LoginActivity.this));
-        /*        //网关IP地址/
-                hashMap.put("gatewayIp", DeviceUtil.getNetIp());*/
-        //mac地址
-        hashMap.put("mac", DeviceUtil.getWifiMacAddress(LoginActivity.this));
-        //分辨率
-        hashMap.put("resolution", DeviceUtil.getDisplayMetricsPixels(LoginActivity.this));
-        //固件信息
-        hashMap.put("firmwareInfo", DeviceUtil.getPhoneBrand() + "BuildLevel" + DeviceUtil.getBuildLevel());
-        //CPU ID
-        hashMap.put("cpuId", DeviceUtil.getCPU());
-        //系统编号
-        hashMap.put("systemNo", DeviceUtil.getBuildVersion());
-        //设备身份编码
-        hashMap.put("equipmentNo", DeviceUtil.getTerDeviceID(LoginActivity.this));
-        //设备序列号
-        hashMap.put("equipmentSerial", DeviceUtil.getMobileSerial(LoginActivity.this));
-        //磁盘物理路径
-        hashMap.put("physicalPath", DeviceUtil.getDir());
-        //磁盘大小
-        hashMap.put("diskSize", DeviceUtil.getDeviceTotalRam());
-        //磁盘剩余大小
-        hashMap.put("diskRest", DeviceUtil.getDeviceRemainRam());
-        //最近连接时间
-        hashMap.put("recentConnectTime", "");
-        //地址
-        hashMap.put("address", AppContext.getInstance().addr);
-
-        hashMap.put("gatewayIp", DeviceUtil.getNetIp());
-
+        LoginUtil.getAMMap(yonghuming, shebeiName, hashMap, this);
         ZLog.e("HashMap", hashMap.toString());
-
+        LoginActivity.this.showLoadingDialog("注册中..");
         HttpClient.postHashMapEntity(AppUrl.serverUrlAddMuTerminal, hashMap, new
                 MyHttpResponseHandler() {
                     @Override
@@ -356,9 +281,8 @@ public class LoginActivity extends BaseActivity {
                                     android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                     editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
                                     editor.commit();
-                                    //LoginUtil.putIsZhuche(true);
-                                    //FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
-                                    //getIp();
+                                    ZLog.e("tag", "注册提交成功 ");
+                                    checkRegisterBinding();
                                 } else {
                                     //注册接口 1设备已经存在   2 用户不存在  3 参数不能为空
                                     if (response.code.equals("1")) {
@@ -382,8 +306,7 @@ public class LoginActivity extends BaseActivity {
                     public void onFailure(Request request, Exception e) {
                         e.printStackTrace();
                         ZLog.e("tag", "onFailure.msg ");
-                        Handler handler1 = new Handler(Looper.getMainLooper());
-                        handler1.post(new Runnable() {
+                        handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 LoginActivity.this.dismissLoadingDialog();
@@ -394,8 +317,12 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
+
     private void checkRegisterBinding() {
+        //REQUEST_CODE_SEND_APP_ZHUCE
         //获取ip
+        LoginActivity.this.showLoadingDialog("检查状态中..");
+        ZLog.e("tag", "checkRegisterBinding");
         HttpClient.postHashMapEntity(AppUrl.checkRegisterBinding, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(final MyApiResponse response) {
@@ -410,13 +337,13 @@ public class LoginActivity extends BaseActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            LoginUtil.putIsZhuche(true);
                             LoginActivity.this.dismissLoadingDialog();
-                            /*AppUrl.setSerList(response.getData());*/
-                            /*doNavigation();*/
+                            LoginUtil.putIsZhuche(true);
+                            getIp();
                         }
                     });
                 } else {
+                    LoginUtil.alarmSendReg();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -436,21 +363,29 @@ public class LoginActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Request request, Exception e) {
+            public void onFailure(Request request, final Exception e) {
                 super.onFailure(request, e);
-                LoginActivity.this.dismissLoadingDialog();
-                Toast.makeText(AppContext.getInstance(), "获取激活状态失败！" + e.getMessage(), Toast.LENGTH_LONG).show();
-                ZLog.e("HashMap", "" + e.getMessage());
+                ZLog.e("onFailure", "" + e.getMessage());
+                LoginUtil.alarmSendReg();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoginActivity.this.dismissLoadingDialog();
+                        Toast.makeText(AppContext.getInstance(), "获取激活状态失败！" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }
 
     private void getIp() {
         //获取ip
+        LoginActivity.this.showLoadingDialog("获取ip中..");
         HttpClient.postHashMapEntity(AppUrl.getServerList, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(final MyApiResponse response) {
                 super.onSuccess(response);
+                LoginActivity.this.dismissLoadingDialog();
                 ZLog.e("HashMap", response.toString());
                 if (response.code.equals("0")) {
                     handler.post(new Runnable() {
@@ -485,10 +420,15 @@ public class LoginActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Request request, Exception e) {
+            public void onFailure(Request request, final Exception e) {
                 super.onFailure(request, e);
-                LoginActivity.this.dismissLoadingDialog();
-                Toast.makeText(AppContext.getInstance(), "获取ip失败激活！" + e.getMessage(), Toast.LENGTH_LONG).show();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoginActivity.this.dismissLoadingDialog();
+                        Toast.makeText(AppContext.getInstance(), "获取ip失败激活！" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
                 ZLog.e("HashMap", "" + e.getMessage());
             }
         });
@@ -542,9 +482,6 @@ public class LoginActivity extends BaseActivity {
         super.onResume();
         ZLog.e("DMP", "DMP" + DeviceUtil.getDisplayMetricsPixels(this));
         MobclickAgent.onResume(this);
-       /* if (SharedPreferences.getInstance().getBoolean(SharedPreferences.KEY_ISREGISTER, false)) {
-            doNavigation();
-        }*/
     }
 
     private void initView() {
@@ -553,5 +490,14 @@ public class LoginActivity extends BaseActivity {
         //设置全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    @Override
+    public void onEvent(final Event mEvent) {
+        switch (mEvent.getId()) {
+            case EVENT_TEST_MSG_CHECKREGISTER:
+                checkRegisterBinding();
+                break;
+        }
     }
 }

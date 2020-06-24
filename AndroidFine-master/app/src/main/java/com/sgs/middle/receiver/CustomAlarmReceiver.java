@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.sgs.middle.eventControlModel.Event;
+import com.sgs.middle.eventControlModel.EventEnum;
 import com.zhangke.zlog.ZLog;
 
 import android.widget.Toast;
@@ -21,8 +23,11 @@ import com.sgs.middle.utils.UsageStatsManagerUtil;
 import com.sgs.programModel.ProgramScheduledManager;
 import com.sgs.programModel.ProgramUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class CustomAlarmReceiver extends BroadcastReceiver {
@@ -48,7 +53,6 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
      */
     public static final String ACTION_SEND_APP_HOTAREA = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_HOTAREA";
     public static final int REQUEST_CODE_SEND_APP_USAGE = 3000;
-
 
 
     /**
@@ -127,6 +131,13 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
      */
     public static final String ACTION_SEND_APP_SCENCE = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_SCENCE";
     public static final int REQUEST_CODE_SEND_APP_SCENCE = 3017;
+
+    /**
+     * 定期执行ACTION_SEND_APP_ZHUCE上报
+     */
+    public static final String ACTION_SEND_APP_ZHUCE = "com.sf.appstore.business.receiver.custom.ACTION_SEND_APP_ZHUCE";
+    public static final int REQUEST_CODE_SEND_APP_ZHUCE = 3018;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ZLog.e(TAG, "AppContext.getInstance().islogin:" + AppContext.getInstance().islogin);
@@ -179,6 +190,11 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             } else if (ACTION_SEND_APP_CLOSE.equals(action)) {
                 ZLog.e(TAG, "时间到,执行关机:ACTION_SEND_APP_CVDS");
                 CommandHelper.openOrClose(false);
+            } else if (ACTION_SEND_APP_ZHUCE.equals(action)) {
+                ZLog.e(TAG, "时间到注册判断:ACTION_SEND_APP_ZHUCE");
+                Event event = new Event();
+                event.setId(EventEnum.EVENT_TEST_MSG_CHECKREGISTER);
+                EventBus.getDefault().post(event);
             }
         }
     }
