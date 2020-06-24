@@ -146,8 +146,8 @@ public class FileHelper {
     public static String uniqueidf = "/uniqueidf";
     public static String uniqueidf1 = "/uniqueidf1";
 
-    public static String iszhuce = "/iszhuce";
-    public static String isjihuo = "/isjihuo";
+    //public static String iszhuce = "/iszhuce";
+    //public static String isjihuo = "/isjihuo";
     public static String getSDunique(String key) {
         ZLog.e(TAG, "开始找getSDunique:" + key);
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {

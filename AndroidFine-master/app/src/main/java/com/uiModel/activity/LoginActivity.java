@@ -14,9 +14,15 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.alibaba.fastjson.JSON;
+import com.sgs.middle.utils.Sha256Hash;
+import com.sgs.middle.utils.SharedPreferences;
+import com.uiModel.Jihuo;
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -118,8 +124,10 @@ public class LoginActivity extends BaseActivity {
                 LoginActivity.this.showLoadingDialog();
                 boolean isjihuo = false;
 
-                if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.isjihuo))) {
-                    ZLog.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
+                isjihuo = LoginUtil.isjihuo();
+
+                if (!StringUtil.isEmpty(LoginUtil.getTerminalIdentity())) {
+                    ZLog.e("isjihuo", "isjihuo");
                     isjihuo = true;
                 }
 
@@ -151,24 +159,11 @@ public class LoginActivity extends BaseActivity {
                 }
                 AppUrl.initip(s_test);
 
-                android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
-                /*boolean iszhuce = mContextSp.getBoolean(DeviceUtil.iszhuce, false);
-                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);*/
                 boolean iszhuce = false;
                 boolean isjihuo = false;
 
-                if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.iszhuce))) {
-                    ZLog.e("iszhuce", "is" + FileHelper.getSDunique(FileHelper.iszhuce));
-                    iszhuce = true;
-                }
-
-                if (!StringUtil.isEmpty(FileHelper.getSDunique(FileHelper.isjihuo))) {
-                    ZLog.e("isjihuo", "is" + FileHelper.getSDunique(FileHelper.isjihuo));
-                    isjihuo = true;
-                }
-
-                /*boolean iszhuce = mContextSp.getBoolean(DeviceUtil.iszhuce, false);
-                boolean isjihuo = mContextSp.getBoolean(DeviceUtil.isjihuo, false);*/
+                iszhuce = LoginUtil.getIsZhuche();
+                isjihuo = LoginUtil.isjihuo();
 
                 if (!isjihuo) {
                     LoginActivity.this.dismissLoadingDialog();
@@ -185,13 +180,6 @@ public class LoginActivity extends BaseActivity {
 
                 AppContext.getInstance().userName = yonghuming.getText().toString();
                 getIp();
-              /*  new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        zhuce(radioButton, socketip, jiekouip, yonghuming, shebeiName);
-                    }
-                }).start();*/
-
             }
         });
         findViewById(R.id.jihuo).setOnClickListener(new View.OnClickListener() {
@@ -239,8 +227,10 @@ public class LoginActivity extends BaseActivity {
 
         final HashMap hashMap = new HashMap();
 
-        hashMap.put("secretKey", DeviceUtil.getSercetKey(LoginActivity.this));
         hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(LoginActivity.this));
+        String timeStamp = String.valueOf(System.currentTimeMillis());
+        hashMap.put("token ", Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), timeStamp, Sha256Hash.key));
+        hashMap.put("timeStamp", timeStamp);
 
         ZLog.e("HashMap", hashMap.toString());
 
@@ -255,12 +245,20 @@ public class LoginActivity extends BaseActivity {
                             public void run() {
                                 LoginActivity.this.dismissLoadingDialog();
                                 if (response.code.equals("0")) {
-                                    Toast.makeText(AppContext.getInstance(), "恭喜你激活成功了啊！！", Toast.LENGTH_LONG).show();
-                                    FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
+                                    String jihuoJson = response.getData();
+                                    Jihuo jihuo = (Jihuo) JSON.parse(jihuoJson);
+                                    ZLog.e("tag", "jihuoJson" + jihuoJson);
+                                    if (jihuo == null || TextUtils.isEmpty(jihuo.getTerminalIdentity()) || TextUtils.isEmpty(jihuo.getSecretKey())) {
+                                        Toast.makeText(AppContext.getInstance(), "您激活失败了啊！！" + jihuoJson, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(AppContext.getInstance(), "恭喜您激活成功了啊！！", Toast.LENGTH_LONG).show();
+                                        LoginUtil.putTerminalIdenAndSecretKey(jihuo.getTerminalIdentity(), jihuo.getSecretKey());
+                                    }
                                 } else {
+                                    ZLog.e("tag", "response.msg" + response.msg + "|" + response.code);
                                     if (response.code.equals("1")) {
                                         Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
-                                        FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
+                                        //FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
                                     } else {
                                         ZLog.e("tag", "response.msg ");
                                         Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
@@ -302,9 +300,9 @@ public class LoginActivity extends BaseActivity {
 
         hashMap.put("userName", yonghuming.getText().toString());
 
-        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(LoginActivity.this));
+        hashMap.put("terminalIdentity", LoginUtil.getTerminalIdentity());
 
-        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : DeviceUtil.getTerDeviceID(LoginActivity.this));
+        hashMap.put("terminalName", !StringUtil.isEmpty(shebeiName.getText().toString()) ? shebeiName.getText().toString() : LoginUtil.getTerminalIdentity());
         //应用版本号
         hashMap.put("appVersion", DeviceUtil.getVersionName(LoginActivity.this));
         //局域网IP地址
@@ -351,14 +349,15 @@ public class LoginActivity extends BaseActivity {
                             public void run() {
                                 LoginActivity.this.dismissLoadingDialog();
                                 if (response.code.equals("0")) {
-                                    Toast.makeText(AppContext.getInstance(), "恭喜你注册成功了啊！！", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(AppContext.getInstance(), "恭喜你提交成功，等待注册回调！！", Toast.LENGTH_LONG).show();
                                     AppContext.getInstance().userName = yonghuming.getText().toString();
                                     //保存sp
                                     android.content.SharedPreferences mContextSp = AppContext.getInstance().getSharedPreferences(DeviceUtil.sfter, Context.MODE_PRIVATE);
                                     android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                     editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
                                     editor.commit();
-                                    FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
+                                    //LoginUtil.putIsZhuche(true);
+                                    //FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
                                     //getIp();
                                 } else {
                                     //注册接口 1设备已经存在   2 用户不存在  3 参数不能为空
@@ -369,7 +368,8 @@ public class LoginActivity extends BaseActivity {
                                         android.content.SharedPreferences.Editor editor = mContextSp.edit();
                                         editor.putString(DeviceUtil.sbm, shebeiName.getText().toString());
                                         editor.commit();
-                                        FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
+                                        //FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
+                                        LoginUtil.putIsZhuche(true);
                                     } else {
                                         Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                     }
@@ -392,6 +392,57 @@ public class LoginActivity extends BaseActivity {
                         });
                     }
                 });
+    }
+
+    private void checkRegisterBinding() {
+        //获取ip
+        HttpClient.postHashMapEntity(AppUrl.checkRegisterBinding, new MyHttpResponseHandler() {
+            @Override
+            public void onSuccess(final MyApiResponse response) {
+                super.onSuccess(response);
+                ZLog.e("HashMap", response.toString());
+              /*  {
+                    "code": 0
+                    返回码： 0是正常 ，非0，异常，参考msg的描述
+-1 非法设备  1：设备未激活 2：非法签名　３：ｔｏｋｅｎ失效
+                }*/
+                if (response.code.equals("0")) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            LoginUtil.putIsZhuche(true);
+                            LoginActivity.this.dismissLoadingDialog();
+                            /*AppUrl.setSerList(response.getData());*/
+                            /*doNavigation();*/
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            LoginActivity.this.dismissLoadingDialog();
+                            if (response.code.equals("1")) {
+                                Toast.makeText(AppContext.getInstance(), "设备未激活！", Toast.LENGTH_LONG).show();
+                            } else if (response.code.equals("3")) {
+                                Toast.makeText(AppContext.getInstance(), "token失效！", Toast.LENGTH_LONG).show();
+                            } else if (response.code.equals("-1")) {
+                                Toast.makeText(AppContext.getInstance(), "非法设备！", Toast.LENGTH_LONG).show();
+                            } else if (response.code.equals("2")) {
+                                Toast.makeText(AppContext.getInstance(), "非法签名！", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+                super.onFailure(request, e);
+                LoginActivity.this.dismissLoadingDialog();
+                Toast.makeText(AppContext.getInstance(), "获取激活状态失败！" + e.getMessage(), Toast.LENGTH_LONG).show();
+                ZLog.e("HashMap", "" + e.getMessage());
+            }
+        });
     }
 
     private void getIp() {

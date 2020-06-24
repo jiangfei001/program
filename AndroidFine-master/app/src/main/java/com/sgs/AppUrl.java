@@ -35,7 +35,7 @@ public class AppUrl {
     public static String sysMaterialData;
 
     public static String terminalRuningData;
-
+    public static String checkRegisterBinding;
     //激活
     public static String activation;
     public static String changeMsgStatus;
@@ -71,6 +71,8 @@ public class AppUrl {
         updateApkJson = jiekouUrl + "/multimedia_test/api/terminal/updateApkJson";
         sysMaterialData = jiekouUrl + "/multimedia_test/api/terminal/sysMaterialData";
         terminalRuningData = jiekouUrl + "/multimedia_test/api/terminal/terminalRuningData";
+        checkRegisterBinding = jiekouUrl + "/multimedia_test/api/terminal/checkRegisterBinding";
+
             /*socketUrl = "ws://49.235.109.237:9080/multimedia/api/websocket";
             serverUrlAddMuTerminal = prodIP + "/multimedia/api/terminal/addMuTerminal";
             callbackUrl = prodIP + "/multimedia/api/terminal/callback";
@@ -104,7 +106,7 @@ public class AppUrl {
         updateApkJson = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/updateApkJson";
         sysMaterialData = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/sysMaterialData";
         terminalRuningData = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/terminalRuningData";
-
+        checkRegisterBinding = jiekouUrl + "/multimedia" + (isTeststr ? "_test" : "") + "/api/terminal/checkRegisterBinding";
         ZLog.e("socketUrl", "socketIP:" + socketIP + "jiekouIP:" + jiekouIP + "socketUrl" + socketUrl);
         ZLog.e("socketUrl", "callbackUrl:" + callbackUrl);
         ZLog.e("socketUrl", "addTerminalProgramListUrl:" + addTerminalProgramListUrl);

@@ -6,11 +6,6 @@ import java.nio.ByteBuffer;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-/**
- * 创建 {@link Response} 的工厂类
- * <p>
- * Created by ZhangKe on 2019/3/28.
- */
 public class ResponseFactory {
 
     private static final int POOL_SIZE = 7;

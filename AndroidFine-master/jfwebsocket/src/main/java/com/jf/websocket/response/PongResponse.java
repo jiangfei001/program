@@ -6,11 +6,6 @@ import com.jf.websocket.dispatcher.ResponseDelivery;
 
 import org.java_websocket.framing.Framedata;
 
-/**
- * 接收到 Pong
- * <p>
- * Created by ZhangKe on 2019/3/28.
- */
 public class PongResponse implements Response<Framedata> {
 
     private Framedata framedata;

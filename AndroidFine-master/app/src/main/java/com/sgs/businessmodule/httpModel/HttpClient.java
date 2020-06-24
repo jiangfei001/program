@@ -8,7 +8,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
+
+import com.sgs.AppUrl;
 import com.zhangke.zlog.ZLog;
+
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -205,7 +208,7 @@ public class HttpClient {
     private Map<String, String> mHeaders = new HashMap<>();
 
     public static void postHashMapEntity(String url, final MyHttpResponseHandler handler) {
-        postHashMapEntity(url,null,handler);
+        postHashMapEntity(url, null, handler);
     }
 
     public static void postHashMapEntity(String url, HashMap responseEntity, final MyHttpResponseHandler handler) {
@@ -222,7 +225,11 @@ public class HttpClient {
         RequestBody body = RequestBody.create(JSONTTYPE, com.alibaba.fastjson.JSON.toJSONString(responseEntity));
 
         Request.Builder requestBuilder = new Request.Builder();
-        ComRequestManager.addRequestHeader(requestBuilder);
+
+        if (!url.equals(AppUrl.activation)) {
+            ComRequestManager.addRequestHeader(requestBuilder);
+        }
+
         Request request = requestBuilder.header("Accept", "*/*")
                 .url(url)
                 .post(body).build();

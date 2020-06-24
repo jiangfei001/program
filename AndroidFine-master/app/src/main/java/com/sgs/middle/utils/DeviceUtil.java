@@ -719,6 +719,10 @@ public class DeviceUtil {
         return "";
     }
 
+    public static String terminalIdentity;
+
+    public static String secretKey;
+
     public static String getTerDeviceID(Context context) {
         /*if (true) {
             return AppUrl.shebeiHao;
