@@ -48,8 +48,8 @@ public class LoginUtil {
     }
 
     public static void putTerminalIdenAndSecretKey(String terminalIdentity, String secretKey) {
-        SharedPreferences.getInstance().putString("terminalIdentity", "");
-        SharedPreferences.getInstance().putString("secretKey", "");
+        SharedPreferences.getInstance().putString("terminalIdentity", terminalIdentity);
+        SharedPreferences.getInstance().putString("secretKey", secretKey);
     }
 
     public static String getTerminalIdentity() {
@@ -90,7 +90,7 @@ public class LoginUtil {
     }
 
 
-    public static void getAMMap(EditText yonghuming, EditText shebeiName, HashMap hashMap,LoginActivity loginActivity) {
+    public static void getAMMap(EditText yonghuming, EditText shebeiName, HashMap hashMap, LoginActivity loginActivity) {
         hashMap.put("userName", yonghuming.getText().toString());
 
         hashMap.put("terminalIdentity", LoginUtil.getTerminalIdentity());

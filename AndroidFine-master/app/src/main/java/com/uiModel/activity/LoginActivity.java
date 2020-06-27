@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.sgs.middle.eventControlModel.Event;
 import com.sgs.middle.utils.Sha256Hash;
 import com.uiModel.Jihuo;
@@ -115,7 +116,6 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginActivity.this.showLoadingDialog("注册中..");
                 boolean isjihuo = LoginUtil.isjihuo();
                 if (!StringUtil.isEmpty(LoginUtil.getTerminalIdentity())) {
                     ZLog.e("isjihuo", "isjihuo");
@@ -126,7 +126,14 @@ public class LoginActivity extends BaseActivity {
                     Toast.makeText(LoginActivity.this, "请先激活！", Toast.LENGTH_LONG).show();
                     return;
                 }
-                zhuce(radioButton, yonghuming, shebeiName);
+
+                LoginActivity.this.showLoadingDialog("注册中..");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        zhuce(radioButton, yonghuming, shebeiName);
+                    }
+                }).start();
             }
         });
 
@@ -196,7 +203,7 @@ public class LoginActivity extends BaseActivity {
         final HashMap hashMap = new HashMap();
         hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
         String timeStamp = String.valueOf(System.currentTimeMillis());
-        hashMap.put("token ", Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), timeStamp, Sha256Hash.key));
+        hashMap.put("token", Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), timeStamp, Sha256Hash.key));
         hashMap.put("timeStamp", timeStamp);
         ZLog.e("HashMap", hashMap.toString());
         LoginActivity.this.showLoadingDialog("激活中..");
@@ -205,15 +212,14 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(final MyApiResponse response) {
                         ZLog.e("tag", "response.msg ");
-                        final Handler handler1 = new Handler(Looper.getMainLooper());
-                        handler1.post(new Runnable() {
+                        handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 LoginActivity.this.dismissLoadingDialog();
                                 if (response.code.equals("0")) {
                                     String jihuoJson = response.getData();
-                                    Jihuo jihuo = (Jihuo) JSON.parse(jihuoJson);
                                     ZLog.e("tag", "jihuoJson" + jihuoJson);
+                                    Jihuo jihuo = JSONObject.parseObject(jihuoJson, Jihuo.class);
                                     if (jihuo == null || TextUtils.isEmpty(jihuo.getTerminalIdentity()) || TextUtils.isEmpty(jihuo.getSecretKey())) {
                                         Toast.makeText(AppContext.getInstance(), "您激活失败了啊！！" + jihuoJson, Toast.LENGTH_LONG).show();
                                     } else {
@@ -262,14 +268,13 @@ public class LoginActivity extends BaseActivity {
         final HashMap hashMap = new HashMap();
         LoginUtil.getAMMap(yonghuming, shebeiName, hashMap, this);
         ZLog.e("HashMap", hashMap.toString());
-        LoginActivity.this.showLoadingDialog("注册中..");
+
         HttpClient.postHashMapEntity(AppUrl.serverUrlAddMuTerminal, hashMap, new
                 MyHttpResponseHandler() {
                     @Override
                     public void onSuccess(final MyApiResponse response) {
                         ZLog.e("tag", "response.msg ");
-                        final Handler handler1 = new Handler(Looper.getMainLooper());
-                        handler1.post(new Runnable() {
+                        handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 LoginActivity.this.dismissLoadingDialog();
@@ -294,6 +299,9 @@ public class LoginActivity extends BaseActivity {
                                         editor.commit();
                                         //FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
                                         LoginUtil.putIsZhuche(true);
+
+                                        checkRegisterBinding();
+
                                     } else {
                                         Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
                                     }
@@ -323,7 +331,10 @@ public class LoginActivity extends BaseActivity {
         //获取ip
         LoginActivity.this.showLoadingDialog("检查状态中..");
         ZLog.e("tag", "checkRegisterBinding");
-        HttpClient.postHashMapEntity(AppUrl.checkRegisterBinding, new MyHttpResponseHandler() {
+
+        final HashMap hashMap = new HashMap();
+        hashMap.put("terminalIdentity", LoginUtil.getTerminalIdentity());
+        HttpClient.postHashMapEntity(AppUrl.checkRegisterBinding, hashMap, new MyHttpResponseHandler() {
             @Override
             public void onSuccess(final MyApiResponse response) {
                 super.onSuccess(response);

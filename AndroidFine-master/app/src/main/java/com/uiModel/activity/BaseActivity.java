@@ -22,7 +22,6 @@ public class BaseActivity extends FragmentActivity {
     private AlertDialog alertDialog;
     public void showLoadingDialog(String loadingtext) {
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         alertDialog = builder.create();
         alertDialog.show();
@@ -44,6 +43,7 @@ public class BaseActivity extends FragmentActivity {
     public void dismissLoadingDialog() {
         if (null != alertDialog && alertDialog.isShowing()) {
             alertDialog.dismiss();
+            alertDialog=null;
         }
     }
 
