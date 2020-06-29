@@ -1,5 +1,8 @@
 package com.sgs.businessmodule.httpModel;
 
+import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
 import com.sgs.AppContext;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.Sha256Hash;
@@ -31,6 +34,7 @@ public class ComRequestManager {
         map.put("Connection", "close");
         map.put("MultipleDevicesAuth", "true");
         map.put("Content-Type", "application/json;charset=UTF-8");
+        Log.e("map:","map:"+ JSON.toJSONString(map));
         return map;
     }
 }

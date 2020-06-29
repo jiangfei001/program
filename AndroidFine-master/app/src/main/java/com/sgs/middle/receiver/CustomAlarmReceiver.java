@@ -190,7 +190,10 @@ public class CustomAlarmReceiver extends BroadcastReceiver {
             } else if (ACTION_SEND_APP_CLOSE.equals(action)) {
                 ZLog.e(TAG, "时间到,执行关机:ACTION_SEND_APP_CVDS");
                 CommandHelper.openOrClose(false);
-            } else if (ACTION_SEND_APP_ZHUCE.equals(action)) {
+            }
+        }else{
+            String action = intent.getAction();
+            if (ACTION_SEND_APP_ZHUCE.equals(action)) {
                 ZLog.e(TAG, "时间到注册判断:ACTION_SEND_APP_ZHUCE");
                 Event event = new Event();
                 event.setId(EventEnum.EVENT_TEST_MSG_CHECKREGISTER);

@@ -177,6 +177,11 @@ public class LoginActivity extends BaseActivity {
         initPermission();
 
 
+        AutoLogin(yonghuming, shebeiName, radioButton);
+
+
+
+
         /*NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -191,6 +196,94 @@ public class LoginActivity extends BaseActivity {
         }*/
     }
 
+    private void AutoLogin(final EditText yonghuming, final EditText shebeiName, final RadioGroup radioButton) {
+        boolean isjihuo = LoginUtil.isjihuo();
+        if (!StringUtil.isEmpty(LoginUtil.getTerminalIdentity())) {
+            ZLog.e("isjihuo", "isjihuo");
+            isjihuo = true;
+        }
+        boolean s_test = false;
+        int id = radioButton.getCheckedRadioButtonId();
+        if (id == R.id.jia) {
+            s_test = true;
+        } else {
+            s_test = false;
+        }
+        AppUrl.initip(s_test);
+        if (!isjihuo) {
+            final HashMap hashMap = new HashMap();
+            hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            String timeStamp = String.valueOf(System.currentTimeMillis());
+            hashMap.put("token", Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), timeStamp, Sha256Hash.key));
+            hashMap.put("timeStamp", timeStamp);
+            ZLog.e("HashMap", hashMap.toString());
+            LoginActivity.this.showLoadingDialog("激活中..");
+            HttpClient.postHashMapEntity(AppUrl.activation, hashMap, new
+                    MyHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(final MyApiResponse response) {
+                            ZLog.e("tag", "response.msg ");
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LoginActivity.this.dismissLoadingDialog();
+                                    if (response.code.equals("0")) {
+                                        String jihuoJson = response.getData();
+                                        ZLog.e("tag", "jihuoJson" + jihuoJson);
+                                        Jihuo jihuo = JSONObject.parseObject(jihuoJson, Jihuo.class);
+                                        if (jihuo == null || TextUtils.isEmpty(jihuo.getTerminalIdentity()) || TextUtils.isEmpty(jihuo.getSecretKey())) {
+                                            Toast.makeText(AppContext.getInstance(), "您激活失败了啊！！" + jihuoJson, Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(AppContext.getInstance(), "恭喜您激活成功了啊！！", Toast.LENGTH_LONG).show();
+                                            LoginUtil.putTerminalIdenAndSecretKey(jihuo.getTerminalIdentity(), jihuo.getSecretKey());
+
+                                            LoginActivity.this.showLoadingDialog("注册中..");
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    zhuce(radioButton, yonghuming, shebeiName);
+                                                }
+                                            }).start();
+                                        }
+                                    } else {
+                                        ZLog.e("tag", "response.msg" + response.msg + "|" + response.code);
+                                        if (response.code.equals("1")) {
+                                            Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                            //FileHelper.putSDunique("isjihuo", FileHelper.isjihuo);
+                                        } else {
+                                            ZLog.e("tag", "response.msg ");
+                                            Toast.makeText(AppContext.getInstance(), response.msg + "|" + response.code, Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Request request, Exception e) {
+                            e.printStackTrace();
+                            ZLog.e("tag", "onFailure.msg ");
+                            Handler handler1 = new Handler(Looper.getMainLooper());
+                            handler1.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LoginActivity.this.dismissLoadingDialog();
+                                    Toast.makeText(LoginActivity.this, "对不起，激活失败", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+        } else {
+            LoginActivity.this.showLoadingDialog("注册中..");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    zhuce(radioButton, yonghuming, shebeiName);
+                }
+            }).start();
+        }
+    }
+
     private void jihuo(RadioGroup radioButton) {
         boolean s_test = false;
         int id = radioButton.getCheckedRadioButtonId();
@@ -200,6 +293,14 @@ public class LoginActivity extends BaseActivity {
             s_test = false;
         }
         AppUrl.initip(s_test);
+
+        boolean isjihuo = LoginUtil.isjihuo();
+
+        if (isjihuo) {
+            Toast.makeText(LoginActivity.this, "已经激活，不要再激活！", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         final HashMap hashMap = new HashMap();
         hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
         String timeStamp = String.valueOf(System.currentTimeMillis());
@@ -299,7 +400,6 @@ public class LoginActivity extends BaseActivity {
                                         editor.commit();
                                         //FileHelper.putSDunique("iszhuce", FileHelper.iszhuce);
                                         LoginUtil.putIsZhuche(true);
-
                                         checkRegisterBinding();
 
                                     } else {
@@ -329,7 +429,8 @@ public class LoginActivity extends BaseActivity {
     private void checkRegisterBinding() {
         //REQUEST_CODE_SEND_APP_ZHUCE
         //获取ip
-        LoginActivity.this.showLoadingDialog("检查状态中..");
+        LoginActivity.this.dismissLoadingDialog();
+        LoginActivity.this.showLoadingDialog("检查状态中！终端号：" + LoginUtil.getTerminalIdentity());
         ZLog.e("tag", "checkRegisterBinding");
 
         final HashMap hashMap = new HashMap();
@@ -358,7 +459,7 @@ public class LoginActivity extends BaseActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            LoginActivity.this.dismissLoadingDialog();
+                            // LoginActivity.this.dismissLoadingDialog();
                             if (response.code.equals("1")) {
                                 Toast.makeText(AppContext.getInstance(), "设备未激活！", Toast.LENGTH_LONG).show();
                             } else if (response.code.equals("3")) {

@@ -32,7 +32,7 @@
         <activity
             android:name="com.uiModel.activity.SplashActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -41,7 +41,7 @@
 
         <activity
             android:name="com.uiModel.activity.LoginActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <!-- <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.LAUNCHER" />
@@ -51,14 +51,14 @@
         <activity
             android:name="com.uiModel.activity.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
 
 
         <activity
             android:name="com.sgs.businessmodule.websocketmodel.WebSocketActivityRelease"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat">
             <!-- <intent-filter>
                  <action android:name="android.intent.action.MAIN" />

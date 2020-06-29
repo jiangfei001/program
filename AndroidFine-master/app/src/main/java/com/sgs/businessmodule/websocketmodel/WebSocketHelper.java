@@ -1,5 +1,6 @@
 package com.sgs.businessmodule.websocketmodel;
 
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
@@ -22,7 +23,7 @@ public class WebSocketHelper {
 
         ZLog.e("initWebSocket", "socketUrl" + AppUrl.socketUrl);
         String systemTime = System.currentTimeMillis() + "";
-        String endstr = "/" + DeviceUtil.getTerDeviceID(AppContext.getInstance()) + "/" + systemTime + "/" + Sha256Hash.getToken(DeviceUtil.getTerDeviceID(AppContext.getInstance()), systemTime, DeviceUtil.getSercetKey(AppContext.getInstance()));
+        String endstr = "/" + LoginUtil.getTerminalIdentity() + "/" + systemTime + "/" + Sha256Hash.getToken(LoginUtil.getTerminalIdentity(), systemTime, LoginUtil.getSecretKey());
         ZLog.e("weiyima:", "endstr" + endstr);
         setting.setConnectUrl(AppUrl.socketUrl + endstr);//必填
         setting.setEnd(endstr);

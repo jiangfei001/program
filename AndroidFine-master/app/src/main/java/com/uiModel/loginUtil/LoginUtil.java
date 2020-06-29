@@ -72,7 +72,7 @@ public class LoginUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(SystemClock.elapsedRealtime());
         // 10分钟上报一次打开次数
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
+        calendar.set(Calendar.SECOND, calendar.get(Calendar.SECOND) + 15);
 
         Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
         it.setPackage(AppContext.getInstance().getPackageName());
