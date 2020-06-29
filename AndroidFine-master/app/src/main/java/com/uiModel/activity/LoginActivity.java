@@ -274,13 +274,18 @@ public class LoginActivity extends BaseActivity {
                         }
                     });
         } else {
-            LoginActivity.this.showLoadingDialog("注册中..");
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    zhuce(radioButton, yonghuming, shebeiName);
-                }
-            }).start();
+            boolean iszhuce = LoginUtil.getIsZhuche();
+            if (!iszhuce) {
+                LoginActivity.this.showLoadingDialog("注册中..");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        zhuce(radioButton, yonghuming, shebeiName);
+                    }
+                }).start();
+            } else {
+                checkRegisterBinding();
+            }
         }
     }
 
