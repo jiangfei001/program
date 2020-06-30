@@ -213,7 +213,6 @@
                 android:layout_marginTop="30.0dip"
                 android:layout_marginRight="20.0dip"
                 android:background="@drawable/btn_bg_gray"
-                android:checked="true"
                 android:text="multimedia_test"
                 android:textColor="#ffffffff"
                 android:textSize="18.0sp" />
@@ -222,6 +221,7 @@
                 android:id="@+id/bujia"
                 android:layout_width="fill_parent"
                 android:layout_height="40.0dip"
+                android:checked="true"
                 android:layout_marginLeft="50.0dip"
                 android:layout_marginTop="30.0dip"
                 android:layout_marginRight="20.0dip"

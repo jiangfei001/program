@@ -88,7 +88,7 @@ public class LoginActivity extends BaseActivity {
 
         final RadioGroup radioButton = (RadioGroup) findViewById(R.id.radiogroup1);
 
-        if (true) {
+        if (false) {
             radioButton.check(R.id.bujia);
             socketip.setText(AppUrl.socketIP);
             jiekouip.setText(AppUrl.jiekouIP);
@@ -470,7 +470,7 @@ public class LoginActivity extends BaseActivity {
                             } else if (response.code.equals("3")) {
                                 Toast.makeText(AppContext.getInstance(), "token失效！", Toast.LENGTH_LONG).show();
                             } else if (response.code.equals("-1")) {
-                                Toast.makeText(AppContext.getInstance(), "非法设备！", Toast.LENGTH_LONG).show();
+                                Toast.makeText(AppContext.getInstance(), "检测状态开始！", Toast.LENGTH_LONG).show();
                             } else if (response.code.equals("2")) {
                                 Toast.makeText(AppContext.getInstance(), "非法签名！", Toast.LENGTH_LONG).show();
                             }
