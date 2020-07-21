@@ -138,7 +138,7 @@ public class DeviceUtil {
             ZLog.e(TAG, "startsWith:rock");
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
             String fileName = format.format(new Date(System.currentTimeMillis())) + ".png";
-            String fileFullPath = baseFilePathFile.getPath() + fileName;
+            String fileFullPath = baseFilePathFile.getPath() + "/" + fileName;
             ZLog.e(TAG, "startsWith:fileFullPath" + fileFullPath);
             Bitmap bitmap = ScreentShotUtil.getInstance().takeScreenshot(activity, fileFullPath);
             /*File file = new File(fileFullPath);
