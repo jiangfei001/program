@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
@@ -76,7 +78,7 @@ public class PackageReceiver extends BroadcastReceiver {
 
             final HashMap hashMap = new HashMap();
 
-            hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            hashMap.put("terminalIdentity", LoginUtil.getTerminalIdentity());
 
             hashMap.put("apkListJson", com.alibaba.fastjson.JSON.toJSONString(res));
 

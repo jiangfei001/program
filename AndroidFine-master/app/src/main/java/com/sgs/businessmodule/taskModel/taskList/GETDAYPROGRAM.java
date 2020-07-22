@@ -1,6 +1,7 @@
 package com.sgs.businessmodule.taskModel.taskList;
 
 
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
@@ -53,7 +54,7 @@ public class GETDAYPROGRAM extends TVTask {
         for (int i = 0; i < todaylist.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(todaylist.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(LoginUtil.getTerminalIdentity());
             StringBuilder sb = new StringBuilder();
             List<ProgarmPalyPlan> okProgarms = todaylist.get(i).getPublicationPlanObject().getOkProgarms();
             for (int t = 0; t < okProgarms.size(); t++) {

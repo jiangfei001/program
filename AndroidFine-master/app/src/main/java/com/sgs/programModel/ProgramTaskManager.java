@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
@@ -141,8 +143,8 @@ public class ProgramTaskManager {
             scenceReport.setPalySecond(time1);
             scenceReport.setPalyNum(1);
             scenceReport.setProgramId(nowProgarmPalyInstructionVo.getId() + "");
-            scenceReport.setTerminalIdentity(DeviceUtil.getTerDeviceID(context));
-            scenceReport.setTerminalName(DeviceUtil.getTerDeviceID(context));
+            scenceReport.setTerminalIdentity(LoginUtil.getTerminalIdentity());
+            scenceReport.setTerminalName(LoginUtil.getTerminalIdentity());
             scenceReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
             scenceReport.setSceneName(nowProgarmPalySceneVos.get(nowscene).getSceneName());
             scenceReport.setSceneId(nowProgarmPalySceneVos.get(nowscene).getSceneId());

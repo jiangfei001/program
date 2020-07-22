@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import android.os.Handler;
@@ -55,8 +56,8 @@ public class JsInterface {
         if (repHotReport == null) {
             repHotReport = new RepHotReport();
             repHotReport.setClickNum(1);
-            repHotReport.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
-            repHotReport.setTerminalName(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            repHotReport.setTerminalIdentity(LoginUtil.getTerminalIdentity());
+            repHotReport.setTerminalName(LoginUtil.getTerminalIdentity());
             repHotReport.setProgramName(nowProgarmPalyInstructionVo.getProgramName());
             repHotReport.setSceneName(progarmPalySceneVos.get(nowscene).getSceneName());
             repHotReport.setAreaName(areaName);

@@ -3,6 +3,8 @@ package com.sgs.businessmodule.downloadModel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.AppContext;
@@ -81,7 +83,7 @@ public class DownLoadManager {
                         ArrayList arrayList = new ArrayList();
                         arrayList.add(stringFileNames);
                         HashMap hashMap = new HashMap();
-                        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+                        hashMap.put("terminalIdentity",  LoginUtil.getTerminalIdentity());
                         hashMap.put("type", 1);
                         hashMap.put("uuidList", com.alibaba.fastjson.JSON.toJSONString(arrayList));
                         SendToServerUtil.UpdateSysMaterialDataToServer(hashMap);

@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 import android.view.Display;
 import android.view.View;
@@ -153,7 +155,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 AppContext.getInstance().initFileService();
                 PackageReceiver.sendApps();
 
-                WebSocketHelper.initWebSocket(DeviceUtil.getTerDeviceID(WebSocketActivityRelease.this));
+                WebSocketHelper.initWebSocket(LoginUtil.getTerminalIdentity());
                 WebSocketHandler.getDefault().addListener(socketListener);
                 taskQueue = new TaskQueue(1);
                 taskQueue.start();

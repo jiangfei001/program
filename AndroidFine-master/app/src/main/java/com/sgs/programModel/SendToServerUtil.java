@@ -1,5 +1,6 @@
 package com.sgs.programModel;
 
+import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
@@ -68,7 +69,7 @@ public class SendToServerUtil {
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(LoginUtil.getTerminalIdentity());
             StringBuilder sb = new StringBuilder();
             PublicationPlanVo publicationPlanVo = JSON.parseObject(progarmPalyInstructionVos.get(i).getPublicationPlan(), new TypeReference<PublicationPlanVo>() {
             });
@@ -107,7 +108,7 @@ public class SendToServerUtil {
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(LoginUtil.getTerminalIdentity());
             StringBuilder sb = new StringBuilder();
             PublicationPlanVo publicationPlanVo = JSON.parseObject(progarmPalyInstructionVos.get(i).getPublicationPlan(), new TypeReference<PublicationPlanVo>() {
             });
@@ -121,7 +122,7 @@ public class SendToServerUtil {
         for (int i = 0; i < todays.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(todays.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(LoginUtil.getTerminalIdentity());
             StringBuilder sb = new StringBuilder();
             List<ProgarmPalyPlan> okProgarms = todays.get(i).getPublicationPlanObject().getOkProgarms();
             for (int t = 0; t < okProgarms.size(); t++) {
@@ -140,7 +141,7 @@ public class SendToServerUtil {
         hashMap.put("terminalProgramEntity", com.alibaba.fastjson.JSON.toJSONString(terminalProgramEntity));
         hashMap.put("type", type);
         hashMap.put("daylist", com.alibaba.fastjson.JSON.toJSONString(daylist));
-        hashMap.put("terminalIdentity", DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+        hashMap.put("terminalIdentity", LoginUtil.getTerminalIdentity());
 
         HttpClient.postHashMapEntity(AppUrl.addTerminalProgramListUrl, hashMap, new MyHttpResponseHandler() {
             @Override
@@ -167,7 +168,7 @@ public class SendToServerUtil {
         for (int i = 0; i < progarmPalyInstructionVos.size(); i++) {
             ProListVo proListVo = new ProListVo();
             proListVo.setProgramId(progarmPalyInstructionVos.get(i).getId());
-            proListVo.setTerminalIdentity(DeviceUtil.getTerDeviceID(AppContext.getInstance()));
+            proListVo.setTerminalIdentity(LoginUtil.getTerminalIdentity());
             StringBuilder sb = new StringBuilder();
             List<ProgarmPalyPlan> okProgarms = progarmPalyInstructionVos.get(i).getPublicationPlanObject().getOkProgarms();
             for (int t = 0; t < okProgarms.size(); t++) {
