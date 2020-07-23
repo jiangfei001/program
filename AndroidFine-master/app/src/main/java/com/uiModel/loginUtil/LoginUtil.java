@@ -6,20 +6,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.sgs.AppContext;
+import com.sgs.businessmodule.downloadModel.dbcontrol.FileHelper;
 import com.sgs.middle.receiver.CustomAlarmReceiver;
 import com.sgs.middle.utils.DeviceUtil;
 import com.sgs.middle.utils.SharedPreferences;
 import com.sgs.middle.utils.StringUtil;
 import com.uiModel.activity.LoginActivity;
+import com.zhangke.zlog.ZLog;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class LoginUtil {
+    private static final String TAG = LoginUtil.class.getName();
     public static boolean isjihuo() {
         String terminalIdentity = SharedPreferences.getInstance().getString("terminalIdentity", "");
         String secretKey = SharedPreferences.getInstance().getString("secretKey", "");
@@ -51,6 +57,60 @@ public class LoginUtil {
         SharedPreferences.getInstance().putString("terminalIdentity", terminalIdentity);
         SharedPreferences.getInstance().putString("secretKey", secretKey);
     }
+
+  /*  String terminalIdentity = SharedPreferences.getInstance().getString("terminalIdentity", "");
+    public static String getSercetKey(Context context) {
+        //1 从sp中拿
+        android.content.SharedPreferences mContextSp = context.getSharedPreferences("terminalIdentity", Context.MODE_PRIVATE);
+        String spUniqueID = mContextSp.getString(uniqueid1, "");
+        if (!StringUtil.isEmpty(spUniqueID)) {
+            ZLog.e(TAG, "找到了spUniqueID1:" + spUniqueID);
+            FileHelper.putSDunique(spUniqueID, FileHelper.uniqueidf1);
+            return spUniqueID;
+        }
+        //2 从sd卡中拿
+        spUniqueID = FileHelper.getSDunique(FileHelper.uniqueidf1);
+        if (!StringUtil.isEmpty(spUniqueID)) {
+            ZLog.e(TAG, "找到了找到了fileUniqueID1:" + spUniqueID);
+            //保存sp
+            android.content.SharedPreferences.Editor editor = mContextSp.edit();
+            editor.putString(uniqueid1, spUniqueID);
+            editor.commit();
+            return spUniqueID;
+        }
+
+        String id = null;
+        final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        ZLog.e(TAG, "androidId:" + androidId);
+        if (!TextUtils.isEmpty(androidId) && !"9774d56d682e549c".equals(androidId)) {
+            try {
+                UUID uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
+                id = uuid.toString();
+                ZLog.e(TAG, "id1:" + id);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (TextUtils.isEmpty(id)) {
+            id = getUUIDT();
+            ZLog.e(TAG, "id2:" + id);
+        }
+
+        String uid = TextUtils.isEmpty(id) ? UUID.randomUUID().toString() : id;
+
+        //保存sd卡
+        ZLog.e(TAG, "保存spUniqueID:" + uid);
+        FileHelper.putSDunique(uid, FileHelper.uniqueidf1);
+
+        //保存sp
+        android.content.SharedPreferences.Editor editor = mContextSp.edit();
+        editor.putString(uniqueid1, uid);
+        editor.commit();
+
+
+        return uid;
+    }*/
 
     public static String getTerminalIdentity() {
         String terminalIdentity = SharedPreferences.getInstance().getString("terminalIdentity", "");

@@ -233,8 +233,31 @@ public class MuTerminalMsg {
         this.direction = direction;
     }
 
-
-    /*public static void main(String[] args) {
+    @Override
+    public String toString() {
+        return "MuTerminalMsg{" +
+                "id=" + id +
+                ", playTimes=" + playTimes +
+                ", hasplay=" + hasplay +
+                ", speed=" + speed +
+                ", backGroundColor='" + backGroundColor + '\'' +
+                ", fontColor='" + fontColor + '\'' +
+                ", fontName='" + fontName + '\'' +
+                ", fontSize='" + fontSize + '\'' +
+                ", opacity=" + opacity +
+                ", position=" + position +
+                ", append=" + append +
+                ", terminalIds='" + terminalIds + '\'' +
+                ", terminalNum=" + terminalNum +
+                ", msgContent='" + msgContent + '\'' +
+                ", direction=" + direction +
+                ", msgStatus='" + msgStatus + '\'' +
+                ", finishTime='" + finishTime + '\'' +
+                ", beginTime='" + beginTime + '\'' +
+                ", endDate='" + endDate + '\'' +
+                '}';
+    }
+/*public static void main(String[] args) {
         String orgin = "{\n" +
                 "\t\"append\": 0,\n" +
                 "\t\"createTime\": 1580473823521,\n" +

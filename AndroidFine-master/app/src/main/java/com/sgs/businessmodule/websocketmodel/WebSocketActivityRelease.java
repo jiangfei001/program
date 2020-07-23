@@ -15,6 +15,7 @@ import android.util.DisplayMetrics;
 
 import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
+
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -646,28 +647,28 @@ public class WebSocketActivityRelease extends EventActivity {
         /*StringBuilder sb = new StringBuilder(nowTerminalMsg.getMsgContent());
         String content = sb.reverse().toString();
         ZLog.e(TAG, "context" + content);*/
-
+        ZLog.e(TAG, "nowTerminalMsg" + nowTerminalMsg.toString());
         if (muTerminalMsg.getPosition() == 1) {
             mMarqueeView1.setVisibility(View.VISIBLE);
+            mMarqueeView1.setmDirection(muTerminalMsg.getDirection());
             mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView1.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView1.setSep(muTerminalMsg.getSpeed());
-            mMarqueeView1.setmDirection(nowTerminalMsg.getDirection());
-            ZLog.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
+            ZLog.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent() + nowTerminalMsg.getDirection());
             mMarqueeView1.startScroll();
         } else if (muTerminalMsg.getPosition() == 0) {
             mMarqueeView3.setVisibility(View.VISIBLE);
             mMarqueeView3.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
+            mMarqueeView3.setmDirection(muTerminalMsg.getDirection());
             mMarqueeView3.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView3.setSep(muTerminalMsg.getSpeed());
-            mMarqueeView1.setmDirection(nowTerminalMsg.getDirection());
             mMarqueeView3.startScroll();
         } else if (muTerminalMsg.getPosition() == 2) {
             mMarqueeView2.setVisibility(View.VISIBLE);
             mMarqueeView2.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
+            mMarqueeView2.setmDirection(muTerminalMsg.getDirection());
             mMarqueeView2.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView2.setSep(muTerminalMsg.getSpeed());
-            mMarqueeView1.setmDirection(nowTerminalMsg.getDirection());
             mMarqueeView2.startScroll();
         }
     }

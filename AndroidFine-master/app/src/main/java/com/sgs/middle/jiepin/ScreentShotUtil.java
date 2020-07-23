@@ -124,11 +124,11 @@ public class ScreentShotUtil {
         mDisplay.getRealMetrics(mDisplayMetrics);
         float[] dims =
                 {
-                        mDisplayMetrics.widthPixels, mDisplayMetrics.heightPixels
+                        mDisplayMetrics.heightPixels, mDisplayMetrics.widthPixels
                 };
         float degrees = getDegreesForRotation(mDisplay.getRotation());
         ZLog.e(TAG, "degrees" + degrees);
-        boolean requiresRotation = (degrees > 0);
+        /*boolean requiresRotation = (degrees > 0);
         if (requiresRotation) {
             // Get the dimensions of the device in its native orientation
             mDisplayMatrix.reset();
@@ -136,12 +136,12 @@ public class ScreentShotUtil {
             mDisplayMatrix.mapPoints(dims);
             dims[0] = Math.abs(dims[0]);
             dims[1] = Math.abs(dims[1]);
-        }
+        }*/
         ZLog.e(TAG, "dims:" + dims[0] + "dims" + dims[1]);
         Bitmap mScreenBitmap = screenShot((int) dims[0], (int) dims[1]);
-        ZLog.e(TAG, "mScreenBitmap");
+        ZLog.e(TAG, "mScreenBitmap"+mScreenBitmap);
         Bitmap ss = null;
-        if (requiresRotation) {
+   /*     if (requiresRotation) {
             ZLog.e(TAG, "requiresRotation");
             // Rotate the screenshot to the current orientation
             ss = Bitmap.createBitmap(mDisplayMetrics.widthPixels, mDisplayMetrics.heightPixels,
@@ -152,11 +152,7 @@ public class ScreentShotUtil {
             c.translate(-dims[0] / 2, -dims[1] / 2);
             c.drawBitmap(mScreenBitmap, 0, 0, null);
             c.setBitmap(null);
-               /* mScreenBitmap = ss;
-                if (ss != null && !ss.isRecycled()) {
-                    ss.recycle();
-                }*/
-        }
+        }*/
         return ss;
             /* // If we couldn't take the screenshot, notify the user
             if (mScreenBitmap == null) {

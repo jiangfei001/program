@@ -71,6 +71,11 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setmDirection(int mDirection) {
         ZLog.e("setmDirection", "mDirection" + mDirection);
+        if(mDirection==0){
+            mDirection=1;
+        }else{
+            mDirection=0;
+        }
         this.mDirection = mDirection;
     }
 
@@ -164,7 +169,7 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
             currentX = 0;
         } else {
             if (mDirection == 0) {
-                currentX = width - getPaddingLeft() - getPaddingRight();
+                currentX = width /*- getPaddingLeft() - getPaddingRight()*/;
             } else {
                 currentX = -textWidth;
             }
