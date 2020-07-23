@@ -140,7 +140,7 @@ public class ScreentShotUtil {
         ZLog.e(TAG, "dims:" + dims[0] + "dims" + dims[1]);
         Bitmap mScreenBitmap = screenShot((int) dims[0], (int) dims[1]);
         ZLog.e(TAG, "mScreenBitmap"+mScreenBitmap);
-        Bitmap ss = null;
+        Bitmap ss = mScreenBitmap;
    /*     if (requiresRotation) {
             ZLog.e(TAG, "requiresRotation");
             // Rotate the screenshot to the current orientation
