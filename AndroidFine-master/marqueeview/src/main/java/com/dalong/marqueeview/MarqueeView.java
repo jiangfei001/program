@@ -126,7 +126,8 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setText(String msg) {
         if (!TextUtils.isEmpty(msg)) {
-            measurementsText(func1(msg));
+           // measurementsText(func1(msg));
+            measurementsText(msg);
         }
     }
 
