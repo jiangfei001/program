@@ -124,7 +124,7 @@ public class ScreentShotUtil {
         mDisplay.getRealMetrics(mDisplayMetrics);
         float[] dims =
                 {
-                        mDisplayMetrics.heightPixels, mDisplayMetrics.widthPixels
+                        mDisplayMetrics.widthPixels, mDisplayMetrics.heightPixels
                 };
         float degrees = getDegreesForRotation(mDisplay.getRotation());
         ZLog.e(TAG, "degrees" + degrees);
