@@ -652,6 +652,7 @@ public class WebSocketActivityRelease extends EventActivity {
             mMarqueeView1.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView1.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView1.setSep(muTerminalMsg.getSpeed());
+            mMarqueeView1.setmDirection(nowTerminalMsg.getDirection());
             ZLog.e(TAG, "muTerminalMsg.getMsgContent():" + muTerminalMsg.getMsgContent());
             mMarqueeView1.startScroll();
         } else if (muTerminalMsg.getPosition() == 0) {
@@ -659,12 +660,14 @@ public class WebSocketActivityRelease extends EventActivity {
             mMarqueeView3.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView3.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView3.setSep(muTerminalMsg.getSpeed());
+            mMarqueeView1.setmDirection(nowTerminalMsg.getDirection());
             mMarqueeView3.startScroll();
         } else if (muTerminalMsg.getPosition() == 2) {
             mMarqueeView2.setVisibility(View.VISIBLE);
             mMarqueeView2.setSizeAndColor(muTerminalMsg.getFontSize(), muTerminalMsg.getFontColor());
             mMarqueeView2.setText(nowTerminalMsg.getMsgContent());
             mMarqueeView2.setSep(muTerminalMsg.getSpeed());
+            mMarqueeView1.setmDirection(nowTerminalMsg.getDirection());
             mMarqueeView2.startScroll();
         }
     }

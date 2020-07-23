@@ -67,8 +67,13 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
         } else if (speed == 3) {
             sepX = 16;
         }
-
     }
+
+    public void setmDirection(int mDirection) {
+        ZLog.e("setmDirection", "mDirection" + mDirection);
+        this.mDirection = mDirection;
+    }
+
 
     public MarqueeView(Context context) {
         this(context, null);
