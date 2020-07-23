@@ -65,12 +65,12 @@ public class ScreentShotUtil {
     }
 
     public Bitmap screenShot(int width, int height) {
-        Log.i(TAG, "android.os.Build.VERSION.SDK : " + android.os.Build.VERSION.SDK_INT);
+        ZLog.e(TAG, "android.os.Build.VERSION.SDK : " + android.os.Build.VERSION.SDK_INT);
         Class<?> surfaceClass = null;
         Method method = null;
         try {
-            Log.i(TAG, "width : " + width);
-            Log.i(TAG, "height : " + height);
+            ZLog.e(TAG, "width : " + width);
+            ZLog.e(TAG, "height : " + height);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
 
                 surfaceClass = Class.forName(CLASS1_NAME);
@@ -81,15 +81,15 @@ public class ScreentShotUtil {
             method.setAccessible(true);
             return (Bitmap) method.invoke(null, width, height);
         } catch (NoSuchMethodException e) {
-            Log.e(TAG, e.toString());
+            ZLog.e(TAG, e.toString());
         } catch (IllegalArgumentException e) {
-            Log.e(TAG, e.toString());
+            ZLog.e(TAG, e.toString());
         } catch (IllegalAccessException e) {
-            Log.e(TAG, e.toString());
+            ZLog.e(TAG, e.toString());
         } catch (InvocationTargetException e) {
-            Log.e(TAG, e.toString());
+            ZLog.e(TAG, e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e(TAG, e.toString());
+            ZLog.e(TAG, e.toString());
         }
         return null;
     }
@@ -127,7 +127,7 @@ public class ScreentShotUtil {
                         mDisplayMetrics.widthPixels, mDisplayMetrics.heightPixels
                 };
         float degrees = getDegreesForRotation(mDisplay.getRotation());
-        ZLog.e(TAG, "degrees"+degrees);
+        ZLog.e(TAG, "degrees" + degrees);
         boolean requiresRotation = (degrees > 0);
         if (requiresRotation) {
             // Get the dimensions of the device in its native orientation
@@ -137,7 +137,7 @@ public class ScreentShotUtil {
             dims[0] = Math.abs(dims[0]);
             dims[1] = Math.abs(dims[1]);
         }
-
+        ZLog.e(TAG, "dims:" + dims[0] + "dims" + dims[1]);
         Bitmap mScreenBitmap = screenShot((int) dims[0], (int) dims[1]);
         ZLog.e(TAG, "mScreenBitmap");
         Bitmap ss = null;
