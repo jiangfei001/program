@@ -270,8 +270,10 @@ public class UsageStatsManagerUtil {
             //选择的每天的定时时间即下班时间
             //如果当前时间大于设置的时间，那么从第二天的设定时间开始
             if (systemTime > selectTime) {
+                ZLog.e("dateStr", "如果当前时间大于设置的时间,则不执行");
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
                 selectTime = calendar.getTimeInMillis();
+                return;
             }
 
             //计算现在时间到设置时间的时间差
@@ -279,7 +281,7 @@ public class UsageStatsManagerUtil {
 
             firstTime += diffTime1;
 
-            ZLog.e("TAG", firstTime + "firstTime");
+            ZLog.e("TAG","firstTime"+ firstTime+"diffTime1"+diffTime1);
 
             Intent it = new Intent(AppContext.getInstance(), CustomAlarmReceiver.class);
             it.setPackage(AppContext.getInstance().getPackageName());
@@ -335,8 +337,10 @@ public class UsageStatsManagerUtil {
             //选择的每天的定时时间即下班时间
             //如果当前时间大于设置的时间，那么从第二天的设定时间开始
             if (systemTime > selectTime) {
+                ZLog.e("dateStr", "如果当前时间大于设置的时间,则不执行");
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
                 selectTime = calendar.getTimeInMillis();
+                return;
             }
 
             //计算现在时间到设置时间的时间差

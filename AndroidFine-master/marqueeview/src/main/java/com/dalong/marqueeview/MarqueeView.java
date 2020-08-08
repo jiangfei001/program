@@ -71,10 +71,10 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setmDirection(int mDirection) {
         ZLog.e("setmDirection", "mDirection" + mDirection);
-        if(mDirection==0){
-            mDirection=1;
-        }else{
-            mDirection=0;
+        if (mDirection == 0) {
+            mDirection = 1;
+        } else {
+            mDirection = 0;
         }
         this.mDirection = mDirection;
     }
@@ -125,9 +125,13 @@ public class MarqueeView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void setText(String msg) {
+
         if (!TextUtils.isEmpty(msg)) {
-           // measurementsText(func1(msg));
-            measurementsText(msg);
+            if (this.mDirection == 1) {
+                measurementsText(func1(msg));
+            } else {
+                measurementsText(msg);
+            }
         }
     }
 
