@@ -404,7 +404,11 @@ public class WebSocketActivityRelease extends EventActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        WebSocketHandler.getDefault().removeListener(socketListener);
+
+        if (WebSocketHandler.getDefault() != null && socketListener != null) {
+            WebSocketHandler.getDefault().removeListener(socketListener);
+        }
+
         clearMediaPlayer();
         AppContext.getInstance().exitApp();
     }
