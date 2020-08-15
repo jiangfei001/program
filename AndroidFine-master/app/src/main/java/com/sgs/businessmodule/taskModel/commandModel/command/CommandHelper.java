@@ -72,6 +72,7 @@ public class CommandHelper {
 
     //index 传入设置音量的值
     public static void setStreamVolume(final int index, Context mContext) {
+        ZLog.e("setStreamVolume", "setStreamVolume index:" + index);
         Handler handler = new Handler(Looper.getMainLooper()) {
         };
         handler.post(new Runnable() {

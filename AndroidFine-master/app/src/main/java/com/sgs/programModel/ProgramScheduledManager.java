@@ -1,6 +1,7 @@
 package com.sgs.programModel;
 
 import android.content.Context;
+
 import com.zhangke.zlog.ZLog;
 
 import com.alibaba.fastjson.JSON;
@@ -32,6 +33,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ProgramScheduledManager {
 
@@ -40,7 +42,7 @@ public class ProgramScheduledManager {
     private Context context;
 
     //加载数据库中所有的List 包括接受命令获取的List,保存没有准备好的列表
-    public ArrayList<ProgarmPalyInstructionVo> alllist;
+    public CopyOnWriteArrayList<ProgarmPalyInstructionVo> alllist;
 
     //已经成功下载 和 今天需要进行下载的任务
     LinkedList<ProgarmPalyInstructionVo> progarmPalyInstructionVos;
@@ -76,10 +78,10 @@ public class ProgramScheduledManager {
 
     public void initAllProgramTask() {
         //从数据库中获取所有的节目数据
-        alllist = (ArrayList<ProgarmPalyInstructionVo>) ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo();
+        alllist = new CopyOnWriteArrayList(ProgramDbManager.getInstance().getAllProgarmPalyInstructionVo());
         ZLog.e(TAG, "初始化数据initAllProgramTask");
         if (alllist == null) {
-            alllist = new ArrayList<>();
+            alllist = new CopyOnWriteArrayList<>();
         }
         progarmPalyInstructionVos = new LinkedList<>();
         progarmPalyInstructionVosPri = new LinkedList<>();
@@ -109,6 +111,7 @@ public class ProgramScheduledManager {
 
     public void clearLooperAndDBAndResource() {
         ZLog.e(TAG, "收到清楚命令 clearLooperAndDBAndResource");
+        alllist.clear();
         alllist = null;
         progarmPalyInstructionVos = null;
         progarmPalyInstructionVosPri = null;
@@ -215,7 +218,7 @@ public class ProgramScheduledManager {
         ProgramDbManager.getInstance().delectProgarmPalyInstructionVoRequestById(progarmPalyInstructionVo.getId());
     }
 
-    public void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert, Iterator iterator) {
+    public synchronized void doProgarm(ProgarmPalyInstructionVo response, boolean isInsert, Iterator iterator) {
         ZLog.e(TAG, "doProgarm" + response.getId());
         if (isInsert) {
             ZLog.e(TAG, " isInsert response" + response.getId());
@@ -245,11 +248,11 @@ public class ProgramScheduledManager {
             ZLog.e("deadLineV", "deadLineV" + deadLineV);
             if (deadLineV.getTime() < System.currentTimeMillis()) {
                 delToDB(response);
-                if (iterator != null) {
+                /*if (iterator != null) {
                     iterator.remove();
-                } else {
+                } else {*/
                     alllist.remove(response);
-                }
+               /* }*/
                 return;
             }
         } catch (ParseException e) {
@@ -377,11 +380,11 @@ public class ProgramScheduledManager {
                 ZLog.e(TAG, "doProgarm 所有资源都存在：" + response.getId());
                 //轮询的时候，只有所有的资源都准备好了，才算整体成功
                 response.setTotalStatus(1);
-                if (iterator != null) {
+                /*if (iterator != null) {
                     iterator.remove();
-                } else {
+                } else {*/
                     alllist.remove(response);
-                }
+                /*}*/
             }
         }
         ZLog.e(TAG, response.toString());
@@ -471,7 +474,7 @@ public class ProgramScheduledManager {
                 if (resourceTotle == 1) {
                     response1.setTotalStatus(1);
                     ZLog.e("DownloadManagerListener", "onSuccess所有资源都存在：" + response1.getId());
-                    iterator.remove();
+                    alllist.remove(response1);
                     addProgramToTask(response1, true);
                 }
             }

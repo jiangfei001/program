@@ -54,12 +54,17 @@ public class CONTROLVOLUME extends TVTask {
             CommandHelper.setStreamVolume(index, AppContext.getInstance());
         } else {
             //计算时间进行定时
+
             Date date = new Date();
             String xinqi = ProgramUtil.getWeekOfDate(date);
+            ZLog.e(TAG, "progJson 计算时间进行定时: xinqi" + xinqi + "week:" + j2.containsKey("weekList2"));
+
             if (j2.containsKey("weekList2") && list != null) {
                 for (int i = 0; i < list.size(); i++) {
                     if (xinqi.equals(list.get(i))) {
                         //定时音量
+                        ZLog.e(TAG, "progJson true计算时间进行定时: xinqi" + xinqi + "week:" + j2.containsKey("weekList2"));
+
                         UsageStatsManagerUtil.alarmcv(taskVolumeTime, volumenum);
                     }
                 }

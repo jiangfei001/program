@@ -198,14 +198,15 @@ public class UsageStatsManagerUtil {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想回要的格答式
             String dateStr = df.format(calendar.getTime());
             //System.out.println(dateStr);
-            ZLog.e("dateStr", "dateStr" + dateStr);
+            ZLog.e("dateStr1", "dateStr1" + dateStr);
 
             long selectTime = calendar.getTimeInMillis();
             //选择的每天的定时时间即下班时间
             //如果当前时间大于设置的时间，那么从第二天的设定时间开始
             if (systemTime > selectTime) {
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-                selectTime = calendar.getTimeInMillis();
+                /*calendar.add(Calendar.DAY_OF_MONTH, 1);
+                selectTime = calendar.getTimeInMillis();*/
+                return;
             }
             //计算现在时间到设置时间的时间差
             long diffTime1 = selectTime - systemTime;

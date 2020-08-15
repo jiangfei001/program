@@ -404,11 +404,13 @@ public class WebSocketActivityRelease extends EventActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if (WebSocketHandler.getDefault() != null && socketListener != null) {
-            WebSocketHandler.getDefault().removeListener(socketListener);
+        try {
+            if (WebSocketHandler.getDefault() != null && socketListener != null) {
+                WebSocketHandler.getDefault().removeListener(socketListener);
+            }
+        } catch (Exception e) {
+            ZLog.e("IllegalStateException onDestroy", e.getMessage());
         }
-
         clearMediaPlayer();
         AppContext.getInstance().exitApp();
     }
