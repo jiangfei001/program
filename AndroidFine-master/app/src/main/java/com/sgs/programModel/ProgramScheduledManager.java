@@ -116,16 +116,15 @@ public class ProgramScheduledManager {
         prolistToday = null;
         ProgramDbManager.getInstance().delectAllProgarmPalyInstructionVoRequest();
         programTaskManager.clearAll();
+        //删除所有任务已经监听
         manager.deleteAllTask();
         manager.removeAllDownLoadListener();
-
+        //通知界面清楚
         Event event = new Event();
         event.setId(EventEnum.EVENT_TEST_CLEARPROG);
         EventBus.getDefault().post(event);
-
         //CommandHelper.deleteDir(FileHelper.getFileDefaultPath());
         initAllProgramTask();
-        /*SendToServerUtil.sendEventToToDayAll(prolistToday);*/
     }
 
     public void clearLooperAndDBById(ArrayList<Integer> arrayList) {
