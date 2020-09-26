@@ -88,8 +88,7 @@ public class ProgramScheduledManager {
         progarmPalyInstructionVosD = new LinkedList<>();
         prolistToday = new LinkedList<>();
         if (programTaskManager != null) {
-            ZLog.e(TAG, "初始化为停止所有的播放动作");
-            programTaskManager.stopLooper();
+            programTaskManager.clearAll();
             programTaskManager = null;
         }
 
@@ -109,7 +108,7 @@ public class ProgramScheduledManager {
     private static ProgramScheduledManager instance;
 
     public void clearLooperAndDBAndResource() {
-        ZLog.e(TAG, "收到清楚命令 clearLooperAndDBAndResource");
+        ZLog.e(TAG, "收到清楚命令，开始清楚所有任务，并结束所有播放");
         alllist.clear();
         alllist = null;
         progarmPalyInstructionVos = null;
@@ -250,8 +249,8 @@ public class ProgramScheduledManager {
                 /*if (iterator != null) {
                     iterator.remove();
                 } else {*/
-                    alllist.remove(response);
-               /* }*/
+                alllist.remove(response);
+                /* }*/
                 return;
             }
         } catch (ParseException e) {
@@ -382,7 +381,7 @@ public class ProgramScheduledManager {
                 /*if (iterator != null) {
                     iterator.remove();
                 } else {*/
-                    alllist.remove(response);
+                alllist.remove(response);
                 /*}*/
             }
         }
