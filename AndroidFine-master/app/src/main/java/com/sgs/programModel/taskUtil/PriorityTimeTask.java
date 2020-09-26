@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.sgs.middle.utils.DateUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.middle.eventControlModel.Event;
@@ -16,7 +15,6 @@ import com.sgs.programModel.entity.PublicationPlanVo;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -123,7 +121,6 @@ public class PriorityTimeTask<T extends MyTask> {
         ZLog.e(TAG, "removeByid:" + id);
         for (int i = 0; i < mTasks.size(); i++) {
             if (mTasks.get(i).progarmPalyInstructionVo.getId() == id) {
-                ZLog.e(TAG, "mTasks removeByid:" + id);
                 mTasks.remove(i);
                 order();
                 break;
@@ -131,7 +128,6 @@ public class PriorityTimeTask<T extends MyTask> {
         }
         for (int i = 0; i < priorsTasks.size(); i++) {
             if (priorsTasks.get(i).progarmPalyInstructionVo.getId() == id) {
-                ZLog.e(TAG, "priorsTasks removeByid:" + id);
                 priorsTasks.remove(i);
                 order();
                 break;
@@ -139,7 +135,6 @@ public class PriorityTimeTask<T extends MyTask> {
         }
         for (int i = 0; i < dTasks.size(); i++) {
             if (dTasks.get(i).progarmPalyInstructionVo.getId() == id) {
-                ZLog.e(TAG, "dTasks removeByid:" + id);
                 dTasks.remove(i);
                 order();
                 break;
@@ -227,15 +222,13 @@ public class PriorityTimeTask<T extends MyTask> {
                     //获取当前时间
                     Date datenow = new Date();
                     Date datefuwu = sdf.parse(publicationPlanVo.getDeadlineV());
-                    ZLog.d(TAG, "播放过程中过期。。。Str:" +publicationPlanVo.getDeadlineV()+ "datefuwu:" + datefuwu);
+                    ZLog.d(TAG, "播放过程中过期。。。Str:" + publicationPlanVo.getDeadlineV() + "datefuwu:" + datefuwu);
                     //时间date类型 和 时间date类型
                     if (datenow.getTime() >= datefuwu.getTime()) {
                         //逻辑代码 .............
-                        ZLog.d(TAG, "过期");
                         isMax = true;
                     } else {
                         isMax = false;
-                        ZLog.d(TAG, "没过期");
                     }
 
                 } catch (Exception e) {
