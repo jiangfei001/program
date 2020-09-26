@@ -220,53 +220,46 @@ public class PriorityTimeTask<T extends MyTask> {
                 //判断截止时间：
                 PublicationPlanVo publicationPlanVo = mTask.progarmPalyInstructionVo.getPublicationPlanObject();
 
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-                Date deadLineV = null;
+                boolean isMax = false;
                 try {
-                    //如果此时的节目要跳过
-                    deadLineV = df.parse(publicationPlanVo.getDeadlineV());
-                    ZLog.d(TAG, "播放过程中deadLineV。。。" + "过期时间:" + publicationPlanVo.getDeadlineV() + "" + deadLineV.getTime() + "日期:" + DateUtil.getNowDate() + "现在时间:" + System.currentTimeMillis());
-                    boolean isMax = false;
-                    try {
-                        //规定格式 (格式根据自己数据库取得的数据进行规范)
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        //获取当前时间
-                        Date datenow = new Date();
-                        Date datefuwu = sdf.parse("datefuwu.getTime()");
-                        //时间date类型 和 时间date类型
-                        if (datenow.getTime() >= datefuwu.getTime()) {
-                            //逻辑代码 .............
-                            System.out.println("大于");
-                            isMax=true;
-                        }else{
-                            isMax=false;
-                            System.out.println("小于");
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (isMax) {
-                        ZLog.d(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()" + deadLineV.getTime());
+                    //规定格式 (格式根据自己数据库取得的数据进行规范)
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    //获取当前时间
+                    Date datenow = new Date();
+                    Date datefuwu = sdf.parse(publicationPlanVo.getDeadlineV());
+                    ZLog.d(TAG, "播放过程中过期。。。Str:" +publicationPlanVo.getDeadlineV()+ "datefuwu:" + datefuwu);
+                    //时间date类型 和 时间date类型
+                    if (datenow.getTime() >= datefuwu.getTime()) {
+                        //逻辑代码 .............
+                        ZLog.d(TAG, "过期");
+                        isMax = true;
                     } else {
-                        for (int t = 0; t < progarmPalyPlan.size(); t++) {
-                            ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
-                            if (progarmPalyPlan1.getStartTime() < mNowtime && progarmPalyPlan1.getEndTime() > mNowtime) {
-                                //预设下一个节目播放
-                                ZLog.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
-                                mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
-                                //在当前区间内立即执行
-                                for (TimeHandler mTimeHandler : mTimeHandlers) {
-                                    ZLog.e(TAG, "开始播放节目拉" + mTask.progarmPalyInstructionVo.getPlayTime());
-                                    mTimeHandler.exeTask(mTask);
-                                }
-                                return true;
-                            }
-                        }
+                        isMax = false;
+                        ZLog.d(TAG, "没过期");
                     }
-                } catch (ParseException e) {
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+                if (isMax) {
+                    ZLog.d(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()");
+                } else {
+                    for (int t = 0; t < progarmPalyPlan.size(); t++) {
+                        ProgarmPalyPlan progarmPalyPlan1 = progarmPalyPlan.get(t);
+                        if (progarmPalyPlan1.getStartTime() < mNowtime && progarmPalyPlan1.getEndTime() > mNowtime) {
+                            //预设下一个节目播放
+                            ZLog.e(TAG, "下一次节目判断" + mTask.progarmPalyInstructionVo.getPlayTime());
+                            mHandler.sendEmptyMessageDelayed(1, mTask.progarmPalyInstructionVo.getPlayTime() * 1000);
+                            //在当前区间内立即执行
+                            for (TimeHandler mTimeHandler : mTimeHandlers) {
+                                ZLog.e(TAG, "开始播放节目拉" + mTask.progarmPalyInstructionVo.getPlayTime());
+                                mTimeHandler.exeTask(mTask);
+                            }
+                            return true;
+                        }
+                    }
+                }
+
             }
         }
 
@@ -393,7 +386,7 @@ public class PriorityTimeTask<T extends MyTask> {
             if (datenow.getTime() >= datefuwu.getTime()) {
                 //逻辑代码 .............
                 System.out.println("大于");
-            }else{
+            } else {
                 System.out.println("小于");
             }
 
