@@ -1,6 +1,7 @@
 package com.sgs.programModel;
 
 import android.net.ParseException;
+
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.programModel.entity.ProgarmPalyInstructionVo;
@@ -67,10 +68,13 @@ public class ProgramUtil {
             //判断自定义的时间段
             //判断week是否在今天
             List<ProgarmPalySchedule> customizedPalySchedule = publicationPlanVo.getCustomizedPalySchedule();
+            ZLog.e(TAG, "customizedPalySchedule" + customizedPalySchedule);
+
             if (customizedPalySchedule != null && customizedPalySchedule.size() > 0) {
                 for (int i = 0; i < customizedPalySchedule.size(); i++) {
                     ProgarmPalySchedule progarmPalySchedule = customizedPalySchedule.get(i);
-                    if (isInTime(progarmPalySchedule.getStartDate(), progarmPalySchedule.getEndDate())) {
+                    ZLog.e(TAG, "progarmPalySchedule.getStartDate():" + progarmPalySchedule.getStartDate() + " progarmPalySchedule.getEndDate():" + progarmPalySchedule.getEndDate());
+                    if (isDateTime(progarmPalySchedule.getStartDate(), progarmPalySchedule.getEndDate())) {
                         isTodayPlay = true;
                         String timesD = progarmPalySchedule.getTimes();
                         ZLog.e(TAG, "timesD" + timesD);
@@ -93,6 +97,7 @@ public class ProgramUtil {
                 }
             }
         } else if (publicationPlanVo.getPlanType() == 0) {
+            ZLog.e(TAG, "getPlanType==0");
             isTodayPlay = true;
             ProgarmPalyPlan progarmPalyPlan = new ProgarmPalyPlan();
             //08:00
@@ -110,8 +115,47 @@ public class ProgramUtil {
 
     static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+
+    public static void main(String[] args) {
+        boolean b = isDateTime("2020-09-26", "2020-09-27");
+        System.out.println(b);
+    }
+
+    public static boolean isDateTime(String beginTime, String endTime) {
+        try {
+
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+            beginTime = beginTime + " 00:00:00";
+            endTime = endTime + " 23:59:59";
+
+            Date date1 = format1.parse(beginTime);
+            Date date2 = format1.parse(endTime);
+
+            if (date1 == null || date2 == null) {
+                return false;
+            }
+
+            long currentTime = new Date().getTime();
+            if (currentTime >= date1.getTime()
+                    && currentTime <= date2.getTime()) {
+                return true;
+            }
+
+            return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+
     public static boolean isInTime(String beginTime, String endTime) {
         try {
+
             Date date1 = format.parse(beginTime);
             Date date2 = format.parse(endTime);
 
@@ -181,7 +225,7 @@ public class ProgramUtil {
     }
 
 
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         String timesD = "13:03-13:12";
         // System.out.println("timesD" + timesD);
 

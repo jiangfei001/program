@@ -296,15 +296,15 @@ public class PriorityTimeTask<T extends MyTask> {
         mHandler.removeMessages(1);
 
         if (priorsTasks != null && priorsTasks.size() > 0) {
-            ZLog.e(TAG, "order priorsTasks：" + priorsTasks.toString());
+            ZLog.e(TAG, "order priorsTasks独占中有：" + priorsTasks.size());
         }
 
         if (mTasks != null && mTasks.size() > 0) {
-            ZLog.e(TAG, "order mTasks：" + mTasks.toString());
+            ZLog.e(TAG, "order mTasks周期中有：" + mTasks.size());
         }
 
         if (dTasks != null && dTasks.size() > 0) {
-            ZLog.e(TAG, "order dTasks：" + dTasks.toString());
+            ZLog.e(TAG, "order dTasks循环中有：" + mTasks.size());
         }
 
         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
