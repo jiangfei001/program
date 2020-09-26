@@ -176,7 +176,7 @@ public class PriorityTimeTask<T extends MyTask> {
     };
 
     public synchronized boolean doneLooper(List<T> tasklist, PRI isPri) {
-        ZLog.e(TAG, "doneLooper tasklist：" + tasklist.size() + "isPri:" + isPri);
+        ZLog.e(TAG, "doneLooper 队列的长度：" + tasklist.size() + "优先级:" + isPri);
         checkCursor(tasklist, isPri);
         long mNowtime = System.currentTimeMillis();
         //循环开始为游标的位置，循环所有任务的大小，游标等于列表的大小时，游标记录为0
@@ -189,21 +189,21 @@ public class PriorityTimeTask<T extends MyTask> {
                 if (tasklist.size() < cursor) { //恢复普通任务
                     cursor = 0;
                 }
-                ZLog.e(TAG, "cursor" + cursor);
+                ZLog.e(TAG, "队列第几个cursor" + cursor);
             } else if (isPri == PRI.TASK_PRI) {
                 mTask = tasklist.get(priorsCursor);
                 priorsCursor++;
                 if (tasklist.size() < priorsCursor) { //恢复普通任务
                     priorsCursor = 0;
                 }
-                ZLog.e(TAG, "priorsCursor" + priorsCursor + "tasklist.size()" + tasklist.size());
+                ZLog.e(TAG, "队列第几个priorsCursor" + priorsCursor + "队列的长度" + tasklist.size());
             } else if (isPri == PRI.TASK_D) {
                 mTask = tasklist.get(dcursor);
                 dcursor++;
                 if (tasklist.size() < dcursor) { //恢复普通任务
                     dcursor = 0;
                 }
-                ZLog.e(TAG, "norCursor" + dcursor + "tasklist.size()" + tasklist.size());
+                ZLog.e(TAG, "队列第几个norCursor" + dcursor + "队列的长度" + tasklist.size());
             }
             if (mTask.progarmPalyInstructionVo.getTotalStatus() == 1) {
                 List<ProgarmPalyPlan> progarmPalyPlan = mTask.progarmPalyInstructionVo.getPublicationPlanObject().getOkProgarms();
@@ -292,8 +292,21 @@ public class PriorityTimeTask<T extends MyTask> {
     }
 
     private void order() {
-        ZLog.e(TAG, "priorsTasks order");
+        ZLog.e(TAG, "order priorsTasks");
         mHandler.removeMessages(1);
+
+        if (priorsTasks != null && priorsTasks.size() > 0) {
+            ZLog.e(TAG, "order priorsTasks：" + priorsTasks.toString());
+        }
+
+        if (mTasks != null && mTasks.size() > 0) {
+            ZLog.e(TAG, "order mTasks：" + mTasks.toString());
+        }
+
+        if (dTasks != null && dTasks.size() > 0) {
+            ZLog.e(TAG, "order dTasks：" + dTasks.toString());
+        }
+
         if ((priorsTasks != null && priorsTasks.size() > 0) || (mTasks != null && mTasks.size() > 0) || (dTasks != null && dTasks.size() > 0)) {
             boolean idone = false;
             if (priorsTasks != null && priorsTasks.size() > 0) {
