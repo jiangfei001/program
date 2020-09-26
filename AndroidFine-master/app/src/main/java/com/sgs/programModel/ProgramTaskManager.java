@@ -57,7 +57,7 @@ public class ProgramTaskManager {
         @Override
         public void exeTask(MyTask mTask) {
             handler.removeMessages(1);
-            ZLog.e(TAG, "我是现在真正执行exeTask");
+            ZLog.e(TAG, "从集合里面获取节目进行播放拉");
             //通知webview进行播放 整个节目
             nowMyTask = mTask;
             //控制html的播放时长
@@ -65,11 +65,11 @@ public class ProgramTaskManager {
             //获取所有的场景
             nowProgarmPalySceneVos = JSON.parseArray(nowProgarmPalyInstructionVo.getSceneList(), ProgarmPalySceneVo.class);
             if (nowProgarmPalySceneVos != null && nowProgarmPalySceneVos.size() > 0) {
-                ZLog.e(TAG, "我是现在真正执行" + nowProgarmPalyInstructionVo.getProgramName());
+                ZLog.e(TAG, "开始播放任务里面的节目了:" + nowProgarmPalyInstructionVo.getProgramName());
                 //通知播放 控制播放时间
                 //将音乐丢给前端进行循环播放
                 if (nowProgarmPalyInstructionVo.getProgramMusicListArray() != null && nowProgarmPalyInstructionVo.getProgramMusicListArray().size() > 0) {
-                    ZLog.e(TAG, "音乐" + nowProgarmPalyInstructionVo.getProgramMusicListArray().size() + "size");
+                    ZLog.e(TAG, "该场景下有几个节目在播放:" + nowProgarmPalyInstructionVo.getProgramMusicListArray().size() + "size");
                     Event event = new Event();
                     HashMap<EventEnum, Object> params = new HashMap();
                     params.put(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC, nowProgarmPalyInstructionVo.getProgramMusicListArray());
@@ -78,7 +78,7 @@ public class ProgramTaskManager {
                     EventBus.getDefault().post(event);
                 } else {
                     //清空背景音乐
-                    ZLog.e(TAG, "音乐清空" + nowProgarmPalyInstructionVo.getProgramMusicListArray() + "");
+                    ZLog.e(TAG, "如果该场景没有背景音乐，则要清空背景音乐:" + nowProgarmPalyInstructionVo.getProgramMusicListArray() + "");
                     Event event = new Event();
                     HashMap<EventEnum, Object> params = new HashMap();
                     params.put(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC, null);
@@ -102,7 +102,7 @@ public class ProgramTaskManager {
     };
 
     public void startRunScence() {
-        ZLog.e(TAG, "startRunScence11");
+        ZLog.e(TAG, "开始执行场景的播放,如果该场景有多个，则需要使用handler进行分步执行:");
         int time = sendPlayHtml(0);
         if (nowProgarmPalySceneVos.size() > 1) {
             nowscene = 1;
@@ -114,17 +114,15 @@ public class ProgramTaskManager {
     }
 
 
-    public
-
-    Handler handler = new Handler(Looper.getMainLooper()) {
+    public Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(final Message msg) {
             int time1 = sendPlayHtml(nowscene);
-            ZLog.e(TAG, "sendPlayHtml:nowscene:" + nowscene + "time1" + time1);
+            ZLog.e(TAG, "切换到节目的下一个场景:" + nowscene + "时间是：" + time1);
             //按日期保存更新场景id
             saveScenceReport(time1);
             if (++nowscene < nowProgarmPalySceneVos.size()) {
-                ZLog.e(TAG, "sendPlayHtml:nowscene:" + nowscene);
+                ZLog.e(TAG, "当前播放的场景要比nowscene小:" + nowscene);
             } else {
                 nowscene = 0;
             }
@@ -134,8 +132,12 @@ public class ProgramTaskManager {
 
     private void saveScenceReport(int time1) {
         String nowDate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        if (nowProgarmPalySceneVos.size() < nowscene + 1) {
+            ZLog.e(TAG, "当前播放的场景要比nowscene小:saveScenceReport:" + nowscene);
+            return;
+        }
         ScenceReport scenceReport = ScenceReportRequestManager.getInstance().queryByDateAndScenceId(nowProgarmPalySceneVos.get(nowscene).getSceneId(), nowDate);
-        ZLog.e(TAG, "sendPlayHtml:scenceReport:" + scenceReport);
+        ZLog.e(TAG, "上传当前播放场景的报告:" + scenceReport);
 
         if (scenceReport == null) {
             scenceReport = new ScenceReport();
@@ -161,12 +163,9 @@ public class ProgramTaskManager {
     private int sendPlayHtml(int index) {
         ProgarmPalySceneVo progarmPalySceneVo = nowProgarmPalySceneVos.get(index);
         String html = progarmPalySceneVo.getHtml();
-        ZLog.e(TAG, "sendPlayHtml html:" + html);
         String htmlPath = "project_" + nowProgarmPalyInstructionVo.getId() + "/" + html;
-        ZLog.e(TAG, "sendPlayHtml htmlPath:" + htmlPath);
         int time = progarmPalySceneVo.getPlayTime();
-        ZLog.e(TAG, "sendPlayHtml time:" + time);
-
+        ZLog.e(TAG, "通知界面进行场景的渲染 time:" + time + "html：" + html + "htmlPath:" + htmlPath);
         Event event = new Event();
         HashMap<EventEnum, Object> params = new HashMap();
         params.put(EventEnum.EVENT_TEST_MSG2_KEY_ISPLAY_MUSIC, progarmPalySceneVo.isPalyMusic());
@@ -222,7 +221,7 @@ public class ProgramTaskManager {
     public void insertTask(ProgarmPalyInstructionVo progarmPalyInstructionVo, PRI exclusive) {
         MyTask bobTask = new MyTask();
         bobTask.progarmPalyInstructionVo = progarmPalyInstructionVo;
-        ZLog.e(TAG, "开始插入一个优先级" + exclusive);
+        ZLog.e(TAG, "开始插入一个优先级为：" + exclusive + "的节目." + progarmPalyInstructionVo.getProgramName());
         myTaskTimeTask.insertTaskByPri(bobTask, exclusive);
     }
 

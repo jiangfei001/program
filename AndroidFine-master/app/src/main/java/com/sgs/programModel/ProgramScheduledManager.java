@@ -88,14 +88,13 @@ public class ProgramScheduledManager {
         progarmPalyInstructionVosD = new LinkedList<>();
         prolistToday = new LinkedList<>();
         if (programTaskManager != null) {
-            ZLog.e(TAG, "programTaskManager.stopLooper");
+            ZLog.e(TAG, "初始化为停止所有的播放动作");
             programTaskManager.stopLooper();
             programTaskManager = null;
         }
 
         //判断资源是否已经下载，并且是在今天的下载范围
         checkResouce(alllist);
-        ZLog.e(TAG, "checkResouceinitAllProgramTask");
         //设置下载监听机
         manager.setAllTaskListener(new DownloadManagerListener());
 
@@ -185,7 +184,7 @@ public class ProgramScheduledManager {
     public void checkResouce(List<ProgarmPalyInstructionVo> list) {
         if (list != null && list.size() > 0) {
             Iterator iterator = list.iterator();
-            ZLog.e("iterator", "onSuccess");
+            ZLog.e("检查资源", "checkResouce");
             while (iterator.hasNext()) {
                 ProgarmPalyInstructionVo response1 = (ProgarmPalyInstructionVo) iterator.next();
                 doProgarm(response1, false, iterator);

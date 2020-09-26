@@ -81,20 +81,16 @@ public class PriorityTimeTask<T extends MyTask> {
                 priorsTasks = new LinkedList<>();
             }
             priorsTasks.add(bobTask);
-            ZLog.e(TAG, "我是临时插入进来的一个高优先级的节目priorsTasks");
-
         } else if (PRI.TASK_NOR == pRi) {
             if (mTasks == null) {
                 mTasks = new LinkedList<>();
             }
             mTasks.add(bobTask);
-            ZLog.e(TAG, "我是临时插入进来的一个普通优先级的节目mTasks");
         } else {
             if (dTasks == null) {
                 dTasks = new LinkedList<>();
             }
             dTasks.add(bobTask);
-            ZLog.e(TAG, "我是临时插入进来的一个低级优先级的节目dTasks");
         }
         insertStartLooperTask();
     }

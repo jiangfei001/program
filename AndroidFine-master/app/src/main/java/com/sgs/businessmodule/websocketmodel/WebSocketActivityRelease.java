@@ -505,7 +505,7 @@ public class WebSocketActivityRelease extends EventActivity {
                 appendMsgDisplay(msg);
                 break;
             case EVENT_TEST_SETMUSIC:
-                ZLog.d(this.getClass().getName(), "我收到消息啦1EVENT_TEST_SETMUSIC");
+                ZLog.d(this.getClass().getName(), "我收到消息啦要播放音乐的消息了EVENT_TEST_SETMUSIC");
                 Map event1 = mEvent.getParams();
                 musicList = (List<ProgramResource>) event1.get(EventEnum.EVENT_TEST_MSG2_KEY_MUSIC);
                 //reset播放
