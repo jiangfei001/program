@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import com.sgs.middle.utils.DateUtil;
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.middle.eventControlModel.Event;
@@ -224,8 +225,28 @@ public class PriorityTimeTask<T extends MyTask> {
                 try {
                     //如果此时的节目要跳过
                     deadLineV = df.parse(publicationPlanVo.getDeadlineV());
-                    ZLog.d(TAG, "播放过程中deadLineV。。。" + publicationPlanVo.getDeadlineV());
-                    if (deadLineV.getTime() < System.currentTimeMillis()) {
+                    ZLog.d(TAG, "播放过程中deadLineV。。。" + "过期时间:" + publicationPlanVo.getDeadlineV() + "" + deadLineV.getTime() + "日期:" + DateUtil.getNowDate() + "现在时间:" + System.currentTimeMillis());
+                    boolean isMax = false;
+                    try {
+                        //规定格式 (格式根据自己数据库取得的数据进行规范)
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        //获取当前时间
+                        Date datenow = new Date();
+                        Date datefuwu = sdf.parse("datefuwu.getTime()");
+                        //时间date类型 和 时间date类型
+                        if (datenow.getTime() >= datefuwu.getTime()) {
+                            //逻辑代码 .............
+                            System.out.println("大于");
+                            isMax=true;
+                        }else{
+                            isMax=false;
+                            System.out.println("小于");
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (isMax) {
                         ZLog.d(TAG, "播放过程中过期。。。" + publicationPlanVo.getDeadlineV() + "deadLineV.getTime()" + deadLineV.getTime());
                     } else {
                         for (int t = 0; t < progarmPalyPlan.size(); t++) {
@@ -358,4 +379,26 @@ public class PriorityTimeTask<T extends MyTask> {
         return priorsTasks;
     }
 
+    public static void main(String[] args) {
+        //如果此时的节目要跳过
+
+        try {
+            //规定格式 (格式根据自己数据库取得的数据进行规范)
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            //获取当前时间
+            Date datenow = new Date();
+            Date datefuwu = sdf.parse("2020-09-26 12:41");
+
+            //时间date类型 和 时间date类型
+            if (datenow.getTime() >= datefuwu.getTime()) {
+                //逻辑代码 .............
+                System.out.println("大于");
+            }else{
+                System.out.println("小于");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
