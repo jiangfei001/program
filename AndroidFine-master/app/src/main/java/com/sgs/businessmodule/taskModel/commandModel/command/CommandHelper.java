@@ -60,6 +60,14 @@ public class CommandHelper {
 
     //重启
     public static void reboot(Context context) {
+        Handler handler = new Handler(Looper.getMainLooper()) {
+        };
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(AppContext.getInstance(), "重启终端", Toast.LENGTH_SHORT).show();
+            }
+        });
         try {
             Runtime.getRuntime().exec("su -c reboot");
            /* PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
