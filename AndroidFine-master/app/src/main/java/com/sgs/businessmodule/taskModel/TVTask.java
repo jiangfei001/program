@@ -66,7 +66,7 @@ public abstract class TVTask extends BasicTask {
     }
 
     void sendEventToService() {
-        ZLog.e(TAG, "sendEventToService");
+        ZLog.e(TAG, "告知服务器我收到了命令sendEventToService");
         if (isNeedSend()) {
             setResult();
             Date nowDate = new Date();
@@ -80,11 +80,12 @@ public abstract class TVTask extends BasicTask {
             HttpClient.postResponseEntity(AppUrl.callbackUrl, responseEntity, new MyHttpResponseHandler() {
                 @Override
                 public void onSuccess(MyApiResponse response) {
-                    ZLog.e(TAG, "sendEventToService" + response.msg);
+                    ZLog.e(TAG, "告知服务器 onSuccess" + response.msg);
                 }
 
                 @Override
                 public void onFailure(Request request, Exception e) {
+                    ZLog.e(TAG, "告知服务器失败 onFailure");
                 }
             });
         }
