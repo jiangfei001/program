@@ -74,7 +74,6 @@ public class Test {
         String times = null;
         try {
             date = sdr.parse(time);
-            ZLog.e("TimeTask", "date" + date);
             long l = date.getTime();
             String stf = String.valueOf(l);
             times = stf.substring(0, 10);

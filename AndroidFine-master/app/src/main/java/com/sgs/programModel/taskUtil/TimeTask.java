@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+
 import com.zhangke.zlog.ZLog;
 
 import java.util.ArrayList;
@@ -93,7 +94,6 @@ public class TimeTask<T extends Task> {
      * 开始任务
      */
     public void startLooperTask() {
-
         if (isSpotsTaskIng && mTasks.size() == cursor) { //恢复普通任务
             recoveryTask();
             return;
@@ -174,7 +174,6 @@ public class TimeTask<T extends Task> {
             int requestCode = 0;
             Intent intent = new Intent();
             intent.setAction(mActionName);
-            /* Intent intent = new Intent(mContext,TimeTaskReceiver.class);*/
             mPendingIntent = PendingIntent.getBroadcast(mContext, requestCode, intent, 0);
         }
         return mPendingIntent;
@@ -227,12 +226,9 @@ public class TimeTask<T extends Task> {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            ZLog.e("context", "context");
-
+            ZLog.e("TimeTaskReceiver", "TimeTaskReceiver");
             //判断比自己大的优先级 队列有没有需要执行的
-
             TimeTask.this.startLooperTask(); //预约下一个
-
         }
     }
 
