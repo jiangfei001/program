@@ -115,6 +115,8 @@ public class SendToServerUtil {
             sb.append(publicationPlanVo.getDeadline() + "~" + publicationPlanVo.getDeadlineV());
             proListVo.setTimeQuantum(sb.toString());
             proListVo.setType(type);
+            proListVo.setPublicationTime(DateUtil.getDateStr(progarmPalyInstructionVos.get(i).getReceiveTime()));
+            proListVo.setLimitTime(publicationPlanVo.getDeadline());
             terminalProgramEntity.add(proListVo);
         }
 

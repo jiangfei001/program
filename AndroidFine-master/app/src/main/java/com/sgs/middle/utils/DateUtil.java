@@ -17,6 +17,13 @@ public class DateUtil {
         return df.format(new Date());
     }
 
+    public static String getDateStr(Date date) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+        return df.format(date);
+    }
+
+
     public static String getNowDateYMDCH() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间

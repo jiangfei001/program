@@ -9,6 +9,10 @@ public class ProListVo {
     public int programId;
     public String timeQuantum;
     public int type;
+    //发布时间
+    public String publicationTime;
+    //过期时间
+    public String limitTime;
 
     public String getTerminalIdentity() {
         return terminalIdentity;
@@ -41,4 +45,21 @@ public class ProListVo {
     public void setType(int type) {
         this.type = type;
     }
+
+    public String getPublicationTime() {
+        return publicationTime;
+    }
+
+    public void setPublicationTime(String publicationTime) {
+        this.publicationTime = publicationTime;
+    }
+
+    public String getLimitTime() {
+        return limitTime;
+    }
+
+    public void setLimitTime(String limitTime) {
+        this.limitTime = limitTime;
+    }
+
 }
