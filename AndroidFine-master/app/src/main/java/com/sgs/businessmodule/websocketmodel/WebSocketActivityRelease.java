@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -188,9 +189,18 @@ public class WebSocketActivityRelease extends EventActivity {
 
     private class InnerWebViewClient extends WebViewClient {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
+        public boolean shouldOverrideUrlLoading(final WebView view, String url) {
+            try {
+                if (url.startsWith("http:") || url.startsWith("https:")) {
+                    view.loadUrl(url);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                }
+                return true;
+            } catch (Exception e){
+                return false;
+            }
         }
 
         /**

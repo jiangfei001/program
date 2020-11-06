@@ -52,6 +52,13 @@ public class ProgramTaskManager {
         nowProgarmPalyInstructionVo = null;
     }
 
+
+
+    public void clearManyScence(){
+        handler.removeMessages(1);
+    }
+
+
     //接受task的返回
     TimeHandler<MyTask> timeHandler = new TimeHandler<MyTask>() {
         @Override

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import com.sgs.programModel.ProgramScheduledManager;
 import com.zhangke.zlog.ZLog;
 
 import com.sgs.middle.eventControlModel.Event;
@@ -332,6 +333,12 @@ public class PriorityTimeTask<T extends MyTask> {
                 ZLog.e(TAG, "队列里面没有符合要求的任务，1秒后再进行判断");
                 isRuning = false;
                 mHandler.removeMessages(1);
+
+                //清除多个场景的问题
+                //ProgramScheduledManager.getInstance().programTaskManager.clearManyScence();
+
+                ptmHandler.removeMessages(1);
+
                 //需要清空WebSocketActivityRelease里面的内容
                 Event event = new Event();
                 event.setId(EventEnum.EVENT_TEST_CLEARPROG);
@@ -342,6 +349,11 @@ public class PriorityTimeTask<T extends MyTask> {
         } else {
             ZLog.e(TAG, "队列里面没有符合要求的任务，5秒后再进行判断");
             isRuning = false;
+            ptmHandler.removeMessages(1);
+
+            //清除多个场景的问题
+            //ProgramScheduledManager.getInstance().programTaskManager.clearManyScence();
+
             //需要清空WebSocketActivityRelease里面的内容
             Event event = new Event();
             event.setId(EventEnum.EVENT_TEST_CLEARPROG);
