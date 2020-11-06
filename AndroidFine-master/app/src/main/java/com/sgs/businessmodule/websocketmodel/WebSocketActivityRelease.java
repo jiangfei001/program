@@ -20,6 +20,8 @@ import com.zhangke.zlog.ZLog;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -188,7 +190,7 @@ public class WebSocketActivityRelease extends EventActivity {
 
 
     private class InnerWebViewClient extends WebViewClient {
-        @Override
+       /* @Override
         public boolean shouldOverrideUrlLoading(final WebView view, String url) {
             try {
                 if (url.startsWith("http:") || url.startsWith("https:")) {
@@ -201,6 +203,14 @@ public class WebSocketActivityRelease extends EventActivity {
             } catch (Exception e){
                 return false;
             }
+        }*/
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // view.loadUrl(url);
+            //cur_url = url;
+            //return super.shouldOverrideUrlLoading(view, url);
+            return false;
         }
 
         /**
@@ -262,7 +272,10 @@ public class WebSocketActivityRelease extends EventActivity {
     private void initweb(WebView mWebView) {
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
         mWebView.setWebViewClient(new InnerWebViewClient());
-
+        syncCookie();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            CookieManager.getInstance().setAcceptThirdPartyCookies(mWebView, true);
+        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
 
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -278,12 +291,9 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
 
-        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int mDensity = metrics.densityDpi;
         if (isPad() && mDensity == 160) {
 //下方代码已经过时（不再沿用）
@@ -322,9 +332,16 @@ public class WebSocketActivityRelease extends EventActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
             }
-        });
-    }
 
+        });
+        mWebView.requestFocus();
+    }
+    private void syncCookie() {
+        CookieSyncManager.createInstance(this);
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        CookieSyncManager.getInstance().sync();
+    }
 
     @Override
     protected void onPause() {
