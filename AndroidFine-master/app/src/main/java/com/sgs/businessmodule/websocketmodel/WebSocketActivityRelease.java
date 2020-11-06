@@ -17,11 +17,13 @@ import android.util.DisplayMetrics;
 import com.uiModel.loginUtil.LoginUtil;
 import com.zhangke.zlog.ZLog;
 
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -205,13 +207,30 @@ public class WebSocketActivityRelease extends EventActivity {
             }
         }*/
 
-        @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            // view.loadUrl(url);
-            //cur_url = url;
-            //return super.shouldOverrideUrlLoading(view, url);
-            return false;
+            WebView.HitTestResult hit = view.getHitTestResult();
+            //hit.getExtra()为null或者hit.getType() == 0都表示即将加载的URL会发生重定向，需要做拦截处理
+            if (TextUtils.isEmpty(hit.getExtra()) || hit.getType() == 0) {
+                //通过判断开头协议就可解决大部分重定向问题了，有另外的需求可以在此判断下操作
+                Log.e("重定向", "重定向: " + hit.getType() + " && EXTRA（）" + hit.getExtra() + "------");
+                Log.e("重定向", "GetURL: " + view.getUrl() + "\n" +"getOriginalUrl()"+ view.getOriginalUrl());
+                Log.d("重定向", "URL: " + url);
+            }
+            if (url.startsWith("http://") || url.startsWith("https://")) { //加载的url是http/https协议地址
+                view.loadUrl(url);
+                return false; //返回false表示此url默认由系统处理,url未加载完成，会继续往下走
+
+            } else { //加载的url是自定义协议地址
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    WebSocketActivityRelease.this.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
         }
+
 
         /**
          * 处理ssl请求
@@ -290,7 +309,21 @@ public class WebSocketActivityRelease extends EventActivity {
         mWebView.setScrollContainer(false);
         mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setHorizontalScrollBarEnabled(false);
+        /**
+         * setDownloadListener()是对加载的url是下载地址时的回调
+         */
+        mWebView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
 
+                // 上面的参数中，url对应文件下载地址，mimetype对应下载文件的MIME类型
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse(url);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(uri);
+                WebSocketActivityRelease.this.startActivity(intent);
+            }
+        });
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
